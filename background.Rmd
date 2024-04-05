@@ -1,0 +1,47 @@
+---
+title: "Background"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, Cville police had already investigated five homicide cases; compared to zero cases in 2021. On November 13, 2022, three UVA football players were shot and killed on the campus of The University of Virginia. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence and the community was deeply shaken. ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf))
+
+## What is gun violence?
+
+According to the Center for Disease Control, Firearm injuries were the leading cause of death among children and teens ages 1-19 in 2022. On average, 7 children die per day due to gun violence. ([KFF](https://www.kff.org/mental-health/issue-brief/the-impact-of-gun-violence-on-children-and-adolescents))
+
+The CDC further defines a <b>firearm injury</b> as:
+
+> "a gunshot wound or penetrating injury from a weapon that uses a powder charge to fire a projectile. Weapons that use a powder charge include handguns, rifles, and shotguns. Injuries from air- and gas-powered guns, BB guns, and pellet guns are not considered firearm injuries as these types of guns do not use a powder charge to fire a projectile." ([CDC](https://www.cdc.gov/violenceprevention/firearms/fastfact.html))
+
+Types of firearm injuries include:
+
+-   Intentionally self-inflicted
+-   Unintentional (accidental injuries that happen while someone is cleaning or playing with a firearm)
+-   Interpersonal violence (homicide or assault)
+-   Legal intervention (violence inflicted by law enforcement on duty)
+-   Undetermined intent (not enough information to determine)
+
+The scope of this research will be limited to <b>interpersonal violence</b>, or intentional acts of homicide or non-fatal assault.
+
+### Prevalence
+
+Since 2012, the number of murders inflicted by guns has increased exponentially. 81% of murders in the US in 2021 involved a firearm. ([PEW](https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/)).
+
+<a href="https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/ft_23-04-20_gundeathsupdate_2/"><img src="https://www.pewresearch.org/wp-content/uploads/2023/04/FT_23.04.20_GunDeathsUpdate_2.png?w=640"/></a>
+
+## How can we research it?
+
+[Structural Competency and the Future of Firearm Research](https://www.sciencedirect.com/science/article/pii/S0277953621002112)
+
+## What data is available?
+
+See data_descriptions doc.
+
+## References

@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, Cville police had already investigated five homicide cases; compared to zero cases in 2021. On November 13, 2022, three UVA football players were shot and killed on the campus of The University of Virginia. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence and the community was deeply shaken. ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf))
+On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, Cville police had already investigated five homicide cases; compared to zero cases in 2021.  ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)) How can UVA and the wider Charlottesville and Albemarle county community work together to end gun violence in our area? 
 
 ## What is gun violence?
 
@@ -28,20 +28,45 @@ Types of firearm injuries include:
 -   Legal intervention (violence inflicted by law enforcement on duty)
 -   Undetermined intent (not enough information to determine)
 
-The scope of this research will be limited to <b>interpersonal violence</b>, or intentional acts of homicide or non-fatal assault.
-
 ### Prevalence
 
 Since 2012, the number of murders inflicted by guns has increased exponentially. 81% of murders in the US in 2021 involved a firearm. ([PEW](https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/)).
 
 <a href="https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/ft_23-04-20_gundeathsupdate_2/"><img src="https://www.pewresearch.org/wp-content/uploads/2023/04/FT_23.04.20_GunDeathsUpdate_2.png?w=640"/></a>
 
+
+## Who are the stakeholders? 
+
+Before we even start looking at the data, we need to consider the various stakeholders in this project. What are they looking to understand from the data? What are they looking to do with insights from the data? Or with the actual data, itself. What biases might folks have? What questions are they trying to answer? Someone may be looking to learn how gun violence has changed over the years, while someone else may be interested in understanding how to prevent gun violence, while others are looking for the structural causes. These are all things to keep in mind. 
+
+Ultimately the residents of Charlottesville and Albemarle are the largest stakeholders. These folks ARE the data. They have the lived experiences, and are impacted in various ways. Their voices should be centered. 
+
+
 ## How can we research it?
 
-[Structural Competency and the Future of Firearm Research](https://www.sciencedirect.com/science/article/pii/S0277953621002112)
+"Developing a structural framework around research into U.S. gun violence addresses the risks, traumas, meanings, and consequences that firearms represent for all communities—and highlights the importance of a renewed focus on mental health and safety for communities of color." [Structural Competency and the Future of Firearm Research](https://www.sciencedirect.com/science/article/pii/S0277953621002112)
 
-## What data is available?
+Gun trauma should be looked at through multiple structure-based lenses:
 
-See data_descriptions doc.
+1. Diagnosis: reject “Diagnose the shooter” frameworks
+
+  "Researchers and clinicians should remain wary of assumptions that acts of mass violence are driven primarily by diagnosable psychopathology, and should instead situate destructive motivations within larger social structures and cultural scripts."
+  
+2. Structures of Race and Racism:  promote antiracist gun research and intervention
+
+"White shooters were 19 times more likely than Black shooters to be described with a mental illness frame, and sympathetic language often emphasized the stress, strain, ostracism, and/or loss that these shooters were perceived to have suffered. Black and Latinx men were meanwhile described as violent or as threats to public safety"
+
+3. Structures of Inequality: address the social and political determinants of firearm violence
+
+4. Structures of Community 
+
+5. Structures of Meaning 
 
 ## References
+
+-   [Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)
+-   [KFF](https://www.kff.org/mental-health/issue-brief/the-impact-of-gun-violence-on-children-and-adolescents)
+-   [PEW](https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/)
+-   [Structural Competency and the Future of Firearm Research](https://www.sciencedirect.com/science/article/pii/S0277953621002112)
+
+

@@ -11,9 +11,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(ggmap)
 library(janitor)
+library(jsonlite)
 library(lubridate)
 library(reactable)
 library(tidyverse)
+library(magrittr)
 ```
 ### Gun Violence Archive 
 
@@ -21,31 +23,17 @@ The national [Gun Violence Archive](https://www.gunviolencearchive.org/) describ
 
 >"all incidents of death or injury or threat with firearms... Violence is defined without intent or consequence as a consideration. To that end a shooting of a victim by a subject/suspect is considered gun violence as is a defensive use or an officer involved shooting. The act itself, no matter the reason is violent in nature."
 
-This database includes information collected from public news sources about 201 incidents of gun violence in the Charlottesville/Albemarle region from  May 2014 - Feb 2024. The incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault, suicide, and homicide.
+This database includes information collected from public news sources about 201 incidents of gun violence in the Charlottesville/Albemarle region from  May 2014 - Feb 2024. The incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault, suicide, and homicide. 
 
 Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021. 
 
-The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants. The data includes the geocoded location and date of each incident and the characteristics of each incident (for example, injury, homicide, or shots fired). The data does not give any information about the race, ethnicity, socioeconomic status, or mental health status of any of the participants. 
+The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects. The data includes the geocoded location and date of each incident and the characteristics of each incident (for example, injury, homicide, or shots fired). The data does not give any information about the race, ethnicity, socioeconomic status, or mental health status of any of the participants. 
 
 ```{r gva_incidents, echo=FALSE, message=FALSE}
 
-# Incidents ----
 gva_incidents <- read_csv("data/gva_incidents.csv") %>%
   clean_names() 
 
-# Geocode ----
-#gva_lonlat <- geocode(gva_incidents$address) 
-#sum(is.na(gva_lonlat$lon)) #59 NAs and some that look pretty wonky, will need to revisit 
-
-# Map ---- (on hold pending geocode fix)
-# cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), maptype = "roadmap", color = "bw")
-# 
-# ggmap(cville_map) +
-#   stat_density2d(data = gva_incidents, aes(fill = ..level.., alpha = 0.01),
-#                  geom = "polygon") +
-#   geom_point(data = gva_incidents, aes(x = lon, y = lat), size = 1, alpha = 0.2)
-
-# Outcome numbers ----
 gva_incidents %>%
   group_by(yr = year(incident_date)) %>%
   summarise(total_injured = sum(victims_injured + suspects_injured),
@@ -57,7 +45,7 @@ gva_incidents %>%
   scale_fill_discrete(name = "Victim Status",
                       breaks = c("total_injured", "total_killed"),
                       labels = c("Injured", "Killed")) +
-  labs(title = "Victims of Gun Violence in Charlottesville",
+  labs(title = "Victims of Gun Violence in the Charlottesville/Albemarle Region",
        x = "Year",
        y = "Number of Victims") +
   theme(axis.text.x = element_text(angle=35))
@@ -80,8 +68,53 @@ reactable(gva_participants)
 
 ### Charlottesville Open Data Portal 
 
-The Charlottesville Open Data Portal (ODP) includes crime and arrest data for the City of Charlottesville. The data is maintained by the Cville Police Department and is updated nightly. 
+The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes over 500 crime reports in City of Charlottesville from March 2019 through April 2014. As defined by the Charlottesville Police Department, this data "represents the initial information that is provided by individuals calling for police assistance." The data is maintained by CPD and updated nightly. 
 
-<b>What it does not include: Albemarle County Police Data, UVA Police Data</b>
+The dataset includes the time of a call, the type of incident, the location of the incident, and the reporting officer. It's important to note that just because a call was made, does not mean that an arrest was made. This is not a definitive collection of public safety data for Charlottesville. 
+
+Because there is not a comparable portal, this dataset is limited to incidents that occur within city limits. That means it does not include Albemarle County or UVA crime information. 
+
+We also should consider the factors that influence the inclination of an individual calling the police. Are there systematic reasons that someone might call the police more or less than someone else? 
+
+We also need to remember the deeply human aspect of this data as well. For each report, there are at least 1, usually 2 or 3, individuals involved. There’s the caller, or the person reporting the crime, the police officer recording the crime, and there’s the individual that supposedly committed this crime. Granted personal info is scrubbed from this report, we should keep in mind that these are individuals we are talking about. 
+
+```{r odp_crime, echo=FALSE, message=FALSE, warning=FALSE}
+
+# There are 3 incident types that directly pertain to guns: "Shots Fired/Illegal Hunting", "Robbery - Armed", "Weapons Violations"
+
+# odp_where_clause <- "%28Offense%20LIKE%20'%shot%'%29OR%28Offense%20LIKE%20'%armed%'%29OR%28Offense%20LIKE%20'%weapon%'%29"
+# odp_api <- glue::glue("https://gisweb.charlottesville.org/arcgis/rest/services/OpenData_2/MapServer/6/query?where={gun_where_clause}&outFields=*&outSR=4326&f=json")
+# odp_response <- fromJSON(odp_api)
+# 
+# odp_data <- odp_response$features$attributes %>% #~500 obs
+#   clean_names() %>%
+#   select(-hour_reported) %>%
+#   mutate(block_number = ifelse(block_number == "", NA, block_number),
+#          date_reported = date_reported %>% gsub('000$', '', .) %>% as.numeric() %>% as.POSIXct())
+# 
+# odp_data %<>% mutate(address = paste(block_number, street_name, "Charlottesville VA"))
+# lon_lat <- geocode(odp_data$address)
+# odp_data <- bind_cols(odp_data, lon_lat)
+
+odp_data <- read_csv("data/odp_data.csv")
+
+cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), maptype = "roadmap", color = "bw")
+
+ggmap(cville_map) +
+  stat_density2d(data = odp_data, aes(fill = ..level.., alpha = 0.1), # removes 55 values
+                 geom = "polygon") +
+  theme(legend.position="none") +
+  scale_fill_viridis_c(direction = -1) +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) +
+  ggtitle("Gun-Related Reports Available in the Open Data Portal")
+
+```
+
+---
 
 ### VA Open Data Portal 

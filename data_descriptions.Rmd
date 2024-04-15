@@ -14,9 +14,10 @@ library(ggmap)
 library(janitor)
 library(jsonlite)
 library(lubridate)
+library(magrittr)
 library(reactable)
 library(tidyverse)
-library(magrittr)
+
 ```
 
 The data listed below represent information that is publicly and readily available online. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, shape, and dimensions of the problem locally.
@@ -37,7 +38,7 @@ Because the data is sourced from public news websites, if an act of violence did
 
 The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects. The data includes the geocoded location and date of each incident and the characteristics of each incident (for example, injury, homicide, or shots fired). The data does not give any information about the race, ethnicity, socioeconomic status, or mental health status of any of the participants.
 
-```{r gva_incidents, message=FALSE}
+```{r gva_incidents}
 
 gva_incidents <- read_csv("data/gva_incidents.csv") %>%
   clean_names() 
@@ -61,14 +62,28 @@ gva_incidents %>%
 
 #### Individual-level data
 
-```{r gva_participants, message=FALSE}
+```{r gva_participants}
 
 gva_participants <- read_csv("data/gva_participants.csv") %>%
   clean_names() %>%
-  select(-operations, -participant_name, -city_or_county, -state) %>%
-  mutate(incident_date = (mdy(incident_date)))
+  mutate(age_group = as.numeric(participant_age_group))
 
-reactable(gva_participants)
+# sum(is.na(gva_participants$age_group)) #129 missing values 
+# TODO: mechanism for missing ages 
+
+gva_participants %>%
+  drop_na(age_group) %>%
+  group_by(yr = year(incident_date), role) %>%
+  summarise(avg_age = round(mean(age_group), digits = 0)) %>%
+  arrange(desc(yr)) %>%
+  reactable()
+
+# %>%
+#   ungroup() %>%
+#   pivot_longer(matches("avg")) %>%
+#   ggplot(aes(x = yr, y = value, fill = name)) +
+#   geom_col()
+
 
 ```
 
@@ -82,7 +97,7 @@ This is not a definitive collection of public safety data for Charlottesville. W
 
 Because there is not a comparable portal, this dataset is limited to incidents that occur within city limits. It does not include Albemarle County Police or UVA Police information.
 
-```{r odp_crime, message=FALSE, warning=FALSE}
+```{r odp_crime}
 
 # There are 3 incident types that directly pertain to guns: "Shots Fired/Illegal Hunting", "Robbery - Armed", "Weapons Violations"
 
@@ -123,15 +138,15 @@ ggmap(cville_map) +
 
 ### VA Open Data Portal
 
-The Virginia Open Data Portal includes the number and rate of emergency department (ED) visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated by county and patient demographics. This data is supplied by the Virginia Department of Health and updated monthly. 
+The Virginia Open Data Portal includes the number and rate of emergency department (ED) visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated by county, health district, and patient demographics. This data is supplied by the Virginia Department of Health and updated monthly. 
 
-Each row represents the number and rate emergency department visits for firearm injury that occurred in Virginia by year and by patient geography. Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009. 
+Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009. 
 
 Exclusions: follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
 
 #### Firearm Injury Rates in Charlottesville and Albemarle County
 
-```{r vdh, message=FALSE, warning=FALSE}
+```{r vdh_county}
 
 fai_county <- read_csv("data/vdh-pud-fai-by-citycounty.csv") %>%
   clean_names()
@@ -145,8 +160,19 @@ fai_county %>%
 
 ```
 
-```{r}
+#### Firearm Injury Rates by Age in the Blue Ridge Health District
 
+The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. 
+
+```{r vdh_district}
+
+fai_age <- read_csv("data/vdh-pud-firearm-deaths-by-district-age.csv") %>%
+  clean_names() 
+
+fai_age %>%
+  filter(str_detect(health_district, "Blue Ridge")) %>%
+  arrange(age_group) %>%
+  reactable(defaultPageSize = 11)
 ```
 
 

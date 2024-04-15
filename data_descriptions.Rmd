@@ -26,7 +26,7 @@ All of this data is administrative and made up of information created when peopl
 
 ---
 
-### Gun Violence Archive
+### Gun Violence Archive {.tabset}
 
 The national [Gun Violence Archive](https://www.gunviolencearchive.org/) describes gun violence as:
 
@@ -37,6 +37,8 @@ This database includes information collected from public news sources about 201 
 Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
 
 The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects. The data includes the geocoded location and date of each incident and the characteristics of each incident (for example, injury, homicide, or shots fired). The data does not give any information about the race, ethnicity, socioeconomic status, or mental health status of any of the participants.
+
+#### Incident-level data
 
 ```{r gva_incidents}
 
@@ -73,17 +75,17 @@ gva_participants <- read_csv("data/gva_participants.csv") %>%
 
 gva_participants %>%
   drop_na(age_group) %>%
-  group_by(yr = year(incident_date), role) %>%
-  summarise(avg_age = round(mean(age_group), digits = 0)) %>%
-  arrange(desc(yr)) %>%
-  reactable()
-
-# %>%
-#   ungroup() %>%
-#   pivot_longer(matches("avg")) %>%
-#   ggplot(aes(x = yr, y = value, fill = name)) +
-#   geom_col()
-
+  mutate(yr = year(incident_date)) %>%
+  ggplot(aes(age_group, fill = role)) +
+  geom_histogram(position = 'identity', alpha = .5) +
+  facet_grid(~role) +
+  scale_fill_discrete(name = "Role",
+                      breaks = c("suspect", "victim"),
+                      labels = c("Suspect", "Victim")) +
+  labs(title = "Ages of Participants in Gun Violence",
+       x = "Age",
+       y = "Number of People") +
+  theme(axis.text.x = element_text(angle=35))
 
 ```
 
@@ -136,7 +138,7 @@ ggmap(cville_map) +
 
 ------------------------------------------------------------------------
 
-### VA Open Data Portal
+### VA Open Data Portal {.tabset}
 
 The Virginia Open Data Portal includes the number and rate of emergency department (ED) visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated by county, health district, and patient demographics. This data is supplied by the Virginia Department of Health and updated monthly. 
 
@@ -144,7 +146,9 @@ Firearm injury visits are identified using key terms in the chief complaint (rea
 
 Exclusions: follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
 
-#### Firearm Injury Rates in Charlottesville and Albemarle County
+The data for Charlottesville and Ablemarle does not include any age or other demographic information. The Blue Ridge Health district data set age-related information. 
+
+#### Cville & Albemarle County
 
 ```{r vdh_county}
 
@@ -160,7 +164,7 @@ fai_county %>%
 
 ```
 
-#### Firearm Injury Rates by Age in the Blue Ridge Health District
+#### Blue Ridge Health District
 
 The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. 
 

@@ -1,0 +1,982 @@
+year,patient_city_county,firearm_injury_visits,total_ed_visits,rate_of_firearm_injuries_per_10k_ed_visits
+2016,Albemarle County and Charlottesville City,30,49498,6.1
+2017,Alexandria,6,44190,1.4
+2020,Alexandria,18,34118,5.3
+2023,Alexandria,8,45777,1.7
+2015,Alleghany County and Covington City,3,14107,2.1
+2018,Alleghany County and Covington City,5,11892,4.2
+2021,Alleghany County and Covington City,6,13543,4.4
+2016,Amelia,3,6887,4.4
+2019,Amelia,5,6376,7.8
+2022,Amelia,5,7749,6.5
+2015,Amherst,5,10080,5
+2018,Amherst,5,9373,5.3
+2021,Amherst,8,10908,7.3
+2016,Augusta County,NA,NA,NA
+2019,Augusta County,NA,NA,NA
+2022,Augusta County,NA,NA,NA
+2021,Bath,0,2573,0
+2021,Brunswick,4,9075,4.4
+2020,Buchanan,2,9142,2.2
+2023,Buchanan,4,10901,3.7
+2015,Campbell,1,10344,1
+2016,Caroline,5,17033,2.9
+2017,Charles City,0,2749,0
+2023,Clarke,1,5231,1.9
+2022,Culpeper,11,31589,3.5
+2016,Dickenson,1,11669,0.9
+2019,Dickenson,1,11278,0.9
+2022,Dickenson,3,9775,3.1
+2017,Fairfax County,NA,NA,NA
+2016,Fluvanna,6,7260,8.3
+2019,Fluvanna,2,8231,2.4
+2022,Fluvanna,3,8606,3.5
+2016,Franklin County,13,25243,5.1
+2015,Gloucester,1,16383,0.6
+2018,Gloucester,2,2986,6.7
+2019,Goochland,1,7171,1.4
+2022,Goochland,7,8401,8.3
+2016,Grayson County and Galax City,6,14798,4.1
+2021,Greene,4,11002,3.6
+2017,Hampton,51,61911,8.199999999999998
+2015,Hanover,9,37875,2.4
+2018,Hanover,10,35911,2.8
+2016,Henrico,73,130179,5.6
+2019,Henrico,69,117197,5.9
+2022,Henrico,122,143397,8.5
+2019,Highland,2,767,26.1
+2022,Highland,1,779,12.8
+2020,Isle of Wight,10,13968,7.2
+2023,Isle of Wight,10,17164,5.8
+2015,James City,10,36650,2.7
+2018,James City,8,26424,3
+2016,King George,1,10023,1
+2019,King George,1,9375,1.1
+2022,King George,1,9913,1
+2016,Lee,3,10216,2.9
+2019,Lee,0,9309,0
+2022,Lee,6,13497,4.4
+2016,Louisa,13,17211,7.599999999999999
+2017,Lunenburg,2,4464,4.5
+2020,Lunenburg,3,4139,7.2
+2017,Lynchburg,12,34854,3.4
+2020,Lynchburg,21,25829,8.099999999999998
+2022,Mathews,0,3971,0
+2020,Middlesex,3,5107,5.9
+2023,Middlesex,6,6663,9
+2015,Montgomery County and Radford City,12,39538,3
+2015,Newport News,85,107541,7.9
+2018,Newport News,37,66854,5.5
+2021,Newport News,152,100139,15.2
+2022,Northampton,4,6661,6
+2017,Northumberland,1,7187,1.4
+2020,Northumberland,6,6972,8.599999999999998
+2023,Northumberland,6,9231,6.5
+2016,Nottoway,3,9230,3.3
+2019,Nottoway,5,9183,5.4
+2022,Nottoway,16,10302,15.5
+2015,Orange,2,11421,1.8
+2022,Patrick,5,3536,14.1
+2022,Poquoson,0,4122,0
+2015,Prince Edward,4,16063,2.5
+2018,Prince Edward,8,15176,5.3
+2016,Prince George County,NA,NA,NA
+2019,Prince George County,NA,NA,NA
+2022,Prince George County,NA,NA,NA
+2019,Prince William County,NA,NA,NA
+2015,Albemarle County and Charlottesville City,31,47487,6.5
+2016,Alexandria,6,44255,1.4
+2019,Alexandria,9,44786,2
+2019,Alleghany County and Covington City,2,11106,1.8
+2022,Alleghany County and Covington City,7,14752,4.7
+2015,Amelia,8,6207,12.9
+2018,Amelia,3,6328,4.7
+2019,Amherst,1,9482,1.1
+2022,Amherst,9,11292,8
+2015,Augusta County,NA,NA,NA
+2018,Augusta County,NA,NA,NA
+2017,Bath,1,3023,3.3
+2020,Bath,0,2474,0
+2023,Bath,1,3282,3
+2015,Bedford,4,22221,1.8
+2018,Bedford,8,23662,3.4
+2015,Buckingham,2,6545,3.1
+2018,Buckingham,1,6285,1.6
+2016,Campbell,5,10797,4.6
+2019,Campbell,3,9780,3.1
+2017,Caroline,4,16574,2.4
+2020,Caroline,8,13660,5.9
+2015,Charles City,1,2673,3.7
+2018,Charles City,0,2682,0
+2023,Charlotte,3,7042,4.3
+2023,Chesapeake,41,101023,4.1
+2019,Clarke,0,4822,0
+2022,Clarke,0,4950,0
+2023,Cumberland,2,4097,4.9
+2020,Dickenson,5,8352,6
+2023,Dickenson,5,9647,5.2
+2020,Fluvanna,4,5907,6.8
+2023,Fluvanna,3,9181,3.3
+2017,Franklin County,15,24653,6.1
+2020,Franklin County,19,20475,9.3
+2016,Gloucester,4,16537,2.4
+2019,Gloucester,9,19085,4.7
+2022,Gloucester,4,19593,2
+2023,Goochland,0,8728,0
+2017,Greene,5,12479,4
+2020,Greene,4,9506,4.2
+2023,Greene,3,12617,2.4
+2015,Henrico,45,123395,3.6
+2018,Henrico,60,121617,4.9
+2021,Henrico,136,125136,10.9
+2023,Highland,0,876,0
+2019,Isle of Wight,4,16167,2.5
+2022,Isle of Wight,5,16541,3
+2016,James City,14,38912,3.6
+2019,James City,20,40848,4.9
+2022,James City,9,44736,2
+2016,King and Queen,2,4112,4.9
+2015,King George,1,9445,1.1
+2018,King George,2,8678,2.3
+2020,Lee,3,6185,4.9
+2023,Lee,4,13791,2.9
+2020,Loudoun,14,79625,1.8
+2023,Loudoun,17,114070,1.5
+2015,Lunenburg,2,4085,4.9
+2018,Lunenburg,3,4606,6.5
+2021,Lunenburg,4,4575,8.699999999999998
+2015,Lynchburg,6,34522,1.7
+2018,Lynchburg,16,32380,4.9
+2021,Lynchburg,37,33524,11
+2017,Madison,3,4805,6.2
+2018,Mathews,0,552,0
+2021,Mathews,0,3854,0
+2016,Middlesex,1,5614,1.8
+2019,Middlesex,1,5926,1.7
+2022,Middlesex,0,6500,0
+2020,Nelson,1,4170,2.4
+2023,Nelson,0,6360,0
+2017,Newport News,54,82981,6.5
+2021,Norfolk,166,128813,12.9
+2018,Northampton,2,985,20.3
+2021,Northampton,3,6144,4.9
+2016,Northumberland,5,8229,6.1
+2019,Northumberland,6,8346,7.2
+2022,Northumberland,6,8745,6.9
+2017,Nottoway,5,9532,5.2
+2020,Nottoway,7,8969,7.8
+2023,Nottoway,19,10660,17.8
+2023,Page,3,17656,1.7
+2018,Patrick,1,3676,2.7
+2021,Patrick,1,3186,3.1
+2015,Pittsylvania County and Danville City,49,41866,11.7
+2018,Pittsylvania County and Danville City,51,45644,11.2
+2016,Prince Edward,4,16081,2.5
+2019,Prince Edward,5,15165,3.3
+2022,Prince Edward,8,16360,4.9
+2020,Prince George County,NA,NA,NA
+2016,Accomack,11,9088,12.1
+2019,Accomack,5,16003,3.1
+2022,Accomack,14,17964,7.8
+2023,Albemarle County and Charlottesville City,35,54837,6.4
+2015,Appomattox,0,4440,0
+2018,Appomattox,3,4331,6.9
+2021,Appomattox,5,5000,10
+2017,Arlington,4,46611,0.9
+2020,Arlington,3,37421,0.8
+2021,Bedford,13,24920,5.2
+2017,Bland,0,883,0
+2020,Bland,0,2119,0
+2023,Bland,3,2776,10.8
+2017,Botetourt,2,8369,2.4
+2020,Botetourt,5,7676,6.5
+2023,Botetourt,5,11455,4.4
+2021,Buckingham,3,6086,4.9
+2022,Campbell,9,15100,6
+2023,Caroline,5,17277,2.9
+2017,Carroll,2,7692,2.6
+2020,Carroll,6,7737,7.8
+2023,Carroll,8,8296,9.6
+2021,Charles City,1,3253,3.1
+2017,Charlotte,7,6839,10.2
+2020,Charlotte,2,5462,3.7
+2017,Chesapeake,57,102608,5.6
+2020,Chesapeake,63,87815,7.2
+2020,Chesterfield County and Colonial Heights City,102,134245,7.599999999999999
+2023,Chesterfield County and Colonial Heights City,108,189592,5.7
+2016,Clarke,2,4840,4.1
+2015,Craig,0,1830,0
+2018,Craig,1,1710,5.8
+2021,Craig,1,1764,5.7
+2015,Culpeper,11,22763,4.8
+2017,Cumberland,0,3929,0
+2020,Cumberland,1,3269,3.1
+2016,Dinwiddie,7,2836,24.7
+2019,Dinwiddie,2,8432,2.4
+2022,Dinwiddie,6,9665,6.2
+2017,Essex,1,4918,2
+2016,Fauquier,15,29885,5
+2019,Fauquier,20,27145,7.4
+2022,Fauquier,5,26082,1.9
+2015,Floyd,3,4719,6.4
+2018,Floyd,1,4785,2.1
+2023,Franklin County,8,25571,3.1
+2016,Frederick County and Winchester City,17,50036,3.4
+2019,Frederick County and Winchester City,13,48126,2.7
+2022,Frederick County and Winchester City,9,48337,1.9
+2017,Fredericksburg,6,15983,3.8
+2018,Giles,6,11430,5.2
+2021,Giles,8,10228,7.8
+2023,Grayson County and Galax City,5,13407,3.7
+2021,Greensville County and Emporia City,19,10625,17.9
+2018,Halifax,10,20138,5
+2021,Halifax,9,17440,5.2
+2017,Henry County and Martinsville City,21,39303,5.3
+2020,Henry County and Martinsville City,45,32398,13.9
+2023,Henry County and Martinsville City,29,36965,7.8
+2016,Isle of Wight,12,15020,8
+2019,King and Queen,2,4199,4.8
+2022,King and Queen,1,4061,2.5
+2016,King William,4,7440,5.4
+2019,King William,1,7446,1.3
+2021,Lancaster,2,4826,4.1
+2017,Loudoun,12,97017,1.2
+2023,Louisa,8,20714,3.9
+2020,Madison,3,3657,8.199999999999998
+2023,Madison,3,5560,5.4
+2015,Mathews,3,3000,10
+2016,Mecklenburg,3,15102,2
+2019,Mecklenburg,7,17251,4.1
+2022,Montgomery County and Radford City,11,41163,2.7
+2017,Nelson,8,6092,13.1
+2016,New Kent,2,8420,2.4
+2019,New Kent,3,8721,3.4
+2022,New Kent,3,12916,2.3
+2015,Norfolk,140,142820,9.8
+2018,Norfolk,96,139102,6.9
+2015,Northampton,4,6678,6
+2022,Orange,2,14892,1.3
+2017,Out of State,158,172846,9.1
+2017,Page,5,16614,3
+2020,Page,4,14336,2.8
+2015,Patrick,0,1304,0
+2021,Pittsylvania County and Danville City,92,55500,16.6
+2015,Poquoson,3,3628,8.3
+2019,Portsmouth,70,75739,9.2
+2022,Portsmouth,98,69447,14.1
+2018,Albemarle County and Charlottesville City,25,50026,5
+2021,Albemarle County and Charlottesville City,18,46639,3.9
+2015,Alexandria,4,43612,0.9
+2016,Alleghany County and Covington City,3,13877,2.2
+2021,Amelia,2,7493,2.7
+2016,Amherst,5,10454,4.8
+2020,Appomattox,2,3707,5.4
+2023,Appomattox,7,5337,13.1
+2015,Arlington,5,46686,1.1
+2016,Bedford,11,23024,4.8
+2019,Bedford,12,24028,5
+2022,Bedford,13,27637,4.7
+2015,Bland,0,802,0
+2022,Botetourt,7,9690,7.2
+2016,Brunswick,4,8657,4.6
+2019,Brunswick,7,9596,7.3
+2022,Brunswick,10,9226,10.8
+2016,Buckingham,0,6672,0
+2019,Buckingham,4,6619,6
+2022,Buckingham,2,6829,2.9
+2017,Campbell,2,10948,1.8
+2020,Campbell,2,7868,2.5
+2023,Campbell,13,14715,8.8
+2015,Caroline,5,16479,3
+2018,Caroline,1,14738,0.7
+2021,Caroline,9,15872,5.7
+2015,Carroll,2,5823,3.4
+2019,Charlotte,2,6545,3.1
+2022,Charlotte,3,7255,4.1
+2019,Chesapeake,60,103914,5.8
+2022,Chesapeake,45,94826,4.7
+2019,Cumberland,1,3812,2.6
+2022,Cumberland,0,4138,0
+2016,Giles,0,11956,0
+2019,Giles,3,10902,2.8
+2017,Gloucester,3,8677,3.5
+2020,Gloucester,8,16201,4.9
+2023,Gloucester,5,20251,2.5
+2017,Goochland,1,7430,1.3
+2020,Goochland,5,6500,7.7
+2015,Grayson County and Galax City,0,10113,0
+2018,Grayson County and Galax City,5,15096,3.3
+2021,Grayson County and Galax City,0,13570,0
+2016,Halifax,4,11505,3.5
+2019,Halifax,10,20715,4.8
+2017,Hanover,13,38439,3.4
+2020,Hanover,19,33082,5.7
+2023,Hanover,15,44099,3.4
+2017,Henrico,72,129046,5.6
+2015,Isle of Wight,2,14857,1.3
+2018,Isle of Wight,2,13239,1.5
+2021,Isle of Wight,14,14968,9.4
+2017,James City,5,31173,1.6
+2020,James City,15,34322,4.4
+2023,James City,21,45743,4.6
+2017,King and Queen,0,3014,0
+2020,King and Queen,2,3446,5.8
+2021,King George,4,9464,4.2
+2017,Lee,4,10386,3.9
+2016,Loudoun,17,98574,1.7
+2019,Loudoun,12,92101,1.3
+2022,Loudoun,13,109097,1.2
+2015,Louisa,6,16408,3.7
+2018,Louisa,8,17073,4.7
+2021,Louisa,5,17277,2.9
+2019,Lunenburg,3,4969,6
+2022,Lunenburg,3,4538,6.6
+2019,Lynchburg,18,31993,5.6
+2022,Lynchburg,41,36318,11.3
+2017,Mathews,0,1653,0
+2020,Mathews,1,3519,2.8
+2023,Mathews,1,4010,2.5
+2021,Mecklenburg,21,16240,12.9
+2020,Newport News,138,89333,15.4
+2023,Newport News,129,108568,11.9
+2017,Northampton,1,3143,3.2
+2020,Northampton,3,5383,5.6
+2023,Northampton,1,7433,1.3
+2021,Nottoway,7,10106,6.9
+2017,Orange,5,11644,4.3
+2020,Orange,2,9833,2
+2023,Orange,6,16715,3.6
+2017,Patrick,2,2719,7.4
+2020,Patrick,6,2841,21.1
+2023,Patrick,5,3786,13.2
+2016,Powhatan,1,9996,1
+2017,Prince Edward,10,15631,6.4
+2020,Prince Edward,9,12455,7.2
+2023,Prince Edward,8,15314,5.2
+2017,Prince George County,NA,NA,NA
+2016,Rappahannock,2,2466,8.099999999999998
+2016,Richmond City,223,173261,12.9
+2015,Accomack,14,9148,15.3
+2018,Accomack,0,878,0
+2017,Albemarle County and Charlottesville City,28,51747,5.4
+2020,Albemarle County and Charlottesville City,29,34875,8.3
+2017,Alleghany County and Covington City,2,12612,1.6
+2020,Alleghany County and Covington City,8,12721,6.3
+2017,Amelia,2,6770,3
+2020,Amelia,6,6360,9.4
+2023,Amelia,2,8202,2.4
+2017,Amherst,3,10026,3
+2020,Amherst,3,7603,3.9
+2016,Appomattox,1,4787,2.1
+2019,Appomattox,2,4388,4.6
+2022,Appomattox,2,5354,3.7
+2016,Arlington,4,46560,0.9
+2017,Bedford,8,22937,3.5
+2020,Bedford,12,20181,5.9
+2023,Bedford,9,26843,3.4
+2016,Bland,0,773,0
+2019,Bland,2,2347,8.5
+2018,Botetourt,3,8535,3.5
+2021,Botetourt,5,9190,5.4
+2017,Brunswick,8,8982,8.9
+2020,Brunswick,7,8029,8.699999999999998
+2023,Brunswick,5,9485,5.3
+2017,Buckingham,5,6456,7.7
+2020,Buckingham,3,4982,6
+2023,Buckingham,2,6719,3
+2018,Campbell,5,10321,4.8
+2021,Campbell,15,14335,10.5
+2019,Caroline,5,14169,3.5
+2022,Caroline,6,16399,3.7
+2015,Charlotte,1,4889,2
+2018,Charlotte,3,6628,4.5
+2021,Charlotte,2,6898,2.9
+2015,Chesapeake,66,99745,6.6
+2018,Chesapeake,68,101342,6.7
+2021,Chesapeake,62,90189,6.9
+2015,Cumberland,0,4293,0
+2018,Cumberland,0,3920,0
+2021,Cumberland,3,3887,7.7
+2015,Fauquier,5,31270,1.6
+2018,Fauquier,7,28247,2.5
+2015,Giles,2,11633,1.7
+2021,Gloucester,3,18776,1.6
+2015,Goochland,3,7137,4.2
+2018,Goochland,3,7056,4.3
+2021,Goochland,6,7321,8.199999999999998
+2017,Grayson County and Galax City,4,14307,2.8
+2020,Grayson County and Galax City,3,13053,2.3
+2022,Greene,4,11845,3.4
+2015,Halifax,1,1508,6.6
+2016,Hanover,15,38597,3.9
+2019,Hanover,12,35340,3.4
+2022,Hanover,9,41366,2.2
+2017,Isle of Wight,2,14176,1.4
+2021,James City,16,40403,4
+2015,King and Queen,0,4089,0
+2018,King and Queen,0,2122,0
+2021,King and Queen,2,3857,5.2
+2017,King George,4,9799,4.1
+2020,King George,11,8333,13.2
+2023,King George,1,10538,0.9
+2015,King William,2,7366,2.7
+2015,Lee,3,10092,3
+2018,Lee,2,9355,2.1
+2021,Lee,2,9363,2.1
+2015,Loudoun,11,91114,1.2
+2018,Loudoun,8,92679,0.9
+2021,Loudoun,22,96986,2.3
+2017,Louisa,5,17928,2.8
+2020,Louisa,10,14200,7
+2023,Lunenburg,3,4850,6.2
+2023,Lynchburg,25,34548,7.2
+2016,Mathews,3,3205,9.4
+2019,Mathews,2,3921,5.1
+2022,Mecklenburg,8,16760,4.8
+2015,New Kent,3,7970,3.8
+2018,New Kent,3,8412,3.6
+2016,Newport News,122,108105,11.3
+2019,Newport News,115,110672,10.4
+2022,Newport News,158,104751,15.1
+2016,Northampton,2,6545,3.1
+2019,Northampton,2,6782,2.9
+2021,Northumberland,3,7926,3.8
+2016,Orange,2,11592,1.7
+2019,Orange,5,11989,4.2
+2016,Patrick,0,2260,0
+2019,Patrick,4,3725,10.7
+2023,Portsmouth,104,72640,14.3
+2017,Powhatan,3,9774,3.1
+2020,Powhatan,6,8803,6.8
+2021,Prince Edward,9,15348,5.9
+2022,Prince William County,NA,NA,NA
+2015,Rappahannock,2,2553,7.8
+2018,Rappahannock,3,2307,13
+2021,Rappahannock,0,1919,0
+2021,Richmond City,357,149980,23.8
+2020,Richmond County,2,4056,4.9
+2023,Richmond County,2,5316,3.8
+2017,Scott,0,2034,0
+2022,Smyth,7,20802,3.4
+2017,Spotsylvania,7,57055,1.2
+2017,Surry,0,2545,0
+2017,Sussex,1,4476,2.2
+2015,Virginia Beach,76,179483,4.2
+2017,Warren,13,23570,5.5
+2020,Warren,9,18759,4.8
+2023,Warren,6,23224,2.6
+2017,Washington County and Bristol City,3,23181,1.3
+2020,Washington County and Bristol City,2,16378,1.2
+2023,Washington County and Bristol City,5,17843,2.8
+2018,Westmoreland,1,4738,2.1
+2021,Westmoreland,1,8973,1.1
+2015,Wise County and Norton City,13,40635,3.2
+2018,Wise County and Norton City,6,34170,1.8
+2019,York,6,14573,4.1
+2022,York,4,14930,2.7
+2023,Prince George County,NA,NA,NA
+2015,Prince William County,NA,NA,NA
+2018,Prince William County,NA,NA,NA
+2021,Prince William County,NA,NA,NA
+2019,Rappahannock,0,2117,0
+2022,Rappahannock,1,2167,4.6
+2016,Rockingham County and Harrisonburg City,22,64079,3.4
+2021,Russell,5,14239,3.5
+2023,Southampton County and Franklin City,11,19797,5.6
+2016,Sussex,2,4216,4.7
+2016,Warren,8,23647,3.4
+2019,Warren,8,22805,3.5
+2016,Washington County and Bristol City,0,25590,0
+2019,Washington County and Bristol City,5,21407,2.3
+2017,Westmoreland,6,7245,8.3
+2020,Westmoreland,6,7835,7.7
+2023,Westmoreland,6,10003,6
+2016,Wise County and Norton City,9,39443,2.3
+2019,Wise County and Norton City,3,33365,0.9
+2022,Wise County and Norton City,7,26680,2.6
+2015,York,4,13817,2.9
+2018,York,4,8542,4.7
+2021,York,5,13912,3.6
+2018,Alexandria,4,43450,0.9
+2021,Alexandria,9,38471,2.3
+2023,Arlington,11,52625,2.1
+2017,Augusta County,NA,NA,NA
+2020,Augusta County,NA,NA,NA
+2023,Augusta County,NA,NA,NA
+2015,Bath,2,3369,5.9
+2018,Bath,1,2737,3.7
+2016,Buchanan,5,10015,5
+2019,Buchanan,5,11487,4.4
+2022,Buchanan,7,10680,6.6
+2018,Carroll,2,8275,2.4
+2021,Carroll,1,7836,1.3
+2020,Charles City,1,2793,3.6
+2023,Charles City,2,3462,5.8
+2017,Chesterfield County and Colonial Heights City,51,132692,3.8
+2017,Clarke,2,4779,4.2
+2020,Clarke,3,3889,7.7
+2016,Craig,0,1825,0
+2019,Craig,1,1434,7
+2022,Craig,0,1804,0
+2018,Culpeper,13,22560,5.8
+2021,Culpeper,9,22524,4
+2015,Dickenson,2,12229,1.6
+2018,Dickenson,0,11276,0
+2021,Dickenson,2,8852,2.3
+2017,Dinwiddie,3,3321,9
+2020,Dinwiddie,12,7967,15.1
+2023,Dinwiddie,3,10759,2.8
+2020,Essex,4,6769,5.9
+2023,Essex,2,8426,2.4
+2015,Fairfax County,NA,NA,NA
+2018,Fairfax County,NA,NA,NA
+2021,Fairfax County,NA,NA,NA
+2021,Floyd,4,4812,8.3
+2015,Fluvanna,4,7145,5.6
+2018,Fluvanna,5,8053,6.2
+2021,Fluvanna,3,7695,3.9
+2019,Franklin County,20,23737,8.4
+2022,Franklin County,11,24178,4.5
+2015,Frederick County and Winchester City,9,48499,1.9
+2018,Frederick County and Winchester City,11,48321,2.3
+2021,Frederick County and Winchester City,16,44895,3.6
+2020,Fredericksburg,2,13064,1.5
+2023,Fredericksburg,3,16311,1.8
+2022,Giles,7,10779,6.5
+2015,Greene,1,10020,1
+2018,Greene,3,11713,2.6
+2015,Greensville County and Emporia City,3,2718,11
+2018,Greensville County and Emporia City,7,11882,5.9
+2022,Halifax,16,18767,8.5
+2015,Hampton,63,72499,8.699999999999998
+2018,Hampton,29,56223,5.2
+2021,Hampton,114,66582,17.1
+2020,Henrico,118,108040,10.9
+2023,Henrico,118,150986,7.8
+2016,Henry County and Martinsville City,25,41422,6
+2019,Henry County and Martinsville City,44,39515,11.1
+2022,Henry County and Martinsville City,28,35569,7.9
+2015,Highland,0,862,0
+2018,Highland,0,784,0
+2021,Highland,0,697,0
+2022,King William,2,8319,2.4
+2015,Lancaster,0,749,0
+2018,Lancaster,2,4526,4.4
+2016,Lunenburg,2,4280,4.7
+2016,Lynchburg,12,34713,3.5
+2016,Madison,0,4247,0
+2019,Madison,0,4599,0
+2022,Madison,3,5429,5.5
+2015,Mecklenburg,3,13061,2.3
+2018,Mecklenburg,6,16468,3.6
+2017,Middlesex,2,3653,5.5
+2016,Montgomery County and Radford City,9,40009,2.2
+2019,Montgomery County and Radford City,13,34681,3.7
+2015,Nelson,4,5800,6.9
+2018,Nelson,5,5597,8.9
+2021,Nelson,3,5598,5.4
+2016,Norfolk,175,142253,12.3
+2019,Norfolk,111,145192,7.599999999999999
+2022,Norfolk,153,134776,11.4
+2015,Nottoway,1,8483,1.2
+2018,Nottoway,3,8899,3.4
+2020,Out of State,227,137092,16.6
+2019,Richmond City,235,150439,15.6
+2022,Richmond City,349,157578,22.1
+2016,Rockbridge County,NA,NA,NA
+2017,Rockingham County and Harrisonburg City,13,58247,2.2
+2016,Scott,0,2137,0
+2019,Scott,1,1789,5.6
+2022,Scott,1,2090,4.8
+2017,Smyth,6,21898,2.7
+2020,Smyth,2,17685,1.1
+2023,Smyth,4,19545,2
+2019,Southampton County and Franklin City,11,19781,5.6
+2022,Southampton County and Franklin City,8,19086,4.2
+2017,Suffolk,24,49263,4.9
+2019,Sussex,3,7990,3.8
+2022,Sussex,16,8216,19.5
+2022,Warren,8,22611,3.5
+2022,Washington County and Bristol City,4,17555,2.3
+2016,Westmoreland,1,9931,1
+2019,Westmoreland,3,9496,3.2
+2016,Williamsburg,0,477,0
+2019,Williamsburg,0,452,0
+2022,Williamsburg,0,320,0
+2016,Wythe,1,5469,1.8
+2019,Wythe,11,19677,5.6
+2022,Wythe,11,20234,5.4
+2015,Powhatan,3,9712,3.1
+2018,Powhatan,4,9411,4.3
+2021,Powhatan,2,10027,2
+2020,Pulaski,16,18730,8.5
+2023,Pulaski,1,22519,0.4
+2017,Richmond City,225,168100,13.4
+2016,Richmond County,1,4808,2.1
+2016,Roanoke County,NA,NA,NA
+2019,Roanoke County,NA,NA,NA
+2022,Roanoke County,NA,NA,NA
+2015,Rockbridge County,NA,NA,NA
+2018,Rockbridge County,NA,NA,NA
+2021,Rockbridge County,NA,NA,NA
+2019,Rockingham County and Harrisonburg City,23,55436,4.1
+2022,Rockingham County and Harrisonburg City,20,53205,3.8
+2015,Russell,1,15336,0.7
+2018,Russell,1,15574,0.6
+2017,Shenandoah,4,26469,1.5
+2020,Shenandoah,5,22821,2.2
+2015,Smyth,7,22987,3
+2017,Southampton County and Franklin City,14,17418,8
+2020,Southampton County and Franklin City,10,16802,6
+2017,Stafford,18,49835,3.6
+2016,Suffolk,15,50038,3
+2019,Suffolk,22,51758,4.3
+2022,Suffolk,31,54123,5.7
+2021,Surry,2,3046,6.6
+2015,Tazewell,6,11914,5
+2018,Tazewell,4,19482,2.1
+2021,Tazewell,8,20356,3.9
+2022,Virginia Beach,79,176256,4.5
+2017,Williamsburg,0,352,0
+2021,Wythe,10,18192,5.5
+2021,Accomack,13,15261,8.5
+2022,Alexandria,15,43183,3.5
+2023,Alleghany County and Covington City,12,16100,7.5
+2023,Amherst,9,10913,8.199999999999998
+2019,Arlington,2,46841,0.4
+2022,Arlington,7,49966,1.4
+2021,Augusta County,NA,NA,NA
+2016,Bath,1,3407,2.9
+2019,Bath,0,2809,0
+2022,Bath,0,2876,0
+2022,Bland,0,2487,0
+2015,Botetourt,0,7768,0
+2015,Buchanan,5,9830,5.1
+2018,Buchanan,5,10638,4.7
+2021,Buchanan,2,10252,2
+2022,Carroll,4,8240,4.9
+2016,Charles City,1,2910,3.4
+2019,Charles City,2,2803,7.1
+2022,Charles City,3,3547,8.5
+2015,Chesterfield County and Colonial Heights City,52,124141,4.2
+2018,Chesterfield County and Colonial Heights City,46,132391,3.5
+2021,Chesterfield County and Colonial Heights City,103,154195,6.7
+2018,Clarke,1,4494,2.2
+2021,Clarke,0,4482,0
+2020,Craig,2,1346,14.9
+2023,Craig,0,1858,0
+2017,Culpeper,11,23026,4.8
+2020,Culpeper,13,19009,6.8
+2023,Culpeper,18,32095,5.6
+2017,Dickenson,2,11572,1.7
+2021,Dinwiddie,4,8927,4.5
+2016,Essex,3,8350,3.6
+2019,Essex,4,8387,4.8
+2022,Essex,4,8187,4.9
+2016,Fairfax County,NA,NA,NA
+2019,Fairfax County,NA,NA,NA
+2022,Fairfax County,NA,NA,NA
+2021,Fauquier,7,24689,2.8
+2017,Floyd,0,4840,0
+2020,Floyd,3,4448,6.7
+2023,Floyd,0,5798,0
+2017,Fluvanna,4,8427,4.7
+2015,Franklin County,18,24458,7.4
+2018,Franklin County,11,24460,4.5
+2021,Franklin County,17,22522,7.5
+2017,Frederick County and Winchester City,13,48623,2.7
+2016,Fredericksburg,8,16005,5
+2019,Fredericksburg,3,15254,2
+2022,Fredericksburg,1,15090,0.7
+2016,Greene,5,10216,4.9
+2019,Greene,3,12107,2.5
+2016,Greensville County and Emporia City,4,10059,4
+2019,Greensville County and Emporia City,4,12051,3.3
+2022,Greensville County and Emporia City,21,11917,17.6
+2016,Hampton,79,71762,11
+2019,Hampton,111,71131,15.6
+2022,Hampton,120,70533,17
+2015,Henry County and Martinsville City,19,19292,9.8
+2018,Henry County and Martinsville City,31,38392,8.099999999999998
+2017,Highland,0,770,0
+2020,Highland,0,640,0
+2018,King William,0,6425,0
+2021,King William,5,7512,6.7
+2016,Lancaster,2,4917,4.1
+2019,Lancaster,4,5116,7.8
+2022,Lancaster,3,5446,5.5
+2015,Madison,2,3853,5.2
+2018,Madison,2,4484,4.5
+2021,Madison,3,4465,6.7
+2015,Middlesex,1,4373,2.3
+2018,Middlesex,4,1819,22
+2021,Middlesex,1,6188,1.6
+2017,Montgomery County and Radford City,10,38706,2.6
+2020,Montgomery County and Radford City,13,33553,3.9
+2023,Montgomery County and Radford City,13,44234,2.9
+2016,Nelson,2,5984,3.3
+2019,Nelson,4,5750,7
+2022,Nelson,4,5941,6.7
+2021,New Kent,1,11120,0.9
+2017,Norfolk,109,138727,7.9
+2020,Norfolk,116,119293,9.7
+2023,Norfolk,139,140009,9.9
+2015,Northumberland,5,3036,16.5
+2018,Northumberland,2,6359,3.1
+2017,Accomack,4,5336,7.5
+2020,Accomack,10,13064,7.7
+2023,Accomack,8,18701,4.3
+2019,Albemarle County and Charlottesville City,22,50827,4.3
+2022,Albemarle County and Charlottesville City,23,51989,4.4
+2017,Appomattox,3,4537,6.6
+2018,Arlington,5,45425,1.1
+2021,Arlington,2,43429,0.5
+2018,Bland,1,1913,5.2
+2021,Bland,1,2390,4.2
+2016,Botetourt,3,8143,3.7
+2019,Botetourt,6,8331,7.2
+2015,Brunswick,2,6757,3
+2018,Brunswick,8,9237,8.699999999999998
+2017,Buchanan,1,9478,1.1
+2016,Carroll,2,7896,2.5
+2019,Carroll,3,9208,3.3
+2016,Charlotte,3,6077,4.9
+2016,Chesapeake,85,104861,8.099999999999998
+2016,Chesterfield County and Colonial Heights City,67,131991,5.1
+2019,Chesterfield County and Colonial Heights City,73,132206,5.5
+2022,Chesterfield County and Colonial Heights City,136,171968,7.9
+2015,Clarke,1,4797,2.1
+2017,Craig,0,1834,0
+2016,Culpeper,8,23621,3.4
+2019,Culpeper,10,23455,4.3
+2016,Cumberland,0,4150,0
+2015,Dinwiddie,1,2451,4.1
+2018,Dinwiddie,4,7308,5.5
+2015,Essex,2,8741,2.3
+2018,Essex,0,2136,0
+2021,Essex,6,7686,7.8
+2020,Fairfax County,NA,NA,NA
+2023,Fairfax County,NA,NA,NA
+2017,Fauquier,7,29143,2.4
+2020,Fauquier,9,21434,4.2
+2023,Fauquier,6,27366,2.2
+2016,Floyd,1,4952,2
+2019,Floyd,0,4818,0
+2022,Floyd,0,5321,0
+2020,Frederick County and Winchester City,14,40690,3.4
+2023,Frederick County and Winchester City,9,49784,1.8
+2015,Fredericksburg,4,15396,2.6
+2018,Fredericksburg,4,14079,2.8
+2021,Fredericksburg,9,14940,6
+2017,Giles,0,11410,0
+2020,Giles,9,9585,9.4
+2023,Giles,1,11245,0.9
+2016,Goochland,1,7424,1.3
+2019,Grayson County and Galax City,3,16261,1.8
+2022,Grayson County and Galax City,6,13039,4.6
+2017,Greensville County and Emporia City,20,10278,19.5
+2020,Greensville County and Emporia City,11,10186,10.8
+2023,Greensville County and Emporia City,13,11710,11.1
+2017,Halifax,10,21245,4.7
+2020,Halifax,14,15625,9
+2023,Halifax,25,18727,13.3
+2020,Hampton,118,57802,20.4
+2023,Hampton,89,73456,12.1
+2021,Hanover,21,38186,5.5
+2021,Henry County and Martinsville City,47,34124,13.8
+2016,Highland,0,872,0
+2023,King and Queen,2,4132,4.8
+2017,King William,0,6917,0
+2020,King William,9,6459,13.9
+2023,King William,1,8869,1.1
+2017,Lancaster,1,4820,2.1
+2020,Lancaster,10,4208,23.8
+2023,Lancaster,9,5987,15
+2019,Louisa,13,17549,7.4
+2022,Louisa,15,19266,7.8
+2017,Mecklenburg,7,17218,4.1
+2020,Mecklenburg,12,14533,8.3
+2023,Mecklenburg,7,17385,4
+2018,Montgomery County and Radford City,9,36153,2.5
+2021,Montgomery County and Radford City,5,37136,1.3
+2017,New Kent,3,8377,3.6
+2020,New Kent,3,8794,3.4
+2023,New Kent,7,13735,5.1
+2018,Orange,0,11469,0
+2021,Orange,4,12350,3.2
+2015,Out of State,164,183223,9
+2018,Out of State,176,172175,10.2
+2021,Out of State,313,172764,18.1
+2016,Page,6,17567,3.4
+2015,Prince George County,NA,NA,NA
+2018,Prince George County,NA,NA,NA
+2021,Prince George County,NA,NA,NA
+2023,Prince William County,NA,NA,NA
+2017,Rappahannock,0,2266,0
+2020,Rappahannock,0,1666,0
+2020,Richmond City,321,136907,23.4
+2023,Richmond City,283,160701,17.6
+2015,Roanoke County,NA,NA,NA
+2018,Roanoke County,NA,NA,NA
+2015,Rockingham County and Harrisonburg City,16,64379,2.5
+2018,Rockingham County and Harrisonburg City,30,55734,5.4
+2021,Rockingham County and Harrisonburg City,17,50150,3.4
+2015,Scott,0,2112,0
+2018,Scott,1,1783,5.6
+2021,Scott,0,1646,0
+2016,Shenandoah,8,26977,3
+2018,Smyth,5,20757,2.4
+2021,Smyth,0,18842,0
+2015,Southampton County and Franklin City,8,7618,10.5
+2018,Southampton County and Franklin City,3,18322,1.6
+2021,Southampton County and Franklin City,15,17296,8.699999999999998
+2015,Suffolk,30,48957,6.1
+2018,Suffolk,12,48720,2.5
+2021,Suffolk,33,48067,6.9
+2015,Sussex,4,2752,14.5
+2018,Sussex,12,7141,16.8
+2021,Sussex,6,7754,7.7
+2017,Tazewell,1,11490,0.9
+2018,Warren,6,22839,2.6
+2021,Warren,1,21243,0.5
+2018,Washington County and Bristol City,2,20863,1
+2021,Washington County and Bristol City,3,16742,1.8
+2015,Westmoreland,1,9877,1
+2020,Williamsburg,0,295,0
+2023,Williamsburg,0,279,0
+2015,Wythe,2,5081,3.9
+2018,Wythe,1,15687,0.6
+2023,York,9,15928,5.7
+2023,Out of State,227,200613,11.3
+2015,Page,8,18285,4.4
+2018,Page,11,15870,6.9
+2021,Page,6,15399,3.9
+2017,Pittsylvania County and Danville City,56,45127,12.4
+2020,Pittsylvania County and Danville City,39,39659,9.8
+2023,Pittsylvania County and Danville City,71,57622,12.3
+2018,Poquoson,0,2040,0
+2021,Poquoson,1,3581,2.8
+2016,Portsmouth,60,75704,7.9
+2016,Prince William County,NA,NA,NA
+2017,Pulaski,6,21403,2.8
+2019,Richmond County,2,4872,4.1
+2022,Richmond County,6,5024,11.9
+2019,Rockbridge County,NA,NA,NA
+2022,Rockbridge County,NA,NA,NA
+2016,Russell,4,15398,2.6
+2019,Russell,2,16603,1.2
+2022,Russell,3,14971,2
+2023,Shenandoah,8,28464,2.8
+2015,Spotsylvania,17,55070,3.1
+2018,Spotsylvania,8,50559,1.6
+2021,Spotsylvania,23,58250,3.9
+2020,Stafford,11,42476,2.6
+2023,Stafford,11,59882,1.8
+2015,Surry,2,2753,7.3
+2018,Surry,0,2615,0
+2016,Virginia Beach,89,179231,5
+2019,Virginia Beach,66,180856,3.6
+2022,Westmoreland,3,9450,3.2
+2021,Wise County and Norton City,10,25772,3.9
+2016,York,10,13506,7.4
+2022,Pittsylvania County and Danville City,77,56808,13.6
+2016,Poquoson,0,3527,0
+2019,Poquoson,1,3636,2.8
+2015,Portsmouth,56,74989,7.5
+2018,Portsmouth,79,72453,10.9
+2021,Portsmouth,110,67090,16.4
+2019,Powhatan,3,9766,3.1
+2022,Powhatan,12,10631,11.3
+2016,Pulaski,11,21836,5
+2019,Pulaski,3,17893,1.7
+2022,Pulaski,10,21669,4.6
+2015,Richmond City,201,158677,12.7
+2018,Richmond City,152,156636,9.7
+2017,Richmond County,0,2980,0
+2017,Roanoke County,NA,NA,NA
+2020,Roanoke County,NA,NA,NA
+2023,Roanoke County,NA,NA,NA
+2017,Rockbridge County,NA,NA,NA
+2020,Rockbridge County,NA,NA,NA
+2020,Rockingham County and Harrisonburg City,20,46455,4.3
+2023,Rockingham County and Harrisonburg City,14,57809,2.4
+2020,Scott,1,1378,7.3
+2023,Scott,1,1907,5.2
+2015,Shenandoah,4,26605,1.5
+2018,Shenandoah,6,26003,2.3
+2021,Shenandoah,7,25572,2.7
+2016,Smyth,6,22669,2.6
+2019,Smyth,5,21522,2.3
+2016,Southampton County and Franklin City,7,17892,3.9
+2020,Spotsylvania,19,49048,3.9
+2023,Spotsylvania,16,72218,2.2
+2015,Stafford,14,49818,2.8
+2018,Stafford,9,45081,2
+2021,Stafford,12,50711,2.4
+2020,Suffolk,32,43564,7.3
+2023,Suffolk,35,58536,6
+2020,Surry,0,2852,0
+2023,Surry,1,3397,2.9
+2020,Sussex,11,7200,15.3
+2023,Sussex,12,9219,13
+2016,Tazewell,5,11371,4.4
+2019,Tazewell,9,23617,3.8
+2022,Tazewell,3,21853,1.4
+2018,Virginia Beach,77,172419,4.5
+2021,Virginia Beach,113,165549,6.8
+2015,Williamsburg,0,417,0
+2018,Williamsburg,0,293,0
+2021,Williamsburg,0,328,0
+2017,Wythe,2,5631,3.6
+2020,Wythe,9,16317,5.5
+2023,Wythe,6,19539,3.1
+2016,Out of State,188,183070,10.3
+2019,Out of State,198,176847,11.2
+2022,Out of State,262,186549,14
+2019,Page,1,16943,0.6
+2022,Page,4,16975,2.4
+2016,Pittsylvania County and Danville City,65,41459,15.7
+2019,Pittsylvania County and Danville City,54,47366,11.4
+2017,Poquoson,2,2635,7.599999999999999
+2020,Poquoson,3,3225,9.3
+2023,Poquoson,0,4209,0
+2017,Portsmouth,48,73424,6.5
+2020,Portsmouth,118,62481,18.9
+2023,Powhatan,3,11144,2.7
+2017,Prince William County,NA,NA,NA
+2020,Prince William County,NA,NA,NA
+2015,Pulaski,3,22219,1.4
+2018,Pulaski,9,19585,4.6
+2021,Pulaski,6,19606,3.1
+2023,Rappahannock,1,2339,4.3
+2015,Richmond County,1,4300,2.3
+2018,Richmond County,0,1376,0
+2021,Richmond County,4,4652,8.599999999999998
+2021,Roanoke County,NA,NA,NA
+2023,Rockbridge County,NA,NA,NA
+2017,Russell,5,14892,3.4
+2020,Russell,2,12870,1.6
+2023,Russell,4,14866,2.7
+2019,Shenandoah,13,26911,4.8
+2022,Shenandoah,2,27622,0.7
+2016,Spotsylvania,16,57080,2.8
+2019,Spotsylvania,11,52173,2.1
+2022,Spotsylvania,16,62091,2.6
+2016,Stafford,17,51471,3.3
+2019,Stafford,16,51441,3.1
+2022,Stafford,15,55659,2.7
+2016,Surry,1,2901,3.4
+2019,Surry,3,3158,9.5
+2022,Surry,1,3144,3.2
+2020,Tazewell,14,19163,7.3
+2023,Tazewell,11,22304,4.9
+2017,Virginia Beach,79,175268,4.5
+2020,Virginia Beach,110,151557,7.3
+2023,Virginia Beach,109,184866,5.9
+2015,Warren,5,24252,2.1
+2015,Washington County and Bristol City,6,25844,2.3
+2017,Wise County and Norton City,9,37374,2.4
+2020,Wise County and Norton City,9,22931,3.9
+2023,Wise County and Norton City,3,26308,1.1
+2017,York,0,10670,0
+2020,York,7,12596,5.6

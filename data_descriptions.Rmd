@@ -12,11 +12,12 @@ output:
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(ggmap)
 library(janitor)
-library(jsonlite)
 library(lubridate)
 library(magrittr)
 library(reactable)
 library(tidyverse)
+
+#source("data_prep.R")
 
 ```
 
@@ -36,14 +37,13 @@ This database includes information collected from public news sources about 201 
 
 Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
 
-The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects. The data includes the geocoded location and date of each incident and the characteristics of each incident (for example, injury, homicide, or shots fired). The data does not give any information about the race, ethnicity, socioeconomic status, or mental health status of any of the participants.
+The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects. The data includes the location and date of each incident and the characteristics of each incident such as injury, homicide, or shots fired. The data does not give any identifiable information about the participants, including race, ethnicity, socioeconomic status, or mental health status.
 
 #### Incident-level data
 
 ```{r gva_incidents}
 
-gva_incidents <- read_csv("data/gva_incidents.csv") %>%
-  clean_names() 
+gva_incidents <- read_csv("data/gva_incidents.csv") 
 
 gva_incidents %>%
   group_by(yr = year(incident_date)) %>%
@@ -66,58 +66,43 @@ gva_incidents %>%
 
 ```{r gva_participants}
 
-gva_participants <- read_csv("data/gva_participants.csv") %>%
-  clean_names() %>%
-  mutate(age_group = as.numeric(participant_age_group))
-
-# sum(is.na(gva_participants$age_group)) #129 missing values 
-# TODO: mechanism for missing ages 
+gva_participants <- read_csv("data/gva_participants.csv") 
 
 gva_participants %>%
-  drop_na(age_group) %>%
+  drop_na(age) %>%
   mutate(yr = year(incident_date)) %>%
-  ggplot(aes(age_group, fill = role)) +
-  geom_histogram(position = 'identity', alpha = .5) +
+  ggplot(aes(age, fill = role)) +
+  geom_histogram(position = 'identity') +
   facet_grid(~role) +
   scale_fill_discrete(name = "Role",
                       breaks = c("suspect", "victim"),
                       labels = c("Suspect", "Victim")) +
-  labs(title = "Ages of Participants in Gun Violence",
+  labs(title = "Ages of Participants",
        x = "Age",
        y = "Number of People") +
   theme(axis.text.x = element_text(angle=35))
 
 ```
 
-------------------------------------------------------------------------
+---
 
 ### Charlottesville Open Data Portal
 
-The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes over 500 crime reports in City of Charlottesville from March 2019 through April 2014. As defined by the Charlottesville Police Department, a crime report "represents the initial information that is provided by individuals calling for police assistance." The data is maintained by CPD and updated nightly. The dataset includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer.
+The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes over 500 crime reports in City of Charlottesville from March 2019 through April 2024. As defined by the Charlottesville Police Department, a crime report 
+
+>"represents the initial information that is provided by individuals calling for police assistance." 
+
+The dataset includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer. The data is maintained by CPD and updated nightly. 
+
+The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled "Shots Fired/Illegal Hunting," "Robbery - Armed," and "Weapons Violations" are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have "Homicide" as the primary offense are not included because we cannot be certain the homicide occured with a firearm. 
 
 This is not a definitive collection of public safety data for Charlottesville. We should consider the factors that influence the inclination of an individual calling the police. Are there systematic reasons that someone might call the police more or less than someone else? It's also significant to note that just because a call was made, does not mean that an arrest was made. All individuals are innocent until proven guilty in a court of law.
 
-Because there is not a comparable portal, this dataset is limited to incidents that occur within city limits. It does not include Albemarle County Police or UVA Police information.
+<i><b>Because there is not a comparable portal, this dataset is limited to incidents that occur within city limits. It does not include Albemarle County Police or UVA Police information.</i></b>
 
 ```{r odp_crime}
 
-# There are 3 incident types that directly pertain to guns: "Shots Fired/Illegal Hunting", "Robbery - Armed", "Weapons Violations"
-
-# odp_where_clause <- "%28Offense%20LIKE%20'%shot%'%29OR%28Offense%20LIKE%20'%armed%'%29OR%28Offense%20LIKE%20'%weapon%'%29"
-# odp_api <- glue::glue("https://gisweb.charlottesville.org/arcgis/rest/services/OpenData_2/MapServer/6/query?where={gun_where_clause}&outFields=*&outSR=4326&f=json")
-# odp_response <- fromJSON(odp_api)
-# 
-# odp_data <- odp_response$features$attributes %>% #~500 obs
-#   clean_names() %>%
-#   select(-hour_reported) %>%
-#   mutate(block_number = ifelse(block_number == "", NA, block_number),
-#          date_reported = date_reported %>% gsub('000$', '', .) %>% as.numeric() %>% as.POSIXct())
-# 
-# odp_data %<>% mutate(address = paste(block_number, street_name, "Charlottesville VA"))
-# lon_lat <- geocode(odp_data$address)
-# odp_data <- bind_cols(odp_data, lon_lat)
-
-odp_data <- read_csv("data/odp_data.csv") # So you don't geocode every time
+odp_data <- read_csv("data/odp_data.csv") 
 
 cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), maptype = "roadmap", color = "bw")
 
@@ -132,32 +117,29 @@ ggmap(cville_map) +
         axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank()) +
-  ggtitle("Gun-Related Reports Available in the Open Data Portal")
+  ggtitle("Gun-Related Crime Reports")
 
 ```
 
 ------------------------------------------------------------------------
 
-### VA Open Data Portal {.tabset}
+### Virginia Open Data Portal {.tabset}
 
-The Virginia Open Data Portal includes the number and rate of emergency department (ED) visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated by county, health district, and patient demographics. This data is supplied by the Virginia Department of Health and updated monthly. 
+The [Virginia Open Data Portal](https://data.virginia.gov/) includes the number and rate of emergency department (ED) visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated by county, health district, and patient demographics. This data is supplied by the Virginia Department of Health and updated monthly. 
 
-Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009. 
+Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. 
+ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009. 
 
 Exclusions: follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
-
-The data for Charlottesville and Ablemarle does not include any age or other demographic information. The Blue Ridge Health district data set age-related information. 
 
 #### Cville & Albemarle County
 
 ```{r vdh_county}
 
-fai_county <- read_csv("data/vdh-pud-fai-by-citycounty.csv") %>%
-  clean_names()
+fai_county <- read_csv("data/fai_county.csv") 
 
 fai_county %>%
   filter(str_detect(patient_city_county, "Albemarle")) %>%
-  mutate_at(c("firearm_injury_visits", "total_ed_visits", "rate_of_firearm_injuries_per_10k_ed_visits"), as.numeric) %>%
   arrange(year) %>%
   select(-patient_city_county) %>%
   reactable()
@@ -170,13 +152,13 @@ The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene,
 
 ```{r vdh_district}
 
-fai_age <- read_csv("data/vdh-pud-firearm-deaths-by-district-age.csv") %>%
-  clean_names() 
+fai_age <- read_csv("data/fai_age.csv")
 
 fai_age %>%
-  filter(str_detect(health_district, "Blue Ridge")) %>%
   arrange(age_group) %>%
   reactable(defaultPageSize = 11)
 ```
 
+---
 
+### UVA Police Alerts

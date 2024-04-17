@@ -8,15 +8,17 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(janitor)
+library(magrittr)
+library(reactable)
+library(tidyverse)
 ```
 
-On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, Cville police had already investigated five homicide cases; compared to zero cases in 2021. ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)) How can UVA and the wider Charlottesville and Albemarle county community work together to end gun violence in our area?
+On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, Cville police had already investigated five homicide cases; compared to zero cases in 2021 ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)). How can UVA and the wider Charlottesville and Albemarle county community work together to end gun violence in our area?
 
 ## What is gun violence?
 
-According to the Center for Disease Control, Firearm injuries were the leading cause of death among children and teens ages 1-19 in 2022. On average, 7 children die per day due to gun violence. ([KFF](https://www.kff.org/mental-health/issue-brief/the-impact-of-gun-violence-on-children-and-adolescents))
-
-The CDC further defines a <b>firearm injury</b> as:
+The CDC defines a <b>firearm injury</b> as:
 
 > "a gunshot wound or penetrating injury from a weapon that uses a powder charge to fire a projectile. Weapons that use a powder charge include handguns, rifles, and shotguns. Injuries from air- and gas-powered guns, BB guns, and pellet guns are not considered firearm injuries as these types of guns do not use a powder charge to fire a projectile." ([CDC](https://www.cdc.gov/violenceprevention/firearms/fastfact.html))
 
@@ -28,11 +30,37 @@ Types of firearm injuries include:
 -   Legal intervention (violence inflicted by law enforcement on duty)
 -   Undetermined intent (not enough information to determine)
 
-### Prevalence
+---
 
-Since 2012, the number of murders inflicted by guns has increased exponentially. 81% of murders in the US in 2021 involved a firearm. ([PEW](https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/)).
+## What is the prevalence in our region? 
+
+The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents by Intent over the past 5 combined years. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. The leading cause of death by gun violence in the Blue Ridge Health District is suicide. 
+
+```{r vdh_intent, echo=FALSE, message=FALSE}
+
+fai_intent <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-intent.csv") 
+
+fai_intent %>%
+  clean_names() %>%
+  filter(str_detect(patient_health_district, "Blue Ridge")) %>%
+  arrange(desc(firearm_deaths)) %>%
+  reactable(
+    defaultColDef = colDef(
+    header = function(value) gsub("_", " ", value, fixed = TRUE),
+    minWidth = 70,
+    headerStyle = list(background = "#f7f7f8")
+  ))
+
+    
+    
+    # reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
+```
+
+Since 2020 the number of murders inflicted by guns has increased exponentially in the US. 81% of murders in the US in 2021 involved a firearm. ([PEW](https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/)).
 
 <a href="https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/ft_23-04-20_gundeathsupdate_2/"><img src="https://www.pewresearch.org/wp-content/uploads/2023/04/FT_23.04.20_GunDeathsUpdate_2.png?w=640"/></a>
+
+---
 
 ## Who are the stakeholders?
 
@@ -83,3 +111,5 @@ National:
 Infrastructure:
 
 -   [Structural Competency and the Future of Firearm Research](https://www.sciencedirect.com/science/article/pii/S0277953621002112)
+
+-   [Racial Equity Impact Assessment Tool for Gun Violence Prevention](https://efsgv.org/wp-content/uploads/WEST_EFSGV_REIA_012275.pdf)

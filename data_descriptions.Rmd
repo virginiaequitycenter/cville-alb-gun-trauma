@@ -17,8 +17,6 @@ library(magrittr)
 library(reactable)
 library(tidyverse)
 
-#source("data_prep.R")
-
 ```
 
 The data listed below represent information that is publicly and readily available online. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, shape, and dimensions of the problem locally.
@@ -37,7 +35,7 @@ This database includes information collected from public news sources about 201 
 
 Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
 
-The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects. The data includes the location and date of each incident and the characteristics of each incident such as injury, homicide, or shots fired. The data does not give any identifiable information about the participants, including race, ethnicity, socioeconomic status, or mental health status.
+The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as injury, homicide, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
 
 #### Incident-level data
 
@@ -84,28 +82,27 @@ gva_participants %>%
 
 ```
 
+
 ---
 
-### Charlottesville Open Data Portal
+### Charlottesville Open Data Portal {.tabset}
 
-The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes over 500 crime reports in City of Charlottesville from March 2019 through April 2024. As defined by the Charlottesville Police Department, a crime report 
+The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes over 500 gun-related crime reports, and over 400 gun-related arrests in City of Charlottesville from March 2019 through April 2024. The data is managed by the Charlottesville Police Department and updated nightly. 
 
->"represents the initial information that is provided by individuals calling for police assistance." 
-
-The dataset includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer. The data is maintained by CPD and updated nightly. 
-
-The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled "Shots Fired/Illegal Hunting," "Robbery - Armed," and "Weapons Violations" are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have "Homicide" as the primary offense are not included because we cannot be certain the homicide occured with a firearm. 
+The dataset is made up of two dataframes: one includes information about initial crime reports and the other includes arrest data. Both datasets have been anonymized to remove names and other identifiable information. 
 
 This is not a definitive collection of public safety data for Charlottesville. We should consider the factors that influence the inclination of an individual calling the police. Are there systematic reasons that someone might call the police more or less than someone else? It's also significant to note that just because a call was made, does not mean that an arrest was made. All individuals are innocent until proven guilty in a court of law.
 
-<i><b>Because there is not a comparable portal, this dataset is limited to incidents that occur within city limits. It does not include Albemarle County Police or UVA Police information.</i></b>
+<i>These datasets only contain information reported by City of Charlottesville Police. It does not contain information about incidents that solely involve other police departments operating within the city (for example, University of Virginia police or Albemarle County police).</i>
 
-```{r odp_crime}
+```{r odp_crimemap, fig.show="hold", out.width="50%"}
 
 odp_data <- read_csv("data/odp_data.csv") 
+arrests <- read_csv("data/arrests.csv")
 
 cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), maptype = "roadmap", color = "bw")
 
+#Reports
 ggmap(cville_map) +
   stat_density2d(data = odp_data, aes(fill = ..level.., alpha = 0.1), # removes 55 values
                  geom = "polygon") +
@@ -119,7 +116,59 @@ ggmap(cville_map) +
         axis.ticks.y=element_blank()) +
   ggtitle("Gun-Related Crime Reports")
 
+ggmap(cville_map) +
+  stat_density2d(data = arrests, aes(fill = ..level.., alpha = 0.1), # removes 96 values
+                 geom = "polygon") +
+  theme(legend.position="none") +
+  scale_fill_viridis_c(direction = -1) +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) +
+  ggtitle("Gun-Related Arrests")
+
 ```
+
+#### Crime Reports 
+
+As defined by the Charlottesville Police Department, a crime report 
+
+>"represents the initial information that is provided by individuals calling for police assistance." 
+
+The crime dataset includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer. The data is maintained by CPD and updated nightly. 
+
+The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled "Shots Fired/Illegal Hunting," "Robbery - Armed," and "Weapons Violations" are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have "Assault" as the primary offense are not included because we cannot be certain the assault included firearm. 
+
+
+---
+
+#### Arrest Reports
+
+From the Charlottesville Open Data Portal:
+
+>"Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
+
+The below data contains the distribution of arrest counts for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 only have one gun-related charge, 53 have two charges, and one person has 15 charges. 
+
+```{r odp_arrests}
+
+arrests %>%
+  group_by(id) %>%
+  summarise(charges = n()) %>%
+  ggplot() +
+  geom_bar(aes(y = charges)) +
+  geom_text(aes(y = charges, label =..count..), stat = "count", hjust = -0.25) +
+  labs(title = "Distribution of Gun-Related Arrests",
+       x = "Number of People",
+       y = "Number of Charges") +
+  scale_y_continuous(breaks = c(1:15))
+  
+```
+
+
+
 
 ------------------------------------------------------------------------
 
@@ -159,6 +208,4 @@ fai_age %>%
   reactable(defaultPageSize = 11)
 ```
 
----
 
-### UVA Police Alerts

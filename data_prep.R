@@ -4,6 +4,7 @@ library(janitor)
 library(jsonlite)
 library(lubridate)
 library(magrittr)
+library(rvest)
 library(tidyverse)
 
 # Gun Violence Archive ----
@@ -26,6 +27,7 @@ write_csv(gva_participants, "data/gva_participants.csv")
 
 # Cville Open Data Portal ----
 
+# *Crime Data ----
 # This data can be accessed by the ODP REST API and then saved as a CSV
 
 # There are 3 incident types that directly pertain to gun violence: "Shots Fired/Illegal Hunting", "Robbery - Armed", "Weapons Violations"
@@ -48,9 +50,38 @@ odp_data <- bind_cols(odp_data, lon_lat)
 
 write_csv(odp_data, "data/odp_data.csv")
 
-#TODO: arrest data 
+# *Arrest Data ----
+# TODO: API Firearm, gun, shoot  
 
-# VA Open Data Portal ---
+arrests <- read_csv("data/raw/arrests.csv") %>%
+  clean_names() 
+
+# De-Identify
+arrests %<>%
+  select(-name_suffix, -arrest_id) %>%
+  filter(str_detect(statute_description, "FIREARM|GUN|SHOOT")) %>%
+  mutate(arrest_datetime = ymd_hms(arrest_datetime))
+
+ids <- arrests %>% 
+  group_by(first_name, last_name) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  mutate(id = 1:n())
+
+arrests <- left_join(arrests, ids, by = c("first_name", "last_name"))
+
+arrests %<>% 
+  select(-first_name, -last_name, -middle_name, -race, -n)
+
+# Geocode 
+arrests %<>% mutate(address = paste(house_number, street, "Charlottesville VA"))
+lon_lat_arrests <- geocode(arrests$address)
+sum(is.na(lon_lat_arrests$lon)) #0 
+arrests <- bind_cols(arrests, lon_lat_arrests)
+
+write_csv(arrests, "data/arrests.csv")
+
+# VA Open Data Portal ----
 
 # This data can be accessed by downloading the raw CSV directly from the VA portal website 
 
@@ -71,3 +102,5 @@ fai_age %<>%
   filter(str_detect(health_district, "Blue Ridge")) 
 
 write_csv(fai_age, "data/fai_age.csv")
+
+

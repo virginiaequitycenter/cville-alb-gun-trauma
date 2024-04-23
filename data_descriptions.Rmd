@@ -154,6 +154,7 @@ The below data contains the distribution of arrest counts for firearm-related ch
 
 ```{r odp_arrests}
 
+# Plot 1
 arrests %>%
   group_by(id) %>%
   summarise(charges = n()) %>%
@@ -164,6 +165,26 @@ arrests %>%
        x = "Number of People",
        y = "Number of Charges") +
   scale_y_continuous(breaks = c(1:15))
+
+# Plot 2
+arrests %>%
+  group_by(id) %>%
+  summarise(charges = n()) %>%
+  mutate(grp = case_when(charges == 1 ~ "1", 
+                         charges %in% 2:4 ~ "2-4",
+                         TRUE ~ "5 or more")) %>%
+  group_by(grp) %>%
+  summarise(charges = sum(charges)) %>%
+  ungroup() %>%
+  mutate(lbl = scales::percent(charges/sum(charges))) %>%
+  ggplot(aes(x = "", y = charges, fill = grp, label = lbl)) +
+  geom_col() +
+  geom_text(position = "stack", vjust = 2) +
+  labs(title = "Distribution of Gun-Related Arrests",
+       y = "Number of Charges",
+       x = " ") +
+  scale_fill_discrete(name = "Charges per Person") 
+
   
 ```
 

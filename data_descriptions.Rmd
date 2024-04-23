@@ -182,7 +182,7 @@ arrests %>%
   geom_text(position = "stack", vjust = 2) +
   labs(title = "Distribution of Gun-Related Arrests",
        y = "Number of Charges",
-       x = " ") +
+       x = "n = 233") +
   scale_fill_discrete(name = "Charges per Person") 
 
   

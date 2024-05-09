@@ -72,9 +72,9 @@ gva_participants %>%
   ggplot(aes(age, fill = role)) +
   geom_histogram(position = 'identity') +
   facet_grid(~role) +
-scale_fill_manual(labels = c("Injured", "Killed"),
+scale_fill_manual(labels = c("Suspect", "Victim"),
                     values = c("#F8BE3D", "#007BAB"),
-                    guide = guide_legend(title = "Victim Status")) +
+                    guide = guide_legend(title = "Participant Role")) +
   labs(title = "Ages of Participants",
        x = "Age",
        y = "Number of People") +
@@ -150,25 +150,23 @@ From the Charlottesville Open Data Portal:
 
 >"Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
 
-The below data contains the distribution of arrest counts for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 only have one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, half of all people arrested for gun-related crimes have between 2-4 charges.
+The below data contains the distribution of arrest counts for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, half of all people arrested for gun-related crimes have between 2-4 charges.
 
 ```{r odp_arrests}
 
 # Distribution of arrests by person
 odp_arrests %>%
-  group_by(id, grp) %>%
+  group_by(id) %>%
   summarise(charges = n()) %>%
-  ggplot() +
-  geom_bar(aes(y = charges, fill = grp)) +
-  geom_text(aes(y = charges, label =..count..), stat = "count", hjust = -0.25) +
+  ungroup() %>%
+  ggplot(aes(y = charges)) +
+  geom_bar(fill = "#007BAB") +
+  geom_text(aes(label =..count..), stat = "count", hjust = -0.25, size = 3) +
   labs(title = "Distribution of Gun-Related Arrests",
        x = "Number of People",
-       y = "Number of Charges") +
-  scale_y_continuous(breaks = c(1:15)) +
-  scale_fill_manual(labels = c("Violent", "Nonviolent"),
-                    values = c("#F8BE3D", "#007BAB"),
-                    guide = guide_legend(title = "Offense Type")) +
-  xlim(0, 210)
+       y = "Number of Charges",
+       caption = "Total number of people arrested: 233") +
+  scale_y_continuous(breaks = c(1:15))
 
 ```
 
@@ -188,7 +186,8 @@ group_by(yr = year(arrest_datetime), grp) %>%
   geom_col() +
   labs(title = "Distribution of Violent Gun-Related Arrests",
        x = "Year",
-       y = "Number of Arrests") +
+       y = "Number of Arrests",
+       caption = "Note: the dataset begins in May 2019 and ends in April 2024, so only half of those years are represented.") +
   scale_fill_manual(labels = c("Violent", "Nonviolent"),
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Offense Type")) +
@@ -236,3 +235,10 @@ fai_age %>%
 ```
 
 
+### National Incident-Based Reporting System
+
+Crime data for Virginia are derived from National Incident-Based Reporting System (NIBRS) reports voluntarily submitted to the FBI.
+
+The 2022 estimated Crime statistics for Virginia are based on data received from 410 of 418 participating law enforcement agencies in the state that year.
+
+CDE visual displays and the components of Crime in the Nation, 2022, include data submitted to the UCR Program as of May 1, 2023. Because some states' and agencies' data files are based on an earlier deadline, the final datasets and figures those states published on their respective websites for 2022 may not align with the data published on the CDE. For example, Michigan's annual crime report includes 2022 data submitted through March 1, 2023; the FBI's data for the state includes 2022 data submitted up to May 1, 2023.

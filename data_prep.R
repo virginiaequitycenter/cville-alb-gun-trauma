@@ -29,6 +29,7 @@ write_csv(gva_participants, "data/gva_participants.csv")
 
 # *Crime Data ----
 # This data can be accessed by the ODP REST API and then saved as a CSV
+# Date range: 2019-04-20 through 2024-04-12
 
 # There are 3 incident types that directly pertain to gun violence: "Shots Fired/Illegal Hunting", "Robbery - Armed", "Weapons Violations"
 
@@ -58,7 +59,7 @@ odp_arrests <- read_csv("data/raw/arrests.csv") %>%
   clean_names()
 
 # De-Identify
-odp_arrests %<>%
+odp_arrests <- odp_arrests %>%
   select(-name_suffix, -arrest_id) %>%
   filter(str_detect(statute_description, "FIREARM|GUN|SHOOT")) %>%
   mutate(arrest_datetime = ymd_hms(arrest_datetime))
@@ -76,7 +77,7 @@ odp_arrests %<>%
 
 # Geocode 
 odp_arrests %<>% mutate(address = paste(house_number, street, "Charlottesville VA"))
-lon_lat_arrests <- geocode(odp_arrests$address)
+# lon_lat_arrests <- geocode(odp_arrests$address)
 sum(is.na(lon_lat_arrests$lon)) #0 
 odp_arrests <- bind_cols(odp_arrests, lon_lat_arrests)
 

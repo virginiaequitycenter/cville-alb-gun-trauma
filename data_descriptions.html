@@ -3575,10 +3575,15 @@ group_by(yr = year(arrest_datetime), grp) %&gt;%
 <div id="virginia-open-data-portal" class="section level3 tabset">
 <h3 class="tabset">Virginia Open Data Portal</h3>
 <p>The <a href="https://data.virginia.gov/">Virginia Open Data
-Portal</a> includes the number and rate of emergency department (ED)
-visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated
-by county, health district, and patient demographics. This data is
-supplied by the Virginia Department of Health and updated monthly.</p>
+Portal</a> includes information about emergency department visits for
+firearm injuries along with death certificates for firearm-related
+causes of death.</p>
+<p>This data is supplied by the Virginia Department of Health and
+updated monthly.</p>
+<div id="injuries-in-cvillealbemarle" class="section level4">
+<h4>Injuries in Cville/Albemarle</h4>
+<p>The VDH data groups Charlottesville City and Albemarle county
+together for their firearm injury counts.</p>
 <p>Firearm injury visits are identified using key terms in the chief
 complaint (reason for visit) and discharge diagnosis codes. Key terms
 include: gun with wound, GSW, gunshot, buckshot, revolver, rifle,
@@ -3591,51 +3596,102 @@ Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003,
 242869008, 219199009, 219200007, 219201006, 219204003, 219205002,
 219203009, 219198001, 219142001, 219143006, 219144000, 219145004,
 219146003, 287184008, 287193009.</p>
-<p>Exclusions: follow-up visits, visits involving other types of guns
-(e.g., staple gun), visits where firearm was used as a weapon but not
-fired (e.g., pistol whip). City/county localities are assigned using the
-patient’s residential zip code for Virginia residents. Patients with
-non-Virginia or unknown zip codes are grouped as ‘Out of State.’</p>
-<div id="cville-albemarle-county" class="section level4">
-<h4>Cville &amp; Albemarle County</h4>
+<p>Exclusions include follow-up visits, visits involving other types of
+guns (e.g., staple gun), visits where firearm was used as a weapon but
+not fired (e.g., pistol whip). City/county localities are assigned using
+the patient’s residential zip code for Virginia residents. Patients with
+non-Virginia or unknown zip codes are grouped as ‘Out of State.’ This
+aggregation doesn’t include any demographic information.</p>
 <pre class="r"><code>fai_county &lt;- read_csv(&quot;data/fai_county.csv&quot;) 
 
 fai_county %&gt;%
   filter(str_detect(patient_city_county, &quot;Albemarle&quot;)) %&gt;%
   arrange(year) %&gt;%
   select(-patient_city_county) %&gt;%
-  reactable()</code></pre>
-<div class="reactable html-widget html-fill-item" id="htmlwidget-a4a9db40256d1846c51e" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a4a9db40256d1846c51e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"year":[2015,2016,2017,2018,2019,2020,2021,2022,2023],"firearm_injury_visits":[31,30,28,25,22,29,18,23,35],"total_ed_visits":[47487,49498,51747,50026,50827,34875,46639,51989,54837],"rate_of_firearm_injuries_per_10k_ed_visits":[6.5,6.1,5.4,5,4.3,8.3,3.9,4.4,6.4]},"columns":[{"id":"year","name":"year","type":"numeric"},{"id":"firearm_injury_visits","name":"firearm_injury_visits","type":"numeric"},{"id":"total_ed_visits","name":"total_ed_visits","type":"numeric"},{"id":"rate_of_firearm_injuries_per_10k_ed_visits","name":"rate_of_firearm_injuries_per_10k_ed_visits","type":"numeric"}],"dataKey":"249869bc14cda9cace7547372674317f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) str_to_title(gsub(&quot;_&quot;, &quot; &quot;, value, fixed = TRUE)),
+      align = &quot;center&quot;,
+      defaultSortOrder = &quot;desc&quot;,
+      headerStyle = list(background = &quot;#f7f7f8&quot;)),
+    columns = list(
+      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+    bordered = TRUE,
+    highlight = TRUE) %&gt;%
+  add_title(title = &quot;Rates of Firearm Injuries in Charlottesville and Albemarle&quot;, 
+            font_size = 20,
+            font_weight = &quot;normal&quot;,
+            margin = margin(b = 5)) %&gt;%
+  add_subtitle(subtitle = &quot;2015-2023&quot;,
+               font_size = 16,
+               font_weight = &quot;normal&quot;,
+               margin = margin(b = 5)) %&gt;%
+  add_source(source = &quot;Source: https://data.virginia.gov/dataset/vdh-pud-fai-by-citycounty&quot;,
+             align = &quot;right&quot;,
+             font_size = 10,
+             font_style = &quot;italic&quot;)</code></pre>
+<h1 style="color:#000;background:#FFFFFF;text-align:left;font-size:20px;font-style:normal;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:5px;margin-left:0px">Rates of Firearm Injuries in Charlottesville and Albemarle</h1>
+<h2 style="color:#000;background:#FFFFFF;text-align:left;font-size:16px;font-style:normal;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:5px;margin-left:0px">2015-2023</h2>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-9a645effed5970baa465" style="width:auto;height:auto;"></div>
+<p style="color:#000;background:#FFFFFF;text-align:right;font-size:10px;font-style:italic;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:0px;margin-left:0px">Source: https://data.virginia.gov/dataset/vdh-pud-fai-by-citycounty</p>
+<script type="application/json" data-for="htmlwidget-9a645effed5970baa465">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"year":[2015,2016,2017,2018,2019,2020,2021,2022,2023],"firearm_injury_visits":[31,30,28,25,22,29,18,23,35],"total_ed_visits":[47487,49498,51747,50026,50827,34875,46639,51989,54837],"rate_of_firearm_injuries_per_10k_ed_visits":[6.5,6.1,5.4,5,4.3,8.3,3.9,4.4,6.4]},"columns":[{"id":"year","name":"year","type":"numeric","defaultSortDesc":true,"header":"Year","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"firearm_injury_visits","name":"firearm_injury_visits","type":"numeric","defaultSortDesc":true,"header":"Firearm Injury Visits","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"total_ed_visits","name":"total_ed_visits","type":"numeric","defaultSortDesc":true,"header":"Total Ed Visits","align":"center","headerStyle":{"background":"#f7f7f8"},"format":{"cell":{"separators":true},"aggregated":{"separators":true}}},{"id":"rate_of_firearm_injuries_per_10k_ed_visits","name":"rate_of_firearm_injuries_per_10k_ed_visits","type":"numeric","defaultSortDesc":true,"header":"Rate Of Firearm Injuries Per 10k Ed Visits","align":"center","headerStyle":{"background":"#f7f7f8"}}],"highlight":true,"bordered":true,"dataKey":"a159e3fdd9940070c9b2cd04c0af6f17"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="blue-ridge-health-district" class="section level4">
-<h4>Blue Ridge Health District</h4>
+<div id="deaths-in-blue-ridge-health-district" class="section level4">
+<h4>Deaths in Blue Ridge Health District</h4>
 <p>The Blue Ridge Health District includes Charlottesville City,
-Albemarle, Greene, Louisa, Fluvanna, and Nelson County.</p>
+Albemarle, Greene, Louisa, Fluvanna, and Nelson County. This is the
+smallest age aggregation from the VDH.</p>
+<p>This dataset includes the number and rate of firearm-related deaths
+among Virginia residents by patient health district and Age over 5
+combined years. Virginia Department of Health (VDH) health districts are
+assigned based on the residence of the patient at the time of death, not
+where the death occurred. Data include Virginia residents only, whether
+or not they died in Virginia. Data set includes deaths from 2018 through
+2022.</p>
+<p>The VDH Office of Vital Records tracks causes of death among Virginia
+residents using death certificates. Codes on the death certificate
+indicate underlying and contributing causes of death. Deaths are
+classified as firearm-related using the definition from the Centers for
+Disease Control and Prevention State Injury Indicators Report</p>
 <pre class="r"><code>fai_age &lt;- read_csv(&quot;data/fai_age.csv&quot;)
 
 fai_age %&gt;%
+  select(-health_district) %&gt;%
   arrange(age_group) %&gt;%
-  reactable(defaultPageSize = 11)</code></pre>
-<div class="reactable html-widget html-fill-item" id="htmlwidget-5bf91f279db5296d3172" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5bf91f279db5296d3172">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"health_district":["Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge","Blue Ridge"],"age_group":["0-9 years","10-14 years","15-17 years","18-19 years","20-24 years","25-34 years","35-44 years","45-54 years","55-64 years","65-74 years","75+ years"],"firearm_deaths":[1,1,2,8,15,25,22,15,17,19,16],"rate_of_firearm_deaths_per_100k_pop":[0.7,1.4,4.8,18.3,15.3,14.2,14.2,10,9.8,13.1,16.3]},"columns":[{"id":"health_district","name":"health_district","type":"character"},{"id":"age_group","name":"age_group","type":"character"},{"id":"firearm_deaths","name":"firearm_deaths","type":"numeric"},{"id":"rate_of_firearm_deaths_per_100k_pop","name":"rate_of_firearm_deaths_per_100k_pop","type":"numeric"}],"defaultPageSize":11,"dataKey":"f01634f8285a3859ca344aa507490646"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) str_to_title(gsub(&quot;_&quot;, &quot; &quot;, value, fixed = TRUE)),
+      align = &quot;center&quot;,
+      defaultSortOrder = &quot;desc&quot;,
+      headerStyle = list(background = &quot;#f7f7f8&quot;)),
+    columns = list(
+      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+    bordered = TRUE,
+    highlight = TRUE,
+    defaultPageSize = 11) %&gt;%
+  add_title(title = &quot;Firearm Deaths by Age in the Blue Ridge Health District&quot;, 
+            font_size = 20,
+            font_weight = &quot;normal&quot;,
+            margin = margin(b = 5)) %&gt;%
+  add_subtitle(subtitle = &quot;2018-2022&quot;,
+               font_size = 16,
+               font_weight = &quot;normal&quot;,
+               margin = margin(b = 5)) %&gt;%
+  add_source(source = &quot;Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-age&quot;,
+             align = &quot;right&quot;,
+             font_size = 10,
+             font_style = &quot;italic&quot;)</code></pre>
+<h1 style="color:#000;background:#FFFFFF;text-align:left;font-size:20px;font-style:normal;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:5px;margin-left:0px">Firearm Deaths by Age in the Blue Ridge Health District</h1>
+<h2 style="color:#000;background:#FFFFFF;text-align:left;font-size:16px;font-style:normal;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:5px;margin-left:0px">2018-2022</h2>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-5570623178f2418d5123" style="width:auto;height:auto;"></div>
+<p style="color:#000;background:#FFFFFF;text-align:right;font-size:10px;font-style:italic;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:0px;margin-left:0px">Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-age</p>
+<script type="application/json" data-for="htmlwidget-5570623178f2418d5123">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"age_group":["0-9 years","10-14 years","15-17 years","18-19 years","20-24 years","25-34 years","35-44 years","45-54 years","55-64 years","65-74 years","75+ years"],"firearm_deaths":[1,1,2,8,15,25,22,15,17,19,16],"rate_of_firearm_deaths_per_100k_pop":[0.7,1.4,4.8,18.3,15.3,14.2,14.2,10,9.8,13.1,16.3]},"columns":[{"id":"age_group","name":"age_group","type":"character","defaultSortDesc":true,"header":"Age Group","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"firearm_deaths","name":"firearm_deaths","type":"numeric","defaultSortDesc":true,"header":"Firearm Deaths","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"rate_of_firearm_deaths_per_100k_pop","name":"rate_of_firearm_deaths_per_100k_pop","type":"numeric","defaultSortDesc":true,"header":"Rate Of Firearm Deaths Per 100k Pop","align":"center","headerStyle":{"background":"#f7f7f8"}}],"defaultPageSize":11,"highlight":true,"bordered":true,"dataKey":"63bf816678d4301f8aca44a808653861"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div id="national-incident-based-reporting-system" class="section level3">
-<h3>National Incident-Based Reporting System</h3>
-<p>Crime data for Virginia are derived from National Incident-Based
-Reporting System (NIBRS) reports voluntarily submitted to the FBI.</p>
-<p>The 2022 estimated Crime statistics for Virginia are based on data
-received from 410 of 418 participating law enforcement agencies in the
-state that year.</p>
-<p>CDE visual displays and the components of Crime in the Nation, 2022,
-include data submitted to the UCR Program as of May 1, 2023. Because
-some states’ and agencies’ data files are based on an earlier deadline,
-the final datasets and figures those states published on their
-respective websites for 2022 may not align with the data published on
-the CDE. For example, Michigan’s annual crime report includes 2022 data
-submitted through March 1, 2023; the FBI’s data for the state includes
-2022 data submitted up to May 1, 2023.</p>
+<div id="fbi-data-explorer" class="section level2 tabset">
+<h2 class="tabset">FBI Data Explorer</h2>
+<p>Crime data for Virginia are pulled from the <a href="https://va.beyond2020.com/va_public/Browse/browsetables.aspx">Uniform
+Crime Reporting</a> database.</p>
 </div>
 
 

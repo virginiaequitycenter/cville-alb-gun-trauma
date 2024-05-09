@@ -15,6 +15,7 @@ library(janitor)
 library(lubridate)
 library(magrittr)
 library(reactable)
+library(reactablefmtr)
 library(tidyverse)
 
 ```
@@ -200,14 +201,18 @@ group_by(yr = year(arrest_datetime), grp) %>%
 
 ### Virginia Open Data Portal {.tabset}
 
-The [Virginia Open Data Portal](https://data.virginia.gov/) includes the number and rate of emergency department (ED) visits for firearm injury (FAI) in Virginia from 2015 - 2024, aggregated by county, health district, and patient demographics. This data is supplied by the Virginia Department of Health and updated monthly. 
+The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries along with death certificates for firearm-related causes of death. 
+
+This data is supplied by the Virginia Department of Health and updated monthly. 
+
+#### Injuries in Cville/Albemarle
+
+The VDH data groups Charlottesville City and Albemarle county together for their firearm injury counts. 
 
 Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. 
 ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009. 
 
-Exclusions: follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
-
-#### Cville & Albemarle County
+Exclusions include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' This aggregation doesn't include any demographic information. 
 
 ```{r vdh_county}
 
@@ -217,28 +222,81 @@ fai_county %>%
   filter(str_detect(patient_city_county, "Albemarle")) %>%
   arrange(year) %>%
   select(-patient_city_county) %>%
-  reactable()
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "center",
+      defaultSortOrder = "desc",
+      headerStyle = list(background = "#f7f7f8")),
+    columns = list(
+      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+    bordered = TRUE,
+    highlight = TRUE) %>%
+  add_title(title = "Rates of Firearm Injuries in Charlottesville and Albemarle", 
+            font_size = 20,
+            font_weight = "normal",
+            margin = margin(b = 5)) %>%
+  add_subtitle(subtitle = "2015-2023",
+               font_size = 16,
+               font_weight = "normal",
+               margin = margin(b = 5)) %>%
+  add_source(source = "Source: https://data.virginia.gov/dataset/vdh-pud-fai-by-citycounty",
+             align = "right",
+             font_size = 10,
+             font_style = "italic")
 
 ```
 
-#### Blue Ridge Health District
+#### Deaths in Blue Ridge Health District
 
-The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. 
+The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. This is the smallest age aggregation from the VDH. 
 
-```{r vdh_district}
+This dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and Age over 5 combined years. Virginia Department of Health (VDH) health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data include Virginia residents only, whether or not they died in Virginia. Data set includes deaths from 2018 through 2022.
+
+The VDH Office of Vital Records tracks causes of death among Virginia residents using death certificates. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control and Prevention State Injury Indicators Report
+
+```{r vdh_ages}
 
 fai_age <- read_csv("data/fai_age.csv")
 
 fai_age %>%
+  select(-health_district) %>%
   arrange(age_group) %>%
-  reactable(defaultPageSize = 11)
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "center",
+      defaultSortOrder = "desc",
+      headerStyle = list(background = "#f7f7f8")),
+    columns = list(
+      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+    bordered = TRUE,
+    highlight = TRUE,
+    defaultPageSize = 11) %>%
+  add_title(title = "Firearm Deaths by Age in the Blue Ridge Health District", 
+            font_size = 20,
+            font_weight = "normal",
+            margin = margin(b = 5)) %>%
+  add_subtitle(subtitle = "2018-2022",
+               font_size = 16,
+               font_weight = "normal",
+               margin = margin(b = 5)) %>%
+  add_source(source = "Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-age",
+             align = "right",
+             font_size = 10,
+             font_style = "italic")
+
 ```
 
 
-### National Incident-Based Reporting System
+## FBI Data Explorer {.tabset}
 
-Crime data for Virginia are derived from National Incident-Based Reporting System (NIBRS) reports voluntarily submitted to the FBI.
+Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. 
 
-The 2022 estimated Crime statistics for Virginia are based on data received from 410 of 418 participating law enforcement agencies in the state that year.
 
-CDE visual displays and the components of Crime in the Nation, 2022, include data submitted to the UCR Program as of May 1, 2023. Because some states' and agencies' data files are based on an earlier deadline, the final datasets and figures those states published on their respective websites for 2022 may not align with the data published on the CDE. For example, Michigan's annual crime report includes 2022 data submitted through March 1, 2023; the FBI's data for the state includes 2022 data submitted up to May 1, 2023.
+
+
+
+
+
+

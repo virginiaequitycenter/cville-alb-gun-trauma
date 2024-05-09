@@ -51,13 +51,13 @@ gva_incidents %>%
   pivot_longer(matches("total")) %>% 
   ggplot(aes(x = yr, y = value, fill = name)) +
   geom_col() +
-  scale_fill_discrete(name = "Victim Status",
-                      breaks = c("total_injured", "total_killed"),
-                      labels = c("Injured", "Killed")) +
   labs(title = "Victims of Gun Violence in the Charlottesville/Albemarle Region",
        x = "Year",
        y = "Number of Victims") +
-  theme(axis.text.x = element_text(angle=35))
+  theme(axis.text.x = element_text(angle=35)) +
+  scale_fill_manual(labels = c("Injured", "Killed"),
+                    values = c("#F8BE3D", "#007BAB"),
+                    guide = guide_legend(title = "Victim Status"))
 ```
 
 #### Individual-level data
@@ -72,9 +72,9 @@ gva_participants %>%
   ggplot(aes(age, fill = role)) +
   geom_histogram(position = 'identity') +
   facet_grid(~role) +
-  scale_fill_discrete(name = "Role",
-                      breaks = c("suspect", "victim"),
-                      labels = c("Suspect", "Victim")) +
+scale_fill_manual(labels = c("Injured", "Killed"),
+                    values = c("#F8BE3D", "#007BAB"),
+                    guide = guide_legend(title = "Victim Status")) +
   labs(title = "Ages of Participants",
        x = "Age",
        y = "Number of People") +
@@ -97,14 +97,14 @@ This is not a definitive collection of public safety data for Charlottesville. W
 
 ```{r odp_crimemap, fig.show="hold", out.width="50%"}
 
-odp_data <- read_csv("data/odp_data.csv") 
-arrests <- read_csv("data/arrests.csv")
+odp_crimes <- read_csv("data/odp_crimes.csv") 
+odp_arrests <- read_csv("data/odp_arrests.csv")
 
 cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), maptype = "roadmap", color = "bw")
 
-#Reports
+# Geographic spread
 ggmap(cville_map) +
-  stat_density2d(data = odp_data, aes(fill = ..level.., alpha = 0.1), # removes 55 values
+  stat_density2d(data = odp_crimes, aes(fill = ..level.., alpha = 0.1), # removes 55 values
                  geom = "polygon") +
   theme(legend.position="none") +
   scale_fill_viridis_c(direction = -1) +
@@ -117,7 +117,7 @@ ggmap(cville_map) +
   ggtitle("Gun-Related Crime Reports")
 
 ggmap(cville_map) +
-  stat_density2d(data = arrests, aes(fill = ..level.., alpha = 0.1), # removes 96 values
+  stat_density2d(data = odp_arrests, aes(fill = ..level.., alpha = 0.1), # removes 96 values
                  geom = "polygon") +
   theme(legend.position="none") +
   scale_fill_viridis_c(direction = -1) +
@@ -150,45 +150,51 @@ From the Charlottesville Open Data Portal:
 
 >"Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
 
-The below data contains the distribution of arrest counts for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 only have one gun-related charge, 53 have two charges, and one person has 15 charges. 
+The below data contains the distribution of arrest counts for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 only have one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, half of all people arrested for gun-related crimes have between 2-4 charges.
 
 ```{r odp_arrests}
 
-# Plot 1
-arrests %>%
-  group_by(id) %>%
+# Distribution of arrests by person
+odp_arrests %>%
+  group_by(id, grp) %>%
   summarise(charges = n()) %>%
   ggplot() +
-  geom_bar(aes(y = charges)) +
+  geom_bar(aes(y = charges, fill = grp)) +
   geom_text(aes(y = charges, label =..count..), stat = "count", hjust = -0.25) +
   labs(title = "Distribution of Gun-Related Arrests",
        x = "Number of People",
        y = "Number of Charges") +
-  scale_y_continuous(breaks = c(1:15))
+  scale_y_continuous(breaks = c(1:15)) +
+  scale_fill_manual(labels = c("Violent", "Nonviolent"),
+                    values = c("#F8BE3D", "#007BAB"),
+                    guide = guide_legend(title = "Offense Type")) +
+  xlim(0, 210)
 
-# Plot 2
-arrests %>%
-  group_by(id) %>%
-  summarise(charges = n()) %>%
-  mutate(grp = case_when(charges == 1 ~ "1", 
-                         charges %in% 2:4 ~ "2-4",
-                         TRUE ~ "5 or more")) %>%
-  group_by(grp) %>%
-  summarise(charges = sum(charges)) %>%
-  ungroup() %>%
-  mutate(lbl = scales::percent(charges/sum(charges))) %>%
-  ggplot(aes(x = "", y = charges, fill = grp, label = lbl)) +
-  geom_col() +
-  geom_text(position = "stack", vjust = 2) +
-  labs(title = "Distribution of Gun-Related Arrests",
-       y = "Number of Charges",
-       x = "n = 233") +
-  scale_fill_discrete(name = "Charges per Person") 
-
-  
 ```
 
+#### Violent Offenses
 
+Arrests charges are considered violent if the statute description includes phrases such as *shooting*, *assault*, *discharge*, *pointing*, or *reckless*. Nonviolent offenses mostly consist of possession and distribution charges. 
+
+If we organize the gun-related arrests into violent vs. nonviolent offenses, we can see that both types of arrests are equally distributed, with the number of non-violent arrests slightly increasing between 2021 - 2023. In general, for every violent arrest, there is at least one other nonviolent arrest. Is this because charges often get stacked against individuals? 
+
+```{r violent_offenses}
+
+# Distribution of violent arrests 
+odp_arrests %>%
+group_by(yr = year(arrest_datetime), grp) %>%
+  summarise(n = n()) %>%
+  ggplot(aes(x = yr, y = n, fill = grp)) +
+  geom_col() +
+  labs(title = "Distribution of Violent Gun-Related Arrests",
+       x = "Year",
+       y = "Number of Arrests") +
+  scale_fill_manual(labels = c("Violent", "Nonviolent"),
+                    values = c("#F8BE3D", "#007BAB"),
+                    guide = guide_legend(title = "Offense Type")) +
+  theme(axis.text.x = element_text(angle=35))
+
+```
 
 
 ------------------------------------------------------------------------

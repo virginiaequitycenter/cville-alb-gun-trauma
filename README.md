@@ -8,4 +8,4 @@ Building a data collection for Charlottesville & Albemarle gun trauma research a
 
 Please note that the cville-alb-gun-trauma project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
-[![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png){width="250"}](https://www.virginiaequitycenter.org/)
+![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png)

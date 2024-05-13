@@ -24,21 +24,31 @@ The data listed below represent information that is publicly and readily availab
 
 All of this data is administrative and made up of information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data. Granted personal info is scrubbed from this report, we should keep in mind that these are people and members of our community that we are talking about.
 
----
+The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source.
 
-### Gun Violence Archive {.tabset}
+------------------------------------------------------------------------
+
+# Gun Violence Archive {.tabset}
 
 The national [Gun Violence Archive](https://www.gunviolencearchive.org/) describes gun violence as:
 
-> "all incidents of death or injury or threat with firearms... Violence is defined without intent or consequence as a consideration. To that end a shooting of a victim by a subject/suspect is considered gun violence as is a defensive use or an officer involved shooting. The act itself, no matter the reason is violent in nature."
+> "all incidents of death or injury or threat with firearms... a shooting of a victim by a subject/suspect is considered gun violence as is a defensive use or an officer involved shooting. The act itself, no matter the reason is violent in nature."
 
-This database includes information collected from public news sources about 201 incidents of gun violence in the Charlottesville/Albemarle region from May 2014 - Feb 2024. The incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault, suicide, and homicide.
-
-Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
+This database includes information collected from public news sources about 201 incidents of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. The incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault, suicide, and homicide.
 
 The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as injury, homicide, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
 
-#### Incident-level data
+<details>
+
+<summary>Exclusions</summary>
+
+Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
+
+</details>
+
+<br>
+
+## Incident-level data
 
 ```{r gva_incidents}
 
@@ -54,14 +64,15 @@ gva_incidents %>%
   geom_col() +
   labs(title = "Victims of Gun Violence in the Charlottesville/Albemarle Region",
        x = "Year",
-       y = "Number of Victims") +
+       y = "Number of Victims",
+       caption = "Total incidents: 201") +
   theme(axis.text.x = element_text(angle=35)) +
   scale_fill_manual(labels = c("Injured", "Killed"),
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Victim Status"))
 ```
 
-#### Individual-level data
+## Individual-level data
 
 ```{r gva_participants}
 
@@ -78,30 +89,36 @@ scale_fill_manual(labels = c("Suspect", "Victim"),
                     guide = guide_legend(title = "Participant Role")) +
   labs(title = "Ages of Participants",
        x = "Age",
-       y = "Number of People") +
+       y = "Number of People", 
+       caption = "Total particpants: 306") +
   theme(axis.text.x = element_text(angle=35))
-
 ```
 
+------------------------------------------------------------------------
 
----
+# Charlottesville Open Data Portal {.tabset}
 
-### Charlottesville Open Data Portal {.tabset}
+The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes 526 gun-related crime reports, and 390 gun-related arrests in City of Charlottesville from March 2019 through April 2024. The data is managed by the Charlottesville Police Department and updated nightly.
 
-The [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about) includes over 500 gun-related crime reports, and over 400 gun-related arrests in City of Charlottesville from March 2019 through April 2024. The data is managed by the Charlottesville Police Department and updated nightly. 
-
-The dataset is made up of two dataframes: one includes information about initial crime reports and the other includes arrest data. Both datasets have been anonymized to remove names and other identifiable information. 
+The dataset is made up of two dataframes: one includes information about initial crime reports and the other includes arrest data. Both datasets have been anonymized to remove names and other identifiable information.
 
 This is not a definitive collection of public safety data for Charlottesville. We should consider the factors that influence the inclination of an individual calling the police. Are there systematic reasons that someone might call the police more or less than someone else? It's also significant to note that just because a call was made, does not mean that an arrest was made. All individuals are innocent until proven guilty in a court of law.
 
-<i>These datasets only contain information reported by City of Charlottesville Police. It does not contain information about incidents that solely involve other police departments operating within the city (for example, University of Virginia police or Albemarle County police).</i>
+<details>
 
-```{r odp_crimemap, fig.show="hold", out.width="50%"}
+<summary>Exclusions</summary>
+
+These datasets only contain information reported by City of Charlottesville Police. It does not contain information about incidents that solely involve other police departments operating within the city (for example, University of Virginia police or Albemarle County police).
+
+</details>
+
+```{r odp_crimemap, fig.show="hold", fig.width=4, out.width= "50%"}
 
 odp_crimes <- read_csv("data/odp_crimes.csv") 
 odp_arrests <- read_csv("data/odp_arrests.csv")
 
-cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), maptype = "roadmap", color = "bw")
+cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), 
+                      maptype = "roadmap", color = "bw")
 
 # Geographic spread
 ggmap(cville_map) +
@@ -115,7 +132,8 @@ ggmap(cville_map) +
         axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank()) +
-  ggtitle("Gun-Related Crime Reports")
+  labs(title = "Gun-Related Crime Reports",
+       caption = "Total reports: 526")
 
 ggmap(cville_map) +
   stat_density2d(data = odp_arrests, aes(fill = ..level.., alpha = 0.1), # removes 96 values
@@ -128,30 +146,30 @@ ggmap(cville_map) +
         axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank()) +
-  ggtitle("Gun-Related Arrests")
+  labs(title = "Gun-Related Arrests",
+       caption = "Total arrests: 390")
 
 ```
 
-#### Crime Reports 
+## Crime Reports
 
-As defined by the Charlottesville Police Department, a crime report 
+As defined by the Charlottesville Police Department, a crime report
 
->"represents the initial information that is provided by individuals calling for police assistance." 
+> "represents the initial information that is provided by individuals calling for police assistance."
 
-The crime dataset includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer. The data is maintained by CPD and updated nightly. 
+The crime dataset includes 526 calls for police assistance and includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer. The data is maintained by CPD and updated nightly.
 
-The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled "Shots Fired/Illegal Hunting," "Robbery - Armed," and "Weapons Violations" are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have "Assault" as the primary offense are not included because we cannot be certain the assault included firearm. 
+The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled *Shots Fired/Illegal Hunting*, *Robbery - Armed*, and *Weapons Violations* are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have *Assault* as the primary offense are not included because we cannot be certain the assault included firearm. 
 
+------------------------------------------------------------------------
 
----
-
-#### Arrest Reports
+## Arrest Reports
 
 From the Charlottesville Open Data Portal:
 
->"Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
+> "Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
 
-The below data contains the distribution of arrest counts for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, half of all people arrested for gun-related crimes have between 2-4 charges.
+The below data contains the distribution of 390 arrests for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, half of all people arrested for gun-related crimes have between 2-4 charges.
 
 ```{r odp_arrests}
 
@@ -168,16 +186,17 @@ odp_arrests %>%
        y = "Number of Charges",
        caption = "Total number of people arrested: 233") +
   scale_y_continuous(breaks = c(1:15))
-
 ```
 
-#### Violent Offenses
+------------------------------------------------------------------------
 
-Arrests charges are considered violent if the statute description includes phrases such as *shooting*, *assault*, *discharge*, *pointing*, or *reckless*. Nonviolent offenses mostly consist of possession and distribution charges. 
+## Violent Offenses
 
-If we organize the gun-related arrests into violent vs. nonviolent offenses, we can see that both types of arrests are equally distributed, with the number of non-violent arrests slightly increasing between 2021 - 2023. In general, for every violent arrest, there is at least one other nonviolent arrest. Is this because charges often get stacked against individuals? 
+Arrests charges are considered violent if the statute description includes phrases such as *shooting*, *assault*, *discharge*, *pointing*, or *reckless*. Nonviolent offenses mostly consist of possession and distribution charges.
 
-```{r violent_offenses}
+If we organize the gun-related arrests into violent vs. nonviolent offenses, we can see that both types of arrests are equally distributed, with the number of non-violent arrests slightly increasing between 2021 - 2023. In general, for every violent arrest, there is at least one other nonviolent arrest. Is this because charges often get stacked against individuals?
+
+```{r odp_violence}
 
 # Distribution of violent arrests 
 odp_arrests %>%
@@ -196,23 +215,25 @@ group_by(yr = year(arrest_datetime), grp) %>%
 
 ```
 
-
 ------------------------------------------------------------------------
 
-### Virginia Open Data Portal {.tabset}
+# Virginia Open Data Portal {.tabset}
 
-The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries along with death certificates for firearm-related causes of death. 
+The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries along with death certificates for firearm-related causes of death.
 
-This data is supplied by the Virginia Department of Health and updated monthly. 
+This data is supplied by the Virginia Department of Health and updated monthly.
 
-#### Injuries in Cville/Albemarle
+<details>
+<summary>Exclusions</summary>
+Exclusions include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
+</details>
+<br>
 
-The VDH data groups Charlottesville City and Albemarle county together for their firearm injury counts. 
+## Injuries in Cville/Albemarle
 
-Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. 
-ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009. 
+The Virginia Department of Health groups Charlottesville City and Albemarle county together for their firearm injury counts from 2015 - 2023. This aggregation doesn't include any demographic information.
 
-Exclusions include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' This aggregation doesn't include any demographic information. 
+Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009.
 
 ```{r vdh_county}
 
@@ -231,25 +252,13 @@ fai_county %>%
     columns = list(
       total_ed_visits = colDef(format = colFormat(separators = TRUE))),
     bordered = TRUE,
-    highlight = TRUE) %>%
-  add_title(title = "Rates of Firearm Injuries in Charlottesville and Albemarle", 
-            font_size = 20,
-            font_weight = "normal",
-            margin = margin(b = 5)) %>%
-  add_subtitle(subtitle = "2015-2023",
-               font_size = 16,
-               font_weight = "normal",
-               margin = margin(b = 5)) %>%
-  add_source(source = "Source: https://data.virginia.gov/dataset/vdh-pud-fai-by-citycounty",
-             align = "right",
-             font_size = 10,
-             font_style = "italic")
+    highlight = TRUE) 
 
 ```
 
-#### Deaths in Blue Ridge Health District
+## Deaths in Blue Ridge Health District
 
-The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. This is the smallest age aggregation from the VDH. 
+The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. This is the smallest age aggregation from the VDH.
 
 This dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and Age over 5 combined years. Virginia Department of Health (VDH) health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data include Virginia residents only, whether or not they died in Virginia. Data set includes deaths from 2018 through 2022.
 
@@ -273,30 +282,49 @@ fai_age %>%
     bordered = TRUE,
     highlight = TRUE,
     defaultPageSize = 11) %>%
-  add_title(title = "Firearm Deaths by Age in the Blue Ridge Health District", 
-            font_size = 20,
-            font_weight = "normal",
-            margin = margin(b = 5)) %>%
-  add_subtitle(subtitle = "2018-2022",
-               font_size = 16,
-               font_weight = "normal",
-               margin = margin(b = 5)) %>%
-  add_source(source = "Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-age",
+  add_source(source = "Years: 2018-2022",
              align = "right",
-             font_size = 10,
-             font_style = "italic")
+             font_size = 12)
 
 ```
 
+------------------------------------------------------------------------
 
-## FBI Data Explorer {.tabset}
+# FBI Data Explorer
 
-Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. 
-
-
-
+Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database.
 
 
+### Definitions 
 
+The **Number of Crimes** measure is calculated using the FBI Unit of Count. It equals the number of offenses committed during an incident, except in the following cases:
 
+- If Offense Type is Crimes against Person, then the count is set to Number of Victims. 
 
+- If Offense Type is Motor Vehicle Theft, then the count is set to Attempted Motor Vehicle Thefts plus the Number of Stolen Motor Vehicles.
+
+Each offense belongs to one of three categories: **Crimes Against Persons, Crimes Against Property, and Crimes Against Society**. This is measured under the `type` variable. Crimes Against Persons, e.g., murder, rape, and assault, are those whose victims are always individuals. The object of Crimes Against Property, e.g., robbery, bribery, and burglary, is to obtain money, property, or some other benefit. Crimes Against Society, e.g., gambling, prostitution, and drug violations, represent society’s prohibition against engaging in certain types of activity; they are typically victimless crimes in which property is not the object. See a detailed breakdown here: [FBI Definitions of Crimes Aginst Person, Property, and Society](https://ucr.fbi.gov/nibrs/2012/resources/crimes-against-persons-property-and-society) 
+
+The **Number of Incidents** measure counts the number of incidents with a specific offense type submitted to the system that match the selections in other dimensions. This value is typically lower than the number of offenses, as multiple offenses may be committed within a single incident.
+
+### Data Dictionary 
+
+The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. 
+
+`year`: The annual aggregation of the data. Vales range from 2016 - 2022.
+
+`type`: The type of offense being observed. Can be crime against person, property, or society.  
+
+`n_juvenile`: The number of crimes or incidents committed by a person under 18. 
+
+`n_adult`: The number of crimes or incidents committed by a person above 18. 
+
+`n_unknown`: The number of crimes or incidents where the age was unknown. 
+
+`n_missing`: The number of crimes or incidents where the age was missing. 
+
+`n_total`: The total number of crimes or incidents for a given district in a given year. 
+
+`district`: The geographic location where the crimes and incidents took place. Values can be Charlottesville, Albemarle, and Virginia. 
+
+`est_pop_district`: The estimated population of the district for that year. Calculated from most recent census. This is the denominator for the rate calculations. 

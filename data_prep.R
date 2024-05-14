@@ -116,7 +116,7 @@ write_csv(fai_age, "data/fai_age.csv")
 
 # This data can be accessed using the FBI Crime Data Explorer build-a-table website 
 
-ucr_raw <- read_csv("data/raw/ucr_firearm.csv") %>% 
+ucr <- read_csv("data/raw/ucr_firearm.csv") %>% 
   select(-matches("rate"))
 
 # Combine Cville and Albemarle
@@ -128,36 +128,13 @@ ucr_raw <- read_csv("data/raw/ucr_firearm.csv") %>%
 # ucr <- ucr_raw %>%
 #   bind_rows(combined)
 
-pops = ucr_raw %>% 
+pops <- ucr %>% 
   select(year, district, est_pop_district) %>% 
   distinct()
 
-# Total number of crimes/incidents by type per year by district 
-ucr <- ucr_raw %>%
+ucr <- ucr %>%
   group_by(year, type, district) %>%
   mutate(n_total = sum(n_juvenile, n_adult, n_unknown, n_missing, na.rm = TRUE))
 
-# Plotting rates of total crimes/incidents
-ucr %>% 
-  separate(type, c('group', 'type')) %>% 
-  group_by(district, year, group) %>% 
-  summarise_at(vars(matches('n_')), ~sum(.)) %>% 
-  ungroup() %>% 
-  left_join(pops) %>% 
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
-  ggplot(aes(year, n_total, color = district)) +
-  geom_line() +
-  facet_wrap(~group)
-# should we just focus on incidents and drop crimes?
-
-# Plotting rates of juvenile crime 
-ucr %>% 
-  separate(type, c('group', 'type')) %>% 
-  group_by(district, year, group) %>% 
-  summarise_at(vars(matches('n_')), ~sum(.)) %>% 
-  ungroup() %>% 
-  left_join(pops) %>% 
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
-  ggplot(aes(year, n_juvenile, color = district)) +
-  geom_line() +
-  facet_wrap(~group)
+write_csv(ucr, "data/ucr_firearm.csv")
+write_csv(pops, "data/ucr_pops.csv")

@@ -290,12 +290,9 @@ fai_age %>%
 
 ------------------------------------------------------------------------
 
-# FBI Data Explorer
+# FBI Data Explorer {.tabset}
 
-Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database.
-
-
-### Definitions 
+Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents. 
 
 The **Number of Crimes** measure is calculated using the FBI Unit of Count. It equals the number of offenses committed during an incident, except in the following cases:
 
@@ -303,28 +300,63 @@ The **Number of Crimes** measure is calculated using the FBI Unit of Count. It e
 
 - If Offense Type is Motor Vehicle Theft, then the count is set to Attempted Motor Vehicle Thefts plus the Number of Stolen Motor Vehicles.
 
-Each offense belongs to one of three categories: **Crimes Against Persons, Crimes Against Property, and Crimes Against Society**. This is measured under the `type` variable. Crimes Against Persons, e.g., murder, rape, and assault, are those whose victims are always individuals. The object of Crimes Against Property, e.g., robbery, bribery, and burglary, is to obtain money, property, or some other benefit. Crimes Against Society, e.g., gambling, prostitution, and drug violations, represent society’s prohibition against engaging in certain types of activity; they are typically victimless crimes in which property is not the object. See a detailed breakdown here: [FBI Definitions of Crimes Aginst Person, Property, and Society](https://ucr.fbi.gov/nibrs/2012/resources/crimes-against-persons-property-and-society) 
-
 The **Number of Incidents** measure counts the number of incidents with a specific offense type submitted to the system that match the selections in other dimensions. This value is typically lower than the number of offenses, as multiple offenses may be committed within a single incident.
 
-### Data Dictionary 
+Each offense belongs to one of three categories: **Crimes Against Persons, Crimes Against Property, and Crimes Against Society**. This is measured under the `type` variable. Crimes Against Persons, e.g., murder, rape, and assault, are those whose victims are always individuals. The object of Crimes Against Property, e.g., robbery, bribery, and burglary, is to obtain money, property, or some other benefit. Crimes Against Society, e.g., gambling, prostitution, and drug violations, represent society’s prohibition against engaging in certain types of activity; they are typically victimless crimes in which property is not the object. See a detailed breakdown here: [FBI Definitions of Crimes Aginst Person, Property, and Society](https://ucr.fbi.gov/nibrs/2012/resources/crimes-against-persons-property-and-society) 
 
-The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. 
+## Crimes vs. incidents
 
-`year`: The annual aggregation of the data. Vales range from 2016 - 2022.
+```{r ucr_totals}
 
-`type`: The type of offense being observed. Can be crime against person, property, or society.  
+ucr <- read_csv("data/ucr_firearm.csv")
+pops <- read_csv("data/ucr_pops.csv")
 
-`n_juvenile`: The number of crimes or incidents committed by a person under 18. 
+# Plotting rates of total crimes/incidents
+ucr %>% 
+  separate(type, c('group', 'type')) %>% 
+  group_by(district, year, group) %>% 
+  summarise_at(vars(matches('n_')), ~sum(.)) %>% 
+  ungroup() %>% 
+  left_join(pops) %>% 
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
+  ggplot(aes(year, n_total, color = district)) +
+  geom_line() +
+  facet_wrap(~group)
+# should we just focus on incidents and drop crimes? Or vice versa?
 
-`n_adult`: The number of crimes or incidents committed by a person above 18. 
+# Plotting rates of juvenile crime 
+ucr %>% 
+  separate(type, c('group', 'type')) %>% 
+  group_by(district, year, group) %>% 
+  summarise_at(vars(matches('n_')), ~sum(.)) %>% 
+  ungroup() %>% 
+  left_join(pops) %>% 
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
+  ggplot(aes(year, n_juvenile, color = district)) +
+  geom_line() +
+  facet_wrap(~group)
 
-`n_unknown`: The number of crimes or incidents where the age was unknown. 
+```
 
-`n_missing`: The number of crimes or incidents where the age was missing. 
 
-`n_total`: The total number of crimes or incidents for a given district in a given year. 
+## Juveniles vs. adults 
 
-`district`: The geographic location where the crimes and incidents took place. Values can be Charlottesville, Albemarle, and Virginia. 
+```{r ucr_age}
 
-`est_pop_district`: The estimated population of the district for that year. Calculated from most recent census. This is the denominator for the rate calculations. 
+# Juveniles compared to adults 
+ucr %>% 
+  select(district, year, n_juvenile, n_total, type) %>%
+  separate(type, c('group', 'type')) %>% 
+  filter(group == "incident") %>%
+  group_by(district, year, group) %>% 
+  summarise_at(vars(matches('n_')), ~sum(.)) %>%
+  ungroup() %>%
+  left_join(pops) %>%
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
+  pivot_longer(cols = c(n_juvenile, n_total)) %>%
+  ggplot(aes(year, value, color = district)) +
+  geom_line() +
+  facet_wrap(~name)
+
+```
+

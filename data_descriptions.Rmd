@@ -181,7 +181,7 @@ odp_arrests %>%
   ggplot(aes(y = charges)) +
   geom_bar(fill = "#007BAB") +
   geom_text(aes(label =..count..), stat = "count", hjust = -0.25, size = 3) +
-  labs(title = "Distribution of Gun-Related Arrests",
+  labs(title = "Number of Firearm-Related Arrests per Person",
        x = "Number of People",
        y = "Number of Charges",
        caption = "Total number of people arrested: 233") +
@@ -204,7 +204,7 @@ group_by(yr = year(arrest_datetime), grp) %>%
   summarise(n = n()) %>%
   ggplot(aes(x = yr, y = n, fill = grp)) +
   geom_col() +
-  labs(title = "Distribution of Violent Gun-Related Arrests",
+  labs(title = "Arrests for Violent Gun-Related Crimes",
        x = "Year",
        y = "Number of Arrests",
        caption = "Note: the dataset begins in May 2019 and ends in April 2024, so only half of those years are represented.") +
@@ -292,8 +292,10 @@ fai_age %>%
 
 # FBI Data Explorer {.tabset}
 
-Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents. 
+Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents, along with the age group of the offender. An offender is considered a juvenile if they are under the age of 18. 
 
+<details>
+<summary>Data Dictionary</summary>
 The **Number of Crimes** measure is calculated using the FBI Unit of Count. It equals the number of offenses committed during an incident, except in the following cases:
 
 - If Offense Type is Crimes against Person, then the count is set to Number of Victims. 
@@ -303,10 +305,14 @@ The **Number of Crimes** measure is calculated using the FBI Unit of Count. It e
 The **Number of Incidents** measure counts the number of incidents with a specific offense type submitted to the system that match the selections in other dimensions. This value is typically lower than the number of offenses, as multiple offenses may be committed within a single incident.
 
 Each offense belongs to one of three categories: **Crimes Against Persons, Crimes Against Property, and Crimes Against Society**. This is measured under the `type` variable. Crimes Against Persons, e.g., murder, rape, and assault, are those whose victims are always individuals. The object of Crimes Against Property, e.g., robbery, bribery, and burglary, is to obtain money, property, or some other benefit. Crimes Against Society, e.g., gambling, prostitution, and drug violations, represent society’s prohibition against engaging in certain types of activity; they are typically victimless crimes in which property is not the object. See a detailed breakdown here: [FBI Definitions of Crimes Aginst Person, Property, and Society](https://ucr.fbi.gov/nibrs/2012/resources/crimes-against-persons-property-and-society) 
+</details>
+<br>
 
-## Crimes vs. incidents
+## Total Crimes vs. Incidents
 
 ```{r ucr_totals}
+
+# should we just focus on incidents and drop crimes? Or vice versa?
 
 ucr <- read_csv("data/ucr_firearm.csv")
 pops <- read_csv("data/ucr_pops.csv")
@@ -320,9 +326,21 @@ ucr %>%
   left_join(pops) %>% 
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
   ggplot(aes(year, n_total, color = district)) +
-  geom_line() +
-  facet_wrap(~group)
-# should we just focus on incidents and drop crimes? Or vice versa?
+  geom_line(size = 1) +
+  facet_wrap(~group) +
+  labs(x = "Year",
+       y = "Crime Rate per 100k",
+       title = "All Crimes and Incidents Involving Firearms") +
+  scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
+                    name = "Region",
+                    breaks = c("virginia", "charlottesville", "albemarle"),
+                    labels= c("Virginia", "Charlottesville", "Albemarle"))
+
+```
+
+## Youth Crimes vs. Incidents 
+
+```{r ucr_compare}
 
 # Plotting rates of juvenile crime 
 ucr %>% 
@@ -333,19 +351,31 @@ ucr %>%
   left_join(pops) %>% 
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
   ggplot(aes(year, n_juvenile, color = district)) +
-  geom_line() +
-  facet_wrap(~group)
+  geom_line(size = 1) +
+  facet_wrap(~group) +
+  labs(x = "Year",
+       y = "Crime Rate per 100k",
+       title = "All Youth Crimes and Incidents Involving Firearms",
+       caption = "Note: youth = under 18 years old") +
+  scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
+                    name = "Region",
+                    breaks = c("virginia", "charlottesville", "albemarle"),
+                    labels= c("Virginia", "Charlottesville", "Albemarle"))
+  
 
 ```
 
 
-## Juveniles vs. adults 
+## Youth vs. Adult
 
 ```{r ucr_age}
 
-# Juveniles compared to adults 
+age_labs <- c("Under 18", "Above 18")
+names(age_labs) <- c("n_juvenile", "n_adult")
+
+
 ucr %>% 
-  select(district, year, n_juvenile, n_total, type) %>%
+  select(district, year, n_juvenile, n_adult, type) %>%
   separate(type, c('group', 'type')) %>% 
   filter(group == "incident") %>%
   group_by(district, year, group) %>% 
@@ -353,10 +383,19 @@ ucr %>%
   ungroup() %>%
   left_join(pops) %>%
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
-  pivot_longer(cols = c(n_juvenile, n_total)) %>%
+  pivot_longer(cols = c(n_juvenile, n_adult)) %>%
   ggplot(aes(year, value, color = district)) +
-  geom_line() +
-  facet_wrap(~name)
+  geom_line(size = 1) +
+  facet_wrap(~name,
+             labeller = labeller(name = age_labs),
+             scales = "free_y") +
+  labs(x = "Year",
+       y = "Crime Rate per 100k",
+       title = "Adult vs. Youth Incident Rates") +
+  scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
+                    name = "Region",
+                    breaks = c("virginia", "charlottesville", "albemarle"),
+                    labels= c("Virginia", "Charlottesville", "Albemarle"))
 
 ```
 

@@ -22,11 +22,23 @@ library(tidyverse)
 
 The data listed below represent information that is publicly and readily available online. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, shape, and dimensions of the problem locally.
 
-All of this data is administrative and made up of information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data. Granted personal info is scrubbed from this report, we should keep in mind that these are people and members of our community that we are talking about.
+All of this data is administrative and made up of information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data both in terms of input mechanisms and the data values, themselves. Granted personal info is scrubbed from this report, we should keep in mind that these are individuals and members of our community that are being represented.
 
 The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source.
 
 ------------------------------------------------------------------------
+
+# Key Terminology
+
+The data below comes from news outlets, the Virginia Department of Health, and local and national law enforcement agencies. To keep insights consistent across these jurisdictions we need clearly defined terminology. 
+
+Incident 
+Offense
+Crime
+Arrest
+Firearm
+Participant
+
 
 # Gun Violence Archive {.tabset}
 
@@ -239,20 +251,30 @@ Firearm injury visits are identified using key terms in the chief complaint (rea
 
 fai_county <- read_csv("data/fai_county.csv") 
 
-fai_county %>%
-  filter(str_detect(patient_city_county, "Albemarle")) %>%
+albemarle <- fai_county %>%
+  filter(str_detect(patient_city_county, "Albemarle"))
+  
+albemarle %>%
   arrange(year) %>%
   select(-patient_city_county) %>%
   reactable(
     defaultColDef = colDef(
-      header = function(value) str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      header = function(value)
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
       align = "center",
       defaultSortOrder = "desc",
-      headerStyle = list(background = "#f7f7f8")),
+      headerStyle = list(background = "#f7f7f8")
+    ),
     columns = list(
-      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+      total_ed_visits = colDef(format = colFormat(separators = TRUE)),
+      rate_of_firearm_injuries_per_10k_ed_visits = colDef(style = color_scales(
+        albemarle, colors = c("#FFFFFF", "#FA8C00")
+      ))
+    ),
     bordered = TRUE,
-    highlight = TRUE) 
+    highlight = TRUE
+  ) %>%
+    add_legend(albemarle, col_name = 'rate_of_firearm_injuries_per_10k_ed_visits', title = 'Rate of Firearm Injuries per 10k ED Visits', footer = 'Reported as of 2023', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -278,13 +300,12 @@ fai_age %>%
       defaultSortOrder = "desc",
       headerStyle = list(background = "#f7f7f8")),
     columns = list(
-      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(fai_age, colors = c("#FFFFFF", "#FA8C00"))
+        )),
     bordered = TRUE,
     highlight = TRUE,
     defaultPageSize = 11) %>%
-  add_source(source = "Years: 2018-2022",
-             align = "right",
-             font_size = 12)
+    add_legend(fai_age, col_name = 'rate_of_firearm_deaths_per_100k_pop', title = 'Rate of Firearm Deaths per 100k Pop', footer = 'Years: 2018 - 2022', colors = c("#FFFFFF", "#FA8C00"), bins = 9)
 
 ```
 

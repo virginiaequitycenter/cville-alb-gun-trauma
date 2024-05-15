@@ -3360,12 +3360,21 @@ of the existing resources so that we can begin representing the nature,
 shape, and dimensions of the problem locally.</p>
 <p>All of this data is administrative and made up of information created
 when people interact with public services. As a result, we need to
-remember the deeply human aspect of this data. Granted personal info is
-scrubbed from this report, we should keep in mind that these are people
-and members of our community that we are talking about.</p>
+remember the deeply human aspect of this data both in terms of input
+mechanisms and the data values, themselves. Granted personal info is
+scrubbed from this report, we should keep in mind that these are
+individuals and members of our community that are being represented.</p>
 <p>The script <a href="https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R">dataprep.R</a>
 outlines the process for accessing and cleaning each data source.</p>
 <hr />
+<div id="key-terminology" class="section level1">
+<h1>Key Terminology</h1>
+<p>The data below comes from news outlets, the Virginia Department of
+Health, and local and national law enforcement agencies. To keep
+insights consistent across these jurisdictions we need clearly defined
+terminology.</p>
+<p>Incident Offense Crime Arrest Firearm Participant</p>
+</div>
 <div id="gun-violence-archive" class="section level1 tabset">
 <h1 class="tabset">Gun Violence Archive</h1>
 <p>The national <a href="https://www.gunviolencearchive.org/">Gun
@@ -3629,22 +3638,68 @@ Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003,
 219146003, 287184008, 287193009.</p>
 <pre class="r"><code>fai_county &lt;- read_csv(&quot;data/fai_county.csv&quot;) 
 
-fai_county %&gt;%
-  filter(str_detect(patient_city_county, &quot;Albemarle&quot;)) %&gt;%
+albemarle &lt;- fai_county %&gt;%
+  filter(str_detect(patient_city_county, &quot;Albemarle&quot;))
+  
+albemarle %&gt;%
   arrange(year) %&gt;%
   select(-patient_city_county) %&gt;%
   reactable(
     defaultColDef = colDef(
-      header = function(value) str_to_title(gsub(&quot;_&quot;, &quot; &quot;, value, fixed = TRUE)),
+      header = function(value)
+        str_to_title(gsub(&quot;_&quot;, &quot; &quot;, value, fixed = TRUE)),
       align = &quot;center&quot;,
       defaultSortOrder = &quot;desc&quot;,
-      headerStyle = list(background = &quot;#f7f7f8&quot;)),
+      headerStyle = list(background = &quot;#f7f7f8&quot;)
+    ),
     columns = list(
-      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+      total_ed_visits = colDef(format = colFormat(separators = TRUE)),
+      rate_of_firearm_injuries_per_10k_ed_visits = colDef(style = color_scales(
+        albemarle, colors = c(&quot;#FFFFFF&quot;, &quot;#FA8C00&quot;)
+      ))
+    ),
     bordered = TRUE,
-    highlight = TRUE) </code></pre>
-<div class="reactable html-widget html-fill-item" id="htmlwidget-fcb8bea8c01557461984" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fcb8bea8c01557461984">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"year":[2015,2016,2017,2018,2019,2020,2021,2022,2023],"firearm_injury_visits":[31,30,28,25,22,29,18,23,35],"total_ed_visits":[47487,49498,51747,50026,50827,34875,46639,51989,54837],"rate_of_firearm_injuries_per_10k_ed_visits":[6.5,6.1,5.4,5,4.3,8.3,3.9,4.4,6.4]},"columns":[{"id":"year","name":"year","type":"numeric","defaultSortDesc":true,"header":"Year","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"firearm_injury_visits","name":"firearm_injury_visits","type":"numeric","defaultSortDesc":true,"header":"Firearm Injury Visits","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"total_ed_visits","name":"total_ed_visits","type":"numeric","defaultSortDesc":true,"header":"Total Ed Visits","align":"center","headerStyle":{"background":"#f7f7f8"},"format":{"cell":{"separators":true},"aggregated":{"separators":true}}},{"id":"rate_of_firearm_injuries_per_10k_ed_visits","name":"rate_of_firearm_injuries_per_10k_ed_visits","type":"numeric","defaultSortDesc":true,"header":"Rate Of Firearm Injuries Per 10k Ed Visits","align":"center","headerStyle":{"background":"#f7f7f8"}}],"highlight":true,"bordered":true,"dataKey":"a159e3fdd9940070c9b2cd04c0af6f17"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+    highlight = TRUE
+  ) %&gt;%
+    add_legend(albemarle, col_name = &#39;rate_of_firearm_injuries_per_10k_ed_visits&#39;, title = &#39;Rate of Firearm Injuries per 10k ED Visits&#39;, footer = &#39;Reported as of 2023&#39;, colors = c(&quot;#FFFFFF&quot;, &quot;#FA8C00&quot;))</code></pre>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-a68c6715d2b069662f69" style="width:auto;height:auto;"></div>
+<div>
+<div style="text-align: right; margin-bottom: 8px; font-weight: bold; font-size: 90%">Rate of Firearm Injuries per 10k ED Visits</div>
+<div style="margin: 0;, padding: 0;, float: left; list-style: none;">
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FA8C00;"></span>
+8.3
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FCBD6E;"></span>
+6.4
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FDD7A8;"></span>
+5.4
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FEF1E2;"></span>
+4.4
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FFFFFF;"></span>
+3.9
+</li>
+</ul>
+</div>
+<div style="text-align: right; clear: both; font-size: 70%; color: #999">Reported as of 2023</div>
+</div>
+<script type="application/json" data-for="htmlwidget-a68c6715d2b069662f69">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"year":[2015,2016,2017,2018,2019,2020,2021,2022,2023],"firearm_injury_visits":[31,30,28,25,22,29,18,23,35],"total_ed_visits":[47487,49498,51747,50026,50827,34875,46639,51989,54837],"rate_of_firearm_injuries_per_10k_ed_visits":[6.5,6.1,5.4,5,4.3,8.3,3.9,4.4,6.4]},"columns":[{"id":"year","name":"year","type":"numeric","defaultSortDesc":true,"header":"Year","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"firearm_injury_visits","name":"firearm_injury_visits","type":"numeric","defaultSortDesc":true,"header":"Firearm Injury Visits","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"total_ed_visits","name":"total_ed_visits","type":"numeric","defaultSortDesc":true,"header":"Total Ed Visits","align":"center","headerStyle":{"background":"#f7f7f8"},"format":{"cell":{"separators":true},"aggregated":{"separators":true}}},{"id":"rate_of_firearm_injuries_per_10k_ed_visits","name":"rate_of_firearm_injuries_per_10k_ed_visits","type":"numeric","defaultSortDesc":true,"header":"Rate Of Firearm Injuries Per 10k Ed Visits","align":"center","headerStyle":{"background":"#f7f7f8"},"style":[{"background":"#FCBB68FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FCC57FFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FDD7A8FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FDE2BFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEF4E7FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FA8C00FF","color":"white","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FFFFFFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEF1E2FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FCBD6EFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"}]}],"highlight":true,"bordered":true,"dataKey":"14eb3700e98dcb984d21a543bc05b0b2"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="deaths-in-blue-ridge-health-district" class="section level2">
 <h2>Deaths in Blue Ridge Health District</h2>
@@ -3675,16 +3730,74 @@ fai_age %&gt;%
       defaultSortOrder = &quot;desc&quot;,
       headerStyle = list(background = &quot;#f7f7f8&quot;)),
     columns = list(
-      total_ed_visits = colDef(format = colFormat(separators = TRUE))),
+      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(fai_age, colors = c(&quot;#FFFFFF&quot;, &quot;#FA8C00&quot;))
+        )),
     bordered = TRUE,
     highlight = TRUE,
     defaultPageSize = 11) %&gt;%
-  add_source(source = &quot;Years: 2018-2022&quot;,
-             align = &quot;right&quot;,
-             font_size = 12)</code></pre>
-<div class="reactable html-widget html-fill-item" id="htmlwidget-a072abf40993685e8368" style="width:auto;height:auto;"></div>
-<p style="color:#000;background:#FFFFFF;text-align:right;font-size:12px;font-style:normal;font-weight:normal;text-decoration:;letter-spacing:px;word-spacing:px;text-transform:;text-shadow:;margin-top:0px;margin-right:0px;margin-bottom:0px;margin-left:0px">Years: 2018-2022</p>
-<script type="application/json" data-for="htmlwidget-a072abf40993685e8368">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"age_group":["0-9 years","10-14 years","15-17 years","18-19 years","20-24 years","25-34 years","35-44 years","45-54 years","55-64 years","65-74 years","75+ years"],"firearm_deaths":[1,1,2,8,15,25,22,15,17,19,16],"rate_of_firearm_deaths_per_100k_pop":[0.7,1.4,4.8,18.3,15.3,14.2,14.2,10,9.8,13.1,16.3]},"columns":[{"id":"age_group","name":"age_group","type":"character","defaultSortDesc":true,"header":"Age Group","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"firearm_deaths","name":"firearm_deaths","type":"numeric","defaultSortDesc":true,"header":"Firearm Deaths","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"rate_of_firearm_deaths_per_100k_pop","name":"rate_of_firearm_deaths_per_100k_pop","type":"numeric","defaultSortDesc":true,"header":"Rate Of Firearm Deaths Per 100k Pop","align":"center","headerStyle":{"background":"#f7f7f8"}}],"defaultPageSize":11,"highlight":true,"bordered":true,"dataKey":"63bf816678d4301f8aca44a808653861"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+    add_legend(fai_age, col_name = &#39;rate_of_firearm_deaths_per_100k_pop&#39;, title = &#39;Rate of Firearm Deaths per 100k Pop&#39;, footer = &#39;Years: 2018 - 2022&#39;, colors = c(&quot;#FFFFFF&quot;, &quot;#FA8C00&quot;), bins = 9)</code></pre>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-c461760d99987f0a1874" style="width:auto;height:auto;"></div>
+<div>
+<div style="text-align: right; margin-bottom: 8px; font-weight: bold; font-size: 90%">Rate of Firearm Deaths per 100k Pop</div>
+<div style="margin: 0;, padding: 0;, float: left; list-style: none;">
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FA8C00;"></span>
+18.3
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FA9A1F;"></span>
+16.1
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FAA232;"></span>
+14.8
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FBA63B;"></span>
+14.2
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FBAD4B;"></span>
+13.1
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FCC279;"></span>
+9.9
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FDD39F;"></span>
+7.3
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FEF5E9;"></span>
+2.2
+</li>
+</ul>
+<ul style="list-style: none; margin: 0; padding: 0;">
+<li style="display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;">
+<span style="display: block; float: left; height: 14px; width: 30px; background:#FFFFFF;"></span>
+0.7
+</li>
+</ul>
+</div>
+<div style="text-align: right; clear: both; font-size: 70%; color: #999">Years: 2018 - 2022</div>
+</div>
+<script type="application/json" data-for="htmlwidget-c461760d99987f0a1874">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"age_group":["0-9 years","10-14 years","15-17 years","18-19 years","20-24 years","25-34 years","35-44 years","45-54 years","55-64 years","65-74 years","75+ years"],"firearm_deaths":[1,1,2,8,15,25,22,15,17,19,16],"rate_of_firearm_deaths_per_100k_pop":[0.7,1.4,4.8,18.3,15.3,14.2,14.2,10,9.8,13.1,16.3]},"columns":[{"id":"age_group","name":"age_group","type":"character","defaultSortDesc":true,"header":"Age Group","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"firearm_deaths","name":"firearm_deaths","type":"numeric","defaultSortDesc":true,"header":"Firearm Deaths","align":"center","headerStyle":{"background":"#f7f7f8"}},{"id":"rate_of_firearm_deaths_per_100k_pop","name":"rate_of_firearm_deaths_per_100k_pop","type":"numeric","defaultSortDesc":true,"header":"Rate Of Firearm Deaths Per 100k Pop","align":"center","headerStyle":{"background":"#f7f7f8"},"style":[{"background":"#FFFFFFFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FEFAF4FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FDE4C3FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FA8C00FF","color":"white","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FA9F2BFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FBA63BFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FBA63BFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FCC278FF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FCC37BFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FBAD4BFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"},{"background":"#FA991CFF","color":"black","fontSize":null,"fontWeight":"normal","transition":"background 1s ease"}]}],"defaultPageSize":11,"highlight":true,"bordered":true,"dataKey":"0a0966f86f024e80c14661bd11e99440"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <hr />
 </div>
 </div>

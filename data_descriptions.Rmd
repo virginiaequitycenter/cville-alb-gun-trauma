@@ -305,6 +305,9 @@ The **Number of Crimes** measure is calculated using the FBI Unit of Count. It e
 The **Number of Incidents** measure counts the number of incidents with a specific offense type submitted to the system that match the selections in other dimensions. This value is typically lower than the number of offenses, as multiple offenses may be committed within a single incident.
 
 Each offense belongs to one of three categories: **Crimes Against Persons, Crimes Against Property, and Crimes Against Society**. This is measured under the `type` variable. Crimes Against Persons, e.g., murder, rape, and assault, are those whose victims are always individuals. The object of Crimes Against Property, e.g., robbery, bribery, and burglary, is to obtain money, property, or some other benefit. Crimes Against Society, e.g., gambling, prostitution, and drug violations, represent society’s prohibition against engaging in certain types of activity; they are typically victimless crimes in which property is not the object. See a detailed breakdown here: [FBI Definitions of Crimes Aginst Person, Property, and Society](https://ucr.fbi.gov/nibrs/2012/resources/crimes-against-persons-property-and-society) 
+
+Exclusions: because the data is voluntarily submitted, it may not be all-inclusive. 
+
 </details>
 <br>
 
@@ -399,3 +402,6 @@ ucr %>%
 
 ```
 
+---
+
+# ATF Firearm Sales 

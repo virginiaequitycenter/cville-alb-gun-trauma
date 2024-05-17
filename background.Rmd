@@ -7,18 +7,25 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
 library(janitor)
 library(magrittr)
 library(reactable)
+library(tidycensus)
 library(tidyverse)
 ```
 
 On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, Cville police had already investigated five homicide cases; compared to zero cases in 2021 ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)). This document attempts to recognizing the commonality of our experiences but also includes an honest recognition of our differences. How can UVA and the wider Charlottesville and Albemarle county community work together to end gun violence in our area?
 
+# Who are the stakeholders?
 
+Before we even start looking at the data, we need to consider the various stakeholders in this project. What are they looking to understand from the data? What are they looking to do with insights from the data? Or with the actual data, itself. What biases might folks have? What questions are they trying to answer? Someone may be looking to learn how gun violence has changed over the years, while someone else may be interested in understanding how to prevent gun violence, while others are looking for the structural causes. These are all things to keep in mind.
 
-## What is gun violence?
+Ultimately the residents of Charlottesville and Albemarle are the largest stakeholders. These folks ARE the data. They have the lived experiences, and are impacted in various ways. Their voices should be centered.
+
+# What is gun violence?
 
 The CDC defines a <b>firearm injury</b> as:
 
@@ -34,7 +41,11 @@ Types of firearm injuries include:
 
 ---
 
-## What is the prevalence in our region? 
+# What are the national trends? 
+
+---
+
+# What is the prevalence in our region? 
 
 The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents by Intent over the past 5 combined years. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. The leading cause of death by gun violence in the Blue Ridge Health District is suicide. 
 
@@ -55,43 +66,51 @@ fai_intent %>%
   reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
 ```
 
-Since 2020 the number of murders inflicted by guns has increased exponentially in the US. 81% of murders in the US in 2021 involved a firearm. ([PEW](https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/)).
-
-<a href="https://www.pewresearch.org/short-reads/2023/04/26/what-the-data-says-about-gun-deaths-in-the-u-s/ft_23-04-20_gundeathsupdate_2/"><img src="https://www.pewresearch.org/wp-content/uploads/2023/04/FT_23.04.20_GunDeathsUpdate_2.png?w=640"/></a>
-
 ---
 
-## Who are the stakeholders?
 
-Before we even start looking at the data, we need to consider the various stakeholders in this project. What are they looking to understand from the data? What are they looking to do with insights from the data? Or with the actual data, itself. What biases might folks have? What questions are they trying to answer? Someone may be looking to learn how gun violence has changed over the years, while someone else may be interested in understanding how to prevent gun violence, while others are looking for the structural causes. These are all things to keep in mind.
+# Where are people getting guns?
 
-Ultimately the residents of Charlottesville and Albemarle are the largest stakeholders. These folks ARE the data. They have the lived experiences, and are impacted in various ways. Their voices should be centered.
+## Licensed Dealers
 
-## How can we research it?
+```{r dealers_tidycensus, results='hide'}
+alb_sf <- get_acs(
+  geography = "county",
+  state = "51",
+  variables = "B01001_001",
+  survey = "acs5",
+  geometry = TRUE,
+  year = 2022) %>%
+  filter(NAME == "Albemarle County, Virginia")
+```
 
-"Developing a structural framework around research into U.S. gun violence addresses the risks, traumas, meanings, and consequences that firearms represent for all communities—and highlights the importance of a renewed focus on mental health and safety for communities of color." [Structural Competency and the Future of Firearm Research](https://www.sciencedirect.com/science/article/pii/S0277953621002112)
+The ATF maintains a list of all licensed firearms dealers. The below map shows authorized dealers in our region.
 
-Gun trauma should be looked at through multiple structure-based lenses:
+```{r dealers, echo = FALSE, message = FALSE, warning = FALSE}
 
-1.  Diagnosis: reject “Diagnose the shooter” frameworks
+atf_dealers <- read_csv("data/atf_dealers.csv")
 
-"Researchers and clinicians should remain wary of assumptions that acts of mass violence are driven primarily by diagnosable psychopathology, and should instead situate destructive motivations within larger social structures and cultural scripts."
+alb_sf %>%
+  ggplot() +
+  geom_sf() +
+  geom_point(atf_dealers, 
+             mapping = aes(x = longitude, y = latitude, col = address_type, shape = address_type), 
+             size = 3) +
+  scale_color_manual(name = "Address Type", values = c("#F8BE3D", "#007BAB")) +
+  scale_shape_manual(name = "Address Type", values = c(17, 19)) +
+  theme_void() +
+  theme(legend.box.background = element_rect(), legend.box.margin = margin(5, 5, 5, 5)) +
+  labs(title = "Firearms Dealers in and Around Albemarle County",
+       caption = "Total licensed dealers: 31")
+```
 
-2.  Structures of Race and Racism: promote antiracist gun research and intervention
+## Gun Theft
 
-"White shooters were 19 times more likely than Black shooters to be described with a mental illness frame, and sympathetic language often emphasized the stress, strain, ostracism, and/or loss that these shooters were perceived to have suffered. Black and Latinx men were meanwhile described as violent or as threats to public safety. These binaries reinforce biases that white persons act via intellect, while minoritized aggressors are driven by embodied impulse or that suburbs are presumed safe—instances of firearm violence in these settings are highly publicized and sensationalized—whereas urban dwellers should expect and tolerate social disorganization, crime, and violence."
+Police and news outlets have reports on increases in firearm theft, especially from vehicles. 
 
-3.  Structures of Inequality: address the social and political determinants of firearm violence
 
-"Behavioral science research shows how violent acts attributed to “mental illness” often result more robustly from socioeconomic and social factors tangentially associated with having a mental illness, including unemployment, insecure housing, gender, neighborhood effects, histories of trauma, or lack of access to care. Higher income inequality has also been found to be associated with increased mass shootings, and with homicide more broadly"
 
-4.  Structures of Community: emphasize intersectionality and community engagement
 
-"A report by the Treatment Advocacy Center found that people with mental illness were 16 times more likely to be killed by law enforcement than other civilians stopped by law enforcement, and made up at least 1 in 4 of all people fatally shot by police  More broadly, studies show that the police arrest people with mental health symptoms more frequently than people without symptoms for the same crimes (McMahon, 2020).
-
-These examples suggest the real-world implications of misperceptions linking mental illness with violence, and the fatalizing double standards surrounding Black and Brown persons with mental illness in particular (Gallagher and Roberts, 2020). Stigma wrongly aligns mental illness with violence, while implicit bias codes race as criminal and threatening."
-
-5.  Structures of Meaning
 
 ## References & Resources
 

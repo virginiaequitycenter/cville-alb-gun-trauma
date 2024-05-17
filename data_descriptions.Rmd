@@ -30,14 +30,15 @@ The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-t
 
 # Key Terminology
 
-The data below comes from news outlets, the Virginia Department of Health, and local and national law enforcement agencies. To keep insights consistent across these jurisdictions we need clearly defined terminology. 
+The data below comes from news outlets, the Virginia Department of Health, and local and national law enforcement agencies. To keep insights consistent across these jurisdictions we need clearly defined terminology. Each of the terms below has a specific and unique definition, and we will consistently use these terms throughout the analysis. 
 
 Incident 
+Crime 
 Offense
-Crime
 Arrest
 Firearm
 Participant
+Youth
 
 
 # Gun Violence Archive {.tabset}
@@ -216,7 +217,7 @@ group_by(yr = year(arrest_datetime), grp) %>%
   summarise(n = n()) %>%
   ggplot(aes(x = yr, y = n, fill = grp)) +
   geom_col() +
-  labs(title = "Arrests for Violent Gun-Related Crimes",
+  labs(title = "Types of Charges",
        x = "Year",
        y = "Number of Arrests",
        caption = "Note: the dataset begins in May 2019 and ends in April 2024, so only half of those years are represented.") +
@@ -236,7 +237,10 @@ The [Virginia Open Data Portal](https://data.virginia.gov/) includes information
 This data is supplied by the Virginia Department of Health and updated monthly.
 
 <details>
-<summary>Exclusions</summary>
+<summary>Data Dictionary & Exclusions</summary>
+Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009.
+<br>
+<br>
 Exclusions include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
 </details>
 <br>
@@ -245,7 +249,6 @@ Exclusions include follow-up visits, visits involving other types of guns (e.g.,
 
 The Virginia Department of Health groups Charlottesville City and Albemarle county together for their firearm injury counts from 2015 - 2023. This aggregation doesn't include any demographic information.
 
-Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009.
 
 ```{r vdh_county}
 
@@ -305,7 +308,7 @@ fai_age %>%
     bordered = TRUE,
     highlight = TRUE,
     defaultPageSize = 11) %>%
-    add_legend(fai_age, col_name = 'rate_of_firearm_deaths_per_100k_pop', title = 'Rate of Firearm Deaths per 100k Pop', footer = 'Years: 2018 - 2022', colors = c("#FFFFFF", "#FA8C00"), bins = 9)
+    add_legend(fai_age, col_name = 'rate_of_firearm_deaths_per_100k_pop', title = 'Rate of Firearm Deaths per 100k Pop', footer = 'Years: 2018 - 2022', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -332,29 +335,27 @@ Exclusions: because the data is voluntarily submitted, it may not be all-inclusi
 </details>
 <br>
 
-## Total Crimes vs. Incidents
+## All Incidents
 
 ```{r ucr_totals}
-
-# should we just focus on incidents and drop crimes? Or vice versa?
 
 ucr <- read_csv("data/ucr_firearm.csv")
 pops <- read_csv("data/ucr_pops.csv")
 
-# Plotting rates of total crimes/incidents
+# Plotting rates of total incidents
 ucr %>% 
   separate(type, c('group', 'type')) %>% 
+  filter(group == "incident") %>%
   group_by(district, year, group) %>% 
   summarise_at(vars(matches('n_')), ~sum(.)) %>% 
   ungroup() %>% 
   left_join(pops) %>% 
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
   ggplot(aes(year, n_total, color = district)) +
-  geom_line(size = 1) +
-  facet_wrap(~group) +
+  geom_line(size = 1.5) +
   labs(x = "Year",
        y = "Crime Rate per 100k",
-       title = "All Crimes and Incidents Involving Firearms") +
+       title = "All Incidents Involving Firearms") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
@@ -362,24 +363,24 @@ ucr %>%
 
 ```
 
-## Youth Crimes vs. Incidents 
+## Youth Incidents 
 
 ```{r ucr_compare}
 
-# Plotting rates of juvenile crime 
+# Plotting rates of juvenile incidents
 ucr %>% 
   separate(type, c('group', 'type')) %>% 
+  filter(group == "incident") %>%
   group_by(district, year, group) %>% 
   summarise_at(vars(matches('n_')), ~sum(.)) %>% 
   ungroup() %>% 
   left_join(pops) %>% 
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
   ggplot(aes(year, n_juvenile, color = district)) +
-  geom_line(size = 1) +
-  facet_wrap(~group) +
+  geom_line(size = 1.5) +
   labs(x = "Year",
        y = "Crime Rate per 100k",
-       title = "All Youth Crimes and Incidents Involving Firearms",
+       title = "All Youth Incidents Involving Firearms",
        caption = "Note: youth = under 18 years old") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
@@ -390,7 +391,7 @@ ucr %>%
 ```
 
 
-## Youth vs. Adult
+## Adult vs. Youth
 
 ```{r ucr_age}
 
@@ -409,7 +410,7 @@ ucr %>%
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
   pivot_longer(cols = c(n_juvenile, n_adult)) %>%
   ggplot(aes(year, value, color = district)) +
-  geom_line(size = 1) +
+  geom_line(size = 1.5) +
   facet_wrap(~name,
              labeller = labeller(name = age_labs),
              scales = "free_y") +
@@ -426,3 +427,7 @@ ucr %>%
 ---
 
 # ATF Firearm Sales 
+
+
+# Gun Theft 
+

@@ -4,7 +4,7 @@ library(janitor)
 library(jsonlite)
 library(lubridate)
 library(magrittr)
-library(rvest)
+library(tidycensus)
 library(tidyverse)
 
 # Gun Violence Archive ----
@@ -22,8 +22,6 @@ gva_participants <- read_csv("data/raw/gva_participants.csv") %>%
   mutate(age = as.numeric(participant_age_group)) 
 
 write_csv(gva_participants, "data/gva_participants.csv")
-
-# TODO: age groups 
 
 # Cville Open Data Portal ----
 
@@ -138,3 +136,23 @@ ucr <- ucr %>%
 
 write_csv(ucr, "data/ucr_firearm.csv")
 write_csv(pops, "data/ucr_pops.csv")
+
+# ATF ----
+
+# This data can be downloaded directly from the ATF site: https://www.atf.gov/firearms/listing-federal-firearms-licensees
+
+atf_dealers <- read_csv("data/raw/atf_dealers.csv") %>%
+  clean_names()
+
+atf_dealers <- atf_dealers %>%
+  filter(longitude > -78.9) %>%
+  mutate_at(vars(c(label_business_name, licensename)), funs(str_to_title(.))) %>%
+  mutate(label_business_name = str_replace_all(label_business_name, "\\Q*\\ENo Business Name Provided\\Q*\\E", "No Business Name Provided"),
+         label_business_name = str_replace(label_business_name, "\\Q*\\E", "No Business Name Provided"),
+         licensename = str_replace(licensename, "\\Q*\\E", "No License Name Provided"))
+
+#write_csv(atf_dealers, "data/atf_dealers.csv")
+
+#TODO: remove outliers and add streetmap 
+
+#TODO: explore 2024 statewide data

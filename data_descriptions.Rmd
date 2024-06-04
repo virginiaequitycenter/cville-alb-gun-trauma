@@ -30,32 +30,73 @@ The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-t
 
 # Key Terminology
 
-The data below comes from news outlets, the Virginia Department of Health, and local and national law enforcement agencies. To keep insights consistent across these jurisdictions we need clearly defined terminology. Each of the terms below has a specific and unique definition, and we will consistently use these terms throughout the analysis. 
+The data below comes from news outlets, the Virginia Department of Health, and local and national law enforcement agencies. To keep insights consistent across these sourcess we need clearly defined terminology. Each of the terms below has a specific and unique definition, and we will consistently use these terms throughout the analysis.
 
-Incident 
-Crime 
-Offense
-Arrest
-Firearm
-Participant
-Youth
+#### *Firearm Injury*
 
+The [CDC](https://www.cdc.gov/violenceprevention/firearms/fastfact.html) defines a firearm injury as:
 
-# Gun Violence Archive {.tabset}
+> "A gunshot wound or penetrating injury from a weapon that uses a powder charge to fire a projectile. Weapons that use a powder charge include handguns, rifles, and shotguns. Injuries from air- and gas-powered guns, BB guns, and pellet guns are not considered firearm injuries as these types of guns do not use a powder charge to fire a projectile."
 
-The national [Gun Violence Archive](https://www.gunviolencearchive.org/) describes gun violence as:
+Types of firearm injuries include:
+
+-   Intentionally self-inflicted
+-   Unintentional (accidental injuries that happen while someone is cleaning or playing with a firearm)
+-   Interpersonal violence (homicide or assault)
+-   Legal intervention (violence inflicted by law enforcement on duty)
+-   Undetermined intent (not enough information to determine)
+
+#### *Gun Violence*
+
+Gun violence is an offense committed with firearms, such as handguns, shotguns, or semi-automatic rifles. It can include homicide, violent crime, attempted suicide, suicide, and unintentional death and injury. The national [Gun Violence Archive](https://www.gunviolencearchive.org/) describes gun violence as:
 
 > "all incidents of death or injury or threat with firearms... a shooting of a victim by a subject/suspect is considered gun violence as is a defensive use or an officer involved shooting. The act itself, no matter the reason is violent in nature."
 
+#### *Gun Violence Trauma*
+
+The [American Sociological Association](https://www.asanet.org/footnotes-article/society-survivors-survivor-society-examining-gun-trauma-us/) describes gun violence trauma as the psychological and emotional impact that gun violence can have on individuals and communities. It can result from direct or indirect exposure to gun violence and has long-term negative effects on wellbeing. This information is difficult to objectively measure, so while this analysis focuses on numbers of direct exposure to gun violence for individuals it is important to remember the lasting indirect trauma gun violence has on our community.
+
+#### *Incident*
+
+An incident of gun violence can be defined as a time-boxed event where individual acts of violence took place. An incident may include multiple offenses. For example, if an individual went on a shooting spree and injured three people, that would be considered as one incident with three offenses.
+
+#### *Crime*
+
+The [FBI](https://cde-prd-data.s3.us-gov-east-1.amazonaws.com/nibrs/_all/NIBRS_DataDictionary.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAQC732REKXFJPIH3N%2F20240603%2Fus-gov-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240603T163942Z&X-Amz-Expires=900&X-Amz-Security-Token=FwoDYXdzEI7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDO5feniVpfL1KaEfuSKhAgc9X%2Bc%2FW5%2FwpIAXVxPTxAseiEEljen2PEvNlATTpWS0PVPhu5gaKiro8w%2FJwucRn7cwt8LLmhXwGCrQ0yB%2FnhKPJvD4dbt92qV8HrSOg3FoRTONZuuJl9AhOYWgPQK7m1l5tXLVnQn1PUDuR27DIqBPnf68tH48uxZfV2PWZE2spjxAuCLhB7irYW1ajEvAmwypISpfFhGeYW%2FGcUin533xKw6pcY9tJvFx1B%2BL8MJghNnFPVWlnAmWjNP96sygayq1wbUkRO68c1hMJ%2FzVpE9jztEOR64I30TYQ%2Bmh%2FzKqNuvG4AHuEzOTmgnlxBNx2vARAUYR9G9V5cv7%2BZnfx4RwQLbeqdm%2B0bgi8Vk1Zsgk9E5s0191P%2FLg1NCrgcgxO4co%2B7r3sgYyLckfeOKTl8QnBNYYGAjQajWhazqXvVCFGE8oOza7mqX7vICsDO%2B5%2FBdoDriF%2FQ%3D%3D&X-Amz-Signature=901dc6929b34f9da36734967c546cd02236700b5e8e192ac449783f770dfc684&X-Amz-SignedHeaders=host&x-id=GetObject) defines gun-related crimes as the number of illegal offenses using a firearm committed during an incident of gun violence.
+
+Gun violence is not synonymous with gun crimes. Not all crimes are violent in nature. For example, a person may be charged with the crime of illegally possessing a firearm, despite not brandishing or using the weapon.
+
+#### *Arrest*
+
+An arrest can be defined as the physical taking or seizing of a person by a police officer. It is an act that indicates the intention to take that person into custody. An arrest can happen after an incident of gun violence, or it can happen for nonviolent issues such as parole violations or a failure to appear for trial. Anyone arrested is considered innocent until proven guilty in a court of law.
+
+#### *Participant*
+
+A participant is defined as an individual involved in an act of gun violence. Participants can be victims, those injured or killed by firearms, or offenders, those using firearms. In cases of suicide, participants are considered victims. It is important to note that while the definition is limited to individuals that are physically affected by gun violence, the spectrum of victimization often extends much further to the community.
+
+#### *Youth*
+
+For this analysis, youth are considered to be juveniles under the age of 18.
+
+------------------------------------------------------------------------
+
+# Gun Violence Archive {.tabset}
+
 This database includes information collected from public news sources about 201 incidents of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. The incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault, suicide, and homicide.
 
-The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age rage and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as injury, homicide, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
+The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age range and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as numbers of injuries, homicides, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
 
 <details>
 
 <summary>Exclusions</summary>
 
+**Voluntary Participation**
+
 Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
+
+**Suicides**
+
+Suicides are not part of GVA's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer Involved incidents and Murder-Suicides are included in GVA tallies.
 
 </details>
 
@@ -84,6 +125,8 @@ gva_incidents %>%
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Victim Status"))
 ```
+
+------------------------------------------------------------------------
 
 ## Individual-level data
 
@@ -120,6 +163,8 @@ This is not a definitive collection of public safety data for Charlottesville. W
 <details>
 
 <summary>Exclusions</summary>
+
+**Jurisdiction Limits**
 
 These datasets only contain information reported by City of Charlottesville Police. It does not contain information about incidents that solely involve other police departments operating within the city (for example, University of Virginia police or Albemarle County police).
 
@@ -164,15 +209,15 @@ ggmap(cville_map) +
 
 ```
 
-## Crime Reports
+## Police Call Reports
 
-As defined by the Charlottesville Police Department, a crime report
+As defined by the Charlottesville Police Department, a police call crime report
 
 > "represents the initial information that is provided by individuals calling for police assistance."
 
 The crime dataset includes 526 calls for police assistance and includes the time of a call, the type of incident, the geocoded location of the incident, and the reporting officer. The data is maintained by CPD and updated nightly.
 
-The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled *Shots Fired/Illegal Hunting*, *Robbery - Armed*, and *Weapons Violations* are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have *Assault* as the primary offense are not included because we cannot be certain the assault included firearm. 
+The data has been filtered to only include crime reports that involve firearms. To do this, only offences labeled *Shots Fired/Illegal Hunting*, *Robbery - Armed*, and *Weapons Violations* are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have *Assault* as the primary offense are not included because we cannot be certain the assault included firearm.
 
 ------------------------------------------------------------------------
 
@@ -182,11 +227,13 @@ From the Charlottesville Open Data Portal:
 
 > "Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
 
-The below data contains the distribution of 390 arrests for firearm-related charges. The data has been anonymized so that identifiable information has been removed. Here we can see that of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, half of all people arrested for gun-related crimes have between 2-4 charges.
+Given that definition, we can ask the question: are a lot of people committing a few crimes or are a few people committing a lot of crimes? The below data contains the distribution of 390 arrests for firearm-related charges between May 2019 and April 2024. The data has been anonymized so that identifiable information has been removed.
+
+Here we can see that of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges.
 
 ```{r odp_arrests}
 
-# Distribution of arrests by person
+# Arrest numbers per person 
 odp_arrests %>%
   group_by(id) %>%
   summarise(charges = n()) %>%
@@ -196,59 +243,39 @@ odp_arrests %>%
   geom_text(aes(label =..count..), stat = "count", hjust = -0.25, size = 3) +
   labs(title = "Number of Firearm-Related Arrests per Person",
        x = "Number of People",
-       y = "Number of Charges",
+       y = "Number of Charges per Person",
        caption = "Total number of people arrested: 233") +
-  scale_y_continuous(breaks = c(1:15))
-```
-
-------------------------------------------------------------------------
-
-## Violent Offenses
-
-Arrests charges are considered violent if the statute description includes phrases such as *shooting*, *assault*, *discharge*, *pointing*, or *reckless*. Nonviolent offenses mostly consist of possession and distribution charges.
-
-If we organize the gun-related arrests into violent vs. nonviolent offenses, we can see that both types of arrests are equally distributed, with the number of non-violent arrests slightly increasing between 2021 - 2023. In general, for every violent arrest, there is at least one other nonviolent arrest. Is this because charges often get stacked against individuals?
-
-```{r odp_violence}
-
-# Distribution of violent arrests 
-odp_arrests %>%
-group_by(yr = year(arrest_datetime), grp) %>%
-  summarise(n = n()) %>%
-  ggplot(aes(x = yr, y = n, fill = grp)) +
-  geom_col() +
-  labs(title = "Types of Charges",
-       x = "Year",
-       y = "Number of Arrests",
-       caption = "Note: the dataset begins in May 2019 and ends in April 2024, so only half of those years are represented.") +
-  scale_fill_manual(labels = c("Violent", "Nonviolent"),
-                    values = c("#F8BE3D", "#007BAB"),
-                    guide = guide_legend(title = "Offense Type")) +
-  theme(axis.text.x = element_text(angle=35))
-
+  scale_y_continuous(breaks = c(1:15)) +
+  geom_label(aes(90, 10, label = "86% of people arrested \nfor gun-related crimes \nhave 2 or fewer charges"))
 ```
 
 ------------------------------------------------------------------------
 
 # Virginia Open Data Portal {.tabset}
 
-The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries along with death certificates for firearm-related causes of death.
-
-This data is supplied by the Virginia Department of Health and updated monthly.
+The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries from 2015 to 2023 along with death certificates for firearm-related causes of death from 2018 to 2022. This data is supplied by the Virginia Department of Health.
 
 <details>
-<summary>Data Dictionary & Exclusions</summary>
+
+<summary>Identifiers & Exclusions</summary>
+
+**Identifiers**
+
 Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009.
-<br>
-<br>
-Exclusions include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.' 
+
+**Exclusions**
+
+Exclusions include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.'
+
 </details>
+
 <br>
 
 ## Injuries in Cville/Albemarle
 
 The Virginia Department of Health groups Charlottesville City and Albemarle county together for their firearm injury counts from 2015 - 2023. This aggregation doesn't include any demographic information.
 
+The table below shows that the rate of firearm injuries peaked at 8.3% in 2020, however the total number of emergency department visits was the lowest of the sample. After 2020, both the numbers of firearm injuries and ED visits are increasing, subsequently causing the rate of injury to trend upwards as well.
 
 ```{r vdh_county}
 
@@ -281,13 +308,17 @@ albemarle %>%
 
 ```
 
+------------------------------------------------------------------------
+
 ## Deaths in Blue Ridge Health District
 
 The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. This is the smallest age aggregation from the VDH.
 
-This dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and Age over 5 combined years. Virginia Department of Health (VDH) health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data include Virginia residents only, whether or not they died in Virginia. Data set includes deaths from 2018 through 2022.
+This dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, whether or not they died in Virginia.
 
-The VDH Office of Vital Records tracks causes of death among Virginia residents using death certificates. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control and Prevention State Injury Indicators Report
+The VDH Office of Vital Records tracks causes of death among Virginia residents using death certificates. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control.
+
+The table below shows that the rate of firearm death is highest for individuals aged 18 and 19 years old and stays above 14% for individuals up to 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75. Given that suicide is the number one cause of firearm-related death (see `background.Rmd`) it can be inferred that a majority of the deaths for individuals 75 and older were suicide.
 
 ```{r vdh_ages}
 
@@ -316,23 +347,18 @@ fai_age %>%
 
 # FBI Data Explorer {.tabset}
 
-Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents, along with the age group of the offender. An offender is considered a juvenile if they are under the age of 18. 
+Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents, along with the age group of the offender.
 
 <details>
-<summary>Data Dictionary</summary>
-The **Number of Crimes** measure is calculated using the FBI Unit of Count. It equals the number of offenses committed during an incident, except in the following cases:
 
-- If Offense Type is Crimes against Person, then the count is set to Number of Victims. 
+<summary>Exclusions</summary>
 
-- If Offense Type is Motor Vehicle Theft, then the count is set to Attempted Motor Vehicle Thefts plus the Number of Stolen Motor Vehicles.
+**Voluntary Participation**
 
-The **Number of Incidents** measure counts the number of incidents with a specific offense type submitted to the system that match the selections in other dimensions. This value is typically lower than the number of offenses, as multiple offenses may be committed within a single incident.
-
-Each offense belongs to one of three categories: **Crimes Against Persons, Crimes Against Property, and Crimes Against Society**. This is measured under the `type` variable. Crimes Against Persons, e.g., murder, rape, and assault, are those whose victims are always individuals. The object of Crimes Against Property, e.g., robbery, bribery, and burglary, is to obtain money, property, or some other benefit. Crimes Against Society, e.g., gambling, prostitution, and drug violations, represent society’s prohibition against engaging in certain types of activity; they are typically victimless crimes in which property is not the object. See a detailed breakdown here: [FBI Definitions of Crimes Aginst Person, Property, and Society](https://ucr.fbi.gov/nibrs/2012/resources/crimes-against-persons-property-and-society) 
-
-Exclusions: because the data is voluntarily submitted, it may not be all-inclusive. 
+Because the data is voluntarily submitted by individual police departments it may not be all-inclusive.
 
 </details>
+
 <br>
 
 ## All Incidents
@@ -350,8 +376,9 @@ ucr %>%
   summarise_at(vars(matches('n_')), ~sum(.)) %>% 
   ungroup() %>% 
   left_join(pops) %>% 
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
-  ggplot(aes(year, n_total, color = district)) +
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp_plt_dat
+
+ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
   geom_line(size = 1.5) +
   labs(x = "Year",
        y = "Crime Rate per 100k",
@@ -359,11 +386,14 @@ ucr %>%
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
-                    labels= c("Virginia", "Charlottesville", "Albemarle"))
+                    labels= c("Virginia", "Charlottesville", "Albemarle")) +
+  scale_y_continuous(labels=function(x) paste0(x,"%")) +
+  geom_label(data = filter(tmp_plt_dat, year == 2022), aes(label = paste0(round(n_total, 1),"%")), show.legend = F, hjust = .75, alpha = 0.75)
+  
 
 ```
 
-## Youth Incidents 
+## Youth Incidents
 
 ```{r ucr_compare}
 
@@ -375,25 +405,25 @@ ucr %>%
   summarise_at(vars(matches('n_')), ~sum(.)) %>% 
   ungroup() %>% 
   left_join(pops) %>% 
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>% 
-  ggplot(aes(year, n_juvenile, color = district)) +
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp_plt_dat
+  
+ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
   geom_line(size = 1.5) +
   labs(x = "Year",
        y = "Crime Rate per 100k",
-       title = "All Youth Incidents Involving Firearms",
-       caption = "Note: youth = under 18 years old") +
+       title = "All Youth Incidents Involving Firearms") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
-                    labels= c("Virginia", "Charlottesville", "Albemarle"))
+                    labels= c("Virginia", "Charlottesville", "Albemarle")) +
+  scale_y_continuous(labels=function(x) paste0(x,"%")) +
+  geom_label(data = filter(tmp_plt_dat, year == 2022), aes(label = paste0(round(n_juvenile, 1),"%")), show.legend = F, hjust = .75, alpha = 0.75)
   
-
 ```
-
 
 ## Adult vs. Youth
 
-```{r ucr_age}
+```{r ucr_age, fig.width = 9}
 
 age_labs <- c("Under 18", "Above 18")
 names(age_labs) <- c("n_juvenile", "n_adult")
@@ -408,9 +438,10 @@ ucr %>%
   ungroup() %>%
   left_join(pops) %>%
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
-  pivot_longer(cols = c(n_juvenile, n_adult)) %>%
-  ggplot(aes(year, value, color = district)) +
-  geom_line(size = 1.5) +
+  pivot_longer(cols = c(n_juvenile, n_adult)) -> tmp_plt_dat
+
+ggplot(tmp_plt_dat, aes(year, value, color = district)) +
+  geom_line(linewidth = 1.5) +
   facet_wrap(~name,
              labeller = labeller(name = age_labs),
              scales = "free_y") +
@@ -420,14 +451,12 @@ ucr %>%
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
-                    labels= c("Virginia", "Charlottesville", "Albemarle"))
+                    labels= c("Virginia", "Charlottesville", "Albemarle")) +
+  scale_y_continuous(labels=function(x) paste0(x,"%")) +
+  geom_label(data = filter(tmp_plt_dat, year == 2022), aes(label = paste0(round(value, 1),"%")), show.legend = F, hjust = .75, alpha = 0.75)
+  
 
 ```
 
----
-
-# ATF Firearm Sales 
-
-
-# Gun Theft 
+------------------------------------------------------------------------
 

@@ -117,15 +117,6 @@ write_csv(fai_age, "data/fai_age.csv")
 ucr <- read_csv("data/raw/ucr_firearm.csv") %>% 
   select(-matches("rate"))
 
-# Combine Cville and Albemarle
-# combined <- ucr_raw %>%
-#   filter(district != "virginia") %>%
-#   group_by(year, type, district = "combined") %>%
-#   summarize_all(~ sum(.))
-# 
-# ucr <- ucr_raw %>%
-#   bind_rows(combined)
-
 pops <- ucr %>% 
   select(year, district, est_pop_district) %>% 
   distinct()
@@ -141,18 +132,27 @@ write_csv(pops, "data/ucr_pops.csv")
 
 # This data can be downloaded directly from the ATF site: https://www.atf.gov/firearms/listing-federal-firearms-licensees
 
-atf_dealers <- read_csv("data/raw/atf_dealers.csv") %>%
-  clean_names()
+# *Dealers ----
+atf <- readxl::read_excel("data/raw/0424-ffl-list-virginia.xlsx") %>%
+  clean_names() %>% 
+  mutate_at(vars(matches('lic_')), ~ as.numeric(.))
 
-atf_dealers <- atf_dealers %>%
-  filter(longitude > -78.9) %>%
-  mutate_at(vars(c(label_business_name, licensename)), funs(str_to_title(.))) %>%
-  mutate(label_business_name = str_replace_all(label_business_name, "\\Q*\\ENo Business Name Provided\\Q*\\E", "No Business Name Provided"),
-         label_business_name = str_replace(label_business_name, "\\Q*\\E", "No Business Name Provided"),
-         licensename = str_replace(licensename, "\\Q*\\E", "No License Name Provided"))
+local_dealers <- atf %>%
+  filter(lic_cnty == 003 | lic_cnty == 540) %>%
+  rename(license_type = lic_type) %>%
+  mutate(across(where(is.character), str_to_title),
+         business_name = replace_na(business_name, "No Business Name Provided"),
+         business_type = case_when(str_detect(business_name, "No Business Name Provided") ~ "No Business Name Provided",
+                         TRUE ~ "Business"))
 
-#write_csv(atf_dealers, "data/atf_dealers.csv")
+# Geocode 
+local_dealers %<>% mutate(address = paste(premise_street, premise_city, premise_state))
+lon_lat_dealers <- geocode(local_dealers$address)
+sum(is.na(lon_lat_dealers$lon)) #0 
+local_dealers <- bind_cols(local_dealers, lon_lat_dealers)
 
-#TODO: remove outliers and add streetmap 
+local_dealers %<>% select(license_type, license_name, business_name, premise_street, premise_city, lon, lat, business_type)
 
-#TODO: explore 2024 statewide data
+write_csv(local_dealers, "data/atf_dealers.csv")
+
+

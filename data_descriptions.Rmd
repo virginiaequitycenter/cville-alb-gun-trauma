@@ -1,6 +1,6 @@
 ---
 title: "Data Descriptions"
-author: Samantha Toet
+author: Samantha Toet, [The Equity Center](https://www.virginiaequitycenter.org/)
 output: 
   html_document:
     toc: true
@@ -16,9 +16,53 @@ library(lubridate)
 library(magrittr)
 library(reactable)
 library(reactablefmtr)
+library(tidycensus)
 library(tidyverse)
 
 ```
+
+# Background
+
+Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries. ([Everytown](https://everytownresearch.org/))
+
+On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. The rate of violent crime in Charlottesville increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases; compared to zero cases in 2021 ([Cville Community Safety Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)).
+
+How can UVA and the wider Charlottesville and Albemarle county community work together to end gun violence in our area?
+
+## Stakeholders
+
+Before we even start looking at the data, we need to consider the various stakeholders in this project. What are they looking to understand from the data? What are they looking to do with insights from the data? Or with the actual data, itself. What biases might folks have? What questions are they trying to answer? Someone may be looking to learn how gun violence has changed over the years, while someone else may be interested in understanding how to prevent gun violence, while others are looking for the structural causes. These are all things to keep in mind.
+
+Ultimately the residents of Charlottesville and Albemarle are the largest stakeholders. These folks ARE the data. They have the lived experiences, and are impacted in various ways. Their voices should be centered.
+
+## Prevalence
+
+The leading cause of death by gun violence in the Blue Ridge Health District is suicide. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents by Intent from 2018 to 2022. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County.
+
+This analysis is focused primarily on adversarial community violence, which makes up less than 30% of the full picture of gun trauma.
+
+```{r vdh_intent, echo=FALSE, message=FALSE}
+
+fai_intent <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-intent.csv") 
+
+fai_intent %>%
+  clean_names() %>%
+  filter(str_detect(patient_health_district, "Blue Ridge")) %>%
+  arrange(desc(firearm_deaths)) %>%
+  reactable(
+    defaultColDef = colDef(
+    header = function(value) 
+      str_to_title(gsub("_", " ", value, fixed = TRUE)),
+    minWidth = 70,
+    headerStyle = list(background = "#f7f7f8")
+  )) %>%
+  reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
+
+```
+
+------------------------------------------------------------------------
+
+# Data
 
 The data listed below represent information that is publicly and readily available online. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, shape, and dimensions of the problem locally.
 
@@ -170,7 +214,7 @@ These datasets only contain information reported by City of Charlottesville Poli
 
 </details>
 
-```{r odp_crimemap, fig.show="hold", fig.width=4, out.width= "50%"}
+```{r odp_crimemap, fig.show="hold", fig.width=5, out.width= "40%"}
 
 odp_crimes <- read_csv("data/odp_crimes.csv") 
 odp_arrests <- read_csv("data/odp_arrests.csv")
@@ -184,12 +228,8 @@ ggmap(cville_map) +
                  geom = "polygon") +
   theme(legend.position="none") +
   scale_fill_viridis_c(direction = -1) +
-  theme(axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank()) +
+  theme_void() +
+  theme(legend.position = "none") +
   labs(title = "Gun-Related Crime Reports",
        caption = "Total reports: 526")
 
@@ -198,12 +238,8 @@ ggmap(cville_map) +
                  geom = "polygon") +
   theme(legend.position="none") +
   scale_fill_viridis_c(direction = -1) +
-  theme(axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank()) +
+  theme_void() +
+  theme(legend.position = "none") +
   labs(title = "Gun-Related Arrests",
        caption = "Total arrests: 390")
 
@@ -347,7 +383,7 @@ fai_age %>%
 
 # FBI Data Explorer {.tabset}
 
-Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database. The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents, along with the age group of the offender.
+Crime data for Virginia are pulled from the [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database which uses the [National Incident-Based Reporting System (NIBRS)](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/nibrs). The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents, along with the age group of the offender.
 
 <details>
 
@@ -393,6 +429,8 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
 
 ```
 
+------------------------------------------------------------------------
+
 ## Youth Incidents
 
 ```{r ucr_compare}
@@ -421,7 +459,9 @@ ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
   
 ```
 
-## Adult vs. Youth
+------------------------------------------------------------------------
+
+## Adult Compared to Youth
 
 ```{r ucr_age, fig.width = 9}
 
@@ -447,7 +487,7 @@ ggplot(tmp_plt_dat, aes(year, value, color = district)) +
              scales = "free_y") +
   labs(x = "Year",
        y = "Crime Rate per 100k",
-       title = "Adult vs. Youth Incident Rates") +
+       title = "Adult Compared to Youth Incident Rates") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
@@ -460,3 +500,105 @@ ggplot(tmp_plt_dat, aes(year, value, color = district)) +
 
 ------------------------------------------------------------------------
 
+## Theft from Vehicles
+
+Gun thefts from cars are increasing triplefold compared to the last decade ([Everytown](https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/)). In 2022 in VA, \$3,477,207 dollars worth of guns (avg. \$627 dollars) and \$97,797 dollars worth of firearm accessories were reported stolen, and in Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered ([VSP](https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf)).
+
+The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2022.
+
+```{r theft}
+
+theft <- read_csv("data/nibrs_theft.csv")
+
+ggplot(theft, aes(year, n_stolen, colour = region)) +
+  geom_line(linewidth = 1.5) +
+  labs(x = "Year",
+       y = "Number of Firearms Stolen",
+       title = "Theft of Firearms from Vehicles") +
+  scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
+                    name = "Region") +
+  ggrepel::geom_label_repel(data = filter(theft, year == 2022), 
+             aes(label = n_stolen), 
+             show.legend = F, 
+             alpha = 0.75)
+
+```
+
+------------------------------------------------------------------------
+
+```{r alb_sf, results='hide'}
+alb_sf <- get_acs(
+  geography = "county",
+  state = "51",
+  variables = "B01001_001",
+  survey = "acs5",
+  geometry = TRUE,
+  year = 2022) %>%
+  filter(NAME == "Albemarle County, Virginia")
+```
+
+# ATF License Archive {.tabset}
+
+The ATF maintains a record of all federally licensed firearms dealers. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
+
+## Map
+
+```{r dealer_map, out.width="90%"}
+
+atf_dealers <- read_csv("data/atf_dealers.csv")
+
+alb_map <- get_map(c(left = -79, bottom = 37, right = -78, top = 39),
+                   maptype = "roadmap", color = "bw")
+
+ggmap(alb_map) +
+  geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.5) +
+  theme_void() +
+  geom_point(atf_dealers,
+             mapping = aes(x = lon, y = lat, col = business_type, shape = business_type),
+             size = 3) +
+  scale_color_manual(name = "Business Type", values = c("#F8BE3D", "#007BAB")) +
+  scale_shape_manual(name = "Business Type", values = c(17, 19)) +
+  theme_void() +
+  labs(title = "Locations of Firearms Dealers in Charlottesville & Albemarle",
+       caption = "Total licensed dealers: 22")
+  
+```
+
+## Table
+
+The type of license issued indicates if the seller is a dealer or manufacturer of firearms and/or other destructive devices like explosives. The sellers in Charlottesville and Albemarle have the following license types:
+
+-   **Type 01** - Dealer in Firearms Other Than Destructive Devices
+
+-   **Type 02** - Pawnbroker in Firearms Other Than Destructive Devices
+
+-   **Type 07** - Manufacturer of Firearms Other Than Destructive Devices
+
+-   **Type 09** - Dealer in Destructive Devices
+
+-   **Type 10** - Manufacturer of Destructive Devices, Ammunition for Destructive Devices or Armor Piercing Ammunition
+
+```{r dealer_list}
+
+atf_dealers %>%
+  select(license_name, business_name, premise_street, license_type) %>%
+  reactable(
+    defaultColDef = colDef(
+      header = function(value)
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "left",
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      license_type = colDef(minWidth = 50)
+    ),
+    bordered = TRUE,
+    highlight = TRUE
+  ) %>%
+  reactablefmtr::add_source("List of all Federal Firearm License types: https://www.atf.gov/resource-center/fact-sheet/fact-sheet-federal-firearms-and-explosives-licenses-types", align = "right", font_size = 10, font_color = "grey")
+
+```
+
+# Next Steps
+
+The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at Census data to better understand community factors such as poverty, adverse childhood experiences, access to resources, and other social structures that are in play. 

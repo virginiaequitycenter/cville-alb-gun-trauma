@@ -9,7 +9,7 @@ library(tidyverse)
 
 # Gun Violence Archive ----
 
-# This data can be accessed by downloading the raw CSV directly from the GVA website 
+# This data can be accessed by downloading the raw CSV directly from the GVA website: https://www.gunviolencearchive.org/
 
 gva_incidents <- read_csv("data/raw/gva_incidents.csv") %>%
   clean_names()
@@ -26,7 +26,8 @@ write_csv(gva_participants, "data/gva_participants.csv")
 # Cville Open Data Portal ----
 
 # *Crime Data ----
-# This data can be accessed by the ODP REST API and then saved as a CSV
+
+# This data can be accessed by the ODP REST API and then saved as a CSV, or downloaded directly from the ODP website: https://opendata.charlottesville.org/
 # Date range: 2019-04-20 through 2024-04-12
 
 # There are 3 incident types that directly pertain to gun violence: "Shots Fired/Illegal Hunting", "Robbery - Armed", "Weapons Violations"
@@ -50,8 +51,6 @@ odp_data <- bind_cols(odp_crimes, lon_lat)
 write_csv(odp_crimes, "data/odp_crimes.csv")
 
 # *Arrest Data ----
-# TODO: API Firearm, gun, shoot  
-# This data can be downloaded directly from the odp website or accessed via API
 
 odp_arrests <- read_csv("data/raw/arrests.csv") %>%
   clean_names()
@@ -90,7 +89,7 @@ write_csv(odp_arrests, "data/odp_arrests.csv")
 
 # VA Open Data Portal ----
 
-# This data can be accessed by downloading the raw CSV directly from the VA portal website 
+# This data can be accessed by downloading the raw CSV directly from the VA portal website: https://data.virginia.gov/
 
 # Firearm injuries by county 
 fai_county <- read_csv("data/raw/vdh-pud-fai-by-citycounty.csv") %>%
@@ -112,8 +111,9 @@ write_csv(fai_age, "data/fai_age.csv")
 
 # FBI Data Explorer ----
 
-# This data can be accessed using the FBI Crime Data Explorer build-a-table website 
+# This data can be accessed using the FBI Crime Data Explorer build-a-table website: https://va.beyond2020.com/
 
+# *Incidents ----
 ucr <- read_csv("data/raw/ucr_firearm.csv") %>% 
   select(-matches("rate"))
 
@@ -127,6 +127,10 @@ ucr <- ucr %>%
 
 write_csv(ucr, "data/ucr_firearm.csv")
 write_csv(pops, "data/ucr_pops.csv")
+
+# *Theft ----
+
+theft <- read_csv("data/raw/nibrs_theft.csv")
 
 # ATF ----
 
@@ -154,5 +158,3 @@ local_dealers <- bind_cols(local_dealers, lon_lat_dealers)
 local_dealers %<>% select(license_type, license_name, business_name, premise_street, premise_city, lon, lat, business_type)
 
 write_csv(local_dealers, "data/atf_dealers.csv")
-
-

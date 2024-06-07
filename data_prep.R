@@ -130,7 +130,10 @@ write_csv(pops, "data/ucr_pops.csv")
 
 # *Theft ----
 
-theft <- read_csv("data/raw/nibrs_theft.csv")
+# This data is surprisingly already tidy and properly formatted so we don't have to do anything :) 
+
+nibrs_theft <- read_csv("data/raw/nibrs_theft.csv")
+write_csv(nibrs_theft, "data/nibrs_theft.csv")
 
 # ATF ----
 

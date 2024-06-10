@@ -424,7 +424,9 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
                     breaks = c("virginia", "charlottesville", "albemarle"),
                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
   scale_y_continuous(labels=function(x) paste0(x,"%")) +
-  geom_label(data = filter(tmp_plt_dat, year == 2022), aes(label = paste0(round(n_total, 1),"%")), show.legend = F, hjust = .75, alpha = 0.75)
+  geom_label(data = filter(tmp_plt_dat, year == 2022), 
+             aes(label = paste0(round(n_total, 1),"%")), 
+             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold")
   
 
 ```
@@ -455,7 +457,9 @@ ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
                     breaks = c("virginia", "charlottesville", "albemarle"),
                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
   scale_y_continuous(labels=function(x) paste0(x,"%")) +
-  geom_label(data = filter(tmp_plt_dat, year == 2022), aes(label = paste0(round(n_juvenile, 1),"%")), show.legend = F, hjust = .75, alpha = 0.75)
+  geom_label(data = filter(tmp_plt_dat, year == 2022), 
+             aes(label = paste0(round(n_juvenile, 1),"%")), 
+             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold")
   
 ```
 
@@ -493,7 +497,9 @@ ggplot(tmp_plt_dat, aes(year, value, color = district)) +
                     breaks = c("virginia", "charlottesville", "albemarle"),
                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
   scale_y_continuous(labels=function(x) paste0(x,"%")) +
-  geom_label(data = filter(tmp_plt_dat, year == 2022), aes(label = paste0(round(value, 1),"%")), show.legend = F, hjust = .75, alpha = 0.75)
+  geom_label(data = filter(tmp_plt_dat, year == 2022), 
+             aes(label = paste0(round(value, 1),"%")), 
+             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold")
   
 
 ```
@@ -520,7 +526,8 @@ ggplot(theft, aes(year, n_stolen, colour = region)) +
   ggrepel::geom_label_repel(data = filter(theft, year == 2022), 
              aes(label = n_stolen), 
              show.legend = F, 
-             alpha = 0.75)
+             alpha = 0.75,
+             fontface = "bold")
 
 ```
 

@@ -30,6 +30,7 @@ dat <- dat %>%
          cpov_est = S1701_C03_002E) %>%
   separate_wider_delim(NAME, delim = "; ", names = c("tract", "locality", "state"))
 
+#write_csv(dat, "data/acs_pov.csv")
 
 # Albemarle and Cville ----
 

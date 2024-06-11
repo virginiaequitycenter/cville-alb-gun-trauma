@@ -68,7 +68,7 @@ The data listed below represent information that is publicly and readily availab
 
 All of this data is administrative and made up of information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data both in terms of input mechanisms and the data values, themselves. Granted personal info is scrubbed from this report, we should keep in mind that these are individuals and members of our community that are being represented.
 
-The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source.
+The script [scripts/dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source.
 
 ------------------------------------------------------------------------
 

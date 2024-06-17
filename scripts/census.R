@@ -44,6 +44,11 @@ gv <- bind_cols(gv, lon_lat)
 
 #write_csv(gv, "data/gun_violence.csv")
 
+# Filter to only post-covid incidents 
+
+gv_2021 <- gv %>%
+  filter(reported_date > "2021-01-01")
+
 # *Census data prep ----
 county_codes <- data.frame(code = c(540, 003), 
                            name = c("Albemarle County", "Charlottesville City"))
@@ -140,11 +145,11 @@ dat %>%
             opacity = 1) %>%
   addLayersControl(baseGroups = c("Overall Poverty", "Child Poverty"),
                    options = layersControlOptions(collapsed = FALSE)) %>%
-  addMarkers(data = gv, 
-             lng = gv$lon,
-             lat = gv$lat,
+  addMarkers(data = gv_2021, 
+             lng = gv_2021$lon,
+             lat = gv_2021$lat,
              popup = paste0("Description: ", gv$description, "<br>",
-                            "Date: ", gv$reported_date),
+                            "Date: ", gv_2021$reported_date),
              clusterOptions = markerClusterOptions(
                showCoverageOnHover = FALSE,
                iconCreateFunction=JS("function (cluster) {    
@@ -164,7 +169,7 @@ dat %>%
 
 # Median Income by Education ----
 pal_earn <- colorNumeric(palette = "viridis",
-                        domain = NULL,
+                        domain = c(15000:130000),
                         reverse = FALSE)
 
 dat %>%
@@ -186,13 +191,45 @@ dat %>%
                 fillOpacity = 1,
                 bringToFront = FALSE
               )) %>%
+  addPolygons(group = "High School Degree or Equivalent",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_earn(med_earn_hs),
+              fillOpacity = 0.5,
+              popup = paste0("Median Earnings: ", scales::dollar(dat$med_earn_hs), "<br>",
+                             "Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addPolygons(group = "Bachelors Degree or Equivalent",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_earn(med_earn_bd),
+              fillOpacity = 0.5,
+              popup = paste0("Median Earnings: ", scales::dollar(dat$med_earn_bd), "<br>",
+                             "Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
   addLegend("bottomright",
             pal = pal_earn,
-            values = ~ med_earn_25, 
+            values = c(15000:130000), 
             title = "Median Earnings",
             labFormat = labelFormat(prefix = "$"), 
             opacity = 1) %>%
-  addLayersControl(baseGroups = c("All Education Levels"),
+  addLayersControl(baseGroups = c("All Education Levels",
+                                  "High School Degree",
+                                  "Bachelors Degree"),
                    options = layersControlOptions(collapsed = FALSE)) %>%
   addMarkers(data = gv, 
              lng = gv$lon,

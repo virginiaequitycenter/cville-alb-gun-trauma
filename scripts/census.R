@@ -38,7 +38,7 @@ gv <- gv %>%
 # Geocode
 gv <- gv %>%
   mutate(address = paste(block_address, locality))
-#lon_lat <- geocode(gv$address)
+lon_lat <- geocode(gv$address)
 sum(is.na(lon_lat$lon)) #0 
 gv <- bind_cols(gv, lon_lat)
 
@@ -236,6 +236,54 @@ dat %>%
              lat = gv$lat,
              popup = paste0("Description: ", gv$description, "<br>",
                             "Date: ", gv$reported_date),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+
+# Unemployment Rates ----
+# Reuse pal_pov palette since it has free scales 
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Unemployment Rate",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(unemployment_rate),
+              fillOpacity = 0.5,
+              popup = paste0("Unemployment Rate: ", dat$unemployment_rate, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ unemployment_rate, 
+            title = "Unemployment Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addMarkers(data = gv_2021, 
+             lng = gv_2021$lon,
+             lat = gv_2021$lat,
+             popup = paste0("Description: ", gv$description, "<br>",
+                            "Date: ", gv_2021$reported_date),
              clusterOptions = markerClusterOptions(
                showCoverageOnHover = FALSE,
                iconCreateFunction=JS("function (cluster) {    

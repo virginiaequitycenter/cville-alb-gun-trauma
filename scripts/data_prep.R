@@ -4,6 +4,9 @@ library(janitor)
 library(jsonlite)
 library(lubridate)
 library(magrittr)
+library(readxl)
+library(sf)
+library(stringr)
 library(tidycensus)
 library(tidyverse)
 
@@ -139,7 +142,7 @@ write_csv(nibrs_theft, "data/nibrs_theft.csv")
 
 # This data can be downloaded directly from the ATF site: https://www.atf.gov/firearms/listing-federal-firearms-licensees
 
-# *Dealers ----
+# Dealers 
 atf <- readxl::read_excel("data/raw/0424-ffl-list-virginia.xlsx") %>%
   clean_names() %>% 
   mutate_at(vars(matches('lic_')), ~ as.numeric(.))
@@ -154,10 +157,101 @@ local_dealers <- atf %>%
 
 # Geocode 
 local_dealers %<>% mutate(address = paste(premise_street, premise_city, premise_state))
-lon_lat_dealers <- geocode(local_dealers$address)
+#lon_lat_dealers <- geocode(local_dealers$address)
 sum(is.na(lon_lat_dealers$lon)) #0 
 local_dealers <- bind_cols(local_dealers, lon_lat_dealers)
 
 local_dealers %<>% select(license_type, license_name, business_name, premise_street, premise_city, lon, lat, business_type)
 
 write_csv(local_dealers, "data/atf_dealers.csv")
+
+# Police ----
+
+# This data includes an anonymized collection of all gun violence incidents recorded by the Charlottesville 
+# Police Department (CPD), the Albemarle County Police Department (ACPD), and the UVA Police Department (UPD). 
+
+# The data was collected from their SQL database by the ACPD crime analyst and shared with the Equity Center in June 2024
+# Block numbers are used instead of specific addresses to preserve anonymity while also providing geographic information
+
+# All incidents of gun violence from 2019 - 2024
+all_gv <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD_BLOCK ADDRESS.xlsx") %>%
+  clean_names()
+
+all_gv <- all_gv %>%
+  mutate(locality = case_when(
+    agency == "ACPD" ~ "Albemarle County",
+    TRUE ~ "Charlottesville"))
+
+# Filter to only include verified shots fired (Shots Fired, 1, 2, 3), murder (09A), Active Shooter, and aggravated assaults (13A)
+gv <- all_gv %>%
+  filter(str_detect(crime_code, "Shots|09A|13A|Active Shooter"),
+         !str_detect(verified, "^UN")) %>%
+  mutate(description = case_when(
+    crime_code == "13A" ~ "Aggravated Assault",
+    crime_code == "09A" ~ "Murder",
+    crime_code == "Active Shooter 1" ~ "Active Shooter",
+    TRUE ~ "Shots Fired"))
+
+# Geocode
+gv <- gv %>%
+  mutate(address = paste(block_address, locality))
+lon_lat <- geocode(gv$address)
+sum(is.na(lon_lat$lon)) #0 
+gv <- bind_cols(gv, lon_lat)
+
+write_csv(gv, "data/regional_gv.csv")
+
+# Participant demographics - for another analysis 
+# case_dems <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
+#   clean_names()
+
+# Census ----
+county_codes <- data.frame(code = c(540, 003), 
+                           name = c("Albemarle County", "Charlottesville City"))
+region <- county_codes$code
+
+tract_names <- read_csv("data/tract_names.csv")
+
+# Initial ACS variables to explore:
+vars <- c("B01003_001",    # population
+          "S1701_C03_001", # poverty rate
+          "S1701_C03_002", # child poverty rate 
+          "S2301_C04_001", # Percent unemployment (Population 16 and over)
+          "B20002_001E",   # median earnings 12m age 16+
+          "B20004_001E",   # median earnings 12m age 25+
+          "B20004_002E",   # median earnings 12m age 25+ < high school
+          "B20004_003E",   # median earnings 12m age 25+ high school grad
+          "B20004_004E",   # median earnings 12m age 25+ some college or associates
+          "B20004_005E",   # median earnings 12m age 25+ bachelor's 
+          "B20004_006E")   # median earnings 12m age 25+ graduate or professional degree 
+
+# TODO:  HDI 
+
+# 2018-2022 5-year ACS
+dat <- get_acs(geography = "tract",
+               variables = vars,
+               state = "VA",
+               county = region,
+               survey = "acs5",
+               year = 2022,
+               geometry = TRUE,
+               output = "wide")
+
+dat <- dat %>%
+  select(-ends_with("M")) %>%
+  rename(pop_est = B01003_001E,
+         poverty_est = S1701_C03_001E,
+         cpov_est = S1701_C03_002E,
+         unemployment_rate = S2301_C04_001E,
+         med_earn_16 = B20002_001E,
+         med_earn_25 = B20004_001E,
+         med_earn_nohs = B20004_002E,
+         med_earn_hs = B20004_003E,
+         med_earn_col = B20004_004E,
+         med_earn_bd = B20004_005E,
+         med_earn_gd = B20004_006E) %>%
+  separate_wider_delim(NAME, delim = "; ", names = c("tract", "locality", "state")) %>%
+  left_join(tract_names, by = join_by(tract == tract_id)) %>%
+  st_as_sf()
+
+#write_rds(dat, "data/census.RDS")

@@ -1,5 +1,5 @@
 ---
-title: "Data Descriptions"
+title: "Comparing Regional Equity Variables to Gun Violence Outcomes"
 author: Samantha Toet, [The Equity Center](https://www.virginiaequitycenter.org/)
 output: 
   html_document:
@@ -12,10 +12,12 @@ output:
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(ggmap)
 library(janitor)
+library(leaflet)
 library(lubridate)
 library(magrittr)
 library(reactable)
 library(reactablefmtr)
+library(sf)
 library(tidycensus)
 library(tidyverse)
 
@@ -606,6 +608,575 @@ atf_dealers %>%
 
 ```
 
+# American Community Survey
+
+The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at Census data to better understand community factors such as poverty, adverse childhood experiences, access to resources, and other social structures that are in play.
+
+The below maps overlay information from the 2022 American Community Survey on top of incidents of gun violence to visualize how these variables may compare.
+
+## Poverty & Childhood Poverty Rates {.tabset}
+
+The Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty.
+
+<details>
+
+<summary>Exclusions</summary>
+
+**ACS 5 Year Summaries**
+
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+
+Because the data represents summaries from 2018-2022, the plots below do not show changes in poverty rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven't been released in the ACS 5-Year Estimates yet.
+
+**Student Housing**
+
+A significant portion of the JPA-Fontaine Census tract is made up of UVA students. Many of these students are not earning an income and therefore skew overall poverty levels for that area.
+
+</details>
+
+```{r leaflet_setup}
+dat <- readRDS("data/census.RDS")
+gv <- read_csv("data/regional_gv.csv")
+
+gv_2021 <- gv %>%
+  filter(between(reported_date, as.Date("2021-01-01"), as.Date("2021-12-31")))
+gv_2022 <- gv %>%
+  filter(between(reported_date, as.Date("2022-01-01"), as.Date("2022-12-31")))
+gv_2023 <- gv %>%
+  filter(between(reported_date, as.Date("2023-01-01"), as.Date("2023-12-31")))
+gv_2024 <- gv %>%
+  filter(between(reported_date, as.Date("2024-01-01"), as.Date("2024-12-31")))
+
+pal_pov <- colorNumeric(palette = "viridis",
+                        domain = NULL,
+                        reverse = TRUE)
+```
+
+### 2021
+
+**Total incidents: `r nrow(gv_2021)`**
+
+```{r pov_2021}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Overall Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(poverty_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Childhood Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addPolygons(group = "Child Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(cpov_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Child Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ poverty_est, 
+            title = "Estimated Poverty Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addLayersControl(baseGroups = c("Overall Poverty", "Child Poverty"),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMarkers(data = gv_2021, 
+             lng = gv_2021$lon,
+             lat = gv_2021$lat,
+             popup = paste0("Description: ", gv_2021$description, "<br>",
+                            "Date: ", gv_2021$reported_date, "<br>",
+                            "Status: ", gv_2021$verified),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+```
+
+------------------------------------------------------------------------
+
+### 2022
+
+**Total incidents: `r nrow(gv_2022)`**
+
+```{r pov_2022}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Overall Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(poverty_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Childhood Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addPolygons(group = "Child Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(cpov_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Child Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ poverty_est, 
+            title = "Estimated Poverty Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addLayersControl(baseGroups = c("Overall Poverty", "Child Poverty"),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMarkers(data = gv_2022, 
+             lng = gv_2022$lon,
+             lat = gv_2022$lat,
+             popup = paste0("Description: ", gv_2022$description, "<br>",
+                            "Date: ", gv_2022$reported_date, "<br>",
+                            "Status: ", gv_2022$verified),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+```
+
+------------------------------------------------------------------------
+
+### 2023
+
+**Total incidents: `r nrow(gv_2023)`**
+
+```{r pov_2023}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Overall Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(poverty_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Childhood Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addPolygons(group = "Child Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(cpov_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Child Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ poverty_est, 
+            title = "Estimated Poverty Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addLayersControl(baseGroups = c("Overall Poverty", "Child Poverty"),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMarkers(data = gv_2023, 
+             lng = gv_2023$lon,
+             lat = gv_2023$lat,
+             popup = paste0("Description: ", gv_2023$description, "<br>",
+                            "Date: ", gv_2023$reported_date, "<br>",
+                            "Status: ", gv_2023$verified),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+```
+
+------------------------------------------------------------------------
+
+### 2024
+
+**Total incidents: `r nrow(gv_2024)`**
+
+Note: 2024 data consists of incidents from Jan 1 2024 through May 18 2024.
+
+```{r pov_2024}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Overall Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(poverty_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Childhood Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addPolygons(group = "Child Poverty",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(cpov_est),
+              fillOpacity = 0.5,
+              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
+                             "Child Poverty Rate: ", dat$cpov_est, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ poverty_est, 
+            title = "Estimated Poverty Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addLayersControl(baseGroups = c("Overall Poverty", "Child Poverty"),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMarkers(data = gv_2024, 
+             lng = gv_2024$lon,
+             lat = gv_2024$lat,
+             popup = paste0("Description: ", gv_2024$description, "<br>",
+                            "Date: ", gv_2024$reported_date, "<br>",
+                            "Status: ", gv_2024$verified),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+```
+
+------------------------------------------------------------------------
+
+## Unemployment Rates {.tabset}
+
+Similar to how poverty variables are calculated, the The American Community Survey (ACS) 5-Year Estimates for unemployment rates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
+
+Because the data represents summaries from 2018-2022, the plots below do not show changes in unemployment rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven’t been released in the ACS 5-Year Estimates yet.
+
+### 2021
+
+**Total incidents: `r nrow(gv_2021)`**
+
+```{r unemployment_2021}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Unemployment Rate",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(unemployment_rate),
+              fillOpacity = 0.5,
+              popup = paste0("Unemployment Rate: ", dat$unemployment_rate, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ unemployment_rate, 
+            title = "Unemployment Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addMarkers(data = gv_2021, 
+             lng = gv_2021$lon,
+             lat = gv_2021$lat,
+             popup = paste0("Description: ", gv_2021$description, "<br>",
+                            "Date: ", gv_2021$reported_date),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+
+```
+
+------------------------------------------------------------------------
+
+### 2022
+
+**Total incidents: `r nrow(gv_2022)`**
+
+```{r unemployment_2022}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Unemployment Rate",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(unemployment_rate),
+              fillOpacity = 0.5,
+              popup = paste0("Unemployment Rate: ", dat$unemployment_rate, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ unemployment_rate, 
+            title = "Unemployment Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addMarkers(data = gv_2022, 
+             lng = gv_2022$lon,
+             lat = gv_2022$lat,
+             popup = paste0("Description: ", gv_2022$description, "<br>",
+                            "Date: ", gv_2022$reported_date),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+
+
+```
+
+------------------------------------------------------------------------
+
+### 2023
+
+**Total incidents: `r nrow(gv_2023)`**
+
+```{r unemployment_2023}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Unemployment Rate",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(unemployment_rate),
+              fillOpacity = 0.5,
+              popup = paste0("Unemployment Rate: ", dat$unemployment_rate, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ unemployment_rate, 
+            title = "Unemployment Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addMarkers(data = gv_2023, 
+             lng = gv_2023$lon,
+             lat = gv_2023$lat,
+             popup = paste0("Description: ", gv_2023$description, "<br>",
+                            "Date: ", gv_2023$reported_date),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+
+
+```
+
+------------------------------------------------------------------------
+
+### 2024
+
+**Total incidents: `r nrow(gv_2024)`**
+
+Note: 2024 data consists of incidents from Jan 1 2024 through May 18 2024.
+
+```{r unemployment_2024}
+
+dat %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Unemployment Rate",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pov(unemployment_rate),
+              fillOpacity = 0.5,
+              popup = paste0("Unemployment Rate: ", dat$unemployment_rate, "%", "<br>",
+                             "Population: ", dat$pop_est, "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pov,
+            values = ~ unemployment_rate, 
+            title = "Unemployment Rates",
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addMarkers(data = gv_2024, 
+             lng = gv_2024$lon,
+             lat = gv_2024$lat,
+             popup = paste0("Description: ", gv_2024$description, "<br>",
+                            "Date: ", gv_2024$reported_date),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+
+
+```
+
+------------------------------------------------------------------------
+
 # Next Steps
 
-The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at Census data to better understand community factors such as poverty, adverse childhood experiences, access to resources, and other social structures that are in play. 
+The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at additional data to better understand community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.

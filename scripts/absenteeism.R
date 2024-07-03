@@ -6,6 +6,10 @@ library(janitor)
 library(reactable)
 library(tidyverse)
 
+ec_colors <- c("Elementary" = "#232D4B", 
+               "Middle" = "#007BAB",
+               "High" = "#F8BE3D")
+
 # Downloaded from https://schoolquality.virginia.gov/download-data
 cville <- read_csv("data/absenteeism/cville.csv", skip = 2) %>%
   janitor::clean_names()
@@ -17,33 +21,35 @@ chronic <- bind_rows(cville, alb) %>%
   mutate_at(c(6:9), ~as.numeric(.) %>% replace_na(0)) %>%
   mutate(school_level = gsub(".* ", "", school) %>% 
            gsub("Elem$", "Elementary", .) %>%
-           factor(levels = c("Elementary", "Middle", "High")))
-
-# Table ----
-chronic23 <- chronic %>%
-  filter(subgroup == "All Students",
-         year == "2022 - 2023") %>%
-  select(year, division, school, count_above_10, percent_above_10) %>%
-  mutate(division = case_when(
-    division == "Charlottesville City Public Schools" ~ "CCS",
-    TRUE ~ "ACS")) %>%
-  rename("Number of Chronically Absent Students" = count_above_10,
-         "Percent of Student Population" = percent_above_10)
-
-write_csv(chronic23, "data/absenteeism/chronic23.csv")
-
-# Visualizations ----
-all_students <- chronic %>% 
-  filter(subgroup == "All Students") %>%
+           factor(levels = c("Elementary", "Middle", "High")),
+         division = case_when(
+           division == "Charlottesville City Public Schools" ~ "CCS",
+           TRUE ~ "ACPS"),
+         school_short = word(school , 1  , -2),
+         school_short = case_when(
+           school_short == "Walker Upper" ~ "Walker",
+           school_short == "Leslie H. Walton" ~ "Walton",
+           school_short == "Charlottesville" ~ "CHS",
+           school_short == "Mary Carr Greer" ~ "Greer",
+           school_short == "Virginia L. Murray" ~ "Murray",
+           school_short == "Albemarle" ~ "AHS",
+           school_short == "Western Albemarle" ~ "WAHS",
+           school_short == "Jackson P. Burley" ~ "Burley",
+           school_short == "Joseph T. Henley" ~ "Henley",
+           TRUE ~ school_short),
+         school_level = case_when(
+           school_short == "Walker" ~ "Middle",
+           TRUE ~ school_level)) %>%
   select(-level)
 
-ccs_average <- filter(all_students, grepl("Charlottesville", division)) %>%
-  group_by(year) %>%
-  summarise(percent_above_10 = mean(percent_above_10))
 
-acs_average <- filter(all_students, grepl("Albemarle", division)) %>%
-  group_by(year) %>%
-  summarise(percent_above_10 = mean(percent_above_10))
+          
+
+write_csv(chronic, "data/chronic_absenteeism.csv")
+
+# Summarize  ----
+all_students <- chronic %>% 
+  filter(subgroup == "All Students")
 
 # Facet - ugly
 ggplot(all_students, aes(x = year, y = percent_above_10, group = school, color = school_level)) +
@@ -52,43 +58,76 @@ ggplot(all_students, aes(x = year, y = percent_above_10, group = school, color =
   geom_text(aes(label = paste0(round(percent_above_10), "%"), hjust = 1, vjust = 1.5)) +
   facet_grid( ~ division)
 
-# CCS of interest
+# CCS ----
 ccs <- all_students %>%
-  filter(school %in% c("Johnson Elementary", "Venable Elementary", 
-                       "Walker Upper Elementary", "Buford Middle", 
-                       "Charlottesville High")) %>%
-  mutate(short = case_when(
-    school == "Buford Middle" ~ "Buford",
-    school == "Walker Upper Elementary" ~ "Walker",
-    school == "Charlottesville High" ~ "CHS",
-    school == "Johnson Elementary" ~ "Johnson",
-    school == "Venable Elementary" ~ "Venable"
-  ))
+  filter(division == "CCS")
+
+ccs_average <- filter(all_students, grepl("CCS", division)) %>%
+  group_by(year) %>%
+  summarise(percent_above_10 = mean(percent_above_10))
 
 ccs_labels <- ccs %>%
   filter(year == "2022 - 2023")
 
-
-ggplot(ccs, aes(x = year, y = percent_above_10, group = school)) +
-  geom_smooth(data = ccs_average, aes(color = "District Average", group = 1), size = 2) +
-  geom_smooth() +
+ggplot(ccs, aes(x = year, y = percent_above_10, group = school, color = school_level)) +
+  geom_point(data = ccs_average, aes(x = year, y = percent_above_10), 
+             inherit.aes = FALSE, color = "darkgrey") +
+  geom_smooth(data = ccs_average, aes(x = year, y = percent_above_10, group = "average"), 
+              color =  "darkgrey", size = 2) +
+  geom_smooth(se=FALSE) +
   geom_point() +
-  geom_text(aes(label = paste0(round(percent_above_10), "%"), hjust = 1, vjust = 1.5)) +
-  geom_label(data = ccs_labels, aes(label = short), hjust = -.1) +
-  scale_color_manual(values = "grey") +
-  labs(color = NULL,
-       y = "Rate of Chronic Absenteeism",
+  geom_label(data = ccs_labels, aes(label = school_short), hjust = -.1, size = 3) +
+  annotate("label", x = "2022 - 2023", y = 20, label = "District Average", hjust = -.1,  
+           color = "darkgrey", size = 3) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  scale_color_manual(values = ec_colors, breaks = c("Elementary", "Middle", "High")) +
+  labs(y = "Rate of Chronic Absenteeism",
        x = "School Year",
-       title = "Charlottesville Schools of Interest")
+       title = "Charlottesville City Schools",
+       color = "School Level") +
+  theme_bw()
 
 
-# Demographics 
 
-all_avg <- all_students %>%
+# ACPS ----
+acs <- all_students %>%
+  filter(division == "ACPS",
+         school != "Community Lab School")
+
+acs_average <- filter(all_students, grepl("ACPS", division)) %>%
+  group_by(year) %>%
+  summarise(percent_above_10 = mean(percent_above_10))
+
+acs_labels <- acs %>%
+  filter(year == "2022 - 2023")
+
+ggplot(data = acs, aes(x = year, y = percent_above_10, group = school, color = school_level)) +
+  geom_point(data = acs_average, aes(x = year, y = percent_above_10), 
+             inherit.aes = FALSE, color = "darkgrey") +
+  geom_smooth(data = acs_average, aes(x = year, y = percent_above_10, group = "average"), 
+              color =  "darkgrey", size = 2) +
+  geom_smooth(se=FALSE) +
+  geom_point() +
+  geom_label(data = acs_labels, aes(label = school_short), hjust = -.1, size = 3) +
+  annotate("label", x = "2022 - 2023", y = 17.4, label = "District Average", hjust = -.1,  
+           color = "darkgrey", size = 3) +
+  facet_wrap(~factor(school_level, levels=c("Elementary","Middle","High"))) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  scale_color_manual(values = ec_colors, breaks = c("Elementary", "Middle", "High")) +
+  labs(y = "Rate of Chronic Absenteeism",
+       x = "School Year",
+       title = "Albemarle County Public Schools",
+       color = "School Level") +
+  theme_bw()
+
+# Demographics ----
+
+all_average <- all_students %>%
   group_by(year, division) %>%
   summarise(percent_above_10 = mean(percent_above_10))
 
 demo_means <- chronic %>% 
+  filter(subgroup != "All Students") %>%
   group_by(division, subgroup, year) %>%
   summarise(percent_above_10 = mean(percent_above_10))
 
@@ -99,15 +138,27 @@ demo_labels <- demo_means %>%
     subgroup == "Students with Disabilities" ~ "Students with\nDisabilities",
     TRUE ~ subgroup))
 
+avg_labels <- all_average %>%
+  filter(year == "2022 - 2023")
+
+avg_labels$label <- c("District Average", "District Average")
+
 ggplot(demo_means, aes(x = year, y = percent_above_10, group = subgroup)) +
-  geom_smooth() +
+  geom_point(data = all_average, aes(x = year, y = percent_above_10), 
+             inherit.aes = FALSE, color = "darkgrey") +
+  geom_smooth(data = all_average, aes(x = year, y = percent_above_10, group = "average"), 
+              color =  "darkgrey", size = 2) +
+  geom_smooth(color = "black") +
   geom_point() +
-  geom_text(aes(label = paste0(round(percent_above_10), "%"), hjust = 1, vjust = 1.5), size = 3)  +
   geom_label(data = demo_labels, aes(label = short), hjust = -.1, size = 2.5) +
+  geom_label(data = avg_labels, aes(x = year, y = percent_above_10, label = label, group = "average"),
+             hjust = -.1, size = 2.5, color = "darkgrey") +
   facet_wrap(~division) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
   labs(title = "Student Demographics",
        x = "School Year",
-       y = "Rate of Chronic Absenteeism")
+       y = "Rate of Chronic Absenteeism") +
+  theme_bw()
 
 
 

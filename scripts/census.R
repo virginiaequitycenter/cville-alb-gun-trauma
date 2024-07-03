@@ -228,8 +228,8 @@ dat %>%
             labFormat = labelFormat(prefix = "$"), 
             opacity = 1) %>%
   addLayersControl(baseGroups = c("All Education Levels",
-                                  "High School Degree",
-                                  "Bachelors Degree"),
+                                  "High School Degree or Equivalent",
+                                  "Bachelors Degree or Equivalent"),
                    options = layersControlOptions(collapsed = FALSE)) %>%
   addMarkers(data = gv, 
              lng = gv$lon,
@@ -251,6 +251,10 @@ dat %>%
 
   }")
              ))
+
+
+
+
 
 # Unemployment Rates ----
 # Reuse pal_pov palette since it has free scales 

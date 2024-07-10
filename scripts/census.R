@@ -86,7 +86,8 @@ dat <- dat %>%
          -ends_with("M")) %>%
   separate_wider_delim(NAME, delim = "; ", names = c("tract", "locality", "state")) %>%
   left_join(tract_names, by = join_by(tract == tract_id)) %>%
-  st_as_sf()
+  st_as_sf() %>%
+  st_transform(crs = 4326)
   
 write_rds(dat, "data/census.RDS")
 
@@ -94,10 +95,48 @@ write_rds(dat, "data/census.RDS")
 # Explore visualizations ----
 library(leaflet)
 
+# Total incidents over the years
 gv <- read_csv("data/regional_gv.csv")
 
-gv_past_year <- gv %>%
-  filter(between(reported_date, as.Date("2023-05-01"), as.Date("2024-05-01")))
+gv_pts <- gv %>%
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+gv_sf_summary <- dat %>% 
+  mutate(counts = lengths(st_intersects(., gv_poly))) %>%
+  group_by(tract) %>%
+  mutate(incidents_pop = (counts / pop_est) * 100,
+         incidents_18 = (counts / total_under18 * 100),
+         incidents_25 = (counts / total_under25) * 100)
+
+  
+pal <- colorNumeric(palette = "viridis", 
+                    domain = NULL, 
+                    reverse = TRUE)
+
+gv_sf_summary %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal(counts),
+              fillOpacity = 0.5,
+              popup = paste0("N Incidents: ", gv_sf_summary$counts, "<br>",
+                             "Total Population: ", gv_sf_summary$pop_est, "<br>",
+                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal,
+            values = ~ counts, 
+            title = "Number of Incidents 2019-2024", 
+            opacity = 1)
+  
+
+# Population age summaries 
 
 pal_pop <- colorNumeric(palette = "viridis", 
                         domain = c(0:89), 

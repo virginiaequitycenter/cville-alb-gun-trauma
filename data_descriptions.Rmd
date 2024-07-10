@@ -25,15 +25,13 @@ ec_colors <- c("Charlottesville" = "#F8BE3D",
                "Albemarle" = "#007BAB",
                "Virginia" = "#232D4B")
 
-
-
 ```
 
 # Introduction
 
-Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries ^[Everytown](https://everytownresearch.org/)^. In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis ^[US\ Surgeon\ General](https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf)^.
+Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries ^1^. In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis ^2^.
 
-Charlottesville and Albemarle are not immune to this epidemic. On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. Additionally, the rate of violent crime in Charlottesville and Albemarle increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases; compared to zero cases in 2021 ^[CSWG Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf)^. While incidents of gun violence have decreased in the first half of 2024^[Cville Weekly](https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence)^, the number bullets recovered at the scenes has increased, indicating the ever-changing nature of the issue.
+Charlottesville and Albemarle are not immune to this epidemic. On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. Additionally, the rate of violent crime in Charlottesville and Albemarle increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases; compared to zero cases in 2021 ^3^. While incidents of gun violence have decreased in the first half of 2024 ^4^, the number of bullets recovered at each scene has increased, indicating the ever-changing nature of the issue.
 
 The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in smaller towns. The project is taking a holistic approach by researching solutions at a local level in the Charlottesville and Albemarle region, while also exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
 
@@ -43,7 +41,7 @@ Ultimately, we hope this work will be part of:
 
 1.  Understanding the full impact of gun violence on our community and how different people experience this impact;
 
-2.  Working with residents, advocates, and decision makers to identify approaches to prevention and intervention for all types of gun violence, and
+2.  Working with residents, advocates, and decision-makers to identify approaches to prevention and intervention for all types of gun violence, and
 
 3.  Evaluating the effectiveness of current and future efforts to eliminate gun violence.
 
@@ -109,7 +107,7 @@ Exclusions include follow-up visits, visits involving other types of guns (e.g.,
 
 The Virginia Department of Health groups Charlottesville City and Albemarle County together for their firearm injury counts from 2015 - 2023. This aggregation does not include any demographic information.
 
-The table below shows that the rate of firearm injuries peaked at 8.3% in 2020, however the total number of emergency department visits was the lowest of the sample. After 2020, both the numbers of firearm injuries and ED visits are increasing, subsequently causing the rate of injury to trend upwards as well.
+The table below shows that the rate of firearm injuries peaked at 8.3 per 10k Emergency Department visits in 2020, however the total number of emergency department visits was the lowest of the sample. After 2020, both the numbers of firearm injuries and ED visits are increasing, subsequently causing the rate of injury to trend upwards as well.
 
 ```{r vdh_county}
 
@@ -144,11 +142,11 @@ albemarle %>%
 
 ## Deaths in the Blue Ridge Health District
 
-The [VDH Office of Vital Records](https://www.vdh.virginia.gov/vital-records/) tracks causes of death among Virginia residents using death certificates. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control ^[CDC](https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html)^.
+The [VDH Office of Vital Records](https://www.vdh.virginia.gov/vital-records/) tracks causes of death among Virginia residents using death certificates. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control ^5^.
 
-This VDH dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, whether or not they died in Virginia.
+This VDH dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, regardless of whether they died in Virginia.
 
-The table below shows that the rate of firearm death is highest for individuals aged 18 and 19 years old and stays above 14% for individuals up to 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75. Given that suicide is the number one cause of firearm-related death in our region, it can be inferred that a majority of the deaths for individuals 75 and older were suicide.
+The table below shows that the rate of firearm death is highest for individuals aged 18 and 19 years old and stays above 14% per 100k individuals up to 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75. Given that suicide is the number one cause of firearm-related death in our region, it can be inferred that a majority of the deaths for individuals 75 and older were suicide.
 
 ```{r vdh_ages}
 
@@ -191,7 +189,7 @@ Because the data is sourced from public news websites, if an act of violence did
 
 **Suicides**
 
-Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report ^[CDC](https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html)^ and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies.
+Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report ^6^ and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies.
 
 </details>
 
@@ -440,7 +438,7 @@ This data is different from the data provided directly from the police in the fo
 
 1.  It is limited to only reports in the Charlottesville district
 2.  It includes all calls to police, and not just gun-related calls
-3.  It does not include additional incident information such as verification or if it was assigned to an detective as a case. 
+3.  It does not include additional incident information such as verification or if it was assigned to a detective as a case 
 
 This data can be considered the first step in how gun-related crimes are recorded while the police-provided data can be considered the second step in the process.
 
@@ -525,7 +523,7 @@ odp_arrests %>%
 
 # Access to Firearms
 
-With nearly a third of Americans owning a gun ^[PEW](https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/)^, access to firearms is easy for many people. Someone can legally purchase a gun anywhere from their local big-box store, to their neighborhood gun dealer, to a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns ^[VSP](https://vsp.virginia.gov/services/firearms/faq)^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds ^[UVA Policy](https://uvapolicy.virginia.edu/policy/sec-030)), and there are no state-mandated age limits on purchasing ammunition ^[VSP](https://vsp.virginia.gov/services/firearms/faq)^.  
+With nearly a third of Americans owning a gun ^7^, access to firearms is easy for many people. Someone can legally purchase a gun anywhere from their local big-box store, to their neighborhood gun dealer, to a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns ^8^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds ^9^), and there are no state-mandated age limits on purchasing ammunition ^8^.  
 
 People can also get guns illegally. This can range from manufacturing their own, to under-the-table sales, to trade and barters, and even theft. 
 
@@ -544,7 +542,7 @@ alb_sf <- get_acs(
 
 ## Federally Licensed Firearms Dealers {.tabset}
 
-The [The Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are publicly accessible businesses, such as the Walmart on 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
+The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are publicly accessible businesses, such as the Walmart on 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
 
 ### Map
 
@@ -631,11 +629,162 @@ ggplot(theft, aes(year, n_stolen, colour = region)) +
 
 ------------------------------------------------------------------------
 
-# Residental Characteristics 
+# Residential Characteristics 
 
 The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at Census data to better understand community factors such as poverty, access to resources, and other social structures that are in play.
 
-The below maps overlay information from the [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109) on top of incidents of gun violence to visualize how these variables may compare.
+The below maps overlay information from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109) on top of incidents of gun violence to visualize how these variables may compare.
+
+## Populations {.tabset}
+
+With over 16,700 undergraduate students coming to the region each semester to study at UVA [UVA Statistics](https://admission.virginia.edu/admission/statistics), the youth population of Charlottesville and Albemarle is significantly large and transient. 
+
+The map below shows the percentages of the population that are under 18 and 25 years old. It is important to note that the JPA - Fontaine and Carr's Hill - McCormick tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions may be skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region. 
+
+<details>
+
+<summary>Exclusions</summary>
+
+**ACS 5 Year Summaries**
+
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+
+</details>
+
+### Youth 
+
+```{r youth_pops}
+dat <- readRDS("data/census.RDS")
+gv <- read_csv("data/regional_gv.csv")
+
+gv_pts <- gv %>%
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+gv_sf_summary <- dat %>% 
+  mutate(counts = lengths(st_intersects(., gv_pts))) %>%
+  group_by(tract) %>%
+  mutate(incidents_pop = (counts / pop_est),
+         incidents_18 = (counts / total_under18),
+         incidents_k25 = (counts / total_under25))
+
+
+pal_pop <- colorNumeric(palette = "viridis", 
+                        domain = c(0:89), 
+                        reverse = TRUE)
+
+gv_sf_summary %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(group = "Under 18",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pop(percent_under18),
+              fillOpacity = 0.5,
+              popup = paste0("Under 18: ", dat$total_under18, " people", "<br>",
+                             "Total Population: ", dat$pop_est, "<br>",
+                             "Percent of Pop: ", round(dat$percent_under18), "%", "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addPolygons(group = "Under 25",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal_pop(percent_under25),
+              fillOpacity = 0.5,
+              popup = paste0("Under 25: ", dat$total_under25, " people", "<br>",
+                             "Total Population: ", dat$pop_est, "<br>",
+                             "Percent of Pop: ", round(dat$percent_under25), "%", "<br>",
+                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal_pop,
+            values = ~ percent_under25, 
+            title = paste0("Percent of", "<br>", "Total Population"),
+            labFormat = labelFormat(suffix = "%"), 
+            opacity = 1) %>%
+  addLayersControl(baseGroups = c("Under 18","Under 25"),
+                   options = layersControlOptions(collapsed = FALSE))
+```
+
+### Incidents
+
+```{r incident_map}
+
+pal <- colorNumeric(palette = "viridis", 
+                        domain = NULL, 
+                        reverse = TRUE)
+
+gv_sf_summary %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal(counts),
+              fillOpacity = 0.5,
+              popup = paste0("Number of Incidents: ", gv_sf_summary$counts, "<br>",
+                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal,
+            values = ~ counts, 
+            title = paste("Number of Firearm Incidents", "<br>", "Jan 2019 - May 2024"), 
+            opacity = 1)
+
+```
+
+### Ratio of Incidents to Youth < 18
+
+Note: the ACS indicates that there are only 14 individuals under the age of 18, all of which are female, living in the JPA - Fontaine census tract. We attribute these low numbers to a data recording error, and subsequently have removed JPA - Fontaine from the below calculations to avoid skewing the results inaccurately. 
+
+```{r youth_ratios}
+
+gv_sf_summary %>%
+  filter(tract_name != "JPA - Fontaine") %>%
+  leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addPolygons(stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal(incidents_18),
+              fillOpacity = 0.5,
+              popup = paste0("Ratio of Incidents to Youth Under 18: ", 
+                             scales::percent(gv_sf_summary$incidents_18, accuracy = 1), "<br>",
+                             "Number of Incidents (Jan 2019 - May 2024): ", gv_sf_summary$counts, "<br>",
+                             "Number of People Under 18: ", gv_sf_summary$total_under18, "<br>",
+                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
+  addLegend("bottomright",
+            pal = pal,
+            values = ~ incidents_18 * 100, 
+            title = paste("Ratio of Incidents", "<br>", "to Youth Under 18"), 
+            labFormat = labelFormat(suffix = "%"),
+            opacity = 1)
+```
+
+
+
+
+
+
 
 ## Poverty & Childhood Poverty Rates {.tabset}
 
@@ -658,9 +807,11 @@ A significant portion of the JPA-Fontaine Census tract is made up of UVA student
 </details>
 
 ```{r leaflet_setup}
-dat <- readRDS("data/census.RDS")
-gv <- read_csv("data/regional_gv.csv")
 
+# eventually delete?
+# dat <- readRDS("data/census.RDS")
+# gv <- read_csv("data/regional_gv.csv")
+# 
 gv_2021 <- gv %>%
   filter(between(reported_date, as.Date("2021-01-01"), as.Date("2021-12-31")))
 gv_2022 <- gv %>%
@@ -1652,24 +1803,27 @@ A participant is defined as an individual involved in an act of gun violence. Pa
 
 #### *Youth*
 
-For this analysis, youth are considered to be juveniles under the age of 18.
+For this analysis, youth are considered to be juveniles under the age of 18. 
 
 ## References
 
-Centers for Disease Control - About Firearm Injury and Death: Fast Facts - <https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html>. Accessed March 15, 2024.
+1. Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/. Published May 17, 2023.
 
-CDC's Annual Report [^1](<https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html>)
+2. US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - 35https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.
 
-[^1]: CDC
+3. UVA President's Council - Community Safety Working Group Report - https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf. Published September 22, 2023.
 
-Everytown - Beyond Measure: Gun Violence Trauma - <https://everytownresearch.org/report/gun-violence-trauma/>. Published May 17, 2023.
+4. Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence - Published July 3, 2024.
 
-US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - 35https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.
+5. Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.
 
-UVA President's Council - Community Safety Working Group Report - <https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf>. Published September 22, 2023
+6. Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.
 
-UVA Office of the Executive Vice President and Provost - Gun Violence Solutions Project: About - <https://provost.virginia.edu/subsite/gun-violence-solutions-project/about-gvsp> - Accessed June 1, 2024.
+7. PEW Research - Key facts about Americans and guns - https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/ - Published September 13, 2023. 
 
-Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - <https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence> - Published July 3, 2024.
+8. Virginia State Police - Firearms/Concealed Weapons FAQ - https://vsp.virginia.gov/services/firearms/faq - Accessed April 30, 2024. 
 
-PEW Research - Key facts about Americans and guns - https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/ - Published September 13, 2023. 
+9. UVA Office of the Executive Vice President and Provost - Gun Violence Solutions Project: About - <https://provost.virginia.edu/subsite/gun-violence-solutions-project/about-gvsp> - Accessed June 1, 2024.
+
+
+

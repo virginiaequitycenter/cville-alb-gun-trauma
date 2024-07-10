@@ -72,26 +72,25 @@ ccs_average <- filter(all_students, grepl("CCS", division)) %>%
 ccs_labels <- ccs %>%
   filter(year == "2022 - 2023")
 
-ccs_plt <- ggplot(ccs, aes(x = year, y = percent_above_10, group = school, color = school_level)) +
+ggplot(ccs, aes(x = year, y = percent_above_10, group = school, color = school_level)) +
   geom_point(data = ccs_average, aes(x = year, y = percent_above_10), 
              inherit.aes = FALSE, color = "darkgrey") +
   geom_smooth(data = ccs_average, aes(x = year, y = percent_above_10, group = "average"), 
               color =  "darkgrey", size = 2) +
   geom_smooth(se=FALSE) +
   geom_point() +
-  geom_text(data = ccs_labels, aes(label = school_short)) +
+  geom_label(data = ccs_labels, aes(label = school_short), hjust = -.1, size = 3) +
   annotate("label", x = "2022 - 2023", y = 20, label = "District Average", hjust = -.1,  
            color = "darkgrey", size = 3) +
   scale_y_continuous(labels = function(x) paste0(x, "%")) +
   scale_color_manual(values = ec_colors, breaks = c("Elementary", "Middle", "High")) +
   labs(y = "Rate of Chronic Absenteeism",
        x = "School Year",
+       title = "Charlottesville City Schools",
        color = "School Level") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 25))
+  theme_bw()
 
-ggplotly(ccs_plt) %>%
-  style(textposition = "right")
+
 
 
 ```

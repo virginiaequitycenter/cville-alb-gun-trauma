@@ -222,6 +222,8 @@ ggplot(acs_elem, aes(x = school_year, y = percent, group = school_short, color =
 
 ```
 
+------------------------------------------------------------------------
+
 ## Student Demographics
 
 ```{r demographics, out.width="100%"}
@@ -254,7 +256,7 @@ ggplot(demo_means, aes(x = school_year, y = percent, group = subgroup, color = s
   geom_smooth(data = all_average, aes(x = school_year, y = percent, group = "average"), 
               color =  "darkgrey", size = 2, se=FALSE) +
   geom_point(size = 1) +
-  geom_path() +
+  geom_path(size = 1) +
   geom_label(data = demo_labels, aes(label = subgroup), hjust = -.1, size = 2.5) +
   geom_label(data = avg_labels, aes(x = school_year, y = percent, label = label, group = "average"),
              hjust = -.1, size = 2.5, color = "darkgrey") +
@@ -268,6 +270,8 @@ ggplot(demo_means, aes(x = school_year, y = percent, group = subgroup, color = s
   scale_x_discrete(expand = expansion(add = c(0.5, 2.5)))
 
 ```
+
+------------------------------------------------------------------------
 
 ## Table
 

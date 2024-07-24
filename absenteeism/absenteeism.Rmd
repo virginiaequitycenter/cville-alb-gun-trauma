@@ -26,7 +26,8 @@ ec_colors <- c("Elementary" = "#232D4B",
 
 ```{r get, include = FALSE}
 # Not run: this section included for reproducibility 
-# Download and read data from https://www.doe.virginia.gov/data-policy-funding/data-reports/data-collection/special-education
+# Download and read data from 
+# https://www.doe.virginia.gov/data-policy-funding/data-reports/data-collection/special-education
 
 # # Create vector of urls:
 # urls <- c(

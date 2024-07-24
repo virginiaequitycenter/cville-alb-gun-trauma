@@ -1,12 +1,16 @@
 ---
 title: "The State of Gun Violence in the Charlottesville & Albemarle Region"
-author: Samantha Toet, [The Equity Center](https://www.virginiaequitycenter.org/)
+author: Samantha Toet & Michele Claibourn, [The Equity Center](https://www.virginiaequitycenter.org/)
 output: 
   html_document:
     toc: true
     toc_float: true
     code_folding: hide
 ---
+
+![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png){width="350"}
+
+------------------------------------------------------------------------
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -31,11 +35,13 @@ ec_colors <- c("Charlottesville" = "#F8BE3D",
 
 Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries ^1^. In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis ^2^.
 
-Charlottesville and Albemarle are not immune to this epidemic. On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. Additionally, the rate of violent crime in Charlottesville and Albemarle increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases; compared to zero cases in 2021 ^3^. While incidents of gun violence have decreased in the first half of 2024 ^4^, the number of bullets recovered at each scene has increased, indicating the ever-changing nature of the issue.
+Charlottesville and Albemarle are not immune to this epidemic of gun violence. The rate of violent crime in our community increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases; compared to zero cases in 2021 ^3^. On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. While incidents of gun violence have decreased in the first half of 2024 ^4^, the number of bullets recovered at each scene has increased, indicating the ever-changing nature of the issue.
 
-The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in smaller towns. The project is taking a holistic approach by researching solutions at a local level in the Charlottesville and Albemarle region, while also exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
+The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in smaller towns. The residents of Charlottesville and Albemarle are the largest stakeholders. These folks ARE the data. They have the lived experiences, and are impacted in various ways. Their voices should be centered.
 
-This document is meant to support the work of the Gun Violence Solutions Project to help us understand the nature and shape of gun violence in our community. Together we can develop a shared understanding and greater clarity of the problem, identify knowledge and data gaps, and facilitate wider community engagement in conversations about solutions. The residents of Charlottesville and Albemarle are the largest stakeholders. These folks ARE the data. They have the lived experiences, and are impacted in various ways. Their voices should be centered.
+The Gun Violence Solutions Project is taking a holistic approach by researching solutions at a local level in the Charlottesville and Albemarle region, while also exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
+
+This document is meant to support the work of the Gun Violence Solutions Project to help our community understand the nature and shape of gun violence and [gun violence trauma](#gun-violence-trauma) in our region. Each section includes an overview of the data sources, key exclusions that may inhibit findings, and a brief discussion of notable trends. Together we can develop a shared understanding and greater clarity of the problem, identify knowledge and data gaps, and facilitate wider community engagement in conversations about solutions.
 
 Ultimately, we hope this work will be part of:
 
@@ -49,9 +55,9 @@ Ultimately, we hope this work will be part of:
 
 The data listed below represent information that is publicly and readily available online. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, shape, and dimensions of the problem locally.
 
-All of this data is administrative and made up of information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data both in terms of input mechanisms and the data values, themselves. Granted personal info is scrubbed from this report, we should keep in mind that these are individuals and members of our community that are being represented.
+All of this data contains information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data both in terms of input mechanisms and the data values, themselves. Granted personal info is scrubbed from this report, we should keep in mind that these are individuals and members of our community that are being represented.
 
-The script [scripts/dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source.
+The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source. We encourage anyone interested to recreate these analyses or extend them by contributing their own data-driven insights.
 
 #### Key Terminology
 
@@ -63,7 +69,7 @@ Please refer to the [Terminology] section of the Appendix for more information a
 
 # Firearm Injuries & Deaths
 
-The leading cause of death by gun violence in the Blue Ridge Health District is suicide, which makes up 76% of all firearm-related deaths from 2018 to 2022. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. Adversarial community violence accounts for 22% of all deaths.
+The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which makes up 76% of all firearm-related deaths from 2018 to 2022. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. Adversarial community violence accounts for 22% of all deaths.
 
 ```{r vdh_intent, echo=FALSE, message=FALSE}
 
@@ -83,7 +89,8 @@ fai_intent %>%
   reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
 
 ```
-<br> 
+
+<br>
 
 The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries from 2015 to 2023 along with death certificates for firearm-related causes of death from 2018 to 2022. This data is supplied by the [Virginia Department of Health](https://www.vdh.virginia.gov/).
 
@@ -105,7 +112,7 @@ Exclusions include follow-up visits, visits involving other types of guns (e.g.,
 
 ## Injuries in Cville/Albemarle
 
-The Virginia Department of Health groups Charlottesville City and Albemarle County together for their firearm injury counts from 2015 - 2023. This aggregation does not include any demographic information.
+The Virginia Department of Health groups Charlottesville City and Albemarle County together for their [firearm injury](#firearm-injury) counts from 2015 - 2023. This aggregation does not include any demographic information.
 
 The table below shows that the rate of firearm injuries peaked at 8.3 per 10k Emergency Department visits in 2020, however the total number of emergency department visits was the lowest of the sample. After 2020, both the numbers of firearm injuries and ED visits are increasing, subsequently causing the rate of injury to trend upwards as well.
 
@@ -175,9 +182,9 @@ fai_age %>%
 
 # Incidents of Gun Violence {.tabset}
 
-Sourced from the [Gun Violence Archive](https://www.gunviolencearchive.org/), this data includes information collected from public news sources about 201 incidents of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. The incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault, suicide, and homicide. The data does not include information about suicides.
+Sourced from the [Gun Violence Archive](https://www.gunviolencearchive.org/), this data includes information collected from **public news sources** about 201 incidents of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. The data does not include information about suicides.
 
-The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the participant-level information (for example, the age range and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as numbers of injuries, homicides, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
+The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the [participant](#participant)-level information (for example, the age range and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as numbers of injuries, homicides, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
 
 <details>
 
@@ -185,11 +192,11 @@ The data is made up of two dataframes: one has information about each incident a
 
 **Voluntary Participation**
 
-Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like shots fired incidents haven't been added to the database since 2021.
+Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like **shots fired incidents haven't been added to the database since 2021.**
 
 **Suicides**
 
-Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report ^6^ and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies.
+Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report ^6^ and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
 
 </details>
 
@@ -215,7 +222,9 @@ gva_incidents %>%
        caption = "Total incidents: 201") +
   scale_fill_manual(labels = c("Injured", "Killed"),
                     values = c("#F8BE3D", "#007BAB"),
-                    guide = guide_legend(title = "Victim Status"))
+                    guide = guide_legend(title = "Victim Status")) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 11),
+                     guide = guide_axis(angle = 35))
 ```
 
 ------------------------------------------------------------------------
@@ -228,25 +237,27 @@ gva_participants <- read_csv("data/gva_participants.csv")
 
 gva_participants %>%
   drop_na(age) %>%
-  mutate(yr = year(incident_date)) %>%
+  mutate(yr = year(incident_date),
+         role = str_to_title(role)) %>%
   ggplot(aes(age, fill = role)) +
   geom_histogram(position = 'identity') +
   facet_grid(~role) +
-scale_fill_manual(labels = c("Suspect", "Victim"),
+  scale_fill_manual(labels = c("Suspect", "Victim"),
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Participant Role")) +
   labs(title = "Ages of Participants",
        x = "Age",
        y = "Number of People", 
        caption = "Total particpants: 306") +
-  theme(axis.text.x = element_text(angle=35))
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10),
+                     guide = guide_axis(angle = 35))
 ```
 
 ------------------------------------------------------------------------
 
 # Crimes Involving Firearms {.tabset}
 
-Crime data for Virginia are pulled from the FBI [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database which uses the [National Incident-Based Reporting System (NIBRS)](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/nibrs). The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of crimes and the number of incidents, along with the age group of the offender.
+Crime data for Virginia are pulled from the FBI [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database which uses the [National Incident-Based Reporting System (NIBRS)](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/nibrs). The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of [incidents](#incident) and and associated [crimes](#crime), along with the [age group](#youth) of the offender.
 
 <details>
 
@@ -289,7 +300,9 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
   scale_y_continuous(labels=function(x) paste0(x,"%")) +
   geom_label(data = filter(tmp_plt_dat, year == 2022), 
              aes(label = paste0(round(n_total, 1),"%")), 
-             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold")
+             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
+    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35))
   
 
 ```
@@ -322,7 +335,9 @@ ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
   scale_y_continuous(labels=function(x) paste0(x,"%")) +
   geom_label(data = filter(tmp_plt_dat, year == 2022), 
              aes(label = paste0(round(n_juvenile, 1),"%")), 
-             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold")
+             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
+    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35))
   
 ```
 
@@ -362,9 +377,10 @@ ggplot(tmp_plt_dat, aes(year, value, color = district)) +
   scale_y_continuous(labels=function(x) paste0(x,"%")) +
   geom_label(data = filter(tmp_plt_dat, year == 2022), 
              aes(label = paste0(round(value, 1),"%")), 
-             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold")
+             show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
+    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35))
   
-
 ```
 
 ------------------------------------------------------------------------
@@ -388,6 +404,10 @@ Each incident is listed as being verified, unverified, or as a case. An incident
 An incident would be considered unverified if there was no proof after the fact that it happened. For example, someone may call the police to report hearing loud noises, however when the officers arrived they find either no evidence of a shooting, or evidence to prove otherwise, such as used fireworks supplies.
 
 An incident would be marked as a case if it required significant follow up, or was otherwise recorded as a crime to be investigated. Typically more violent incidents such as aggravated assault or homicide become cases.
+
+**Data Sharing**
+
+Because this data may include information that is actively being used in court, it is the only data source in this report that is not fully open-sourced, or publicly available. This decision was made so that the individuals being represented can maintain their anonymity throughout the duration of their trial and subsequent followup. A comparable, but limited report can be pulled from the Charlottesville Open Data Portal, and instructions on how to do so are outlined in [scripts.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R). 
 
 </details>
 
@@ -426,7 +446,9 @@ ggplot(years, aes(yr, count, fill = type)) +
   labs(title = "Incidents of Gun Violence in Charlottesville & Albemarle",
        x = "Year",
        y = "Number of Verified Incidents",
-       caption = "Note: the 2024 data only includes incidents up to May 18.")
+       caption = "Note: the 2024 data only includes incidents up to May 18.") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35))
 
 ```
 
@@ -438,7 +460,7 @@ This data is different from the data provided directly from the police in the fo
 
 1.  It is limited to only reports in the Charlottesville district
 2.  It includes all calls to police, and not just gun-related calls
-3.  It does not include additional incident information such as verification or if it was assigned to a detective as a case 
+3.  It does not include additional incident information such as verification or if it was assigned to a detective as a case
 
 This data can be considered the first step in how gun-related crimes are recorded while the police-provided data can be considered the second step in the process.
 
@@ -497,9 +519,10 @@ From the Charlottesville Open Data Portal:
 
 > "Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
 
-Given that definition, we can ask the question: are a lot of people committing a few crimes or are a few people committing a lot of crimes? The below data contains the distribution of 390 arrests for firearm-related charges between May 2019 and April 2024. The data has been anonymized so that identifiable information has been removed.
+Given that definition, we can ask the question: are a lot of people committing a few crimes or are a few people committing a lot of crimes? The below data contains the distribution of 390 [arrests](#arrests) for firearm-related charges between May 2019 and April 2024. The data has been anonymized so that identifiable information has been removed.
 
 Here we can see that of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges.
+
 
 ```{r odp_arrests}
 
@@ -523,11 +546,11 @@ odp_arrests %>%
 
 # Access to Firearms
 
-With nearly a third of Americans owning a gun ^7^, access to firearms is easy for many people. Someone can legally purchase a gun anywhere from their local big-box store, to their neighborhood gun dealer, to a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns ^8^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds ^9^), and there are no state-mandated age limits on purchasing ammunition ^8^.  
+With nearly a third of Americans owning a gun ^7^, access to firearms is easy for many people. Someone can legally purchase a gun anywhere from their local big-box store, to their neighborhood gun dealer, to a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns ^8^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds ^9^), and there are **no state-mandated age limits on purchasing ammunition** ^8^.
 
-People can also get guns illegally. This can range from manufacturing their own, to under-the-table sales, to trade and barters, and even theft. 
+People can also get guns illegally. This can range from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
 
-This section explores two ways get access to guns in Charlottesville and Albemarle: the many licensed dealers, and from thefts, specifically from vehicles. 
+This section explores two ways get access to guns in Charlottesville and Albemarle: the many licensed dealers, and from thefts, specifically from vehicles.
 
 ```{r alb_sf, results='hide'}
 alb_sf <- get_acs(
@@ -540,9 +563,9 @@ alb_sf <- get_acs(
   filter(NAME == "Albemarle County, Virginia")
 ```
 
-## Federally Licensed Firearms Dealers {.tabset}
+## Firearms Dealers {.tabset}
 
-The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are publicly accessible businesses, such as the Walmart on 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
+The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are publicly accessible businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
 
 ### Map
 
@@ -604,7 +627,7 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Gun thefts from cars are increasing triplefold compared to the last decade ^([Everytown](https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/))^. In 2022 in Virginia, \$3,477,207 dollars worth of guns (avg. \$627 dollars) and \$97,797 dollars worth of firearm accessories were reported stolen, and in Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered ^([VSP](https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf)^).
+Gun thefts from cars are increasing triplefold compared to the last decade ^9^. In 2022 in Virginia, \$3,477,207 dollars worth of guns (avg. \$627 dollars) and \$97,797 dollars worth of firearm accessories were reported stolen, and in Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered ^10^.
 
 The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2022.
 
@@ -619,27 +642,29 @@ ggplot(theft, aes(year, n_stolen, colour = region)) +
        title = "Theft of Firearms from Vehicles") +
   scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
                     name = "Region") +
-  ggrepel::geom_label_repel(data = filter(theft, year == 2022), 
+  geom_label(data = theft, 
              aes(label = n_stolen), 
              show.legend = F, 
              alpha = 0.75,
-             fontface = "bold")
+             fontface = "bold") +
+    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35))
 
 ```
 
 ------------------------------------------------------------------------
 
-# Residential Characteristics 
+# Residential Characteristics
 
 The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at Census data to better understand community factors such as poverty, access to resources, and other social structures that are in play.
 
 The below maps overlay information from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109) on top of incidents of gun violence to visualize how these variables may compare.
 
-## Populations {.tabset}
+## Ratio of Incidents to Youth {.tabset}
 
-With over 16,700 undergraduate students coming to the region each semester to study at UVA [UVA Statistics](https://admission.virginia.edu/admission/statistics), the youth population of Charlottesville and Albemarle is significantly large and transient. 
+With over 16,700 undergraduate students coming to the region each semester to study at UVA ^11^, the youth population of Charlottesville and Albemarle is significantly large and transient.
 
-The map below shows the percentages of the population that are under 18 and 25 years old. It is important to note that the JPA - Fontaine and Carr's Hill - McCormick tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions may be skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region. 
+The map below shows the percentages of the population that are under 18 and 25 years old compared to the number of gun violence incidents for that region. It is important to note that the JPA - Fontaine and Carr's Hill - McCormick tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions may be skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region.
 
 <details>
 
@@ -649,11 +674,14 @@ The map below shows the percentages of the population that are under 18 and 25 y
 
 The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
 
+**JPA/Fontaine**
+
+The ACS indicates that there are only 14 individuals under the age of 18, all of which are female, living in the JPA - Fontaine census tract. We attribute these low numbers to a data recording error, and subsequently have removed JPA - Fontaine from the below calculations to avoid skewing the results inaccurately.
+
 </details>
 
-### Youth 
-
 ```{r youth_pops}
+
 dat <- readRDS("data/census.RDS")
 gv <- read_csv("data/regional_gv.csv")
 
@@ -665,99 +693,18 @@ gv_sf_summary <- dat %>%
   group_by(tract) %>%
   mutate(incidents_pop = (counts / pop_est),
          incidents_18 = (counts / total_under18),
-         incidents_k25 = (counts / total_under25))
-
-
-pal_pop <- colorNumeric(palette = "viridis", 
-                        domain = c(0:89), 
-                        reverse = TRUE)
-
-gv_sf_summary %>%
-  st_transform(crs = 4326) %>%
-  leaflet() %>%
-  addProviderTiles(providers$CartoDB.Positron) %>% 
-  addPolygons(group = "Under 18",
-              stroke = TRUE, 
-              weight = 0.5,
-              opacity = 1,
-              color = "black", 
-              fillColor = ~ pal_pop(percent_under18),
-              fillOpacity = 0.5,
-              popup = paste0("Under 18: ", dat$total_under18, " people", "<br>",
-                             "Total Population: ", dat$pop_est, "<br>",
-                             "Percent of Pop: ", round(dat$percent_under18), "%", "<br>",
-                             "Tract: ", dat$tract_name, ", ", dat$locality),
-              highlightOptions = highlightOptions(
-                fillOpacity = 1,
-                bringToFront = FALSE
-              )) %>%
-  addPolygons(group = "Under 25",
-              stroke = TRUE, 
-              weight = 0.5,
-              opacity = 1,
-              color = "black", 
-              fillColor = ~ pal_pop(percent_under25),
-              fillOpacity = 0.5,
-              popup = paste0("Under 25: ", dat$total_under25, " people", "<br>",
-                             "Total Population: ", dat$pop_est, "<br>",
-                             "Percent of Pop: ", round(dat$percent_under25), "%", "<br>",
-                             "Tract: ", dat$tract_name, ", ", dat$locality),
-              highlightOptions = highlightOptions(
-                fillOpacity = 1,
-                bringToFront = FALSE
-              )) %>%
-  addLegend("bottomright",
-            pal = pal_pop,
-            values = ~ percent_under25, 
-            title = paste0("Percent of", "<br>", "Total Population"),
-            labFormat = labelFormat(suffix = "%"), 
-            opacity = 1) %>%
-  addLayersControl(baseGroups = c("Under 18","Under 25"),
-                   options = layersControlOptions(collapsed = FALSE))
-```
-
-### Incidents
-
-```{r incident_map}
+         incidents_25 = (counts / total_under25))
 
 pal <- colorNumeric(palette = "viridis", 
-                        domain = NULL, 
-                        reverse = TRUE)
-
-gv_sf_summary %>%
-  leaflet() %>%
-  addProviderTiles(providers$CartoDB.Positron) %>% 
-  addPolygons(stroke = TRUE, 
-              weight = 0.5,
-              opacity = 1,
-              color = "black", 
-              fillColor = ~ pal(counts),
-              fillOpacity = 0.5,
-              popup = paste0("Number of Incidents: ", gv_sf_summary$counts, "<br>",
-                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
-              highlightOptions = highlightOptions(
-                fillOpacity = 1,
-                bringToFront = FALSE
-              )) %>%
-  addLegend("bottomright",
-            pal = pal,
-            values = ~ counts, 
-            title = paste("Number of Firearm Incidents", "<br>", "Jan 2019 - May 2024"), 
-            opacity = 1)
-
-```
-
-### Ratio of Incidents to Youth < 18
-
-Note: the ACS indicates that there are only 14 individuals under the age of 18, all of which are female, living in the JPA - Fontaine census tract. We attribute these low numbers to a data recording error, and subsequently have removed JPA - Fontaine from the below calculations to avoid skewing the results inaccurately. 
-
-```{r youth_ratios}
+                    domain = NULL, 
+                    reverse = TRUE)
 
 gv_sf_summary %>%
   filter(tract_name != "JPA - Fontaine") %>%
   leaflet() %>%
   addProviderTiles(providers$CartoDB.Positron) %>% 
-  addPolygons(stroke = TRUE, 
+  addPolygons(group = "Under 18",
+              stroke = TRUE, 
               weight = 0.5,
               opacity = 1,
               color = "black", 
@@ -772,21 +719,34 @@ gv_sf_summary %>%
                 fillOpacity = 1,
                 bringToFront = FALSE
               )) %>%
+  addPolygons(group = "Under 25",
+              stroke = TRUE, 
+              weight = 0.5,
+              opacity = 1,
+              color = "black", 
+              fillColor = ~ pal(incidents_25),
+              fillOpacity = 0.5,
+              popup = paste0("Ratio of Incidents to Youth Under 25: ", 
+                             scales::percent(gv_sf_summary$incidents_25, accuracy = 1), "<br>",
+                             "Number of Incidents (Jan 2019 - May 2024): ", gv_sf_summary$counts, "<br>",
+                             "Number of People Under 25: ", gv_sf_summary$total_under25, "<br>",
+                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
+              highlightOptions = highlightOptions(
+                fillOpacity = 1,
+                bringToFront = FALSE
+              )) %>%
   addLegend("bottomright",
             pal = pal,
             values = ~ incidents_18 * 100, 
-            title = paste("Ratio of Incidents", "<br>", "to Youth Under 18"), 
+            title = paste("Ratio of Incidents", "<br>", "to Youth Populations"), 
             labFormat = labelFormat(suffix = "%"),
-            opacity = 1)
+            opacity = 1) %>%
+  addLayersControl(baseGroups = c("Under 18","Under 25"),
+                   options = layersControlOptions(collapsed = FALSE))
+
 ```
 
-
-
-
-
-
-
-## Poverty & Childhood Poverty Rates {.tabset}
+## Poverty & Childhood Poverty {.tabset}
 
 The Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty.
 
@@ -1124,7 +1084,7 @@ dat %>%
 
 ------------------------------------------------------------------------
 
-## Median Earnings by Education Level {.tabset}
+## Median Earnings by Education {.tabset}
 
 We chose to look at median earnings, rather than median household income for this analysis. Earnings consist of wages and salary from a job, and are usually a big source of direct income. Other sources of indirect income include Social Security payments, pensions, child support, public assistance, annuities, money derived from rental properties, interest and dividends. As a result, due to our nation's history of generational wealth, and our inability to fully measure asset wealth, if we look only at median income we will have outliers that inaccurately skew the results.
 
@@ -1759,7 +1719,7 @@ The above data primarily shows outcome-related information. To fully strategize 
 
 ## Terminology
 
-#### *Firearm Injury*
+#### *Firearm Injury* {#firearm-injury}
 
 The [CDC](https://www.cdc.gov/violenceprevention/firearms/fastfact.html) defines a firearm injury as:
 
@@ -1773,57 +1733,56 @@ Types of firearm injuries include:
 -   Legal intervention (violence inflicted by law enforcement on duty)
 -   Undetermined intent (not enough information to determine)
 
-#### *Gun Violence*
+#### *Gun Violence* {#gun-violence}
 
 Gun violence is an offense committed with firearms, such as handguns, shotguns, or semi-automatic rifles. It can include homicide, violent crime, attempted suicide, suicide, and unintentional death and injury. The national [Gun Violence Archive](https://www.gunviolencearchive.org/) describes gun violence as:
 
 > "all incidents of death or injury or threat with firearms... a shooting of a victim by a subject/suspect is considered gun violence as is a defensive use or an officer involved shooting. The act itself, no matter the reason is violent in nature."
 
-#### *Gun Violence Trauma*
+#### *Gun Violence Trauma* {#gun-violence-trauma}
 
 The [American Sociological Association](https://www.asanet.org/footnotes-article/society-survivors-survivor-society-examining-gun-trauma-us/) describes gun violence trauma as the psychological and emotional impact that gun violence can have on individuals and communities. It can result from direct or indirect exposure to gun violence and has long-term negative effects on wellbeing. This information is difficult to objectively measure, so while this analysis focuses on numbers of direct exposure to gun violence for individuals it is important to remember the lasting indirect trauma gun violence has on our community.
 
-#### *Incident*
+#### *Incident* {#incident}
 
-An incident of gun violence can be defined as a time-boxed event where individual acts of violence took place. An incident may include multiple offenses. For example, if an individual went on a shooting spree and injured three people, that would be considered as one incident with three offenses.
+An incident of gun violence can be defined as a time-boxed event where individual acts of violence took place. An incident may include multiple offenses and individuals involved. For example, if an individual went on a shooting spree and injured three people, that would be considered as one incident with three offenses.
 
-#### *Crime*
+#### *Crime* {#crime}
 
-The [FBI](https://cde-prd-data.s3.us-gov-east-1.amazonaws.com/nibrs/_all/NIBRS_DataDictionary.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAQC732REKXFJPIH3N%2F20240603%2Fus-gov-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240603T163942Z&X-Amz-Expires=900&X-Amz-Security-Token=FwoDYXdzEI7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDO5feniVpfL1KaEfuSKhAgc9X%2Bc%2FW5%2FwpIAXVxPTxAseiEEljen2PEvNlATTpWS0PVPhu5gaKiro8w%2FJwucRn7cwt8LLmhXwGCrQ0yB%2FnhKPJvD4dbt92qV8HrSOg3FoRTONZuuJl9AhOYWgPQK7m1l5tXLVnQn1PUDuR27DIqBPnf68tH48uxZfV2PWZE2spjxAuCLhB7irYW1ajEvAmwypISpfFhGeYW%2FGcUin533xKw6pcY9tJvFx1B%2BL8MJghNnFPVWlnAmWjNP96sygayq1wbUkRO68c1hMJ%2FzVpE9jztEOR64I30TYQ%2Bmh%2FzKqNuvG4AHuEzOTmgnlxBNx2vARAUYR9G9V5cv7%2BZnfx4RwQLbeqdm%2B0bgi8Vk1Zsgk9E5s0191P%2FLg1NCrgcgxO4co%2B7r3sgYyLckfeOKTl8QnBNYYGAjQajWhazqXvVCFGE8oOza7mqX7vICsDO%2B5%2FBdoDriF%2FQ%3D%3D&X-Amz-Signature=901dc6929b34f9da36734967c546cd02236700b5e8e192ac449783f770dfc684&X-Amz-SignedHeaders=host&x-id=GetObject) defines gun-related crimes as the number of illegal offenses using a firearm committed during an incident of gun violence.
+The [FBI](https://cde-prd-data.s3.us-gov-east-1.amazonaws.com/nibrs/_all/NIBRS_DataDictionary.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAQC732REKXFJPIH3N%2F20240603%2Fus-gov-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240603T163942Z&X-Amz-Expires=900&X-Amz-Security-Token=FwoDYXdzEI7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDO5feniVpfL1KaEfuSKhAgc9X%2Bc%2FW5%2FwpIAXVxPTxAseiEEljen2PEvNlATTpWS0PVPhu5gaKiro8w%2FJwucRn7cwt8LLmhXwGCrQ0yB%2FnhKPJvD4dbt92qV8HrSOg3FoRTONZuuJl9AhOYWgPQK7m1l5tXLVnQn1PUDuR27DIqBPnf68tH48uxZfV2PWZE2spjxAuCLhB7irYW1ajEvAmwypISpfFhGeYW%2FGcUin533xKw6pcY9tJvFx1B%2BL8MJghNnFPVWlnAmWjNP96sygayq1wbUkRO68c1hMJ%2FzVpE9jztEOR64I30TYQ%2Bmh%2FzKqNuvG4AHuEzOTmgnlxBNx2vARAUYR9G9V5cv7%2BZnfx4RwQLbeqdm%2B0bgi8Vk1Zsgk9E5s0191P%2FLg1NCrgcgxO4co%2B7r3sgYyLckfeOKTl8QnBNYYGAjQajWhazqXvVCFGE8oOza7mqX7vICsDO%2B5%2FBdoDriF%2FQ%3D%3D&X-Amz-Signature=901dc6929b34f9da36734967c546cd02236700b5e8e192ac449783f770dfc684&X-Amz-SignedHeaders=host&x-id=GetObject) defines gun-related crimes as the number of illegal offenses using a firearm committed during an incident of gun violence. Gun violence is not synonymous with gun crimes. Not all crimes are violent in nature. For example, a person may be charged with the crime of illegally possessing a firearm, despite not brandishing or using the weapon.
 
-Gun violence is not synonymous with gun crimes. Not all crimes are violent in nature. For example, a person may be charged with the crime of illegally possessing a firearm, despite not brandishing or using the weapon.
-
-#### *Arrest*
+#### *Arrest* {#arrest}
 
 An arrest can be defined as the physical taking or seizing of a person by a police officer. It is an act that indicates the intention to take that person into custody. An arrest can happen after an incident of gun violence, or it can happen for nonviolent issues such as parole violations or a failure to appear for trial. Anyone arrested is considered innocent until proven guilty in a court of law.
 
-#### *Participant*
+#### *Participant* {#participant}
 
 A participant is defined as an individual involved in an act of gun violence. Participants can be victims, those injured or killed by firearms, or offenders, those using firearms. In cases of suicide, participants are considered victims. It is important to note that while the definition is limited to individuals that are physically affected by gun violence, the spectrum of victimization often extends much further to the community.
 
-#### *Youth*
+#### *Youth* {#youth}
 
-For this analysis, youth are considered to be juveniles under the age of 18. 
+For this analysis, youth are considered to be juveniles under the age of 18. Some visualizations include individuals up to 24 years old as noted in the description. 
 
 ## References
 
-1. Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/. Published May 17, 2023.
+1.  Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/. Published May 17, 2023.
 
-2. US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - 35https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.
+2.  US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - 35https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.
 
-3. UVA President's Council - Community Safety Working Group Report - https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf. Published September 22, 2023.
+3.  UVA President's Council - Community Safety Working Group Report - https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf. Published September 22, 2023.
 
-4. Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence - Published July 3, 2024.
+4.  Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence - Published July 3, 2024.
 
-5. Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.
+5.  Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.
 
-6. Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.
+6.  Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.
 
-7. PEW Research - Key facts about Americans and guns - https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/ - Published September 13, 2023. 
+7.  PEW Research - Key facts about Americans and guns - https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/ - Published September 13, 2023.
 
-8. Virginia State Police - Firearms/Concealed Weapons FAQ - https://vsp.virginia.gov/services/firearms/faq - Accessed April 30, 2024. 
+8.  Virginia State Police - Firearms/Concealed Weapons FAQ - https://vsp.virginia.gov/services/firearms/faq - Accessed April 30, 2024.
 
-9. UVA Office of the Executive Vice President and Provost - Gun Violence Solutions Project: About - <https://provost.virginia.edu/subsite/gun-violence-solutions-project/about-gvsp> - Accessed June 1, 2024.
+9. Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/ - Published May 9, 2024. 
 
+10. Virginia State Police Data Analysis and Reporting Team - Crime in Virginia: 2022 Report - https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf - Accessed April 21, 2024. 
 
-
+11. UVA Statistics, Fall 2022 Enrollment - https://admission.virginia.edu/admission/statistics) - Accessed May 19, 2024. 

@@ -1,3 +1,8 @@
+# Script to pull and prep Cville and Albemarle gun violence data 
+# Sam Toet
+# Last updated: 7/19/2024
+
+
 # Setup ----
 library(ggmap)
 library(janitor)
@@ -205,53 +210,5 @@ write_csv(gv, "data/regional_gv.csv")
 # case_dems <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
 #   clean_names()
 
-# Census ----
-county_codes <- data.frame(code = c(540, 003), 
-                           name = c("Albemarle County", "Charlottesville City"))
-region <- county_codes$code
-
-tract_names <- read_csv("data/tract_names.csv")
-
-# Initial ACS variables to explore:
-vars <- c("B01003_001",    # population
-          "S1701_C03_001", # poverty rate
-          "S1701_C03_002", # child poverty rate 
-          "S2301_C04_001", # Percent unemployment (Population 16 and over)
-          "B20002_001E",   # median earnings 12m age 16+
-          "B20004_001E",   # median earnings 12m age 25+
-          "B20004_002E",   # median earnings 12m age 25+ < high school
-          "B20004_003E",   # median earnings 12m age 25+ high school grad
-          "B20004_004E",   # median earnings 12m age 25+ some college or associates
-          "B20004_005E",   # median earnings 12m age 25+ bachelor's 
-          "B20004_006E")   # median earnings 12m age 25+ graduate or professional degree 
 
 # TODO:  HDI 
-
-# 2018-2022 5-year ACS
-dat <- get_acs(geography = "tract",
-               variables = vars,
-               state = "VA",
-               county = region,
-               survey = "acs5",
-               year = 2022,
-               geometry = TRUE,
-               output = "wide")
-
-dat <- dat %>%
-  select(-ends_with("M")) %>%
-  rename(pop_est = B01003_001E,
-         poverty_est = S1701_C03_001E,
-         cpov_est = S1701_C03_002E,
-         unemployment_rate = S2301_C04_001E,
-         med_earn_16 = B20002_001E,
-         med_earn_25 = B20004_001E,
-         med_earn_nohs = B20004_002E,
-         med_earn_hs = B20004_003E,
-         med_earn_col = B20004_004E,
-         med_earn_bd = B20004_005E,
-         med_earn_gd = B20004_006E) %>%
-  separate_wider_delim(NAME, delim = "; ", names = c("tract", "locality", "state")) %>%
-  left_join(tract_names, by = join_by(tract == tract_id)) %>%
-  st_as_sf()
-
-#write_rds(dat, "data/census.RDS")

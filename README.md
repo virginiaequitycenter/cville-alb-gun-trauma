@@ -15,6 +15,7 @@ The cleaned data is stored in the [data](https://github.com/virginiaequitycenter
 - `atf_dealers.csv`: a list of all ATF-licensed gun dealers in Charlottesville and Albemarle as of April 2024
 - `fai_age.csv`: firearms deaths by age in the Blue Ridge Health District from 2018 through 2022 
 - `fai_county.csv`: firearm-related emergency room visits by county from 2015 through 2023
+- `fai_intent.csv`: firearm-related deaths by intent in the Blue Ridge Health District from 2018 to 2022
 - `gva_incidents.csv`: media reported gun violence incidents in Charlottesville and Albemarle tracked by the Gun Violence Archive from 2014 through 2024
 - `gva_participants.csv`: participant information for the above incidents tracked by the Gun Violence Archive 
 - `nibrs_theft.csv`: data from the National Incident-Based Reporting System on firearm theft for Charlottesville and Albemarle from 2016 through 2022. 

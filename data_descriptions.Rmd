@@ -74,11 +74,9 @@ The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge He
 
 ```{r vdh_intent, echo=FALSE, message=FALSE}
 
-fai_intent <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-intent.csv") 
+fai_intent <- read_csv("data/fai_intent.csv") 
 
 fai_intent %>%
-  clean_names() %>%
-  filter(str_detect(patient_health_district, "Blue Ridge")) %>%
   arrange(desc(firearm_deaths)) %>%
   reactable(
     defaultColDef = colDef(
@@ -144,15 +142,22 @@ albemarle %>%
 
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<style>
+p.comment {
+background-color: #d8e6ef;
+padding: 10px;
+margin-left: 25px;
+border-radius: 5px;
+}
+</style>
+
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries per 34,875 emergency department visits. That means for every 10,000 visits to the emergency department in Charlottesville and Albemarle in 2020, a little over 8 were were for firearm-related injuries. 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic.^12^ After 2020, both the numbers of firearm injuries and ED visits began increasing, causing the rate of injury to trend upwards as well. 
 </p>
-</span>
-</div>
+
 
 -------------------------------------------------------------------------------
 
@@ -185,15 +190,12 @@ fai_age %>%
 
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 The table above shows that the rate of firearm death is highest for individuals aged 18 and 19 years old, with 8 confirmed firearm-related deaths between 2018 and 2022 in the Blue Ridge Health District. A rate of 18.3 means that for every 100,000 people aged 18-19, 18 individuals would have lost their lives to gun violence. This rate stays above 14 per 100k individuals up to 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75, with 16 deaths per 100,000 people. Given that suicide is the number one cause of firearm-related death in our region, it is reasonable to assume that a majority of the deaths for individuals 75 and older were suicide.
 </p>
-</span>
-</div>
 
 ------------------------------------------------------------------------
 
@@ -244,15 +246,13 @@ gva_incidents %>%
                      guide = guide_axis(angle = 35))
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 The bar graph above shows that the number of victims both injured and killed in incidents of gun violence have increased nearly tenfold from 3 in 2014 to 33 in 2022. 2022 had the highest number of victims injured, with 24 individuals reported being shot, while 2023 was the deadliest year, with 12 individuals losing their lives to gun violence. Although 2024 only includes data through April, so far the numbers are trending lower than in previous years. 
 </p>
-</span>
-</div>
+
 
 ------------------------------------------------------------------------
 
@@ -280,15 +280,12 @@ gva_participants %>%
                      guide = guide_axis(angle = 35))
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 The faceted bar graph above shows the age ranges of suspects and victims of gun violence in Charlottesville and Albemarle from May 2014 to April 2024. In general, a majority of the suspects are between the ages of 19 and 29 and a majority of the victims are around the age of 20. 
 </p>
-</span>
-</div>
 
 ------------------------------------------------------------------------
 
@@ -344,15 +341,12 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
 
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 The line graph above shows the crime rate of gun violence incidents per 100k population over time. In Virginia, the crime rate is steadily increasing, with a peak of 23.2 at 2022. That means on average in Virginia in 2022, for every 100,000 people, there were 23 incidents of gun violence. Charlottesville rates are slightly lower than the state-wide rates for all incidents involving firearms. During the COVID-10 pandemic, the firearm crime rate increased significantly across the state, and in Charlottesville specifically. 
 </p>
-</span>
-</div>
 
 ------------------------------------------------------------------------
 
@@ -386,15 +380,13 @@ ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
                      guide = guide_axis(angle = 35))
   
 ```
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 In 2021, the firearm crime rate increased for youth across the board. In Charlottesville, this change was exponential, with the rate nearly doubling from 0.6 in 2021 to 1.8 -- above the statewide average -- in 2022. That means for every 100,000 people, there were nearly 2 incidents of gun violence perpetrated by individuals under the age of 18. 
 </p>
-</span>
-</div>
 
 ------------------------------------------------------------------------
 
@@ -437,15 +429,12 @@ ggplot(tmp_plt_dat, aes(year, value, color = district)) +
   
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 In general, following the COVID-19 pandemic, crimes involving firearms have increased for all age groups, however most notably among youth under 18. The Charlottesville youth firearm crime rate surpassed state levels in 2022. 
 </p>
-</span>
-</div>
 
 ------------------------------------------------------------------------
 
@@ -516,15 +505,12 @@ ggplot(years, aes(yr, count, fill = type)) +
 
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
-The faceted stacked bar plot above shows the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. When interpreting these results, we should consider geographic differences that may influence resident behavior. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.
-</span>
-</div>
+<p class="comment">
+<b> Notable Trends</b>
 <br>
+<br>
+The faceted stacked bar plot above shows the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. When interpreting these results, we should consider geographic differences that may influence resident behavior. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.
+</p>
 
 ## Charlottesville Open Data Portal {.tabset}
 
@@ -585,19 +571,15 @@ ggmap(cville_map) +
 
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
-The two maps above show the density of gun-related crime reports and arrests in the Charlottesville region. The map on the left demonstrates that most gun-related crime reports between March 2019 and April 2024 were concentrated in the West Main Street area, specifically near the 10th St intersection. There are also smaller concentrations of reports in Fifeville and on the East end of the Downtown Mall. 
+<p class="comment">
+<b> Notable Trends</b>
 <br>
 <br>
-The map on the right demonstrates that most gun-related arrests are concentrated on the East end of the Downtown Mall, the Roosevelt-Brown Boulevard region, and the south side of Charlottesville. The location with the most arrests is the Charlottesville Police Station, located on the East End of the Downtown Mall. When we asked the police department for clarification, they explained that most arrest warrants are written and filed at the police station, and that when individuals receive warrants, they turn themselves in at the police station. Most incidents of gun violence do not have an arrest at the scene of the crime, but have an arrest days later from a warrant issued, which is issued at the police station. <br>
+The two maps above show the density of gun-related crime reports and arrests in the Charlottesville region. The map on the left demonstrates that most gun-related crime reports between March 2019 and April 2024 were concentrated in the West Main Street area, specifically near the 10th St intersection. There are also smaller concentrations of reports in Fifeville and on the east end of the Downtown Mall, near the Pavilion. 
 <br>
-Are these regions inherently more violent, or are they being policed more? The answer is a bit of both: these regions are close to some of the oldest, and least resourced public housing areas, where poverty and a lack of social resources are significant.^13^
-</span>
-</div>
+<br>
+The map on the right demonstrates that most gun-related arrests are concentrated on the east end of the Downtown Mall, the Roosevelt-Brown Boulevard region, and the south side of Charlottesville. . The location with the most arrests is the Charlottesville Police Station, located on the East End of the Downtown Mall. When we asked the police department for clarification, they explained that most arrest warrants are written and filed at the police station, and that when individuals receive warrants, they turn themselves in at the police station. Most incidents of gun violence do not have an arrest at the scene of the crime, but have an arrest days later from a warrant issued, which is issued at the police station. </p>
+
 ------------------------------------------------------------------------
 
 ## Arrest Reports
@@ -626,15 +608,12 @@ odp_arrests %>%
   geom_label(aes(90, 10, label = "86% of people arrested \nfor gun-related crimes \nhave 2 or fewer charges"))
 ```
 
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
+Of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges. That means a small group of people (< 50) are committing a significant proportion of gun-related crimes in Charlottesville and Albemarle. </p>
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
-Of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges. That means a small group of people (< 50) are committing a significant proportion of gun-related crimes in Charlottesville and Albemarle. 
-</span>
-</div>
 ------------------------------------------------------------------------
 
 # Access to Firearms
@@ -683,14 +662,12 @@ ggmap(alb_map) +
   
 ```
 
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
 The map above shows that a majority of licensed firearms dealers operate out of businesses in Charlottesville, while there are a handful of residential entities that are licensed to deal firearms in Albemarle county. 
-</span>
-</div>
+</p>
 
 -------------------------------------------------------------------------------
 
@@ -757,14 +734,12 @@ ggplot(theft, aes(year, n_stolen, colour = region)) +
                      guide = guide_axis(angle = 35))
 
 ```
-<div class="warning" style='padding:0.1em; background-color:#d8e6ef; color:#000000'>
-<span>
-<p style='margin-top:1em; text-align:left'>
-<b> Notable Trends</b></p>
-<p style='margin-left:1em;'>
-Since 2018, the rate of firearms being stolen from vehicles has increased every year, with 61 guns being illegally unaccounted for in 2022 in Charlottesville and Albemarle. 
-</span>
-</div>
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
+Since 2018, the rate of firearms being stolen from vehicles has increased every year, with 61 guns being stolen from vehicles in 2022 in Charlottesville and Albemarle. 
+</p>
 
 ------------------------------------------------------------------------
 
@@ -774,7 +749,7 @@ The above data primarily shows outcome-related information. To fully strategize 
 
 The below maps overlay information from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109) on top of incidents of gun violence shared by the police to visualize how these variables may compare.
 
-## Ratio of Incidents to Youth {.tabset}
+## Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
 With over 16,700 undergraduate students coming to the region each semester to study at UVA ^11^, the youth population of Charlottesville and Albemarle is significantly large and transient.
 
@@ -824,8 +799,8 @@ gv_sf_summary %>%
               color = "black", 
               fillColor = ~ pal(incidents_18),
               fillOpacity = 0.5,
-              popup = paste0("Ratio of Incidents to Youth Under 18: ", 
-                             scales::percent(gv_sf_summary$incidents_18, accuracy = 1), "<br>",
+              popup = paste0("Ratio of Incidents to 100 Youth Under 18: ", 
+                             round(gv_sf_summary$incidents_18, digits = 2), "<br>",
                              "Number of Incidents (Jan 2019 - May 2024): ", gv_sf_summary$counts, "<br>",
                              "Number of People Under 18: ", gv_sf_summary$total_under18, "<br>",
                              "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
@@ -840,8 +815,8 @@ gv_sf_summary %>%
               color = "black", 
               fillColor = ~ pal(incidents_25),
               fillOpacity = 0.5,
-              popup = paste0("Ratio of Incidents to Youth Under 25: ", 
-                             scales::percent(gv_sf_summary$incidents_25, accuracy = 1), "<br>",
+              popup = paste0("Ratio of Incidents to 100 Youth Under 25: ", 
+                             round(gv_sf_summary$incidents_25, digits = 2), "<br>",
                              "Number of Incidents (Jan 2019 - May 2024): ", gv_sf_summary$counts, "<br>",
                              "Number of People Under 25: ", gv_sf_summary$total_under25, "<br>",
                              "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
@@ -852,8 +827,7 @@ gv_sf_summary %>%
   addLegend("bottomright",
             pal = pal,
             values = ~ incidents_18 * 100, 
-            title = paste("Ratio of Incidents", "<br>", "to Youth Populations"), 
-            labFormat = labelFormat(suffix = "%"),
+            title = paste("Ratio of Incidents", "<br>", "to 100 Youth"), 
             opacity = 1) %>%
   addLayersControl(baseGroups = c("Under 18","Under 25"),
                    options = layersControlOptions(collapsed = FALSE))
@@ -881,11 +855,6 @@ A significant portion of the JPA-Fontaine Census tract is made up of UVA student
 </details>
 
 ```{r leaflet_setup}
-
-# eventually delete?
-# dat <- readRDS("data/census.RDS")
-# gv <- read_csv("data/regional_gv.csv")
-# 
 gv_2021 <- gv %>%
   filter(between(reported_date, as.Date("2021-01-01"), as.Date("2021-12-31")))
 gv_2022 <- gv %>%

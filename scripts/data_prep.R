@@ -1,7 +1,4 @@
 # Script to pull and prep Cville and Albemarle gun violence data 
-# Sam Toet
-# Last updated: 7/19/2024
-
 
 # Setup ----
 library(ggmap)
@@ -60,6 +57,8 @@ write_csv(odp_crimes, "data/odp_crimes.csv")
 
 # *Arrest Data ----
 
+# Similar to Crime Data above, this dataset can be accessed by the ODP REST API or downloaded directly from the website: https://opendata.charlottesville.org/
+
 odp_arrests <- read_csv("data/raw/arrests.csv") %>%
   clean_names()
 
@@ -108,6 +107,13 @@ fai_county %<>%
 
 write_csv(fai_county, "data/fai_county.csv")
 
+# Firearm injuries by intent
+fai_intent <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-intent.csv") %>%
+  clean_names() %>%
+  filter(str_detect(patient_health_district, "Blue Ridge"))
+
+write_csv(fai_intent, "data/fai_intent.csv")
+
 # Blue Ridge Health District - this is the smallest regional dataset that includes ages 
 fai_age <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-age.csv") %>%
   clean_names() 
@@ -119,7 +125,7 @@ write_csv(fai_age, "data/fai_age.csv")
 
 # FBI Data Explorer ----
 
-# This data can be accessed using the FBI Crime Data Explorer build-a-table website: https://va.beyond2020.com/
+# Both datasets below can be accessed using the FBI Crime Data Explorer build-a-table website: https://va.beyond2020.com/
 
 # *Incidents ----
 ucr <- read_csv("data/raw/ucr_firearm.csv") %>% 
@@ -200,7 +206,7 @@ gv <- all_gv %>%
 # Geocode
 gv <- gv %>%
   mutate(address = paste(block_address, locality))
-lon_lat <- geocode(gv$address)
+#lon_lat <- geocode(gv$address)
 sum(is.na(lon_lat$lon)) #0 
 gv <- bind_cols(gv, lon_lat)
 
@@ -209,6 +215,87 @@ write_csv(gv, "data/regional_gv.csv")
 # Participant demographics - for another analysis 
 # case_dems <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
 #   clean_names()
+
+# Census ----
+county_codes <- data.frame(
+  code = c(540, 003), 
+  name = c("Albemarle County", "Charlottesville City"))
+
+region <- county_codes$code
+
+tract_names <- read_csv("data/tract_names.csv")
+
+# Variables to explore:
+vars <- c("B01003_001",    # total population
+          "B01001_003",    # male pop <5
+          "B01001_004",    # male pop 5-9
+          "B01001_005",    # male pop 10-14
+          "B01001_006",    # male pop 15-17
+          "B01001_007",    # male pop 18-19
+          "B01001_008",    # male pop 20
+          "B01001_009",    # male pop 21
+          "B01001_010",    # male pop 22-24
+          "B01001_027",    # female pop <5
+          "B01001_028",    # female pop 5-9
+          "B01001_029",    # female pop 10-14
+          "B01001_030",    # female pop 15-17
+          "B01001_031",    # female pop 18-19
+          "B01001_032",    # female pop 20
+          "B01001_033",    # female pop 21
+          "B01001_034",    # female pop 22-24
+          "S1701_C03_001", # poverty rate
+          "S1701_C03_002", # child poverty rate 
+          "S2301_C04_001", # Percent unemployment (Population 16 and over)
+          "B20002_001",    # median earnings 12m age 16+
+          "B20004_001",    # median earnings 12m age 25+
+          "B20004_002",    # median earnings 12m age 25+ < high school
+          "B20004_003",    # median earnings 12m age 25+ high school grad
+          "B20004_004",    # median earnings 12m age 25+ some college or associates
+          "B20004_005",    # median earnings 12m age 25+ bachelor's 
+          "B20004_006")    # median earnings 12m age 25+ graduate or professional degree 
+
+# 2018-2022 5-year ACS
+dat <- get_acs(geography = "tract",
+               variables = vars,
+               state = "VA",
+               county = region,
+               survey = "acs5",
+               year = 2022,
+               geometry = TRUE,
+               output = "wide")
+
+# Clean names and derive some variables 
+dat <- dat %>%
+  rename(pop_est = B01003_001E,
+         poverty_est = S1701_C03_001E,
+         cpov_est = S1701_C03_002E,
+         unemployment_rate = S2301_C04_001E,
+         med_earn_16 = B20002_001E,
+         med_earn_25 = B20004_001E,
+         med_earn_nohs = B20004_002E,
+         med_earn_hs = B20004_003E,
+         med_earn_col = B20004_004E,
+         med_earn_bd = B20004_005E,
+         med_earn_gd = B20004_006E) %>%
+  group_by(GEOID) %>%
+  mutate(m_under18 = sum(B01001_003E, B01001_004E, B01001_005E, B01001_006E),
+         m_under25 = sum(m_under18, B01001_007E, B01001_008E, B01001_009E, B01001_010E),
+         f_under18 = sum(B01001_027E, B01001_028E, B01001_029E, B01001_030E),
+         f_under25 = sum(f_under18, B01001_031E, B01001_032E, B01001_033E, B01001_034E),
+         total_under18 = sum(f_under18, m_under18),
+         percent_under18 = (total_under18 / pop_est) * 100,
+         total_under25 = sum(f_under25, m_under25),
+         percent_under25 = (total_under25 / pop_est) * 100) %>%
+  ungroup() %>%
+  select(-starts_with("B"),
+         -ends_with("M")) %>%
+  separate_wider_delim(NAME, delim = "; ", names = c("tract", "locality", "state")) %>%
+  left_join(tract_names, by = join_by(tract == tract_id)) %>%
+  st_as_sf() %>%
+  st_transform(crs = 4326)
+
+write_rds(dat, "data/census.RDS")
+
 
 
 # TODO:  HDI 

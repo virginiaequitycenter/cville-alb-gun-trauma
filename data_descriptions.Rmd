@@ -618,11 +618,11 @@ Of the 233 individuals arrested, 147 have only one gun-related charge, 53 have t
 
 # Access to Firearms
 
-With nearly a third of Americans owning a gun ^7^, access to firearms is easy for many people. Someone can legally purchase a gun anywhere from their local big-box store, to their neighborhood gun dealer, to a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns ^8^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds ^9^), and there are **no state-mandated age limits on purchasing ammunition** ^8^.
+With nearly a third of Americans owning a gun^7^, access to firearms is easy for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns^8^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds^9^), and there are **no state-mandated age limits on purchasing ammunition.**^8^
 
-People can also get guns illegally. This can range from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
+People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
 
-This section explores two ways get access to guns in Charlottesville and Albemarle: the many licensed dealers, and from thefts, specifically from vehicles.
+This section explores two means of accessingguns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically thefts from vehicles.
 
 ```{r alb_sf, results='hide'}
 alb_sf <- get_acs(
@@ -637,7 +637,7 @@ alb_sf <- get_acs(
 
 ## Firearms Dealers {.tabset}
 
-The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are publicly accessible businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
+The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
 
 ### Map
 
@@ -710,7 +710,9 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Gun thefts from cars are increasing triplefold compared to the last decade ^9^. In 2022 in Virginia, \$3,477,207 dollars worth of guns (avg. \$627 dollars) and \$97,797 dollars worth of firearm accessories were reported stolen, and in Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered ^10^.
+In 2022 in Virginia, \$3,477,207 dollars worth of guns and \$97,797 dollars worth of firearm accessories were reported stolen. 
+
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.^9^ In Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered.^10^
 
 The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2022.
 
@@ -745,15 +747,13 @@ Since 2018, the rate of firearms being stolen from vehicles has increased every 
 
 # Residential Characteristics
 
-The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at Census data to better understand community factors such as poverty, access to resources, and other social structures that are in play.
-
-The below maps overlay information from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109) on top of incidents of gun violence shared by the police to visualize how these variables may compare.
+The data shown above is focused on describing key outcomes. To better understand the underlying causes of gun trauma in our community, and thus, to devise solutions, the incidents of gun violence reported by our local police jurisdictions is overlaid on community population characteristics. Estimates from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109) are shown in comparison with reported gun violence.
 
 ## Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-With over 16,700 undergraduate students coming to the region each semester to study at UVA ^11^, the youth population of Charlottesville and Albemarle is significantly large and transient.
+With over 16,700 undergraduate students coming to the region each semester to study at UVA, ^11^ the youth population of Charlottesville and Albemarle is large and transient.
 
-The map below shows the percentages of the population that are under 18 and 25 years old compared to the number of gun violence incidents for that region. It is important to note that the JPA - Fontaine and Carr's Hill - McCormick tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions may be skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region.
+The map below shows the ratio of gun violence incidents to the population that are under 18 and 25 years old, respectively, for each area (defined by census tracts). It is important to note that the JPA - Fontaine and Carr's Hill - McCormick tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions are skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region.
 
 <details>
 
@@ -836,7 +836,7 @@ gv_sf_summary %>%
 
 ## Poverty & Childhood Poverty {.tabset}
 
-The Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty.
+The Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the threshold for that family's composition, then every individual in that family is considered to be living below poverty.
 
 <details>
 
@@ -1169,9 +1169,7 @@ dat %>%
 
 ## Median Earnings by Education {.tabset}
 
-We chose to look at median earnings, rather than median household income for this analysis. Earnings consist of wages and salary from a job, and are usually a big source of direct income. Other sources of indirect income include Social Security payments, pensions, child support, public assistance, annuities, money derived from rental properties, interest and dividends. As a result, due to our nation's history of generational wealth, and our inability to fully measure asset wealth, if we look only at median income we will have outliers that inaccurately skew the results.
-
-Ultimately, the issue is not that people are unwilling to work, but that jobs are not paying enough to support a successful quality of life regardless of educational attainment.
+We chose to look at median personal earnings, rather than median household income for this analysis. Earnings consist of wages and salary from a job, and are the primary source of direct income for most individuals. Other sources of income include Social Security payments, pensions, child support, public assistance, annuities, money derived from rental properties, interest and dividends. Median personal earnings provide a clearer picture of the economic opportunities afforded in an area, as it emphasizes employment income over assets. Lower median incomes are primarily a function of jobs not paying sufficient wages. 
 
 <details>
 
@@ -1179,7 +1177,7 @@ Ultimately, the issue is not that people are unwilling to work, but that jobs ar
 
 **ACS 5 Year Summaries**
 
-Similar to how poverty variables are calculated, the The American Community Survey (ACS) 5-Year Estimates for median earnings are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
+Similar to how poverty measures are calculated, the The American Community Survey (ACS) 5-Year Estimates for median earnings are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
 
 Because the data represents summaries from 2018-2022, the plots below do not show changes in earnings by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate earnings for 2023 and 2024, which haven’t been released in the ACS 5-Year Estimates yet.
 
@@ -1561,7 +1559,7 @@ dat %>%
 
 ## Unemployment Rates {.tabset}
 
-Similar to how poverty variables are calculated, the The American Community Survey (ACS) 5-Year Estimates for unemployment rates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
+Similar to how poverty measures are calculated, the The American Community Survey (ACS) 5-Year Estimates for unemployment rates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
 
 Because the data represents summaries from 2018-2022, the plots below do not show changes in unemployment rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven’t been released in the ACS 5-Year Estimates yet.
 
@@ -1796,7 +1794,7 @@ dat %>%
 
 # Next Steps
 
-The above data primarily shows outcome-related information. To fully strategize on a solution, we need to try to understand the underlying causes of gun trauma in our community. This includes looking at additional data to better understand community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues, we will work with community partners to identify additional data that can will help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
 
 # Appendix
 

@@ -791,7 +791,7 @@ gv_sf_summary <- dat %>%
          percent_incidents = (counts / 887) * 100,
          locality = str_to_title(locality)) 
 
-pal <- colorNumeric(palette = "viridis", 
+pal_age <- colorNumeric(palette = "viridis", 
                     domain = 0:100, 
                     reverse = TRUE)
 
@@ -804,7 +804,7 @@ gv_sf_summary %>%
               weight = 0.5,
               opacity = 1,
               color = "black", 
-              fillColor = ~ pal(percent_under18),
+              fillColor = ~ pal_age(percent_under18),
               fillOpacity = 0.5,
               popup = paste0("Percent of Population Under 18: ", 
                              round(gv_sf_summary$percent_under18, digits = 2), "%", "<br>",
@@ -820,7 +820,7 @@ gv_sf_summary %>%
               weight = 0.5,
               opacity = 1,
               color = "black", 
-              fillColor = ~ pal(percent_under25),
+              fillColor = ~ pal_age(percent_under25),
               fillOpacity = 0.5,
               popup = paste0("Percent of Population Under 25: ", 
                              round(gv_sf_summary$percent_under25, digits = 2),  "%", "<br>",
@@ -832,7 +832,7 @@ gv_sf_summary %>%
                 bringToFront = FALSE
               )) %>%
   addLegend("bottomright",
-            pal = pal,
+            pal = pal_age,
             values = ~ percent_under25, 
             title = paste("Percentage of the Population"), 
             labFormat = labelFormat(suffix = "%"),
@@ -864,6 +864,8 @@ gv_sf_summary %>%
 
 ```
 
+---------------------------------------------------------
+
 ### Scatterplot
 
 ```{r age_scatter}
@@ -885,17 +887,18 @@ gv_sf_summary %>%
   scale_x_continuous(labels = function(x) paste0(round(x), "%")) +
   labs(x = "Percentage of the Population Under 18 Years Old",
        y = "Percentage of Total Gun Violence Incidents",
-       title = "Youth Population Percentages Compared to Incidents of Gun Violence",
+       title = "Under 18 Population Percentages Compared to Incidents of Gun Violence",
        subtitle = "Each circle represents a different census tract",
        caption = "Years: 2018 - 2024",
        size = "Estimated Population")
 
+
 ```
 
+----------------------------------------------------------------
 
 
-
-## Poverty & Childhood Poverty {.tabset}
+## Are incidents of gun violence happening where there is more poverty? {.tabset}
 
 The Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the threshold for that family's composition, then every individual in that family is considered to be living below poverty.
 
@@ -905,7 +908,7 @@ The Census Bureau uses a set of money income thresholds that vary by family size
 
 **ACS 5 Year Summaries**
 
-The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here are from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
 
 Because the data represents summaries from 2018-2022, the plots below do not show changes in poverty rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven't been released in the ACS 5-Year Estimates yet.
 
@@ -925,23 +928,20 @@ gv_2023 <- gv %>%
 gv_2024 <- gv %>%
   filter(between(reported_date, as.Date("2024-01-01"), as.Date("2024-12-31")))
 
-pal_pov <- colorNumeric(palette = "viridis",
-                        domain = NULL,
-                        reverse = TRUE)
-
 pal_earn <- colorNumeric(palette = "viridis",
                         domain = c(15000:130000),
                         reverse = FALSE)
 ```
 
-### 2021
+### Map
 
-**Total incidents: `r nrow(gv_2021)`**
+```{r pov_map}
 
-```{r pov_2021}
+pal_pov <- colorNumeric(palette = "viridis",
+                        domain = NULL,
+                        reverse = TRUE)
 
-dat %>%
-  st_transform(crs = 4326) %>%
+gv_sf_summary %>%
   leaflet() %>%
   addProviderTiles(providers$CartoDB.Positron) %>% 
   addPolygons(group = "Overall Poverty",
@@ -951,10 +951,10 @@ dat %>%
               color = "black", 
               fillColor = ~ pal_pov(poverty_est),
               fillOpacity = 0.5,
-              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
-                             "Childhood Poverty Rate: ", dat$cpov_est, "%", "<br>",
-                             "Population: ", dat$pop_est, "<br>",
-                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              popup = paste0("Poverty Rate: ", gv_sf_summary$poverty_est, "%", "<br>",
+                             "Childhood Poverty Rate: ", gv_sf_summary$cpov_est, "%", "<br>",
+                             "Population: ", gv_sf_summary$pop_est, "<br>",
+                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
               highlightOptions = highlightOptions(
                 fillOpacity = 1,
                 bringToFront = FALSE
@@ -966,10 +966,10 @@ dat %>%
               color = "black", 
               fillColor = ~ pal_pov(cpov_est),
               fillOpacity = 0.5,
-              popup = paste0("Poverty Rate: ", dat$poverty_est, "%", "<br>",
-                             "Child Poverty Rate: ", dat$cpov_est, "%", "<br>",
-                             "Population: ", dat$pop_est, "<br>",
-                             "Tract: ", dat$tract_name, ", ", dat$locality),
+              popup = paste0("Poverty Rate: ", gv_sf_summary$poverty_est, "%", "<br>",
+                             "Child Poverty Rate: ", gv_sf_summary$cpov_est, "%", "<br>",
+                             "Population: ", gv_sf_summary$pop_est, "<br>",
+                             "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
               highlightOptions = highlightOptions(
                 fillOpacity = 1,
                 bringToFront = FALSE
@@ -982,12 +982,12 @@ dat %>%
             opacity = 1) %>%
   addLayersControl(baseGroups = c("Overall Poverty", "Child Poverty"),
                    options = layersControlOptions(collapsed = FALSE)) %>%
-  addMarkers(data = gv_2021, 
-             lng = gv_2021$lon,
-             lat = gv_2021$lat,
-             popup = paste0("Description: ", gv_2021$description, "<br>",
-                            "Date: ", gv_2021$reported_date, "<br>",
-                            "Status: ", gv_2021$verified),
+  addMarkers(data = gv,
+             lng = gv$lon,
+             lat = gv$lat,
+             popup = paste0("Description: ", gv$description, "<br>",
+                            "Date: ", gv$reported_date, "<br>",
+                            "Status: ", gv$verified),
              clusterOptions = markerClusterOptions(
                showCoverageOnHover = FALSE,
                iconCreateFunction=JS("function (cluster) {    
@@ -1006,6 +1006,37 @@ dat %>%
 ```
 
 ------------------------------------------------------------------------
+
+### Scatterplot
+
+```{r pov_scatter}
+
+scatter_text <- gv_sf_summary %>%
+  filter(cpov_est > 30)
+
+gv_sf_summary %>%
+  ggplot(aes(x = cpov_est, y = percent_incidents, size = pop_est, color = locality)) +
+  geom_point(alpha = 0.8) +
+  scale_size(range = c(.1, 12)) +
+  geom_label(data = scatter_text, 
+            aes(x = cpov_est, y = percent_incidents, label = tract_name), 
+            size = 3, hjust = 1,
+            inherit.aes = FALSE) +
+  scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
+                    name = "Region") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  scale_x_continuous(labels = function(x) paste0(round(x), "%")) +
+  labs(x = "Percentage of Children Under 18 Living in Poverty",
+       y = "Percentage of Total Gun Violence Incidents",
+       title = "Childhood Poverty Rates Compared to Incidents of Gun Violence",
+       subtitle = "Each circle represents a different census tract",
+       caption = "Years: 2018 - 2024",
+       size = "Estimated Population")
+
+```
+
+
+
 
 ### 2022
 

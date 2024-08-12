@@ -16,6 +16,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(ggmap)
+library(ggrepel)
 library(janitor)
 library(leaflet)
 library(lubridate)
@@ -768,24 +769,30 @@ The American Community Survey (ACS) 5-Year Estimates are summaries for geographi
 The ACS indicates that there are only 14 individuals under the age of 18, all of which are female, living in the JPA - Fontaine census tract. We attribute these low numbers to a data recording error, and subsequently have removed JPA - Fontaine from the below calculations to avoid skewing the results inaccurately.
 
 </details>
+<br>
+
+### Map 
 
 ```{r youth_pops}
 
+# Get census and police-provided gun violence data
 dat <- readRDS("data/census.RDS")
 gv <- read_csv("data/regional_gv.csv")
 
+# Convert lat/lon coords to sf points
 gv_pts <- gv %>%
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
 
+# Count incidents per tract
 gv_sf_summary <- dat %>% 
   mutate(counts = lengths(st_intersects(., gv_pts))) %>%
   group_by(tract) %>%
   mutate(incidents_pop = (counts / pop_est),
-         incidents_18 = (counts / total_under18),
-         incidents_25 = (counts / total_under25))
+         percent_incidents = (counts / 887) * 100,
+         locality = str_to_title(locality)) 
 
 pal <- colorNumeric(palette = "viridis", 
-                    domain = NULL, 
+                    domain = 0:100, 
                     reverse = TRUE)
 
 gv_sf_summary %>%
@@ -797,12 +804,12 @@ gv_sf_summary %>%
               weight = 0.5,
               opacity = 1,
               color = "black", 
-              fillColor = ~ pal(incidents_18),
+              fillColor = ~ pal(percent_under18),
               fillOpacity = 0.5,
-              popup = paste0("Ratio of Incidents to 100 Youth Under 18: ", 
-                             round(gv_sf_summary$incidents_18, digits = 2), "<br>",
-                             "Number of Incidents (Jan 2019 - May 2024): ", gv_sf_summary$counts, "<br>",
+              popup = paste0("Percent of Population Under 18: ", 
+                             round(gv_sf_summary$percent_under18, digits = 2), "%", "<br>",
                              "Number of People Under 18: ", gv_sf_summary$total_under18, "<br>",
+                             "Total Population: ", gv_sf_summary$pop_est, "<br>",
                              "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
               highlightOptions = highlightOptions(
                 fillOpacity = 1,
@@ -813,12 +820,12 @@ gv_sf_summary %>%
               weight = 0.5,
               opacity = 1,
               color = "black", 
-              fillColor = ~ pal(incidents_25),
+              fillColor = ~ pal(percent_under25),
               fillOpacity = 0.5,
-              popup = paste0("Ratio of Incidents to 100 Youth Under 25: ", 
-                             round(gv_sf_summary$incidents_25, digits = 2), "<br>",
-                             "Number of Incidents (Jan 2019 - May 2024): ", gv_sf_summary$counts, "<br>",
+              popup = paste0("Percent of Population Under 25: ", 
+                             round(gv_sf_summary$percent_under25, digits = 2),  "%", "<br>",
                              "Number of People Under 25: ", gv_sf_summary$total_under25, "<br>",
+                             "Total Population: ", gv_sf_summary$pop_est, "<br>", 
                              "Tract: ", gv_sf_summary$tract_name, ", ", gv_sf_summary$locality),
               highlightOptions = highlightOptions(
                 fillOpacity = 1,
@@ -826,13 +833,67 @@ gv_sf_summary %>%
               )) %>%
   addLegend("bottomright",
             pal = pal,
-            values = ~ incidents_18 * 100, 
-            title = paste("Ratio of Incidents", "<br>", "to 100 Youth"), 
+            values = ~ percent_under25, 
+            title = paste("Percentage of the Population"), 
+            labFormat = labelFormat(suffix = "%"),
             opacity = 1) %>%
   addLayersControl(baseGroups = c("Under 18","Under 25"),
-                   options = layersControlOptions(collapsed = FALSE))
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMarkers(data = gv, 
+             lng = gv$lon,
+             lat = gv$lat,
+             popup = paste0("Description: ", gv$description, "<br>",
+                            "Date: ", gv$reported_date, "<br>",
+                            "Status: ", gv$verified),
+             clusterOptions = markerClusterOptions(
+               showCoverageOnHover = FALSE,
+               iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(211,211,211);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(211,211,211);'  
+    } else { 
+      c = 'rgb(211,211,211);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")
+             ))
+  
 
 ```
+
+### Scatterplot
+
+```{r age_scatter}
+
+scatter_text <- gv_sf_summary %>%
+  filter(percent_incidents > 4)
+
+gv_sf_summary %>%
+  ggplot(aes(x = percent_under18, y = percent_incidents, size = pop_est, color = locality)) +
+  geom_point(alpha = 0.8) +
+  scale_size(range = c(.1, 12)) +
+  geom_label(data = scatter_text, 
+            aes(x = percent_under18, y = percent_incidents, label = tract_name), 
+            size = 3, hjust = 1,
+            inherit.aes = FALSE) +
+  scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
+                    name = "Region") +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  scale_x_continuous(labels = function(x) paste0(round(x), "%")) +
+  labs(x = "Percentage of the Population Under 18 Years Old",
+       y = "Percentage of Total Gun Violence Incidents",
+       title = "Youth Population Percentages Compared to Incidents of Gun Violence",
+       subtitle = "Each circle represents a different census tract",
+       caption = "Years: 2018 - 2024",
+       size = "Estimated Population")
+
+```
+
+
+
 
 ## Poverty & Childhood Poverty {.tabset}
 
@@ -1795,6 +1856,8 @@ dat %>%
 # Next Steps
 
 This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues, we will work with community partners to identify additional data that can will help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+
+-----------------------------------------------------------------------
 
 # Appendix
 

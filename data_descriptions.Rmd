@@ -35,9 +35,9 @@ ec_colors <- c("Charlottesville" = "#F8BE3D",
 
 # Introduction
 
-Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries.^1^ In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis.^2^
+Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries.^[Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/. Published May 17, 2023.] In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis.^[US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.]
 
-Charlottesville and Albemarle are not immune to this epidemic of gun violence. The rate of violent crime in our community increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases compared to zero cases in 2021.^3^ On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. While incidents of gun violence have decreased in the first half of 2024,^4^ the number of bullets recovered at each scene has increased, pointing to the ever-changing nature of the issue.
+Charlottesville and Albemarle are not immune to this epidemic of gun violence. The rate of violent crime in our community increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases compared to zero cases in 2021.^[UVA President's Council - Community Safety Working Group Report - https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf. Published September 22, 2023.] On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. While incidents of gun violence have decreased in the first half of 2024,^[Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence - Published July 3, 2024.] the number of bullets recovered at each scene has increased, pointing to the ever-changing nature of the issue.
 
 The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in mid-sized towns. The residents of Charlottesville and Albemarle are the central stakeholders. The folks who live and work here **are** the data. Given the wealth of lived experience and the range of perspectives within our community, these voices must be centered.
 
@@ -156,7 +156,7 @@ border-radius: 5px;
 <b> Notable Trends</b>
 <br>
 <br>
-In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries per 34,875 emergency department visits. That means for every 10,000 visits to the emergency department in Charlottesville and Albemarle in 2020, a little over 8 were were for firearm-related injuries. 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic.^12^ After 2020, both the numbers of firearm injuries and ED visits began increasing, causing the rate of injury to trend upwards as well. 
+In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries per 34,875 emergency department visits. That means for every 10,000 visits to the emergency department in Charlottesville and Albemarle in 2020, a little over 8 were were for firearm-related injuries. 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic.^[Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. doi:10.1016/j.ajem.2022.08.031] After 2020, both the numbers of firearm injuries and ED visits began increasing, causing the rate of injury to trend upwards as well. 
 </p>
 
 
@@ -164,7 +164,7 @@ In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries pe
 
 ## Deaths in the Blue Ridge 
 
-The [VDH Office of Vital Records](https://www.vdh.virginia.gov/vital-records/) tracks causes of death among Virginia residents using death certificates. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control.^5^
+The [VDH Office of Vital Records](https://www.vdh.virginia.gov/vital-records/) tracks causes of death among Virginia residents using death certificates. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control.^[Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.]
 
 This VDH dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, regardless of whether they died in Virginia.
 
@@ -216,7 +216,7 @@ Because the data is sourced from public news websites, if an act of violence did
 
 **Suicides**
 
-Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report^6^ and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
+Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report^[Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.] and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
 
 </details>
 
@@ -579,7 +579,7 @@ ggmap(cville_map) +
 The two maps above show the density of gun-related crime reports and arrests in the Charlottesville region. The map on the left demonstrates that most gun-related crime reports between March 2019 and April 2024 were concentrated in the West Main Street area, specifically near the 10th St intersection. There are also smaller concentrations of reports in Fifeville and on the east end of the Downtown Mall, near the Pavilion. 
 <br>
 <br>
-The map on the right demonstrates that most gun-related arrests are concentrated on the east end of the Downtown Mall, the Roosevelt-Brown Boulevard region, and the south side of Charlottesville. . The location with the most arrests is the Charlottesville Police Station, located on the East End of the Downtown Mall. When we asked the police department for clarification, they explained that most arrest warrants are written and filed at the police station, and that when individuals receive warrants, they turn themselves in at the police station. Most incidents of gun violence do not have an arrest at the scene of the crime, but have an arrest days later from a warrant issued, which is issued at the police station. </p>
+The map on the right demonstrates that most gun-related arrests are concentrated on the east end of the Downtown Mall, the Roosevelt-Brown Boulevard region, and the south side of Charlottesville. The location with the most arrests is the Charlottesville Police Station, located on the East End of the Downtown Mall. When we asked the police department for clarification, they explained that most arrest warrants are written and filed at the police station, and that when individuals receive warrants, they turn themselves in at the police station. Most incidents of gun violence do not have an arrest at the scene of the crime, but have an arrest days later from a warrant issued, which is issued at the police station. </p>
 
 ------------------------------------------------------------------------
 
@@ -619,7 +619,8 @@ Of the 233 individuals arrested, 147 have only one gun-related charge, 53 have t
 
 # Access to Firearms
 
-With nearly a third of Americans owning a gun^7^, access to firearms is easy for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns^8^. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds^9^), and there are **no state-mandated age limits on purchasing ammunition.**^8^
+With nearly a third of Americans owning a gun^[PEW Research - Key facts about Americans and guns - https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/ - Published September 13, 2023.], access to firearms is easy for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns^[Virginia State Police - Firearms/Concealed Weapons FAQ - https://vsp.virginia.gov/services/firearms/faq - Accessed April 30, 2024.]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds^[UVA Policy - 
+SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items - https://uvapolicy.virginia.edu/policy/sec-030 - Published 2022.]), and there are **no state-mandated age limits on purchasing ammunition.**
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
 
@@ -711,9 +712,9 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-In 2022 in Virginia, \$3,477,207 dollars worth of guns and \$97,797 dollars worth of firearm accessories were reported stolen. 
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.^[Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/ - Published May 9, 2024.]
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.^9^ In Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered.^10^
+In 2022 in Virginia, \$3,477,207 dollars worth of guns and \$97,797 dollars worth of firearm accessories were reported stolen. In Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered.^[Virginia State Police Data Analysis and Reporting Team - Crime in Virginia: 2022 Report - https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf - Accessed April 21, 2024.]
 
 The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2022.
 
@@ -758,7 +759,7 @@ Next to each map is a tab with a scatterplot comparing the residential character
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-With over 16,700 undergraduate students coming to the region each semester to study at UVA, ^11^ the youth population of Charlottesville and Albemarle is large and transient.
+With over 16,700 undergraduate students coming to the region each semester to study at UVA,^[UVA Statistics, Fall 2022 Enrollment - https://admission.virginia.edu/admission/statistics) - Accessed May 19, 2024.] the youth population of Charlottesville and Albemarle is large and transient.
 
 The map below shows the percentages of the population that are under 18 and 25 years old, respectively, for each census tracts. It is important to note that the JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions are skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region. 
 
@@ -1299,8 +1300,8 @@ gv_sf_summary %>%
 <b> Notable Trends</b>
 <br>
 <br>
-According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4 Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Rd. also have higher rates of unemployment, but lower rates of gun violence. 
-</p>
+According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4 Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Rd. also have higher rates of unemployment, but lower rates of gun violence. </p>
+
 ------------------------------------------------------------------------
 
 # Next Steps
@@ -1358,31 +1359,3 @@ A participant is defined as an individual involved in an act of gun violence. Pa
 For this analysis, youth are considered to be juveniles under the age of 18. Some visualizations include individuals up to 24 years old as noted in the description. 
 
 ## References
-
-1.  Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/. Published May 17, 2023.
-
-2.  US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - 35https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.
-
-3.  UVA President's Council - Community Safety Working Group Report - https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf. Published September 22, 2023.
-
-4.  Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence - Published July 3, 2024.
-
-5.  Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.
-
-6.  Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.
-
-7.  PEW Research - Key facts about Americans and guns - https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/ - Published September 13, 2023.
-
-8.  Virginia State Police - Firearms/Concealed Weapons FAQ - https://vsp.virginia.gov/services/firearms/faq - Accessed April 30, 2024.
-
-9. Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/ - Published May 9, 2024. 
-
-10. Virginia State Police Data Analysis and Reporting Team - Crime in Virginia: 2022 Report - https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf - Accessed April 21, 2024. 
-
-11. UVA Statistics, Fall 2022 Enrollment - https://admission.virginia.edu/admission/statistics) - Accessed May 19, 2024. 
-
-12. Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. doi:10.1016/j.ajem.2022.08.031
-
-13. James Robert Saunders and Renae Nadine Shackelford - Urban Renewal and the End of Black Culture in Charlottesville, Virginia: An Oral History of Vinegar Hill - Published 1998.
-
-

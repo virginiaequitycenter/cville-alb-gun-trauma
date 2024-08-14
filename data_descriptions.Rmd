@@ -752,16 +752,15 @@ The data shown above is focused on describing key outcomes. To better understand
 
 The maps below show clusters of gun violence incidents reported by our local police jurisdictions between 2018 and 2024 overlaid on top community population characteristics. These characteristics are sourced from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109). The maps are meant to show the general distribution of residential characteristics in our region, such as youth populations, childhood poverty rates, median earnings, and unemployment rates. 
 
-Next to each map is a tab with a bubble scatterplot comparing the residential characteristic to rates of gun violence for each census tract. 
+Next to each map is a tab with a scatterplot comparing the residential characteristic to rates of gun violence for each census tract. The residential characteristic being examined is represented on the x-axis, and the proportion of total gun violence incidents from 2018 - 2024 is shown on the y-axis. Each circle represents a different census tract, and the size of the circle is proportionate to the population of the tract. 
 
-
-## % Youth Populations 
+## Youth Populations 
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
 With over 16,700 undergraduate students coming to the region each semester to study at UVA, ^11^ the youth population of Charlottesville and Albemarle is large and transient.
 
-The map below shows the ratio of gun violence incidents to the population that are under 18 and 25 years old, respectively, for each area (defined by census tracts). It is important to note that the JPA - Fontaine and Carr's Hill - McCormick tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions are skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region.
+The map below shows the percentages of the population that are under 18 and 25 years old, respectively, for each census tracts. It is important to note that the JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions are skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region. 
 
 <details>
 
@@ -903,10 +902,17 @@ gv_sf_summary %>%
 
 ```
 
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
+According to the scatterplot above, there is not a strong relationship between the percentage of youth living in a region and the occurrence of gun violence. The regions with the highest proportion of gun violence are Fifeville - Cherry Avenue, 10th & Page - Venable, Ridge Street, Downtown, and Belmont. These tracts are all near the median value of youth proportions, which is approximately 20%. 
+</p>
+
 ----------------------------------------------------------------
 
 
-## % Childhood Poverty
+## Childhood Poverty
 
 ### Are incidents of gun violence happening where there is more poverty? {.tabset}
 
@@ -927,6 +933,7 @@ Because the data represents summaries from 2018-2022, the plots below do not sho
 A significant portion of the JPA-Fontaine Census tract is made up of UVA students. Many of these students are not earning an income and therefore skew overall poverty levels for that area.
 
 </details>
+<br>
 
 #### Map
 
@@ -1007,8 +1014,7 @@ gv_sf_summary %>%
 ```{r pov_scatter}
 
 scatter_text2 <- gv_sf_summary %>%
-  filter(percent_incidents > 4.8 |
-           cpov_est > 30)
+  filter(cpov_est > 31)
 
 gv_sf_summary %>%
   filter(tract_name != "JPA - Fontaine") %>%
@@ -1032,7 +1038,12 @@ gv_sf_summary %>%
   guides(size = "none")
 
 ```
-
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
+According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, Oak Hill - Southwood, and Ridge Street. Of those four tracts, Oak Hill - Southwood is the only region where the proportion of gun violence is below 7.5%. 
+</p>
 
 ------------------------------------------------------------------------
 
@@ -1183,8 +1194,12 @@ gv_sf_summary %>%
   guides(size = "none")
 
 ```
-
-
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
+According to the scatterplot above, the three regions with the most gun violence (Fifeville - Cherry Avenue, 10th & Page - Venable, and Ridge Street) all have median annual earnings around \$40,000. The only other regions with median annual earnings below \$40,000 are Rose Hill - Harris - Venable, Carr's Hill McCormick Road, JPA - Fontaine, and Old Ivy - Darden School. These blocks also house a significant portion of UVA students, who do not have any reportable annual earnings.
+</p>
 
 ------------------------------------------------------------------------
 
@@ -1280,7 +1295,12 @@ gv_sf_summary %>%
 
 ```
 
-
+<p class="comment">
+<b> Notable Trends</b>
+<br>
+<br>
+According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4 Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Rd. also have higher rates of unemployment, but lower rates of gun violence. 
+</p>
 ------------------------------------------------------------------------
 
 # Next Steps

@@ -212,7 +212,7 @@ gv <- bind_cols(gv, lon_lat)
 
 write_csv(gv, "data/regional_gv.csv")
 
-# Participant demographics - for another analysis 
+# Participant demographics 
 # case_dems <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
 #   clean_names()
 

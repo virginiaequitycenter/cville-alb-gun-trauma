@@ -202,7 +202,7 @@ The table above shows that the rate of firearm death is highest for individuals 
 
 # Incidents of Gun Violence {.tabset}
 
-Sourced from the [Gun Violence Archive](https://www.gunviolencearchive.org/), this data includes information collected from **public news sources** about 201 incidents of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. This data does not include information about suicides.
+Sourced from the [Gun Violence Archive](https://www.gunviolencearchive.org/), this data includes information collected from **public news sources** about 201 of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. This data does not include information about suicides.
 
 The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the [participant](#participant)-level information (for example, the age range and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as numbers of injuries, homicides, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
 
@@ -292,7 +292,7 @@ The faceted bar graph above shows the age ranges of suspects and victims of gun 
 
 # Crimes Involving Firearms {.tabset}
 
-Crime data for Virginia are pulled from the FBI [Uniform Crime Reporting](https://va.beyond2020.com/va_public/Browse/browsetables.aspx) database which uses the [National Incident-Based Reporting System (NIBRS)](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/nibrs). The data contains summaries of all crimes where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2022. Each row represents a different type of crime for each year and each column represents crime counts and rates. The data represents the number of [incidents](#incident) and associated [crimes](#crime), along with the [age group](#youth) of the offender.
+Crime data for Virginia are pulled from the FBI National Incident-Based Reporting System (NIBRS) database. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023. Each row represents a different type of crime for each year and each column represents crime counts and rates. 
 
 <details>
 
@@ -306,39 +306,31 @@ Because the data is voluntarily submitted by individual police departments it ma
 
 <br>
 
-## All Incidents
+## All Crimes
 
 ```{r ucr_totals}
 
-ucr <- read_csv("data/ucr_firearm.csv")
-pops <- read_csv("data/ucr_pops.csv")
+ucr2 <- read_csv("data/ucr2.csv")
+pops2 <- read_csv("data/pops2.csv")
 
-# Plotting rates of total incidents
-ucr %>% 
-  separate(type, c('group', 'type')) %>% 
-  filter(group == "incident") %>%
-  group_by(district, year, group) %>% 
-  summarise_at(vars(matches('n_')), ~sum(.)) %>% 
-  ungroup() %>% 
-  left_join(pops) %>% 
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp_plt_dat
+ucr2 %>%
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp2
 
-ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
+ggplot(tmp2, aes(year, n_total, color = district, group = district)) +
   geom_line(size = 1.5) +
   labs(x = "Year",
-       y = "Crime Rate per 100k",
-       title = "All Incidents Involving Firearms") +
+       y = "Crime Rate per 100k Population",
+       title = "All Crimes Involving Firearms") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
-  #scale_y_continuous(labels=function(x) paste0(x,"%")) +
-  geom_label(data = filter(tmp_plt_dat, year == 2022), 
-             aes(label = paste0(round(n_total, 1))), 
+    geom_label(data = filter(tmp2, year == 2023),
+             aes(label = paste0(round(n_total, 1))),
              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
-    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
                      guide = guide_axis(angle = 35))
-  
+
 
 ```
 
@@ -346,7 +338,7 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-The line graph above shows the crime rate of gun violence incidents per 100k population over time. In Virginia, the crime rate is steadily increasing, with a peak of 23.2 at 2022. That means on average in Virginia in 2022, for every 100,000 people, there were 23 incidents of gun violence. Charlottesville rates are slightly lower than the state-wide rates for all incidents involving firearms. During the COVID-10 pandemic, the firearm crime rate increased significantly across the state, and in Charlottesville specifically. 
+The line graph above shows the crime rate of gun violence incidents per 100k population over time. In Virginia, the crime rate is steadily increasing, with a peak of 25.6 at 2022. That means on average in Virginia in 2022, for every 100,000 people, there were 23 incidents of gun violence. Charlottesville rates are slightly lower than the state-wide rates for all incidents involving firearms. During the COVID-10 pandemic, the firearm crime rate increased significantly across the state, and in Charlottesville specifically. 
 </p>
 
 ------------------------------------------------------------------------
@@ -356,29 +348,49 @@ The line graph above shows the crime rate of gun violence incidents per 100k pop
 ```{r ucr_compare}
 
 # Plotting rates of juvenile incidents
-ucr %>% 
-  separate(type, c('group', 'type')) %>% 
-  filter(group == "incident") %>%
-  group_by(district, year, group) %>% 
-  summarise_at(vars(matches('n_')), ~sum(.)) %>% 
-  ungroup() %>% 
-  left_join(pops) %>% 
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp_plt_dat
+# ucr %>% 
+#   separate(type, c('group', 'type')) %>% 
+#   filter(group == "incident") %>%
+#   group_by(district, year, group) %>% 
+#   summarise_at(vars(matches('n_')), ~sum(.)) %>% 
+#   ungroup() %>% 
+#   left_join(pops) %>% 
+#   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp_plt_dat
+
+ucr2 %>%
+  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) -> tmp2
   
-ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
+# ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district)) +
+#   geom_line(size = 1.5) +
+#   labs(x = "Year",
+#        y = "Crime Rate per 100k",
+#        title = "All Youth Incidents Involving Firearms") +
+#   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
+#                     name = "Region",
+#                     breaks = c("virginia", "charlottesville", "albemarle"),
+#                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
+#   geom_label(data = filter(tmp_plt_dat, year == 2022), 
+#              aes(label = paste0(round(n_juvenile, 1))), 
+#              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
+#     scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+#                      guide = guide_axis(angle = 35))
+
+ggplot(tmp2, aes(year, n_juvenile, color = district, group = district)) +
   geom_line(size = 1.5) +
   labs(x = "Year",
-       y = "Crime Rate per 100k",
-       title = "All Youth Incidents Involving Firearms") +
+       y = "Crime Rate per 100k Population",
+       title = "All Youth Crimes Involving Firearms") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
-  geom_label(data = filter(tmp_plt_dat, year == 2022), 
-             aes(label = paste0(round(n_juvenile, 1))), 
+    geom_label(data = filter(tmp2, year == 2023),
+             aes(label = paste0(round(n_juvenile, 1))),
              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
-    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
                      guide = guide_axis(angle = 35))
+
+
   
 ```
 
@@ -398,34 +410,55 @@ In 2021, the firearm crime rate increased for youth across the board. In Charlot
 age_labs <- c("Under 18", "Above 18")
 names(age_labs) <- c("n_juvenile", "n_adult")
 
+# ucr %>% 
+#   select(district, year, n_juvenile, n_adult, type) %>%
+#   separate(type, c('group', 'type')) %>% 
+#   filter(group == "incident") %>%
+#   group_by(district, year, group) %>% 
+#   summarise_at(vars(matches('n_')), ~sum(.)) %>%
+#   ungroup() %>%
+#   left_join(pops) %>%
+#   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
+#   pivot_longer(cols = c(n_juvenile, n_adult)) -> tmp_plt_dat
 
-ucr %>% 
-  select(district, year, n_juvenile, n_adult, type) %>%
-  separate(type, c('group', 'type')) %>% 
-  filter(group == "incident") %>%
-  group_by(district, year, group) %>% 
-  summarise_at(vars(matches('n_')), ~sum(.)) %>%
-  ungroup() %>%
-  left_join(pops) %>%
+ucr2 %>%
   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
-  pivot_longer(cols = c(n_juvenile, n_adult)) -> tmp_plt_dat
+  pivot_longer(cols = c(n_juvenile, n_adult)) -> tmp2
 
-ggplot(tmp_plt_dat, aes(year, value, color = district)) +
-  geom_line(linewidth = 1.5) +
+# ggplot(tmp_plt_dat, aes(year, value, color = district)) +
+#   geom_line(linewidth = 1.5) +
+#   facet_wrap(~name,
+#              labeller = labeller(name = age_labs),
+#              scales = "free_y") +
+#   labs(x = "Year",
+#        y = "Crime Rate per 100k",
+#        title = "Adult Compared to Youth Incident Rates") +
+#   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
+#                     name = "Region",
+#                     breaks = c("virginia", "charlottesville", "albemarle"),
+#                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
+#   geom_label(data = filter(tmp_plt_dat, year == 2022), 
+#              aes(label = paste0(round(value, 1))), 
+#              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
+#     scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+#                      guide = guide_axis(angle = 35))
+
+ggplot(tmp2, aes(year, value, color = district, group = district)) +
+  geom_line(size = 1.5) +
   facet_wrap(~name,
              labeller = labeller(name = age_labs),
              scales = "free_y") +
   labs(x = "Year",
-       y = "Crime Rate per 100k",
-       title = "Adult Compared to Youth Incident Rates") +
+       y = "Crime Rate per 100k Population",
+       title = "Adult Compared to Youth Crime Rates") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
                     labels= c("Virginia", "Charlottesville", "Albemarle")) +
-  geom_label(data = filter(tmp_plt_dat, year == 2022), 
-             aes(label = paste0(round(value, 1))), 
+    geom_label(data = filter(tmp2, year == 2023),
+             aes(label = paste0(round(value, 1))),
              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
-    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
                      guide = guide_axis(angle = 35))
   
 ```
@@ -714,15 +747,18 @@ atf_dealers %>%
 
 Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.^[Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/ - Published May 9, 2024.]
 
+In 2023 in Virginia, \$
+
 In 2022 in Virginia, \$3,477,207 dollars worth of guns and \$97,797 dollars worth of firearm accessories were reported stolen. In Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered.^[Virginia State Police Data Analysis and Reporting Team - Crime in Virginia: 2022 Report - https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf - Accessed April 21, 2024.]
 
 The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2022.
 
 ```{r theft}
 
-theft <- read_csv("data/nibrs_theft.csv")
+theft <- read_csv("data/nibrs_theft.csv") %>%
+  filter(district != "Virginia")
 
-ggplot(theft, aes(year, n_stolen, colour = region)) +
+ggplot(theft, aes(year, n_stolen, colour = district)) +
   geom_line(linewidth = 1.5) +
   labs(x = "Year",
        y = "Number of Firearms Stolen",

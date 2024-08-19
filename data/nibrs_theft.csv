@@ -1,15 +1,25 @@
-region,year,n_stolen
-Charlottesville,2016,13
-Charlottesville,2017,16
-Charlottesville,2018,11
-Charlottesville,2019,16
-Charlottesville,2020,19
-Charlottesville,2021,24
-Charlottesville,2022,30
-Albemarle,2016,18
-Albemarle,2017,13
-Albemarle,2018,21
-Albemarle,2019,9
-Albemarle,2020,26
-Albemarle,2021,22
-Albemarle,2022,31
+type,year,property,district,n_stolen,est_pop_district,avg_value,property_value
+Theft From Motor Vehicle,2016,Firearms,Virginia,1912,8411808,537,992710
+Theft From Motor Vehicle,2016,Firearms,Albemarle County,18,105715,587,10573
+Theft From Motor Vehicle,2016,Firearms,Charlottesville City,13,49071,380,4935
+Theft From Motor Vehicle,2017,Firearms,Virginia,2190,8470020,524,1104109
+Theft From Motor Vehicle,2017,Firearms,Albemarle County,13,107697,528,6870
+Theft From Motor Vehicle,2017,Firearms,Charlottesville City,16,49132,375,6005
+Theft From Motor Vehicle,2018,Firearms,Virginia,1976,8517685,496,937721
+Theft From Motor Vehicle,2018,Firearms,Albemarle County,21,108639,648,13610
+Theft From Motor Vehicle,2018,Firearms,Charlottesville City,11,49281,766,8430
+Theft From Motor Vehicle,2019,Firearms,Virginia,1939,8535519,479,880601
+Theft From Motor Vehicle,2019,Firearms,Albemarle County,9,109722,509,4074
+Theft From Motor Vehicle,2019,Firearms,Charlottesville City,16,49181,807,12915
+Theft From Motor Vehicle,2020,Firearms,Virginia,2544,8586967,509,1219420
+Theft From Motor Vehicle,2020,Firearms,Albemarle County,26,110545,517,13439
+Theft From Motor Vehicle,2020,Firearms,Charlottesville City,19,49447,514,9775
+Theft From Motor Vehicle,2021,Firearms,Virginia,2849,8655608,544,1462769
+Theft From Motor Vehicle,2021,Firearms,Albemarle County,22,114424,579,12741
+Theft From Motor Vehicle,2021,Firearms,Charlottesville City,24,51079,679,16285
+Theft From Motor Vehicle,2022,Firearms,Virginia,3476,8696955,580,1921068
+Theft From Motor Vehicle,2022,Firearms,Albemarle County,31,115495,561,17389
+Theft From Motor Vehicle,2022,Firearms,Charlottesville City,30,51278,757,22698
+Theft From Motor Vehicle,2023,Firearms,Virginia,2814,8729032,584,1577221
+Theft From Motor Vehicle,2023,Firearms,Albemarle County,28,116148,745,20857
+Theft From Motor Vehicle,2023,Firearms,Charlottesville City,20,51132,597,11940

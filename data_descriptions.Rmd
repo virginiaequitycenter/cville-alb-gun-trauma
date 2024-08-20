@@ -337,7 +337,10 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district, group = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-The line graph above shows the crime rate of gun violence incidents per 100k population over time. In Virginia, the crime rate is steadily increasing, with a peak of 25.6 at 2022. That means on average in Virginia in 2022, for every 100,000 people, there were 23 incidents of gun violence. Charlottesville rates are slightly lower than the state-wide rates for all incidents involving firearms. During the COVID-10 pandemic, the firearm crime rate increased significantly across the state, and in Charlottesville specifically. 
+The line graph above shows the rate of gun violence crimes per 100k population over time. In Virginia, the crime rate has been slightly increasing from 19.2 in 2016 to 24.4 in 2023, with a peak of 25.6 in 2022. That means on average in Virginia in 2023, for every 100,000 people, there were 24 crimes involving firearms. Charlottesville rates are much more variable with rates peaking above state levels from 2020 to 2022, with a maximum value of 28 in 2021. Albemarle has had relatively steady rates ranging from a minimum of 7.4 in 2021 to a maximum of 11 in 2022.
+<br>
+<br>
+Overall during the COVID-10 pandemic, the rate of crimes committed with firearms increased across the board, and in Charlottesville specifically. Since 2022, however, the rate has been slightly decreasing. 
 </p>
 
 ------------------------------------------------------------------------
@@ -370,7 +373,7 @@ ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district, group = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-In 2021, the firearm crime rate increased for youth across the board. In Charlottesville, this change was exponential, with the rate nearly doubling from 0.6 in 2021 to 1.8 -- above the statewide average -- in 2022. That means for every 100,000 people, there were nearly 2 incidents of gun violence perpetrated by individuals under the age of 18. 
+From 2021 to 2022 the firearm crime rate increased for youth across the board. In Charlottesville this change was exponential, with the rate more than doubling from 0.8 in 2021 to 2.1 -- above the statewide average -- in 2022. The rate has decreased from 2022 to 2023, to 1.4, below the state average. That means for every 100,000 people, there were 1.4 crimes committed with guns by individuals under the age of 18. 
 </p>
 
 ------------------------------------------------------------------------
@@ -410,7 +413,7 @@ ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-In general, following the COVID-19 pandemic, crimes involving firearms have increased for all age groups, however most notably among youth under 18. The Charlottesville youth firearm crime rate surpassed state levels in 2022. 
+In general, following the COVID-19 pandemic, crimes involving firearms increased for all age groups in 2021, however most notably among youth under 18. The Charlottesville youth firearm crime rate surpassed state levels in 2022. 
 </p>
 
 ------------------------------------------------------------------------
@@ -690,11 +693,9 @@ atf_dealers %>%
 
 Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.^[Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/ - Published May 9, 2024.]
 
-In 2023 in Virginia, \$
+In 2023 in Virginia, \$1,577,221 dollars worth of guns were reported stolen from vehicles. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940. 
 
-In 2022 in Virginia, \$3,477,207 dollars worth of guns and \$97,797 dollars worth of firearm accessories were reported stolen. In Charlottesville, \$30,217 worth of firearms were reported stolen in 2022, and only \$2,495 were reported recovered.^[Virginia State Police Data Analysis and Reporting Team - Crime in Virginia: 2022 Report - https://vsp.virginia.gov/wp-content/uploads/2023/06/Crime-In-Virginia-2022.pdf - Accessed April 21, 2024.]
-
-The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2022.
+The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2023.
 
 ```{r nibrs_theft}
 
@@ -721,7 +722,7 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-Since 2018, the rate of firearms being stolen from vehicles has increased every year, with 61 guns being stolen from vehicles in 2022 in Charlottesville and Albemarle. 
+In general, the rate of firearms being stolen from vehicles has increased, with 48 guns being stolen from vehicles in 2023 in Charlottesville and Albemarle. 
 </p>
 
 ------------------------------------------------------------------------

@@ -12,20 +12,16 @@ The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-t
 
 The cleaned data is stored in the [data](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/tree/main/data) folder, and includes the following:
 
-- `atf_dealers.csv`: a list of all ATF-licensed gun dealers in Charlottesville and Albemarle as of April 2024
-- `fai_age.csv`: firearms deaths by age in the Blue Ridge Health District from 2018 through 2022 
-- `fai_county.csv`: firearm-related emergency room visits by county from 2015 through 2023
-- `fai_intent.csv`: firearm-related deaths by intent in the Blue Ridge Health District from 2018 to 2022
+- `atf_dealers.csv`: all licensed gun dealers in Charlottesville and Albemarle as of April 2024, provided by the ATF
+- `census.RDS`: an R data object that includes census and geographic information for mapping, pulled from the 2022 American Community Survey  
 - `gva_incidents.csv`: media reported gun violence incidents in Charlottesville and Albemarle tracked by the Gun Violence Archive from 2014 through 2024
 - `gva_participants.csv`: participant information for the above incidents tracked by the Gun Violence Archive 
-- `nibrs_theft.csv`: data from the National Incident-Based Reporting System on firearm theft for Charlottesville and Albemarle from 2016 through 2022. 
 - `odp_arrests.csv`: anonymized gun-related arrests from the Charlottesville Open Data Portal from 2019 to 2024
 - `odp_crimes.csv`: anonymized gun-related crime reports from the Charlottesville Open Data Portal from 2019 to 2014
-- `tract_names.csv`: a list of the names of all Census tracts in Charlottesville and Albemarle
-- `ucr_firearm.csv`: a summary of all firearm-related crimes and incidents in Charlottesville, Albemarle, and Virginia from 2016 through 2022 as recorded by the FBI Uniform Crime Reporting Program
-- `ucr_pops.csv`: estimated population totals by the FBI UCR for calculating crime rates
-- `census.RDS`: an R data object that includes census and geographic information for mapping
-
-
-
+- `nibrs_crime.csv`: crimes with firearms in Charlottesville, Albemarle, and VA from 2016 through 2023, pulled from the National Incident-Based Reporting System
+- `nibrs_theft.csv`: firearm theft in Charlottesville, Albemarle, and VA from 2016 through 2023, pulled from the National Incident-Based Reporting System
+- `tract_names.csv`: a list of the names of all Census tracts in Charlottesville and Albemarle, pulled from the 2022 American Community Survey
+- `vdh_injuries.csv`: firearm-related emergency room visits by county from 2015 through 2023, provided by the VA Dept of Health 
+- `vdh_intent.csv`: firearm-related deaths by intent in the Blue Ridge Health District from 2018 to 2022, provided by the VA Dept of Health
+- `vdh_age.csv`: firearm-related deaths by age in the Blue Ridge Health District from 2018 through 2022, provided by the VA Dept of Health
 

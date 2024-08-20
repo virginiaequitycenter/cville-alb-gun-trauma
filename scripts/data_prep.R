@@ -2,7 +2,6 @@
 # Last updated: 8/19/2024
 
 # Setup ----
-library(ggmap)
 library(janitor)
 library(jsonlite)
 library(lubridate)
@@ -122,41 +121,41 @@ odp_arrests <- odp_arrests %>%
 write_csv(odp_arrests, "data/odp_arrests.csv")
 
 # VA Open Data Portal ----
-# This data can be accessed by downloading the raw CSVs directly from the VA portal website: https://data.virginia.gov/
+# This data can be accessed by downloading the raw CSVs directly from the VA open data portal website: https://data.virginia.gov/
 
 # *Injuries by county ---- 
 # Download url: https://data.virginia.gov/dataset/vdh-pud-fai-by-citycounty
 
-fai_county <- read_csv("data/raw/vdh-pud-fai-by-citycounty.csv") %>%
+vdh_injuries <- read_csv("data/raw/vdh-pud-fai-by-citycounty.csv") %>%
   clean_names()
 
-fai_county %<>%
+vdh_injuries %<>%
   mutate_at(c("firearm_injury_visits", "total_ed_visits", "rate_of_firearm_injuries_per_10k_ed_visits"), as.numeric)
 
-write_csv(fai_county, "data/fai_county.csv")
+write_csv(vdh_injuries, "data/vdh_injuries.csv")
 
-# *Injuries by intent ---- 
+# *Deaths by intent ---- 
 # Download url: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent
 
-fai_intent <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-intent.csv") %>%
+vdh_intent <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-intent.csv") %>%
   clean_names() %>%
   filter(str_detect(patient_health_district, "Blue Ridge"))
 
-write_csv(fai_intent, "data/fai_intent.csv")
+write_csv(vdh_intent, "data/vdh_intent.csv")
 
 # *Deaths by age and district ----
 # Download url: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-age
 # Blue Ridge Health District is the smallest regional dataset that includes ages 
 
-fai_age <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-age.csv") %>%
+vdh_age <- read_csv("data/raw/vdh-pud-firearm-deaths-by-district-age.csv") %>%
   clean_names() 
 
-fai_age %<>%
+vdh_age %<>%
   filter(str_detect(health_district, "Blue Ridge")) 
 
-write_csv(fai_age, "data/fai_age.csv")
+write_csv(vdh_age, "data/vdh_age.csv")
 
-# FBI Data Explorer ----
+# NIBRS ----
 # This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website: https://va.beyond2020.com/
 
 # *Crimes ----
@@ -164,10 +163,10 @@ write_csv(fai_age, "data/fai_age.csv")
 # Table: Crime by jurisdiction > All Crime Types by City or County
 # Filter criteria:
 # - Members = N Crimes, Estimated Population 
-# - Type of Weapon/Force Involved = Firearm (no subtypes) 
-# - Jurisdiction by geography = Virginia (no subtypes), VSP Division 3 > Albemarle County and Charlottesville City (no subtypes)
-# - Incident dates = 2016-2023 (no subtypes)
-# - Offense type = All (no subtypes)
+# - Type of Weapon/Force Involved = Firearm 
+# - Jurisdiction by geography = Virginia, Albemarle County, Charlottesville City (VSP Division 3)
+# - Incident dates = 2016-2023 
+# - Offense type = All 
 # - Offender age = Under 18, 18 and over, Unknown, and Missing 
 # Table construction: 
 # - Rows: Incident Date, Offense Type, Jurisdiction by Geography
@@ -175,20 +174,18 @@ write_csv(fai_age, "data/fai_age.csv")
 # - Slicers: None
 # - Order of Measures: Number of Crimes, Est Pop
 
-# Read
-ucr2 <- read_csv("data/raw/All Crime Types By City or County.csv", skip = 5) %>%
+nibrs_crime <- read_csv("data/raw/All Crime Types By City or County.csv", skip = 5) %>%
   clean_names()
 
-# Clean 
-ucr2 <- ucr2 %>%
+nibrs_crime <- nibrs_crime %>%
   select(x1:under_18_8) %>%
   rename(year = x1, type = x2, district = offender_age, n_juvenile = under_18_4,
          n_adult = x18_and_over_5, n_unknown = unknown_6, n_missing = missing_7,
          est_pop_district = under_18_8)
 
-ucr2 <- ucr2[-1,]
+nibrs_crime <- nibrs_crime[-1,]
 
-ucr2 <- ucr2 %>% 
+nibrs_crime <- nibrs_crime %>% 
   fill(year, type) %>%
   mutate(
     district = case_when(
@@ -200,32 +197,20 @@ ucr2 <- ucr2 %>%
     ))
 
 # Calculate total N crimes for region by year:
-ucr2 <- ucr2 %>%
+nibrs_crime <- nibrs_crime %>%
   group_by(year, district) %>%
   mutate(n_total = sum(n_juvenile, n_adult, n_unknown, n_missing, na.rm = TRUE))
 
-# # Tidy 
-# ucr2 <- ucr2 %>%
-#   pivot_longer(crime_n_juvenile:incident_n_missing, names_to = "type") %>%
-#   separate_wider_delim(cols = type, delim = "_n_", names = c("type", "group")) %>%
-#   unite(col = type, c("type", "crime"), sep = "_") %>%
-#   pivot_wider(names_from = group, values_from = value) %>%
-#   rename_with(~paste0("n_", .), grep("juvenile|adult|unknown|missing", names(.))) 
-
-pops2 <- ucr2 %>% 
-  select(year, district, est_pop_district) %>% 
-  distinct()
-
-write_csv(ucr2, "data/ucr2.csv")
-write_csv(pops2, "data/pops2.csv")
+write_csv(nibrs_crime, "data/nibrs_crime.csv")
 
 # *Theft ----
+# This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
 # Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
 # Table: Property Crime Incidents by Offense Type
 # Filter criteria:
 # - Measures = N Incidents, Estimated Population, Avg. Property Value, Property Value
 # - Offense Type = Theft from Motor Vehicles
-# - Jurisdiction = Virginia, Charlottesville, and Albemarle 
+# - Jurisdiction = Virginia, Charlottesville, and Albemarle (VSP Division 3)
 # - Incident Dates = 2016-2023
 # - Property Description = Firearms
 # Table construction: 
@@ -233,27 +218,27 @@ write_csv(pops2, "data/pops2.csv")
 # - Columns: Measures 
 # - Slicers: None
 
-theft <- read_csv("data/raw/Property Crime Incidents by Offense Type.csv", skip = 4) %>%
+nibrs_theft <- read_csv("data/raw/Property Crime Incidents by Offense Type.csv", skip = 4) %>%
   clean_names()
 
-theft <- theft %>%
+nibrs_theft <- nibrs_theft %>%
   select(x1:property_value) %>%
   rename(type = x1, year = x2, property = x3, district = measures, n_stolen = number_of_incidents, 
          est_pop_district = estimated_population, avg_value = average_property_value)
 
-theft <- theft[-1,]
+nibrs_theft <- nibrs_theft[-1,]
 
-theft <- theft %>% 
+nibrs_theft <- nibrs_theft %>% 
   fill(year, type, property) 
   
-write_csv(theft, "data/nibrs_theft.csv")
+write_csv(nibrs_theft, "data/nibrs_theft.csv")
 
 # ATF ----
 # This data can be downloaded directly from the ATF site: https://www.atf.gov/firearms/listing-federal-firearms-licensees
 # Filter criteria:
-# Year: 2024
-# Month: April
-# State: Virginia 
+# - Year: 2024
+# - Month: April
+# - State: Virginia 
 
 atf <- readxl::read_excel("data/raw/0424-ffl-list-virginia.xlsx") %>%
   clean_names() %>% 
@@ -313,7 +298,7 @@ gv <- bind_cols(gv, lon_lat)
 
 write_csv(gv, "data/regional_gv.csv")
 
-# Participant demographics 
+# Participant demographics - perhaps for another analysis 
 # case_dems <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
 #   clean_names()
 

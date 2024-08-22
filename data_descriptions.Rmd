@@ -59,7 +59,7 @@ The data provided below represent information that is publicly and readily avail
 
 Much of this data relies on information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data, how people's decisions shape the data and what the data values mean for peoples' experiences. While no personally identifiable information is contained in this report, the data points represent moments in the lives of individuals in our community.
 
-The script [dataprep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/data_prep.R) outlines the process for accessing and cleaning each data source. We encourage anyone interested to recreate these analyses or extend them by contributing their own data-driven insights.
+The script [data_prep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R) outlines the process for accessing and cleaning each data source. We encourage anyone interested to recreate these analyses or extend them by contributing their own data-driven insights.
 
 #### Key Terminology
 

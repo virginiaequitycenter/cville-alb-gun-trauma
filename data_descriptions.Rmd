@@ -35,15 +35,13 @@ ec_colors <- c("Charlottesville" = "#F8BE3D",
 
 # Introduction
 
-Every day, more than 120 people in America are killed with guns. The gun homicide rate in the U.S. is 26 times higher than that of other developed countries.^[Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/. Published May 17, 2023.] In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis.^[US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.]
+Every day, more than 120 people in America are killed with guns.^[Everytown - Beyond Measure: Gun Violence Trauma - https://everytownresearch.org/report/gun-violence-trauma/.Published May 17, 2023.] The gun homicide rate in the U.S. is 26 times higher than that of other high-income countries.^[Grinshteyn, E., & Hemenway, D. "Violent death rates in the US compared to those of the other high‑income countries, 2015." Preventive Medicine 123 (2019), 20‑26. https://doi.org/10.1016/j.ypmed.2019.02.026] In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis.^[US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf. Published July 2, 2024.]
 
 Charlottesville and Albemarle are not immune to this epidemic of gun violence. The rate of violent crime in our community increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases compared to zero cases in 2021.^[UVA President's Council - Community Safety Working Group Report - https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf. Published September 22, 2023.] On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. While incidents of gun violence have decreased in the first half of 2024,^[Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence - Published July 3, 2024.] the number of bullets recovered at each scene has increased, pointing to the ever-changing nature of the issue.
 
-The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in mid-sized towns. The residents of Charlottesville and Albemarle are the central stakeholders. The folks who live and work here **are** the data. Given the wealth of lived experience and the range of perspectives within our community, these voices must be centered.
+The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in mid-sized cities and regions, like Charlottesville and Albemarle. One strand of the Gun Violence Solutions Project is focused on researching solutions that could be implemented locally in the Charlottesville and Albemarle region, while exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
 
-The Gun Violence Solutions Project is taking a holistic approach by researching solutions at a local level in the Charlottesville and Albemarle region, while exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
-
-This document is meant to support the work of the Gun Violence Solutions Project to help our community understand the nature and shape of gun violence and [gun violence trauma](#gun-violence-trauma) in our region. Each section includes an overview of the data sources, key data limitations that may constrain findings, and a brief discussion of notable trends. Together we can develop a shared understanding and greater clarity about the problem of gun violence, identify knowledge and data gaps, and facilitate wider community engagement in conversations about solutions.
+This document is meant to support the regional work of the Gun Violence Solutions Project to help our community understand the larger picture of gun violence and [gun violence trauma](#gun-violence-trauma) in our region by bringing together multiple sources of data. The residents of Charlottesville and Albemarle are the central stakeholders. The folks who live and work here **are** the data. Given the wealth of lived experience and the range of perspectives within our community, these voices must be centered. Each section includes an overview of the data source presented, a brief discussion of notable trends, and limitations that may complicate or constrain conclusions. Together we can develop a shared understanding and greater clarity about the local problem of gun violence, identify knowledge and data gaps, and facilitate wider community engagement in conversations about solutions.
 
 Ultimately, we hope this work will be part of:
 
@@ -53,25 +51,25 @@ Ultimately, we hope this work will be part of:
 
 3.  Evaluating the effectiveness of current and future efforts to eliminate gun violence.
 
-#### Data Notes
+<details>
+  <summary>Data Notes</summary>
 
-The data provided below represent information that is publicly and readily available online. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, scope, and dimensions of the problem locally.
+The data provided below represent information that is, for the most part, publicly available. This document is meant to serve as an overview of the existing resources so that we can begin representing the nature, scope, and dimensions of the problem locally.
 
-Much of this data relies on information created when people interact with public services. As a result, we need to remember the deeply human aspect of this data, how people's decisions shape the data and what the data values mean for peoples' experiences. While no personally identifiable information is contained in this report, the data points represent moments in the lives of individuals in our community.
+Much of this data relies on information created when people interact with representatives of public services. While reduced to counts and numbers, the experiences and processes the data represent are deeply human. People's decisions select, record, and shape the data. Though no personally identifiable information is contained in this report, each data point represents a moment in the lives of members of our community.
 
-The script [data_prep.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R) outlines the process for accessing and cleaning each data source. We encourage anyone interested to recreate these analyses or extend them by contributing their own data-driven insights.
+The code and (most of the) data are available at our [GitHub repository](https://github.com/virginiaequitycenter/cville-alb-gun-trauma).  We encourage anyone interested to review these analyses or extend them by contributing their own data-driven insights.
 
-#### Key Terminology
-
-The data below is drawn from news outlets, the Virginia Department of Health, and local and national law enforcement agencies. To keep insights consistent across these sources we need to clearly define our terminology. Each of the terms below has a specific and unique definition, and we will consistently use these terms throughout the analysis.
+Because the data below is drawn from various sources -- news outlets, the Virginia Department of Health, and local and national law enforcement agencies -- we provide a glossary to clarify terminology. 
 
 Please refer to the [Terminology] section of the Appendix for more information and a list of definitions.
+</details>
 
 ------------------------------------------------------------------------
 
 # Firearm Injuries & Deaths
 
-The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. Adversarial community violence accounts for 22% of all deaths.
+The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. The Blue Ridge Health District includes Charlottesville City, and the counties of Albemarle, Greene, Louisa, Fluvanna, and Nelson. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. Homicide -- community violence, domestic violence, mass shootings, and other intentional violence -- accounts for 22% of all deaths.
 
 ```{r vdh_intent, echo=FALSE, message=FALSE}
 
@@ -92,25 +90,9 @@ vdh_intent %>%
 
 <br>
 
-The [Virginia Open Data Portal](https://data.virginia.gov/) includes information about emergency department visits for firearm injuries from 2015 to 2023 along with death certificates for firearm-related causes of death from 2018 to 2022. This data is supplied by the [Virginia Department of Health](https://www.vdh.virginia.gov/).
-
-<details>
-
-<summary>Data Limitations and Identifiers</summary>
-
-**Data Limitations**
-
-Limits to the data include follow-up visits, visits involving other types of guns (e.g., staple gun), visits where firearm was used as a weapon but not fired (e.g., pistol whip). City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.'
-
-**Identifiers**
-
-Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009.
-
-</details>
-
 ## Injuries in Cville/Albemarle
 
-The table below shows the rate of [firearm injuries](#firearm-injury) per 10,000 emergency department visits in Charlottesville and Albemarle from 2015 - 2023. This aggregation does not include any demographic information.
+The [Virginia Department of Health](https://www.vdh.virginia.gov/) also reports data on emergency department visits for firearm injuries. The table below shows the rate of [firearm injuries](#firearm-injury) per 10,000 emergency department visits in Charlottesville and Albemarle from 2015 - 2023. This aggregation does not include any demographic information.
 
 ```{r vdh_injuries}
 
@@ -156,17 +138,28 @@ border-radius: 5px;
 <b> Notable Trends</b>
 <br>
 <br>
-In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries per 34,875 emergency department visits. That means for every 10,000 visits to the emergency department in Charlottesville and Albemarle in 2020, a little over 8 were were for firearm-related injuries. 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic.^[Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. doi:10.1016/j.ajem.2022.08.031] After 2020, both the numbers of firearm injuries and ED visits began increasing, causing the rate of injury to trend upwards as well. 
+In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic.^[Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. doi:10.1016/j.ajem.2022.08.031] After falling in 2021, the firearm injury rate began trending upward. 
 </p>
+
+<details>
+
+<summary>Data Notes</summary>
+
+City/county localities are assigned using the patient's residential zip code for Virginia residents. Patients with non-Virginia or unknown zip codes are grouped as 'Out of State.'
+
+Firearm injury visits are identified using key terms in the chief complaint (reason for visit) and discharge diagnosis codes. Key terms include: gun with wound, GSW, gunshot, buckshot, revolver, rifle, shotgun, firearm, pistol, handgun, been shot, I was shot, I got shot, combination of hit, ricochet, graze with bullet. ICD-10 diagnosis codes: W32.0, W32.1, W33.0, W33.1, W34.0, W34.1, X72, X73, X74, X93, X94, X95, Y22, Y23, Y24, Y35.0, Y38.4 SNOMED diagnosis codes: 41430008, 56768003, 63409001, 69861004, 77301004, 86122002, 111050005, 219257002, 283545005, 218081007, 218086002, 218082000, 218087006, 218088001, 269796009, 242869008, 219199009, 219200007, 219201006, 219204003, 219205002, 219203009, 219198001, 219142001, 219143006, 219144000, 219145004, 219146003, 287184008, 287193009.
+
+This excludes follow-up visits, visits involving other types of guns (e.g., staple gun), and visits where firearm was used as a weapon but not fired (e.g., pistol whip). 
+
+</details>
+
 
 
 -------------------------------------------------------------------------------
 
 ## Deaths in the Blue Ridge 
 
-The [VDH Office of Vital Records](https://www.vdh.virginia.gov/vital-records/) tracks causes of death among Virginia residents using death certificates. The Blue Ridge Health District includes Charlottesville City, Albemarle, Greene, Louisa, Fluvanna, and Nelson County. Codes on the death certificate indicate underlying and contributing causes of death. Deaths are classified as firearm-related using the definition from the Centers for Disease Control.^[Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.]
-
-This VDH dataset includes the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, regardless of whether they died in Virginia.
+The [VDH Office of Vital Records](https://www.vdh.virginia.gov/vital-records/) tracks causes of death among Virginia residents using death certificates. Codes on the death certificate indicate underlying and contributing causes of death. 
 
 ```{r vdh_age}
 
@@ -195,8 +188,17 @@ vdh_age %>%
 <b> Notable Trends</b>
 <br>
 <br>
-The table above shows that the rate of firearm death is highest for individuals aged 18 and 19 years old, with 8 confirmed firearm-related deaths between 2018 and 2022 in the Blue Ridge Health District. A rate of 18.3 means that for every 100,000 people aged 18-19, 18 individuals would have lost their lives to gun violence. This rate stays above 14 per 100k individuals up to 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75, with 16 deaths per 100,000 people. Given that suicide is the number one cause of firearm-related death in our region, it is reasonable to assume that a majority of the deaths for individuals 75 and older were suicide.
+The table above shows that the rate of firearm death is highest for individuals aged 18 and 19 years old, with a rate of 18.3 based on 8 confirmed firearm-related deaths between 2018 and 2022 in the Blue Ridge Health District. A rate of 18.3 means that for every 100,000 people aged 18-19, 18 individuals would have lost their lives to gun violence. While there are fewer than 100,000 residents aged 18-19, the rate helps compare risk of gun-related deaths across age ranges. The rate above 14 per 100k individuals for all ages between 18 and 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75, with 16 deaths per 100,000 people. Given that suicide is the number one cause of firearm-related death in our region, we assume that a majority of the deaths for individuals 75 and older were suicide.
 </p>
+
+<details>
+<summary>Data Notes</summary>
+Deaths are classified as firearm-related using the definition from the Centers for Disease Control.^[Centers for Disease Control - About Firearm Injury and Death: Fast Facts - https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html. Accessed March 15, 2024.]
+
+VDH reports the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, regardless of whether they died in Virginia.
+
+</details>
+
 
 ------------------------------------------------------------------------
 
@@ -204,23 +206,8 @@ The table above shows that the rate of firearm death is highest for individuals 
 
 Sourced from the [Gun Violence Archive](https://www.gunviolencearchive.org/), this data includes information collected from **public news sources** about 201 of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. This data does not include information about suicides.
 
-The data is made up of two dataframes: one has information about each incident and the associated outcome variables (for example, the number of people injured and/or killed), and the other lists the [participant](#participant)-level information (for example, the age range and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as numbers of injuries, homicides, or shots fired. The data does not give any identifiable information about the participants, including name, race, ethnicity, socioeconomic status, or mental health status.
+The data is made up of two dataframes: one has information about each incident and the associated outcomes (for example, the number of people injured and/or killed), and the other lists the [participant](#participant)-level information (for example, the age range and gender of the participants for both victims and suspects). The data includes the location and date of each incident along with characteristics such as numbers of injuries, homicides, or shots fired. 
 
-<details>
-
-<summary>Data Limitations</summary>
-
-**Voluntary Participation**
-
-Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like **shots fired incidents haven't been added to the database since 2021.**
-
-**Suicides**
-
-Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report^[Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.] and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
-
-</details>
-
-<br>
 
 ## Incident-level data
 
@@ -251,7 +238,7 @@ gva_incidents %>%
 <b> Notable Trends</b>
 <br>
 <br>
-The bar graph above shows that the number of victims both injured and killed in incidents of gun violence have increased nearly tenfold from 3 in 2014 to 33 in 2022. 2022 had the highest number of victims injured, with 24 individuals reported being shot, while 2023 was the deadliest year, with 12 individuals losing their lives to gun violence. Although 2024 only includes data through April, so far the numbers are trending lower than in previous years. 
+The bar graph above shows that the number of victims both injured and killed in incidents of gun violence have increased tenfold from 3 in 2014 to 33 in 2022. 2022 had the highest number of victims injured, with 24 individuals reported being shot, while 2023 was the deadliest year, with 12 individuals losing their lives to gun violence. While 2024 only includes data through April, so far the numbers are trending lower than in previous years. 
 </p>
 
 
@@ -285,26 +272,33 @@ gva_participants %>%
 <b> Notable Trends</b>
 <br>
 <br>
-The faceted bar graph above shows the age ranges of suspects and victims of gun violence in Charlottesville and Albemarle from May 2014 to April 2024. In general, a majority of the suspects are between the ages of 19 and 29 and a majority of the victims are around the age of 20. 
+The bar graphs above show the age ranges of suspects and victims of gun violence in Charlottesville and Albemarle from May 2014 to April 2024. The age of suspects peaks between the ages of 18 and 23; the age of victims peaks around the ages of 19-22 and again around ages 33-33.
 </p>
+
+<details>
+
+<summary>Data Notes</summary>
+
+The data does not include any identifiable information about the participants, like name, race, ethnicity, socioeconomic status, or mental health status.
+
+**Voluntary Participation**
+
+Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like **shots fired incidents haven't been added to the database since 2021.**
+
+**Suicides**
+
+Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report^[Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html. Published August 10, 2023.] and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
+
+</details>
+
+<br>
 
 ------------------------------------------------------------------------
 
 # Crimes Involving Firearms {.tabset}
 
-Crime data for Virginia are pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). Managed by the FBI, this database requires all law enforcement agencies to submit their crime data annually in a uniform and structured manner. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023. Each row represents a different year and each column represents the number of crimes committed with a firearm grouped by the subject's age. For this analysis, youth are considered to be under the age of 18. 
+Crime data for Virginia are pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). Managed by the FBI, this database requires all law enforcement agencies to submit their crime data annually in a uniform and structured manner. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separately by whether the individuals believed to have committed the crime was an adult or a youth. For this source, youth are considered to be under the age of 18. 
 
-<details>
-
-<summary>Data Limitations</summary>
-
-**Participation**
-
-The Virginia NIBRS is managed by the Virginia State Police Data Analysis and Reporting Team. In 2021, the NIBRS underwent a massive national structural change which affected every agency. Although participation is mandatory, there is the potential for some data loss as each law enforcement agency finalizes their data submission process and data is updated. The 2023 data may not have all participating agencies, and therefore may not be complete. 
-
-</details>
-
-<br>
 
 ## All Crimes
 
@@ -337,10 +331,10 @@ ggplot(tmp_plt_dat, aes(year, n_total, color = district, group = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-The line graph above shows the rate of gun violence crimes per 100k population over time. In Virginia, the crime rate has been slightly increasing from 19.2 in 2016 to 24.4 in 2023, with a peak of 25.6 in 2022. That means on average in Virginia in 2023, for every 100,000 people, there were 24 crimes involving firearms. Charlottesville rates are much more variable with rates peaking above state levels from 2020 to 2022, with a maximum value of 28 in 2021. Albemarle has had relatively steady rates ranging from a minimum of 7.4 in 2021 to a maximum of 11 in 2022.
+The figure above shows the rate of gun violence crimes per 100k population over time. In Virginia, the crime rate has been generally increasing from 19.2 in 2016 to 24.4 in 2023, with a peak of 25.6 in 2022. That means on average in Virginia in 2023, for every 100,000 people, there were 24 crimes involving firearms. The rate in Charlottesville has been much more variable, peaking above state levels from 2020 to 2022 and reaching a maximum of 28 in 2021. Albemarle has had a relatively steady rate during this period, ranging from a minimum of 7.4 in 2021 to a maximum of 11 in 2022.
 <br>
 <br>
-Overall during the COVID-10 pandemic, the rate of crimes committed with firearms increased across the board, and in Charlottesville specifically. Since 2022, however, the rate has been slightly decreasing. 
+Overall, after the onset of the COVID-10 pandemic, the rate of crimes committed with firearms increased, but most dramatically in Charlottesville. Since 2022, however, the rate has been slightly decreasing. 
 </p>
 
 ------------------------------------------------------------------------
@@ -373,8 +367,20 @@ ggplot(tmp_plt_dat, aes(year, n_juvenile, color = district, group = district)) +
 <b> Notable Trends</b>
 <br>
 <br>
-From 2021 to 2022 the firearm crime rate increased for youth across the board. In Charlottesville this change was exponential, with the rate more than doubling from 0.8 in 2021 to 2.1 -- above the statewide average -- in 2022. The rate has decreased from 2022 to 2023, to 1.4, below the state average. That means for every 100,000 people, there were 1.4 crimes committed with guns by individuals under the age of 18. 
+From 2021 to 2022 the firearm crime rate increased for youth across the board. In Charlottesville this change was especially striking, with the rate more than doubling from 0.8 in 2021 to 2.1 in 2022 -- above the state-wide rate. The rate has decreased from 2022 to 2023, to 1.4, below the state average. That means for every 100,000 people, there were 1.4 crimes committed with guns by individuals under the age of 18. 
 </p>
+
+<details>
+
+<summary>Data Notes</summary>
+
+**Participation**
+
+The Virginia NIBRS is managed by the Virginia State Police Data Analysis and Reporting Team. In 2021, the NIBRS underwent a massive national structural change which affected every agency. Although participation is mandatory, there is the potential for some data loss as each law enforcement agency finalizes their data submission process and data is updated. The 2023 data may not have all participating agencies, and therefore may not be complete. 
+
+</details>
+
+<br>
 
 ------------------------------------------------------------------------
 
@@ -420,29 +426,12 @@ In general, following the COVID-19 pandemic, crimes involving firearms increased
 
 # Police Reporting {.tabset}
 
-This dataset includes an anonymized collection of 890 gun-related incidents recorded by the Charlottesville Police Department (CPD), the Albemarle County Police Department (ACPD), and the UVA Police Department (UPD) between January 1, 2019 - May 18, 2024. The data was collected from their SQL database by the ACPD Sr. Crime Analyst, de-identified, and then shared with the Equity Center in June 2024. To preserve anonymity while also providing geographic information, approximate block numbers are used instead of specific addresses. This data is used below to compare incidents of gun violence to underlying population characteristics. 
+This dataset includes an anonymized collection of 890 gun-related incidents recorded by the Charlottesville Police Department (CPD), the Albemarle County Police Department (ACPD), and the UVA Police Department (UPD) between January 1, 2019 - May 18, 2024. The data was retrieved from their SQL database by the ACPD Sr. Crime Analyst, de-identified, and then shared with the Equity Center in June 2024. To preserve anonymity while also providing geographic information, approximate block numbers are used instead of specific addresses. This data is used further below to compare incidents of gun violence to underlying population characteristics. 
 
-Each row represents the initial information that is provided by individuals calling for police assistance. Some incidents are listed as "Unverified" which means that although a call was made to the police, there was not sufficient evidence to confirm an incident of gun violence actually occurred (see *Data Limitations* section below.)
+Each observation represents the initial information that is provided by individuals calling for police assistance. Some incidents are listed as "Unverified" which means that although a call was made to the police, there was not sufficient evidence to confirm an incident of gun violence actually occurred (see *Data Notes* section below.)
 
 As a result, this is not a definitive collection of public safety data for Charlottesville and Albemarle. These reports likely miss some acts of gun violence as not all incidents are reported to the police. Both personal and structural histories impact individuals' likelihood of calling the police. In addition, while verified reports indicate evidence of shots fired, they do not mean that an arrest was made. 
 
-<details>
-
-<summary>Data Limitations</summary>
-
-**Verification**
-
-Each incident is listed as being verified, unverified, or as a case. An incident is considered verified if it can be proved by an officer to have happened or there is reasonable evidence of it's occurrence. For example, a shots fired incident would be verified if there were shell casings found at the scene.
-
-An incident would be considered unverified if there was no proof after the fact that it happened. For example, someone may call the police to report hearing loud noises, however when the officers arrived they find either no evidence of a shooting, or evidence to prove otherwise, such as used fireworks supplies.
-
-An incident would be marked as a case if it required significant follow up, or was otherwise recorded as a crime to be investigated. Typically more violent incidents such as aggravated assault or homicide become cases.
-
-**Data Sharing**
-
-Because this data may include information that is actively being used in court, it is the only data source in this report that is not fully open-sourced, or publicly available. This decision was made so that the individuals being represented can maintain their anonymity throughout the duration of their trial and subsequent followup. A comparable, but limited report can be pulled from the Charlottesville Open Data Portal, and instructions on how to do so are outlined in [scripts.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R). 
-
-</details>
 
 ```{r police_incidents, fig.width=10}
 
@@ -489,36 +478,41 @@ ggplot(years, aes(yr, count, fill = type)) +
 <b> Notable Trends</b>
 <br>
 <br>
-The faceted stacked bar plot above shows the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. When interpreting these results, we should consider geographic differences that may influence resident behavior. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.
+The  stacked bar plots above show the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. The distinct geographies contained in each locality likely accounts for some of this difference. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.
 </p>
+
+<details>
+
+<summary>Data Notes</summary>
+
+**Verification**
+
+Each incident is listed as being verified, unverified, or as a case. An incident is considered verified if it can be proved by an officer to have happened or there is reasonable evidence of its occurrence. For example, a shots fired incident would be verified if there were shell casings found at the scene.
+
+An incident would be considered unverified if there was no proof after the fact that it happened. For example, someone may call the police to report hearing loud noises, however when the officers arrived they find either no evidence of a shooting, or evidence to prove otherwise, such as used fireworks supplies.
+
+An incident would be marked as a case if it required significant follow up, or was otherwise recorded as a crime to be investigated. Typically more violent incidents such as aggravated assault or homicide become cases.
+
+**Data Sharing**
+
+Because this data may include information that is actively being used in court, it is the only data source in this report that is not fully open-sourced, or publicly available. This decision was made so that the individuals being represented can maintain their anonymity throughout the duration of their trial and subsequent followup. A similar, but more limited, report can be generated based on data availble in the Charlottesville Open Data Portal, and instructions on how to do so are outlined in [scripts.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R). 
+
+</details>
 
 ## Charlottesville Open Data Portal {.tabset}
 
 Another way of exploring local gun violence data is through the publicly available [Charlottesville Open Data Portal](https://opendata.charlottesville.org/datasets/charlottesville::crime-data/about). This database includes 526 gun-related crime reports, and 390 gun-related arrests in City of Charlottesville from March 2019 through April 2024.
 
-This data is different from the data provided directly from the police in the following ways:
+This data differs from the above data, shared directly by the police, in the following ways:
 
-1.  It is limited to only reports in the Charlottesville district
-2.  It includes all calls to police, and not just gun-related calls
-3.  It does not include additional incident information such as verification or if it was assigned to a detective as a case
+1.  It includes only reports in the Charlottesville district;
+2.  It includes all calls to police, not just gun-related calls;
+3.  It does not include additional incident information such as verification or if it was assigned to a detective as a case.
 
-This data can be considered the first step in how gun-related crimes are recorded while the police-provided data can be considered the second step in the process.
-
-The dataset is made up of two dataframes: one includes information about initial crime reports and the other includes arrest data. Both datasets have been anonymized to remove names and other identifiable information such as house numbers.
+The dataset is made up of two dataframes. The first includes information about initial crime report. This data represent the first step when gun-related crimes are recorded; the police-provided data represents the observations after subsequent steps -- officer investigation -- have occurred. The second data set includes arrest data. Both datasets have been anonymized to remove names and other identifiable information such as house numbers.
 
 <details>
 
-<summary>Data Limitations</summary>
-
-**Jurisdiction Limits**
-
-These datasets only contain information reported by City of Charlottesville Police. It does not contain information about incidents that solely involve other police departments operating within the city (for example, University of Virginia police or Albemarle County police).
-
-**Filtering**
-
-The data has been filtered to only include crime reports that involve firearms, which required some subjective finagling. To do this, only offences labeled *Shots Fired/Illegal Hunting*, *Robbery - Armed*, and *Weapons Violations* are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have *Assault* as the primary offense are not included because we cannot be certain the assault included firearm.
-
-</details>
 
 ```{r odp_crimemap, fig.show="hold", fig.width=5, out.width= "40%"}
 
@@ -568,7 +562,7 @@ From the Charlottesville Open Data Portal:
 
 > "Arrest data contains information on people taken into custody by City of Charlottesville police officers. More serious crimes such as felony offenses are more likely to result in an arrest. However, arrests can occur as a result of other offenses, such as parole violations or a failure to appear for trial."
 
-Given that definition, we can ask the question: are a lot of people committing a few crimes or are a few people committing a lot of crimes? The below data contains the distribution of 390 [arrests](#arrests) for firearm-related charges between May 2019 and April 2024. The data has been anonymized so that identifiable information has been removed.
+Below we use the arrest data to understand whether a lot of people are committing a few crimes or a few people are committing a lot of crimes. The figure shows the distribution individuals arrested among the 390 [arrests](#arrests) for firearm-related charges made between May 2019 and April 2024. The data has been anonymized so that identifiable information has been removed.
 
 ```{r odp_arrests}
 
@@ -592,8 +586,19 @@ odp_arrests %>%
 <b> Notable Trends</b>
 <br>
 <br>
-Of the 233 individuals arrested, 147 have only one gun-related charge, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges. That means a small group of people (< 50) are committing a significant proportion of gun-related crimes in Charlottesville and Albemarle. </p>
+Of the 233 individuals arrested, 147 have only one gun-related charge during this five-year period, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges. This suggests a small group of people are committing a significant proportion of gun-related crimes in Charlottesville. </p>
 
+<summary>Data Notes</summary>
+
+**Jurisdiction Limits**
+
+These datasets only contain information reported by City of Charlottesville Police. It does not contain information about incidents that solely involve other police departments operating within the city (for example, University of Virginia police or Albemarle County police).
+
+**Filtering**
+
+The data has been filtered to only include crime reports that involve firearms, which required some subjective wrangling. Specifically, only offences labeled *Shots Fired/Illegal Hunting*, *Robbery - Armed*, and *Weapons Violations* are used. As a result, this data may significantly underrepresent the number of firearm incidents. For example, crime reports that have *Assault* as the primary offense are not included because we cannot be certain the assault included firearm.
+
+</details>
 ------------------------------------------------------------------------
 
 # Access to Firearms
@@ -729,34 +734,20 @@ In general, the rate of firearms being stolen from vehicles has increased, with 
 
 # Residential Characteristics
 
-The data shown above is focused on describing key outcomes. To better understand the underlying causes of gun trauma in our community, and thus to devise solutions, we should look into residential characteristics that may influence antisocial or violent behavior. 
+The data shown above is focused on describing key outcomes. To better understand the underlying contexts of gun trauma in our community, and thus to develop responses, we compare the location of these outcomes to the composition of key residential characteristics that may influence antisocial or violent behavior. 
 
-The maps below show clusters of gun violence incidents reported by our local police jurisdictions between 2018 and 2024 overlaid on top community population characteristics. These characteristics are sourced from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109). The maps are meant to show the general distribution of residential characteristics in our region, such as youth populations, childhood poverty rates, median earnings, and unemployment rates. 
+The maps below show clusters of gun violence incidents reported by our local police jurisdictions between 2018 and 2024 overlaid on top of community population characteristics. These characteristics are sourced from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109). The maps are meant to show the general distribution of residential characteristics in our region, such as youth populations, childhood poverty rates, median earnings, and unemployment rates.  
 
-Next to each map is a tab with a scatterplot comparing the residential characteristic to rates of gun violence for each census tract. The residential characteristic being examined is represented on the x-axis, and the proportion of total gun violence incidents from 2018 - 2024 is shown on the y-axis. Each circle represents a different census tract, and the size of the circle is proportionate to the population of the tract. 
+Next to each map is a tab with a scatterplot comparing the residential characteristic to rates of gun violence within each census tract. The residential characteristic being examined is represented along the bottom and the proportion of total gun violence incidents from 2018 - 2024 is shown along the side. Each circle represents a different census tract, and the size of the circle is proportional to the population of the tract. 
 
 ## Youth Populations 
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-With over 16,700 undergraduate students coming to the region each semester to study at UVA,^[UVA Statistics, Fall 2022 Enrollment - https://admission.virginia.edu/admission/statistics) - Accessed May 19, 2024.] the youth population of Charlottesville and Albemarle is large and transient.
+With over 16,700 undergraduate students coming to the region each semester to study at UVA,^[UVA Statistics, Fall 2022 Enrollment - https://admission.virginia.edu/admission/statistics) - Accessed May 19, 2024.], a portion of the youth population of Charlottesville and Albemarle is transient.
 
-The map below shows the percentages of the population that are under 18 and 25 years old, respectively, for each census tracts. It is important to note that the JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first years living in dorms in the McCormick region. As a result, some of the data for these regions are skewed. To account for the student population, we chose the ages of 18 and 24 as cutoff points so that we can better understand both populations of our region. 
+The map below shows the percentages of the population that are under 18 and 25 years old, respectively, for each census tracts. It is important to note that the JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As a result, the values for these regions are skewed. To account for the student population, we chose the ages of 18 and 25 as cutoff points so that we can better understand both populations of our region. 
 
-<details>
-
-<summary>Data Limitations</summary>
-
-**ACS 5 Year Summaries**
-
-The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
-
-**JPA/Fontaine**
-
-The ACS indicates that there are only 14 individuals under the age of 18, all of which are female, living in the JPA - Fontaine census tract. We attribute these low numbers to a data recording error, and subsequently have removed JPA - Fontaine from the below calculations to avoid skewing the results inaccurately.
-
-</details>
-<br>
 
 #### Map 
 
@@ -890,6 +881,21 @@ gv_sf_summary %>%
 According to the scatterplot above, there is not a strong relationship between the percentage of youth living in a region and the occurrence of gun violence. The regions with the highest proportion of gun violence are Fifeville - Cherry Avenue, 10th & Page - Venable, Ridge Street, Downtown, and Belmont. These tracts are all near the median value of youth proportions, which is approximately 20%. 
 </p>
 
+<details>
+
+<summary>Data Notes</summary>
+
+**ACS 5 Year Summaries**
+
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+
+**JPA/Fontaine**
+
+The ACS indicates that there are only 14 individuals under the age of 18, all of which are female, living in the JPA - Fontaine census tract. We attribute these low numbers to a data recording error, and subsequently have removed JPA - Fontaine from the below calculations to avoid skewing the results inaccurately.
+
+</details>
+<br>
+
 ----------------------------------------------------------------
 
 
@@ -897,24 +903,7 @@ According to the scatterplot above, there is not a strong relationship between t
 
 ### Are incidents of gun violence happening where there is more poverty? {.tabset}
 
-The Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the threshold for that family's composition, then every individual in that family is considered to be living below poverty.
-
-<details>
-
-<summary>Data Limitations</summary>
-
-**ACS 5 Year Summaries**
-
-The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here are from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
-
-Because the data represents summaries from 2018-2022, the plots below do not show changes in poverty rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven't been released in the ACS 5-Year Estimates yet.
-
-**Student Housing**
-
-A significant portion of the JPA-Fontaine Census tract is made up of UVA students. Many of these students are not earning an income and therefore skew overall poverty levels for that area.
-
-</details>
-<br>
+The Census Bureau uses a set of income thresholds that vary by family size and composition to determine who is below poverty. If a family's total income is less than the threshold for that family's composition, then every individual in that family is considered to be living below poverty.
 
 #### Map
 
@@ -1026,33 +1015,32 @@ gv_sf_summary %>%
 According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, Oak Hill - Southwood, and Ridge Street. Of those four tracts, Oak Hill - Southwood is the only region where the proportion of gun violence is below 7.5%. 
 </p>
 
+<details>
+
+<summary>Data Notes</summary>
+
+**ACS 5 Year Summaries**
+
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here are from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+
+Because the data represents summaries from 2018-2022, the plots below do not show changes in poverty rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven't been released in the ACS 5-Year Estimates yet.
+
+**Student Housing**
+
+A significant portion of the JPA-Fontaine Census tract is made up of UVA students. Many of these students are not earning an income and therefore skew overall poverty levels for that area.
+
+</details>
+<br>
+
+
 ------------------------------------------------------------------------
 
 ## Median Earnings by Education
 
 ### Are incidents of gun violence related to low personal earnings?  {.tabset}
 
-We chose to look at median personal earnings, rather than median household income for this analysis. Earnings consist of wages and salary from a job, and are the primary source of direct income for most individuals. Other sources of income include Social Security payments, pensions, child support, public assistance, annuities, money derived from rental properties, interest and dividends. Median personal earnings provide a clearer picture of the economic opportunities afforded in an area, as it emphasizes employment income over assets. Lower median incomes are primarily a function of jobs not paying sufficient wages. 
+We chose to look at median personal earnings, rather than median household income for this analysis. Earnings consist of wages and salary from a job, and are the primary source of direct income for most individuals. Other sources of income include Social Security payments, pensions, child support, public assistance, annuities, money derived from rental properties, interest and dividends. Median personal earnings provide a clearer picture of the economic opportunities afforded in an area, as it emphasizes employment income over assets. Lower median earnings are primarily a result of jobs not paying sufficient wages. 
 
-<details>
-
-<summary>Data Limitations</summary>
-
-**ACS 5 Year Summaries**
-
-Similar to how poverty measures are calculated, the The American Community Survey (ACS) 5-Year Estimates for median earnings are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
-
-Because the data represents summaries from 2018-2022, the plots below do not show changes in earnings by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate earnings for 2023 and 2024, which haven’t been released in the ACS 5-Year Estimates yet.
-
-**Missing Data**
-
-There are a few tracts where median earnings by specific education level are not available. This generally happens when there are large margins of error in the measurements or to small sample sizes for the tract. As a result the map displays these areas in grey.
-
-Future analysis may impute this information based on surrounding tract data, or use median household income as a placeholder.
-
-</details>
-
-<br>
 
 #### Map
 
@@ -1182,6 +1170,26 @@ gv_sf_summary %>%
 According to the scatterplot above, the three regions with the most gun violence (Fifeville - Cherry Avenue, 10th & Page - Venable, and Ridge Street) all have median annual earnings around \$40,000. The only other regions with median annual earnings below \$40,000 are Rose Hill - Harris - Venable, Carr's Hill McCormick Road, JPA - Fontaine, and Old Ivy - Darden School. These blocks also house a significant portion of UVA students, who do not have any reportable annual earnings.
 </p>
 
+<details>
+
+<summary>Data Notes</summary>
+
+**ACS 5 Year Summaries**
+
+Similar to how poverty measures are calculated, the The American Community Survey (ACS) 5-Year Estimates for median earnings are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
+
+Because the data represents summaries from 2018-2022, the plots below do not show changes in earnings by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate earnings for 2023 and 2024, which haven’t been released in the ACS 5-Year Estimates yet.
+
+**Missing Data**
+
+There are a few tracts where median earnings by specific education level are not available. This generally happens when there are large margins of error in the measurements or to small sample sizes for the tract. As a result the map displays these areas in grey.
+
+Future analysis may impute this information based on surrounding tract data, or use median household income as a placeholder.
+
+</details>
+
+<br>
+
 ------------------------------------------------------------------------
 
 ## Unemployment Rates 
@@ -1189,8 +1197,6 @@ According to the scatterplot above, the three regions with the most gun violence
 ### Are incidents of gun violence related to unemployment? {.tabset}
 
 Similar to how poverty measures are calculated, the The American Community Survey (ACS) 5-Year Estimates for unemployment rates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022.
-
-Because the data represents summaries from 2018-2022, the plots below do not show changes in unemployment rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven’t been released in the ACS 5-Year Estimates yet.
 
 #### Map
 
@@ -1280,13 +1286,13 @@ gv_sf_summary %>%
 <b> Notable Trends</b>
 <br>
 <br>
-According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4 Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Rd. also have higher rates of unemployment, but lower rates of gun violence. </p>
+According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4. Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Road also have higher rates of unemployment, but lower rates of gun violence. </p>
 
 ------------------------------------------------------------------------
 
 # Next Steps
 
-This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues, we will work with community partners to identify additional data that can will help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues, we will work with community partners to identify additional data that can help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
 
 -----------------------------------------------------------------------
 

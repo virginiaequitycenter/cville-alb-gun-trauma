@@ -108,18 +108,20 @@ The [Virginia Department of Health](https://www.vdh.virginia.gov/) also reports 
 
 ```{r vdh_injuries}
 
-vdh_injuries <- read_csv("data/vdh_injuries.csv") 
+vdh_injuries <- read_csv("data/vdh_injuries.csv")
 
 albemarle <- vdh_injuries %>%
-  filter(str_detect(patient_city_county, "Albemarle"))
-  
+  filter(str_detect(patient_city_county, "Albemarle")) 
+
+names(albemarle) <- gsub("_", " ", names(albemarle)) %>%
+  str_to_title() %>%
+  gsub("Ed", "ED", .)
+
 albemarle %>%
-  arrange(year) %>%
-  select(-patient_city_county) %>%
+  arrange(albemarle$year) %>%
+  select(-"Patient City County") %>%
   reactable(
     defaultColDef = colDef(
-      header = function(value)
-        str_to_title(gsub("_", " ", value, fixed = TRUE)),
       align = "center",
       defaultSortOrder = "desc",
       headerStyle = list(background = "#f7f7f8")
@@ -133,7 +135,7 @@ albemarle %>%
     bordered = TRUE,
     highlight = TRUE
   ) %>%
-    add_legend(albemarle, col_name = 'rate_of_firearm_injuries_per_10k_ed_visits', title = 'Rate of Firearm Injuries per 10k ED Visits', footer = 'Reported as of 2023', colors = c("#FFFFFF", "#FA8C00"))
+    add_legend(albemarle, col_name = "Rate Of Firearm Injuries Per 10k ED Visits", title = 'Rate of Firearm Injuries per 10k ED Visits', footer = 'Reported as of 2023', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -254,23 +256,6 @@ gva_incidents %>%
 <br> 
 The bar graph above shows that the number of victims both injured and killed in incidents of gun violence have increased tenfold from 3 in 2014 to 33 in 2022. 2022 had the highest number of victims injured, with 24 individuals reported being shot, while 2023 was the deadliest year, with 12 individuals losing their lives to gun violence. While 2024 only includes data through April, so far the numbers are trending lower than in previous years.
 </p>
-<details>
-
-<summary><b>Data Notes</b></summary>
-
-The data does not include any identifiable information about the participants, like name, race, ethnicity, socioeconomic status, or mental health status.
-
-**Voluntary Participation**
-
-Because the data is sourced from public news websites, if an act of violence didn't receive local news attention it was not included in the Gun Violence Archive database. That means this data underrepresents some information, especially shots fired numbers. Notably, it looks like **shots fired incidents haven't been added to the database since 2021.**
-
-**Suicides**
-
-Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report[^8] and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
-
-[^8]: Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - <https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html>. Published August 10, 2023.
-
-</details>
 
 ------------------------------------------------------------------------
 
@@ -326,7 +311,7 @@ Suicides are not part of the Gun Violence Archive's normal data collection proce
 
 # Crimes Involving Firearms 
 
-Crime data for Virginia are pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). Managed by the FBI, this database requires all law enforcement agencies to submit their crime data annually in a uniform and structured manner. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or a youth. For this source, youth are considered to be under the age of 18.
+Crime data for Virginia are pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). Managed by the FBI, this database requires all law enforcement agencies to submit their crime data annually in a uniform and structured manner. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or [youth](#youth). For this source, youth are considered to be under the age of 18.
 
 ```{r nibrs_compare, fig.width = 9}
 

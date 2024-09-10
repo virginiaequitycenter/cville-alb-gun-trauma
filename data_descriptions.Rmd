@@ -127,8 +127,8 @@ albemarle %>%
       headerStyle = list(background = "#f7f7f8")
     ),
     columns = list(
-      total_ed_visits = colDef(format = colFormat(separators = TRUE)),
-      rate_of_firearm_injuries_per_10k_ed_visits = colDef(style = color_scales(
+      "Total ED Visits" = colDef(format = colFormat(separators = TRUE)),
+      "Rate Of Firearm Injuries Per 10k ED Visits" = colDef(style = color_scales(
         albemarle, colors = c("#FFFFFF", "#FA8C00")
       ))
     ),
@@ -309,7 +309,7 @@ Suicides are not part of the Gun Violence Archive's normal data collection proce
 
 ------------------------------------------------------------------------
 
-# Crimes Involving Firearms 
+# Crimes Involving Firearms {#crimes}
 
 Crime data for Virginia are pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). Managed by the FBI, this database requires all law enforcement agencies to submit their crime data annually in a uniform and structured manner. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or [youth](#youth). For this source, youth are considered to be under the age of 18.
 
@@ -579,7 +579,7 @@ alb_map <- get_map(c(left = -79, bottom = 37, right = -78, top = 39),
                    maptype = "roadmap", color = "bw")
 
 ggmap(alb_map) +
-  geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.5) +
+  geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.75) +
   theme_void() +
   geom_point(atf_dealers,
              mapping = aes(x = lon, y = lat, col = business_type, shape = business_type),
@@ -677,6 +677,11 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
 In general, the rate of firearms being stolen from vehicles has increased, with 48 guns being stolen from vehicles in 2023 in Charlottesville and Albemarle.
 </p>
 
+<details>
+<summary><b>Data Notes</b></summary>
+Theft data is pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section. 
+</details>
+
 ------------------------------------------------------------------------
 
 # Residential Characteristics
@@ -699,8 +704,10 @@ The map below shows the percentages of the population that are under 18 and 25 y
 
 #### Map
 
-<b>Map Instructions</b>: the map below shows the percentages of Under-18 and Under-25-year-olds in our region. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. Toggle between the Under-18 and Under-25 populations using the selector in the top right. 
-
+<details>
+<summary><b>Map Instructions</b></summary>
+The map below shows the percentages of individuals under 18 and 25 years old, respectively. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location and date of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. Toggle between the population percentages using the selector in the top right. 
+</details>
 
 ```{r youth_pops}
 
@@ -855,7 +862,10 @@ The Census Bureau uses a set of income thresholds that vary by family size and c
 
 #### Map
 
-<b>Map Instructions</b>: the map below shows the rates of children and adults living in poverty in our region. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. Toggle between the Overall Poverty Rates and Child Poverty Rates using the selector in the top right. 
+<details>
+<summary><b>Map Instructions</b></summary>
+The map below shows the rates of children and adults living in poverty in our region. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. Toggle between the Overall Poverty Rates and Child Poverty Rates using the selector in the top right. 
+</details>
 
 ```{r pov_map}
 
@@ -991,7 +1001,10 @@ We chose to look at median personal earnings, rather than median household incom
 
 #### Map
 
-<b>Map Instructions</b>: the map below shows the median earnings of each individual by education level. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. Toggle between the different education levels selector in the top right. 
+<details>
+<summary><b>Map Instructions</b></summary>
+The map below shows the median earnings of each individual by education level. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. Toggle between the different education levels selector in the top right. 
+</details>
 
 ```{r earnings_map}
 
@@ -1148,8 +1161,10 @@ Similar to how poverty measures are calculated, the The American Community Surve
 
 #### Map
 
-<b>Map Instructions</b>: the map below shows unemployment rates in our region. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. 
-
+<details>
+<summary><b>Map Instructions</b></summary>
+The map below shows unemployment rates in our region. Each grey circle represents a cluster of gun violence incidents. Click on a circle to zoom into the cluster and explore the location, date, and description of each incident. Click on a census tract to see population measurements. Zoom in to see specific areas and incidents more closely. 
+</details>
 
 ```{r unemployment_map}
 

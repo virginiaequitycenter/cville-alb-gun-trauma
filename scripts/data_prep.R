@@ -382,6 +382,16 @@ dat <- dat %>%
 
 write_rds(dat, "data/census.RDS")
 
+# Base Maps ----
+# By exporting the Cville and Albemarle base ggmap objects, users don't have to register with the ggmap API to plot and knit on their own 
+
+cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), 
+                      maptype = "roadmap", color = "bw")
+save(cville_map, file = "data/cville_map.RData")
+
+alb_map <- get_map(c(left = -79, bottom = 37, right = -78, top = 39),
+                   maptype = "roadmap", color = "bw")
+save(alb_map, file = "data/alb_map.RData")
 
 
 # TODO:  HDI 

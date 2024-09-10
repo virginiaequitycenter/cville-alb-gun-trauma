@@ -453,9 +453,7 @@ The dataset is made up of two dataframes. The first includes information about i
 
 odp_crimes <- read_csv("data/odp_crimes.csv") 
 odp_arrests <- read_csv("data/odp_arrests.csv")
-
-cville_map <- get_map(c(left = -78.53, bottom = 38.00, right = -78.45, top = 38.07), 
-                      maptype = "roadmap", color = "bw")
+load(file = "data/cville_map.RData")
 
 # Geographic spread
 ggmap(cville_map) +
@@ -554,17 +552,6 @@ People can also obtain guns illegally: from manufacturing their own, to under-th
 
 This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically thefts from vehicles.
 
-```{r alb_sf, results='hide'}
-alb_sf <- get_acs(
-  geography = "county",
-  state = "51",
-  variables = "B01001_001",
-  survey = "acs5",
-  geometry = TRUE,
-  year = 2022) %>%
-  filter(NAME == "Albemarle County, Virginia")
-```
-
 ## Firearms Dealers {.tabset}
 
 The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
@@ -573,10 +560,13 @@ The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf
 
 ```{r dealer_map, out.width="90%"}
 
-atf_dealers <- read_csv("data/atf_dealers.csv")
+# Census shape data 
+dat <- readRDS("data/census.RDS")
+alb_sf <- dat %>%
+  st_union()
 
-alb_map <- get_map(c(left = -79, bottom = 37, right = -78, top = 39),
-                   maptype = "roadmap", color = "bw")
+atf_dealers <- read_csv("data/atf_dealers.csv")
+load(file = "data/alb_map.Rdata")
 
 ggmap(alb_map) +
   geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.75) +
@@ -711,9 +701,9 @@ The map below shows the percentages of individuals under 18 and 25 years old, re
 
 ```{r youth_pops}
 
-# Get census and police-provided gun violence data
-dat <- readRDS("data/census.RDS")
+# Get police-provided gun violence data
 gv <- read_csv("data/regional_gv.csv")
+# Census data read in previous section for geometries
 
 # Convert lat/lon coords to sf points
 gv_pts <- gv %>%

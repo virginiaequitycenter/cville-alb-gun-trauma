@@ -1,0 +1,53 @@
+/* Tried to add functionality for right/left figure float with floating captions solution from SO: https://stackoverflow.com/questions/68104599/float-graphic-figure-and-caption-around-text-in-rmarkdown-for-hmtl-output 
+
+Didn't really work, so just went with no caption version: https://stackoverflow.com/questions/43551312/wrap-text-around-plots-in-markdown */
+
+.my-right-figure {
+  display: table;
+  float: right;
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+.my-right-figure p {
+  display: table-caption;
+  caption-side: bottom;
+  padding-left: 30px
+}
+.figure {
+  display: contents;
+}
+
+
+.my-left-figure {
+  display: table;
+  float: left;
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+.my-left-figure p {
+  display: table-caption;
+  caption-side: bottom;
+  padding-right: 30px
+}
+.figure {
+  display: contents;
+}
+
+
+.shadowbox {
+    background-color: #ffe8ce;
+    border-radius: 10px;
+    border: 2px solid #5faddf;
+    color: black;
+    font-family: "Times New Roman", serif;
+    font-style: italic;
+    /*font-weight: bold;*/
+    text-align: left;
+    /*max-width: 700px;*/
+    padding: 10px;
+    margin: 0 auto 10px auto;
+  }
+  
+.shadowbox p {
+  margin-bottom: 0;
+}

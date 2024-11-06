@@ -1,0 +1,75 @@
+/* Tried to add functionality for right/left figure float with floating captions solution from SO: https://stackoverflow.com/questions/68104599/float-graphic-figure-and-caption-around-text-in-rmarkdown-for-hmtl-output 
+
+Didn't really work, so just went with no caption version: https://stackoverflow.com/questions/43551312/wrap-text-around-plots-in-markdown */
+
+.my-right-figure {
+  display: table;
+  float: right;
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+.my-right-figure p {
+  display: table-caption;
+  caption-side: bottom;
+  padding-left: 30px
+}
+.figure {
+  display: contents;
+}
+
+.nav-pills {
+    --bs-nav-pills-border-radius: var(--bs-border-radius);
+    --bs-nav-pills-link-active-color: #fff;
+    --bs-nav-pills-link-active-bg: #007bc2;
+}
+
+.nav {
+    --bs-nav-link-padding-x: 1rem;
+    --bs-nav-link-padding-y: .5rem;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color: var(--bs-link-color);
+    --bs-nav-link-hover-color: var(--bs-link-hover-color);
+    --bs-nav-link-disabled-color: var(--bs-secondary-color);
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+
+.my-left-figure {
+  display: table;
+  float: left;
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+.my-left-figure p {
+  display: table-caption;
+  caption-side: bottom;
+  padding-right: 30px
+}
+.figure {
+  display: contents;
+}
+
+
+.shadowbox {
+    background-color: #ffe8ce;
+    border-radius: 10px;
+    border: 2px solid #5faddf;
+    color: black;
+    font-family: "Times New Roman", serif;
+    font-style: italic;
+    /*font-weight: bold;*/
+    text-align: left;
+    /*max-width: 700px;*/
+    padding: 10px;
+    margin: 0 auto 10px auto;
+  }
+  
+.shadowbox p {
+  margin-bottom: 0;
+}

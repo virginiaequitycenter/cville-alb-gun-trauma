@@ -4,9 +4,10 @@ subtitle: "DRAFT - please do not share"
 author: Samantha Toet & Michele Claibourn, [The Equity Center](https://www.virginiaequitycenter.org/)
 output: 
   html_document:
+    template: external-rmd-template.html
+    css: mystyle.css
     toc: true
     toc_float: true
-    code_folding: hide
 ---
 
 ![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png){width="350"}
@@ -14,7 +15,7 @@ output:
 ------------------------------------------------------------------------
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(ggmap)
 library(ggrepel)
 library(janitor)
@@ -26,10 +27,6 @@ library(reactablefmtr)
 library(sf)
 library(tidycensus)
 library(tidyverse)
-
-ec_colors <- c("Charlottesville" = "#F8BE3D",
-               "Albemarle" = "#007BAB",
-               "Virginia" = "#232D4B")
 
 ```
 
@@ -79,7 +76,7 @@ Please refer to the [Terminology] section of the Appendix for more information a
 
 ------------------------------------------------------------------------
 
-# Firearm Injuries & Deaths
+# Firearm Injuries & Deaths 
 
 The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. The Blue Ridge Health District includes Charlottesville City, and the counties of Albemarle, Greene, Louisa, Fluvanna, and Nelson. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. Homicide -- community violence, domestic violence, mass shootings, and other intentional violence -- accounts for 22% of all deaths.
 
@@ -91,12 +88,19 @@ vdh_intent %>%
   arrange(desc(firearm_deaths)) %>%
   reactable(
     defaultColDef = colDef(
-    header = function(value) 
-      str_to_title(gsub("_", " ", value, fixed = TRUE)),
-    minWidth = 70,
-    headerStyle = list(background = "#f7f7f8")
-  )) %>%
-  reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
+      header = function(value) 
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      minWidth = 70,
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_intent, colors = c("#FFFFFF", "#FA8C00")))
+    ),
+    bordered = TRUE,
+    highlight = TRUE)
+
+# %>%
+#   reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
 
 ```
 
@@ -134,8 +138,9 @@ albemarle %>%
     ),
     bordered = TRUE,
     highlight = TRUE
-  ) %>%
-    add_legend(albemarle, col_name = "Rate Of Firearm Injuries Per 10k ED Visits", title = 'Rate of Firearm Injuries per 10k ED Visits', footer = 'Reported as of 2023', colors = c("#FFFFFF", "#FA8C00"))
+  )
+# %>%
+#     add_legend(albemarle, col_name = "Rate Of Firearm Injuries Per 10k ED Visits", title = 'Rate of Firearm Injuries per 10k ED Visits', footer = 'Reported as of 2023', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -193,8 +198,10 @@ vdh_age %>%
         )),
     bordered = TRUE,
     highlight = TRUE,
-    defaultPageSize = 11) %>%
-    add_legend(vdh_age, col_name = 'rate_of_firearm_deaths_per_100k_pop', title = 'Rate of Firearm Deaths per 100k Pop', footer = 'Years: 2018 - 2022', colors = c("#FFFFFF", "#FA8C00"))
+    defaultPageSize = 11) 
+
+# %>%
+#     add_legend(vdh_age, col_name = 'rate_of_firearm_deaths_per_100k_pop', title = 'Rate of Firearm Deaths per 100k Pop', footer = 'Years: 2018 - 2022', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -227,6 +234,8 @@ The data is made up of two dataframes: one has information about each incident a
 
 ## Incident-level data
 
+#### Victims of Gun Violence in the Charlottesville/Albemarle Region
+
 ```{r gva_incidents}
 
 gva_incidents <- read_csv("data/gva_incidents.csv") 
@@ -239,15 +248,15 @@ gva_incidents %>%
   pivot_longer(matches("total")) %>% 
   ggplot(aes(x = yr, y = value, fill = name)) +
   geom_col() +
-  labs(title = "Victims of Gun Violence in the Charlottesville/Albemarle Region",
-       x = "Year",
+  labs(x = "Year",
        y = "Number of Victims",
        caption = "Total incidents: 201") +
   scale_fill_manual(labels = c("Injured", "Killed"),
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Victim Status")) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 11),
-                     guide = guide_axis(angle = 35))
+                     guide = guide_axis(angle = 35)) +
+  theme_minimal()
 ```
 
 <p class="comment">
@@ -260,6 +269,8 @@ The bar graph above shows that the number of victims both injured and killed in 
 ------------------------------------------------------------------------
 
 ## Individual-level data
+
+#### Ages of Participants
 
 ```{r gva_participants}
 
@@ -275,12 +286,12 @@ gva_participants %>%
   scale_fill_manual(labels = c("Suspect", "Victim"),
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Participant Role")) +
-  labs(title = "Ages of Participants",
-       x = "Age",
+  labs(x = "Age",
        y = "Number of People", 
        caption = "Total particpants: 306") +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10),
-                     guide = guide_axis(angle = 35))
+                     guide = guide_axis(angle = 35)) +
+  theme_bw()
 ```
 
 <p class="comment">
@@ -313,7 +324,9 @@ Suicides are not part of the Gun Violence Archive's normal data collection proce
 
 Crime data for Virginia are pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). Managed by the FBI, this database requires all law enforcement agencies to submit their crime data annually in a uniform and structured manner. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or [youth](#youth). For this source, youth are considered to be under the age of 18.
 
-```{r nibrs_compare, fig.width = 9}
+#### Adult Compared to Youth Firearm Rates
+
+```{r nibrs_compare}
 
 nibrs_crime <- read_csv("data/nibrs_crime.csv")
 age_labs <- c("Under 18", "Above 18")
@@ -329,8 +342,7 @@ ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
              labeller = labeller(name = age_labs),
              scales = "free_y") +
   labs(x = "Year",
-       y = "Crime Rate per 100k Population",
-       title = "Adult Compared to Youth Firearm Crime Rates") +
+       y = "Crime Rate per 100k Population") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
                     breaks = c("virginia", "charlottesville", "albemarle"),
@@ -339,7 +351,8 @@ ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
              aes(label = paste0(round(value, 1))),
              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
-                     guide = guide_axis(angle = 35))
+                     guide = guide_axis(angle = 35)) +
+  theme_bw()
   
 ```
 
@@ -370,7 +383,9 @@ Each observation represents the initial information that is provided by individu
 
 As a result, this is not a definitive collection of public safety data for Charlottesville and Albemarle. These reports likely miss some acts of gun violence as not all incidents are reported to the police. Both personal and structural histories impact individuals' likelihood of calling the police. In addition, while verified reports indicate evidence of shots fired, they do not mean that an arrest was made.
 
-```{r police_incidents, fig.width=10}
+#### Incidents of Gun Violence in Charlottesville & Albemarle
+
+```{r police_incidents}
 
 regional_gv <- read_csv("data/regional_gv.csv") %>%
   mutate(locality = word(locality, 1),
@@ -402,12 +417,12 @@ ggplot(years, aes(yr, count, fill = type)) +
   scale_fill_manual("Incident Type",
                     labels = c("Aggravated Assault & Homicide", "Shots Fired"),
                     values = c("#F8BE3D", "#007BAB")) +
-  labs(title = "Incidents of Gun Violence in Charlottesville & Albemarle",
-       x = "Year",
+  labs(x = "Year",
        y = "Number of Verified Incidents",
        caption = "Note: the 2024 data only includes incidents up to May 18.") +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
-                     guide = guide_axis(angle = 35))
+                     guide = guide_axis(angle = 35)) +
+  theme_bw()
 
 ```
 
@@ -498,6 +513,8 @@ From the Charlottesville Open Data Portal:
 
 Below we use the arrest data to understand whether a lot of people are committing a few crimes or a few people are committing a lot of crimes. The figure shows the distribution individuals arrested among the 390 [arrests](#arrests) for firearm-related charges made between May 2019 and April 2024. The data has been anonymized so that identifiable information has been removed.
 
+#### Number of Firearm-Related Arrests per Person
+
 ```{r odp_arrests}
 
 # Arrest numbers per person 
@@ -508,12 +525,12 @@ odp_arrests %>%
   ggplot(aes(y = charges)) +
   geom_bar(fill = "#007BAB") +
   geom_text(aes(label =..count..), stat = "count", hjust = -0.25, size = 3) +
-  labs(title = "Number of Firearm-Related Arrests per Person",
-       x = "Number of People",
+  labs(x = "Number of People",
        y = "Number of Charges per Person",
        caption = "Total number of people arrested: 233") +
   scale_y_continuous(breaks = c(1:15)) +
-  geom_label(aes(90, 10, label = "86% of people arrested \nfor gun-related crimes \nhave 2 or fewer charges"))
+  geom_label(aes(90, 10, label = "86% of people arrested \nfor gun-related crimes \nhave 2 or fewer charges")) +
+  theme_minimal()
 ```
 
 <p class="comment">
@@ -558,6 +575,8 @@ The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf
 
 ### Map
 
+#### Locations of Firearms Dealers in Charlottesville & Albemarle
+
 ```{r dealer_map, out.width="90%"}
 
 # Census shape data 
@@ -577,8 +596,7 @@ ggmap(alb_map) +
   scale_color_manual(name = "Business Type", values = c("#F8BE3D", "#007BAB")) +
   scale_shape_manual(name = "Business Type", values = c(17, 19)) +
   theme_void() +
-  labs(title = "Locations of Firearms Dealers in Charlottesville & Albemarle",
-       caption = "Total licensed dealers: 22")
+  labs(caption = "Total licensed dealers: 22")
   
 ```
 
@@ -638,6 +656,8 @@ In 2023 in Virginia, \$1,577,221 dollars worth of guns were reported stolen from
 
 The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2023.
 
+#### Theft of Firearms from Vehicles
+
 ```{r nibrs_theft}
 
 nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
@@ -646,8 +666,7 @@ nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
 ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
   geom_line(linewidth = 1.5) +
   labs(x = "Year",
-       y = "Number of Firearms Stolen",
-       title = "Theft of Firearms from Vehicles") +
+       y = "Number of Firearms Stolen") +
   scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
                     name = "Region") +
   geom_label(data = nibrs_theft, 
@@ -656,7 +675,8 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
              alpha = 0.75,
              fontface = "bold") +
     scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
-                     guide = guide_axis(angle = 35))
+                     guide = guide_axis(angle = 35)) +
+  theme_minimal()
 
 ```
 
@@ -794,6 +814,8 @@ gv_sf_summary %>%
 
 #### Scatterplot
 
+##### Under 18 Population Percentages Compared to Incidents of Gun Violence
+
 ```{r age_scatter}
 
 scatter_text <- gv_sf_summary %>%
@@ -814,11 +836,12 @@ gv_sf_summary %>%
   scale_x_continuous(labels = function(x) paste0(round(x), "%")) +
   labs(x = "Percentage of the Population Under 18 Years Old",
        y = "Percentage of Total Gun Violence Incidents",
-       title = "Under 18 Population Percentages Compared to Incidents of Gun Violence",
+       #title = "Under 18 Population Percentages Compared to Incidents of Gun Violence",
        subtitle = "Each circle represents a different census tract",
        caption = "Years: 2018 - 2024",
        size = "Estimated Population") +
-  guides(size = "none")
+  guides(size = "none") +
+  theme_minimal()
 
 ```
 
@@ -931,6 +954,8 @@ gv_sf_summary %>%
 
 #### Scatterplot
 
+##### Childhood Poverty Rates Compared to Incidents of Gun Violence
+
 ```{r pov_scatter}
 
 scatter_text2 <- gv_sf_summary %>%
@@ -951,11 +976,12 @@ gv_sf_summary %>%
   scale_x_continuous(labels = function(x) paste0(round(x), "%")) +
   labs(x = "Percentage of Children Under 18 Living in Poverty",
        y = "Percentage of Total Gun Violence Incidents",
-       title = "Childhood Poverty Rates Compared to Incidents of Gun Violence",
+       #title = "Childhood Poverty Rates Compared to Incidents of Gun Violence",
        subtitle = "Each circle represents a different census tract",
        caption = "Years: 2018 - 2024",
        size = "Estimated Population") +
-  guides(size = "none")
+  guides(size = "none") +
+  theme_minimal()
 
 ```
 
@@ -1088,6 +1114,8 @@ gv_sf_summary %>%
 
 #### Scatterplot
 
+##### Median Annual Earnings Compared to Incidents of Gun Violence
+
 ```{r earnings_scatter}
 
 scatter_text3 <- gv_sf_summary %>%
@@ -1108,11 +1136,12 @@ gv_sf_summary %>%
   scale_x_continuous(labels = scales::label_dollar()) +
   labs(x = "Median Annual Earnings (25+ years old)",
        y = "Percentage of Total Gun Violence Incidents",
-       title = "Median Annual Earnings Compared to Incidents of Gun Violence",
+       #title = "Median Annual Earnings Compared to Incidents of Gun Violence",
        subtitle = "Each circle represents a different census tract",
        caption = "Years: 2018 - 2024",
        size = "Estimated Population") +
-  guides(size = "none")
+  guides(size = "none") +
+  theme_minimal()
 
 ```
 
@@ -1209,6 +1238,8 @@ gv_sf_summary %>%
 
 #### Scatterplot
 
+##### Unemployment Rates Compared to Incidents of Gun Violence
+
 ```{r employment_scatter}
 
 scatter_text4 <- gv_sf_summary %>%
@@ -1229,11 +1260,12 @@ gv_sf_summary %>%
   scale_x_continuous(labels = function(x) paste0(x, "%")) +
   labs(x = "Unemployment Rate",
        y = "Percentage of Total Gun Violence Incidents",
-       title = "Unemployment Rate Compared to Incidents of Gun Violence",
+       #title = "Unemployment Rate Compared to Incidents of Gun Violence",
        subtitle = "Each circle represents a different census tract",
        caption = "Years: 2018 - 2024",
        size = "Estimated Population") +
-  guides(size = "none")
+  guides(size = "none") +
+  theme_minimal()
 
 ```
 

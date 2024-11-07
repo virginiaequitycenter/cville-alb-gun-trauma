@@ -694,6 +694,66 @@ Theft data is pulled from the [National Incident-Based Reporting System (NIBRS) 
 
 ------------------------------------------------------------------------
 
+# Fatal Shootings by Police
+
+Since 2015, the Washington Post has maintained a [database of every fatal shooting in the US by a police officer in the line of duty](https://www.washingtonpost.com/graphics/investigations/police-shootings-database/). The table below shows an anonymized version of the 3 victims of police homicide in Charlottesville and Albemarle from 2017 to today.  
+
+```{r wp}
+
+# Data from the Washington Post on firearm deaths by police officers:
+# Downloaded as CSV from: https://www.washingtonpost.com/graphics/investigations/police-shootings-database/
+# Filter: City == Charlottesville, Va | Albemarle County, Va
+
+police_shootings <- read_csv("data/raw/2024-10-17-washington-post-police-shootings-export.csv") %>%
+  clean_names() %>%
+  select(-name, -body_camera, -state) %>%
+  mutate("Date of Shooting" = date, 
+         "City" = city,
+         "Age" = age,
+         "Gender" = str_to_title(gender),
+         "Race" = str_to_title(race),
+         "Did the victim have a weapon?" = str_to_title(armed),
+         "Did the victim flee?" = case_when(
+           flee == "not" ~ "No",
+           TRUE ~ "On Foot"),
+         "Was there a sign of mental illness?" = "No",
+         "Police Jurisdiction" = police_departments_involved
+         ) %>%
+  select(-date, -city, -age, -gender, -armed, -race, -flee, -signs_of_mental_illness, -police_departments_involved)
+
+police_shootings %>%
+  reactable(
+    defaultColDef = colDef(
+    minWidth = 70,
+    align = "left",
+    headerStyle = list(background = "#f7f7f8")),
+    columns = list(
+      "City" = colDef(minWidth = 105),
+      "Police Jurisdiction" = colDef(minWidth = 100),
+      "Date of Shooting" = colDef(minWidth = 90),
+      "Age" = colDef(minWidth = 45),
+      "Race" = colDef(minWidth = 60),
+      "Did the victim have a weapon?" = colDef(minWidth = 80)
+    ),
+    bordered = TRUE,
+    highlight = TRUE
+  )
+
+```
+
+<p class="comment">
+<b>Notable Trends</b> <br> <br> 
+The table above shows the demographic information about the three individuals that were killed by police in the line of duty in Charlottesville and Albemarle. All of the individuals were over the age of 40, had a firearm on them, and did not exhibit signs of mental illness. 
+</p>
+
+
+<details>
+<summary><b>Data Notes</b></summary>
+<br>
+The methodology behind the Washing Post's data collection can be found here: [Washington Post Fatal Police Shootings Methodology](https://www.washingtonpost.com/investigations/2022/12/05/washington-post-fatal-police-shootings-methodology/) (Paywalled), and here: [Github](https://github.com/washingtonpost/data-police-shootings).
+</details>
+------------------------------------------------------------------------
+
 # Residential Characteristics
 
 The data shown above is focused on describing key outcomes. To better understand the underlying contexts of gun trauma in our community, and thus to develop responses, we compare the location of these outcomes to the composition of key residential characteristics that may influence antisocial or violent behavior.

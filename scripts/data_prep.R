@@ -340,6 +340,7 @@ vars <- c("B01003_001",    # total population
           "B20004_005",    # median earnings 12m age 25+ bachelor's 
           "B20004_006")    # median earnings 12m age 25+ graduate or professional degree 
 
+
 # 2018-2022 5-year ACS
 dat <- get_acs(geography = "tract",
                variables = vars,
@@ -382,6 +383,43 @@ dat <- dat %>%
 
 write_rds(dat, "data/census.RDS")
 
+# *Race ----
+race_vars <- c(pop_est = "B01001_001",
+               white = "B01001A_001",
+               black = "B01001B_001",
+               aian = "B01001C_001",
+               asian = "B01001D_001",
+               nhpi = "B01001E_001",
+               other = "B01001F_001",
+               multi = "B01001G_001",
+               hispanic = "B01001I_001")
+
+race_county <- get_acs(geography = "county",
+                       variables = race_vars,
+                       state = "VA",
+                       county = region,
+                       survey = "acs5",
+                       year = 2022,
+                       geometry = FALSE,
+                       output = "wide")
+
+# Quick function for calculating percentages:
+calculate_pcts <- . %>%
+  mutate(pct_black = (black/pop_est) * 100,
+         pct_white = (white/pop_est) * 100,
+         pct_hispanic = (hispanic/pop_est) * 100)
+
+race_county <- race_county %>%
+  mutate(region = word(NAME, 1)) %>%
+  select(-ends_with("M"), -GEOID, -NAME)
+
+names(race_county) <- str_remove_all(names(race_county), "E")
+
+race_county <- race_county %>%
+  calculate_pcts()
+
+write_csv(race_county, "data/race_county.csv")
+
 # Base Maps ----
 # By exporting the Cville and Albemarle base ggmap objects, users don't have to register with the ggmap API to plot and knit on their own 
 
@@ -392,6 +430,3 @@ save(cville_map, file = "data/cville_map.RData")
 alb_map <- get_map(c(left = -79, bottom = 37, right = -78, top = 39),
                    maptype = "roadmap", color = "bw")
 save(alb_map, file = "data/alb_map.RData")
-
-
-# TODO:  HDI 

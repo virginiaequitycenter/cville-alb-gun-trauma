@@ -24,6 +24,8 @@ library(lubridate)
 library(magrittr)
 library(reactable)
 library(reactablefmtr)
+library(readxl)
+library(scales)
 library(sf)
 library(tidycensus)
 library(tidyverse)
@@ -82,9 +84,13 @@ The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge He
 
 ```{r vdh_intent, echo=FALSE, message=FALSE}
 
-vdh_intent <- read_csv("data/vdh_intent.csv") 
+vdh_intent <- read_csv("data/vdh_intent.csv") %>%
+  rename(intent = intent_of_injury) %>%
+  mutate(intent = case_when(intent == "Undetermined/legal/war" ~ "Undetermined or Police Intervention",
+                            TRUE ~ intent))
 
 vdh_intent %>%
+  select(-patient_health_district) %>% 
   arrange(desc(firearm_deaths)) %>%
   reactable(
     defaultColDef = colDef(
@@ -98,9 +104,6 @@ vdh_intent %>%
     ),
     bordered = TRUE,
     highlight = TRUE)
-
-# %>%
-#   reactablefmtr::add_source("Source: https://data.virginia.gov/dataset/vdh-pud-firearm-deaths-by-district-intent", align = "right", font_style = "italic", font_size = 10, font_color = "grey")
 
 ```
 
@@ -433,6 +436,93 @@ ggplot(years, aes(yr, count, fill = type)) +
 The stacked bar plots above show the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. The distinct geographies contained in each locality likely accounts for some of this difference. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.
 </p>
 
+----------------------------------------------------------------------
+
+#### Age & Race of Victims of Gun Violence
+
+The table below shows the race and age breakdown of the 537 total victims of gun violence (injury and death) reported to the
+police between January 2019 to May 2014.
+
+```{r victim_demos}
+race_county <- read_csv("data/race_county.csv")
+
+demos <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
+  clean_names() %>%
+  distinct() %>%
+  mutate(reported_date = ymd_hms(reported_date),
+         yr = year(reported_date),
+         subject_type = str_remove_all(subject_type, "/Offender"),
+         sex = case_when(
+           sex == "Unknown" ~ NA,
+           TRUE ~ sex),
+         race = case_when(
+           race == "African American" ~ "Black",
+           race == "Unknown" |
+             race == "New World Text" |
+             race == "Microsoft Word" ~ NA,
+           TRUE ~ race)) %>%
+  replace_na(list(sex = "Not Provided"))
+
+age_groups <- demos %>%
+  mutate(age_grp = case_when(
+    age <= 9 ~ "9andunder",
+    age >= 10 & age <= 14 ~ "10-14",
+    age >= 15 & age <= 17 ~ "15-17",
+    age >= 18 & age <= 19 ~ "18-19",
+    age >= 20 & age <= 24 ~ "20-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 & age <= 74 ~ "65-74",
+    age >= 75 ~ "75andup"
+  ))
+
+total_victims <- demos %>% filter(subject_type == "Victim") %>% nrow()
+total_pop_cvalb <- sum(race_county$pop_est)
+n_bl_cvalb <- sum(race_county$black)
+pct_bl_cvalb <- percent(n_bl_cvalb/total_pop_cvalb)
+
+black_victims <- demos %>% filter(subject_type == "Victim", race == "Black") %>% nrow()
+pct_bl_vic <- percent(black_victims/total_victims)
+
+victims <- age_groups %>%
+  filter(subject_type == "Victim") %>%
+  group_by(race, age_grp) %>%
+  summarise(n = n(),
+            pct = round((n() / 537) * 100, digits = 1)) #537 total victims 
+
+orange_pal <- c("#fff2e6", "#ffb54d")
+
+victims %>%
+  select(-n) %>%
+  pivot_wider(names_from = age_grp, values_from = pct) %>%
+  select(`9andunder`, `10-14`, `15-17`, `18-19`, `20-24`, `25-34`, `35-44`,
+         `45-54`, `55-64`, `65-74`, `75andup`) %>%
+  ungroup() %>% 
+  reactable(
+    defaultColDef = colDef(
+      align = "center",
+      minWidth = 50,
+      format = colFormat(suffix = "%"),
+      na = "–",
+      headerStyle = list(background = "#f7f7f8"),
+      style = color_scales(data = ., colors = orange_pal, span=2:12)
+    ),
+    columns = list(
+      race = colDef(name = "", minWidth = 100, format = colFormat(suffix = ""), na = "NA"),
+      `9andunder` = colDef(name = "0-10"),
+      `75andup` = colDef(name = "75+")
+    ),
+    bordered = TRUE,
+    highlight = TRUE
+  )
+```
+
+<p class="comment">
+<b>Notable Trends</b> <br> <br> According to the table above, Black individuals make up `r pct_bl_vic` of the victims of gun violence, but only `r pct_bl_cvalb` of the total population in Charlottesville and Albemarle. In particular, Black individuals aged 25-34 make up 16.9% of the victims.   
+</p>
+
 <details>
 <summary><b>Data Notes</b></summary>
 
@@ -448,7 +538,13 @@ An incident would be marked as a case if it required significant follow up, or w
 
 Because this data may include information that is actively being used in court, it is the only data source in this report that is not fully open-sourced, or publicly available. This decision was made so that the individuals being represented can maintain their anonymity throughout the duration of their trial and subsequent followup. A similar, but more limited, report can be generated based on data availble in the Charlottesville Open Data Portal, and instructions on how to do so are outlined in [scripts.R](https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R).
 
+**Collection Mechanisms, Specifically for Race and Ethnicity **
+
+We do not know the process for collecting and recording demographic information. Since we do not know how the demographic information is recorded (For example, is it self-reported? Is it assumed and reported by an officer? A bystander?) we recognize that this information is not all-inclusive or complete, and we should be cautious when making any inferences based on this data. Ethnicity was not recorded. 
+
 </details>
+
+
 
 ---------------------------------------------------------------------
 
@@ -505,7 +601,7 @@ The map on the right demonstrates that most gun-related arrests are concentrated
 
 ------------------------------------------------------------------------
 
-## Arrest Reports
+### Arrest Reports
 
 From the Charlottesville Open Data Portal:
 
@@ -553,146 +649,7 @@ The data has been filtered to only include crime reports that involve firearms, 
 
 </details>
 
-------------------------------------------------------------------------
-
-# Access to Firearms
-
-With nearly a third of Americans owning a gun[^9], access to firearms is easy for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^10]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^11]), and there are **no state-mandated age limits on purchasing ammunition.**
-
-[^9]: PEW Research - Key facts about Americans and guns - <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> - Published September 13, 2023.
-
-[^10]: Virginia State Police - Firearms/Concealed Weapons FAQ - <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
-
-[^11]: UVA Policy - SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items - <https://uvapolicy.virginia.edu/policy/sec-030> - Published 2022.
-
-People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
-
-This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically thefts from vehicles.
-
-## Firearms Dealers {.tabset}
-
-The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
-
-### Map
-
-#### Locations of Firearms Dealers in Charlottesville & Albemarle
-
-```{r dealer_map, out.width="90%"}
-
-# Census shape data 
-dat <- readRDS("data/census.RDS")
-alb_sf <- dat %>%
-  st_union()
-
-atf_dealers <- read_csv("data/atf_dealers.csv")
-load(file = "data/alb_map.Rdata")
-
-ggmap(alb_map) +
-  geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.75) +
-  theme_void() +
-  geom_point(atf_dealers,
-             mapping = aes(x = lon, y = lat, col = business_type, shape = business_type),
-             size = 3) +
-  scale_color_manual(name = "Business Type", values = c("#F8BE3D", "#007BAB")) +
-  scale_shape_manual(name = "Business Type", values = c(17, 19)) +
-  theme_void() +
-  labs(caption = "Total licensed dealers: 22")
-  
-```
-
-<p class="comment">
-<b> Notable Trends</b>
-<br> 
-<br> 
-The map above shows that a majority of licensed firearms dealers operate out of businesses in Charlottesville, while there are a handful of residential entities that are licensed to deal firearms in Albemarle county.
-</p>
-
-------------------------------------------------------------------------
-
-### Table
-
-The type of license issued indicates if the seller is a dealer or manufacturer of firearms and/or other destructive devices like explosives. The sellers in Charlottesville and Albemarle have the following license types:
-
--   **Type 01** - Dealer in Firearms Other Than Destructive Devices
-
--   **Type 02** - Pawnbroker in Firearms Other Than Destructive Devices
-
--   **Type 07** - Manufacturer of Firearms Other Than Destructive Devices
-
--   **Type 09** - Dealer in Destructive Devices
-
--   **Type 10** - Manufacturer of Destructive Devices, Ammunition for Destructive Devices or Armor Piercing Ammunition
-
-```{r dealer_list}
-
-atf_dealers %>%
-  select(license_name, business_name, premise_street, license_type) %>%
-  reactable(
-    defaultColDef = colDef(
-      header = function(value)
-        str_to_title(gsub("_", " ", value, fixed = TRUE)),
-      align = "left",
-      headerStyle = list(background = "#f7f7f8")
-    ),
-    columns = list(
-      license_type = colDef(minWidth = 50)
-    ),
-    bordered = TRUE,
-    highlight = TRUE
-  ) %>%
-  reactablefmtr::add_source("List of all Federal Firearm License types: https://www.atf.gov/resource-center/fact-sheet/fact-sheet-federal-firearms-and-explosives-licenses-types", align = "right", font_size = 10, font_color = "grey")
-
-```
-
-------------------------------------------------------------------------
-
-## Theft from Vehicles
-
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.[^12]
-
-[^12]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/> - Published May 9, 2024.
-
-In 2023 in Virginia, \$1,577,221 dollars worth of guns were reported stolen from vehicles. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
-
-The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2023.
-
-#### Theft of Firearms from Vehicles
-
-```{r nibrs_theft}
-
-nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
-  filter(district != "Virginia")
-
-ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
-  geom_line(linewidth = 1.5) +
-  labs(x = "Year",
-       y = "Number of Firearms Stolen") +
-  scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
-                    name = "Region") +
-  geom_label(data = nibrs_theft, 
-             aes(label = n_stolen), 
-             show.legend = F, 
-             alpha = 0.75,
-             fontface = "bold") +
-    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
-                     guide = guide_axis(angle = 35)) +
-  theme_minimal()
-
-```
-
-<p class="comment">
-<b> Notable Trends</b> 
-<br> 
-<br> 
-In general, the rate of firearms being stolen from vehicles has increased, with 48 guns being stolen from vehicles in 2023 in Charlottesville and Albemarle.
-</p>
-
-<details>
-<summary><b>Data Notes</b></summary>
-Theft data is pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section. 
-</details>
-
-------------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 # Fatal Shootings by Police
 
@@ -752,7 +709,8 @@ The table above shows the demographic information about the three individuals th
 <br>
 The methodology behind the Washing Post's data collection can be found here: [Washington Post Fatal Police Shootings Methodology](https://www.washingtonpost.com/investigations/2022/12/05/washington-post-fatal-police-shootings-methodology/) (Paywalled), and here: [Github](https://github.com/washingtonpost/data-police-shootings).
 </details>
-------------------------------------------------------------------------
+
+----------------------------------------------------------------------
 
 # Residential Characteristics
 
@@ -783,7 +741,9 @@ The map below shows the percentages of individuals under 18 and 25 years old, re
 
 # Get police-provided gun violence data
 gv <- read_csv("data/regional_gv.csv")
-# Census data read in previous section for geometries
+
+# Get census shape data
+dat <- readRDS("data/census.RDS")
 
 # Convert lat/lon coords to sf points
 gv_pts <- gv %>%
@@ -867,7 +827,6 @@ gv_sf_summary %>%
   }")
              ))
   
-
 ```
 
 ------------------------------------------------------------------------
@@ -927,7 +886,7 @@ The ACS indicates that there are only 14 individuals under the age of 18, all of
 
 ------------------------------------------------------------------------
 
-## Childhood Poverty
+## Poverty
 
 ### Are incidents of gun violence happening where there is more poverty? {.tabset}
 
@@ -1230,7 +1189,7 @@ Future analysis may impute this information based on surrounding tract data, or 
 
 </details>
 
-------------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 ## Unemployment Rates
 
@@ -1335,6 +1294,144 @@ gv_sf_summary %>%
 <br> 
 According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4. Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Road also have higher rates of unemployment, but lower rates of gun violence.
 </p>
+
+------------------------------------------------------------------------
+
+# Access to Firearms
+
+With nearly a third of Americans owning a gun[^9], access to firearms is easy for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^10]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^11]), and there are **no state-mandated age limits on purchasing ammunition.**
+
+[^9]: PEW Research - Key facts about Americans and guns - <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> - Published September 13, 2023.
+
+[^10]: Virginia State Police - Firearms/Concealed Weapons FAQ - <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+
+[^11]: UVA Policy - SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items - <https://uvapolicy.virginia.edu/policy/sec-030> - Published 2022.
+
+People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
+
+This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically thefts from vehicles.
+
+## Firearms Dealers {.tabset}
+
+The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
+
+### Map
+
+#### Locations of Firearms Dealers in Charlottesville & Albemarle
+
+```{r dealer_map, out.width="90%"}
+
+# Census shape data 
+alb_sf <- dat %>%
+  st_union()
+
+atf_dealers <- read_csv("data/atf_dealers.csv")
+load(file = "data/alb_map.Rdata")
+
+ggmap(alb_map) +
+  geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.75) +
+  theme_void() +
+  geom_point(atf_dealers,
+             mapping = aes(x = lon, y = lat, col = business_type, shape = business_type),
+             size = 3) +
+  scale_color_manual(name = "Business Type", values = c("#F8BE3D", "#007BAB")) +
+  scale_shape_manual(name = "Business Type", values = c(17, 19)) +
+  theme_void() +
+  labs(caption = "Total licensed dealers: 22")
+  
+```
+
+<p class="comment">
+<b> Notable Trends</b>
+<br> 
+<br> 
+The map above shows that a majority of licensed firearms dealers operate out of businesses in Charlottesville, while there are a handful of residential entities that are licensed to deal firearms in Albemarle county.
+</p>
+
+------------------------------------------------------------------------
+
+### Table
+
+The type of license issued indicates if the seller is a dealer or manufacturer of firearms and/or other destructive devices like explosives. The sellers in Charlottesville and Albemarle have the following license types:
+
+-   **Type 01** - Dealer in Firearms Other Than Destructive Devices
+
+-   **Type 02** - Pawnbroker in Firearms Other Than Destructive Devices
+
+-   **Type 07** - Manufacturer of Firearms Other Than Destructive Devices
+
+-   **Type 09** - Dealer in Destructive Devices
+
+-   **Type 10** - Manufacturer of Destructive Devices, Ammunition for Destructive Devices or Armor Piercing Ammunition
+
+```{r dealer_list}
+
+atf_dealers %>%
+  select(license_name, business_name, premise_street, license_type) %>%
+  reactable(
+    defaultColDef = colDef(
+      header = function(value)
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "left",
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      license_type = colDef(minWidth = 50)
+    ),
+    bordered = TRUE,
+    highlight = TRUE
+  ) %>%
+  reactablefmtr::add_source("List of all Federal Firearm License types: https://www.atf.gov/resource-center/fact-sheet/fact-sheet-federal-firearms-and-explosives-licenses-types", align = "right", font_size = 10, font_color = "grey")
+
+```
+
+------------------------------------------------------------------------
+
+## Theft from Vehicles
+
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.[^12]
+
+[^12]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/> - Published May 9, 2024.
+
+In 2023 in Virginia, \$1,577,221 dollars worth of guns were reported stolen from vehicles. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
+
+The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2023.
+
+#### Theft of Firearms from Vehicles
+
+```{r nibrs_theft}
+
+nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
+  filter(district != "Virginia")
+
+ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
+  geom_line(linewidth = 1.5) +
+  labs(x = "Year",
+       y = "Number of Firearms Stolen") +
+  scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
+                    name = "Region") +
+  geom_label(data = nibrs_theft, 
+             aes(label = n_stolen), 
+             show.legend = F, 
+             alpha = 0.75,
+             fontface = "bold") +
+    scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35)) +
+  theme_minimal()
+
+```
+
+<p class="comment">
+<b> Notable Trends</b> 
+<br> 
+<br> 
+In general, the rate of firearms being stolen from vehicles has increased, with 48 guns being stolen from vehicles in 2023 in Charlottesville and Albemarle.
+</p>
+
+<details>
+<summary><b>Data Notes</b></summary>
+Theft data is pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section. 
+</details>
 
 ------------------------------------------------------------------------
 

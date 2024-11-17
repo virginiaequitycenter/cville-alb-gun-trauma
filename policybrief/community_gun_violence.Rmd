@@ -25,7 +25,7 @@ Community gun violence is distinct from other forms of gun violence like acciden
 -   Takes place in communities that have historically been under resourced;
 -   And disproportionately impacts young people in Black and Latino communities.[^1]
 
-[^1]: [Community Gun Violence](https://publichealth.jhu.edu/center-for-gun-violence-solutions/in-depth-community-gun-violence). Center for Gun Violence Solutions, Johns Hopkins University. 
+[^1]: [Community Gun Violence](https://publichealth.jhu.edu/center-for-gun-violence-solutions/in-depth-community-gun-violence). Center for Gun Violence Solutions, Johns Hopkins University. We adopt the language of community gun violence, used by gun violence researchers, to emphasize the impact this form of violence has on the communities in which it occurs.
 
 While gun violencegarners more attention in large urban centers, its presence everywhere is alarming. The incidence of gun violence in Charlottesville and Albemarle County should concern all who live and work in the region. Below we summarize the research on community gun violence - who is impacted, the larger consequences, the root causes - and relate this to what’s happening locally. 
 
@@ -140,7 +140,7 @@ While much of the research on gun violence centers on urban areas, gun violence 
 
 Data from the [Gun Violence Archive](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions#Incidents_of_Gun_Violence), from [police reporting](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions#Police_Reporting), and from VDH reports on firearm injury all point to an increase in gun violence in the Charlottesville-Albemarle region overtime. How do the conclusions from national research – who’s impacted, the larger consequences, and influencing factors – compare to our local context?
 
-**Who’s at risk**
+**Who’s at Risk**
 
 In  Charlottesville City and Albemarle County, the intersections of age, gender, race, and poverty appear to influence who is disproportionately affected by community gun violence. VDH data on [firearm deaths](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions#Deaths_in_the_Blue_Ridge) in the broader region points to people aged 18-24 as being at the highest risk. Similarly, the number of gun violence incidences as reported by local police jurisdictions are especially high in neighborhoods with [high rates of childhood poverty](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions#Childhood_Poverty). The [Community Safety Working Group Report](https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf) as well as several local [news](https://www.cvilletomorrow.org/newsletter/our-kids-are-dying-gun-violence-again-spikes-in-charlottesville/) [stories](https://www.c-ville.com/shots-heard-round-the-city) speak to a focus on Black youth and young men as being more frequently and directly impacted by gun violence.
 
@@ -149,6 +149,7 @@ This evidence suggests that the national trends are mirrored here: black male-id
 **Consequences**
 
 Harm can result from direct or indirect exposure to gun violence and has long-term negative effects on individual wellbeing along with community cohesion and success; these effects are relevant everywhere. The consequences of community gun violence are deep, impermeable, and generational. The trauma of community gun violence is both physical – death, injury, incarceration – and psychological – PTSD, fear, stress – with impacts on individuals, families, and [our local communities](https://www.29news.com/2024/04/10/neighbors-frustrated-with-gun-violence-after-deadly-shooting-12th-st-rosser-ave/) into the foreseeable future. 
+
 **Influencing Factors**
 
 Past policy choices – residential segregation and [racial covenants](https://mappingcville.com/), [massive resistance](https://jeffersonschoolcitycenterdotorg.wordpress.com/about/history/), the [razing of Black neighborhoods](https://hestia.jmrl.org/findit/Record/1143541), among others – have created under-resourced communities; they do not occur naturally. In Charlottesville, Black residents were disproportionately negatively impacted by [UVAs growth](https://news.virginia.edu/content/uva-and-history-race-property-and-power) as well as by actions of [local governments](https://vinegarhillmagazine.com/vinegar-hill-remembered-eminent-domainurban-removal-and-the-demolition-of-a-peoples-soul/). Communities characterized by disinvestment, with concentrations of residents pushed into economic insecurity, are created by larger policy and systems. Under-resourced communities already confront a lack of economic opportunity. The presence of gun violence adds immeasurably to collective trauma. 

@@ -2,7 +2,7 @@
 title: "Policy Brief: The Problem of Community Gun Violence"
 output: 
   html_document:
-    template: external-rmd-template.html
+    template: gun-violence-template.html
     css: mystyle.css
     toc: true
     toc_float: true

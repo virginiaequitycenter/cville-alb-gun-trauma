@@ -1,6 +1,5 @@
 ---
 title: "The State of Gun Violence in the Charlottesville & Albemarle Region"
-subtitle: "DRAFT - please do not share"
 author: Samantha Toet & Michele Claibourn, [The Equity Center](https://www.virginiaequitycenter.org/)
 output: 
   html_document:
@@ -1439,7 +1438,20 @@ Theft data is pulled from the [National Incident-Based Reporting System (NIBRS) 
 
 # Next Steps
 
-This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues, we will work with community partners to identify additional data that can help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues and we continue to expand on this report, we will work with community partners to identify additional data that can help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+
+## Project Repository
+
+The work supporting this report, including our data collection documentation and the corresponding data, is publicly available in the [Virginia Equity Center GitHub Charlottesville and Albemarle Gun Violence Repository](https://github.com/virginiaequitycenter/cville-alb-gun-trauma).
+
+## Acknowledgements
+
+We'd like to thank Misty Graves, the Director of Human Services for the City of Charlottesville, and Kaki Dimock, Chief Human Services Officer for Albemarle County for their feedback on this report and participation in the [Community Safety Implementation Group](https://prescouncil.president.virginia.edu/community-safety). We'd also like to thank Andrew Friedman, Senior Crime Analyst with the Albemarle County Police Department for supporting us with anonymized local data.  
+
+
+## Citation
+
+Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” Published November 22, 2024. https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions.
 
 ------------------------------------------------------------------------
 

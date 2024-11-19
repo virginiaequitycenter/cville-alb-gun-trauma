@@ -1446,12 +1446,13 @@ The work supporting this report, including our data collection documentation and
 
 ## Acknowledgements
 
-We'd like to thank Misty Graves, the Director of Human Services for the City of Charlottesville, and Kaki Dimock, Chief Human Services Officer for Albemarle County for their feedback on this report and participation in the [Community Safety Implementation Group](https://prescouncil.president.virginia.edu/community-safety). We'd also like to thank Andrew Friedman, Senior Crime Analyst with the Albemarle County Police Department for supporting us with anonymized local data.  
-
+We'd like to thank Misty Graves, the Director of Human Services for the City of Charlottesville, and Kaki Dimock, Chief Human Services Officer for Albemarle County for their feedback on this report and participation in the [Community Safety Implementation Group](https://prescouncil.president.virginia.edu/community-safety). We'd like to thank Andrew Friedman, Senior Crime Analyst with the Albemarle County Police Department for supporting us with anonymized local data. We'd like to also thank the Equity Center's Community Research team, specifically Dr. Sherica Jones-Lewis, Jess Harris, Sydney Schuler, and DeVon Wade for their continued support, feedback, and dissemination. 
 
 ## Citation
 
 Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” Published November 22, 2024. https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions.
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
 ------------------------------------------------------------------------
 

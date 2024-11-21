@@ -1,6 +1,5 @@
 ---
-title: "The State of Gun Violence in the Charlottesville & Albemarle Region"
-subtitle: "DRAFT - please do not share"
+title: "The State of Gun Violence in Charlottesville & Albemarle"
 author: Samantha Toet & Michele Claibourn, [The Equity Center](https://www.virginiaequitycenter.org/)
 output: 
   html_document:
@@ -146,8 +145,6 @@ albemarle %>%
     bordered = TRUE,
     highlight = TRUE
   )
-# %>%
-#     add_legend(albemarle, col_name = "Rate Of Firearm Injuries Per 10k ED Visits", title = 'Rate of Firearm Injuries per 10k ED Visits', footer = 'Reported as of 2023', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -206,9 +203,6 @@ vdh_age %>%
     bordered = TRUE,
     highlight = TRUE,
     defaultPageSize = 11) 
-
-# %>%
-#     add_legend(vdh_age, col_name = 'rate_of_firearm_deaths_per_100k_pop', title = 'Rate of Firearm Deaths per 100k Pop', footer = 'Years: 2018 - 2022', colors = c("#FFFFFF", "#FA8C00"))
 
 ```
 
@@ -657,32 +651,23 @@ The data has been filtered to only include crime reports that involve firearms, 
 
 -----------------------------------------------------------------------
 
-# Fatal Shootings by Police
+# Officer-Involved Shootings
 
-Since 2015, the Washington Post has maintained a [database of every fatal shooting in the US by a police officer in the line of duty](https://www.washingtonpost.com/graphics/investigations/police-shootings-database/). The table below shows an anonymized version of the 3 victims of police homicide in Charlottesville and Albemarle from 2017 to today.  
+Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^9]
 
-```{r wp}
+The table below shows an anonymized version of the 10 victims of officer-involved shootings in Charlottesville and Albemarle from 2016 to today.  
 
-# Data from the Washington Post on firearm deaths by police officers:
-# Downloaded as CSV from: https://www.washingtonpost.com/graphics/investigations/police-shootings-database/
-# Filter: City == Charlottesville, Va | Albemarle County, Va
+[^9]: Virginia Law Code - § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report - <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
 
-police_shootings <- read_csv("data/raw/2024-10-17-washington-post-police-shootings-export.csv") %>%
-  clean_names() %>%
-  select(-name, -body_camera, -state) %>%
-  mutate("Date of Shooting" = date, 
-         "City" = city,
-         "Age" = age,
-         "Gender" = str_to_title(gender),
-         "Race" = str_to_title(race),
-         "Did the victim have a weapon?" = str_to_title(armed),
-         "Did the victim flee?" = case_when(
-           flee == "not" ~ "No",
-           TRUE ~ "On Foot"),
-         "Was there a sign of mental illness?" = "No",
-         "Police Jurisdiction" = police_departments_involved
-         ) %>%
-  select(-date, -city, -age, -gender, -armed, -race, -flee, -signs_of_mental_illness, -police_departments_involved)
+```{r ois}
+
+police_shootings <- read_csv("data/gva_officer.csv") %>%
+  rename("Date of Shooting" = incident_date,
+         "Outcome" = outcome,
+         "Victim Age" = victim_age,
+         "Victim Gender" = gender, 
+         "Victim Race" = race,
+         "Did the victim have a weapon?" = weapon)
 
 police_shootings %>%
   reactable(
@@ -690,14 +675,6 @@ police_shootings %>%
     minWidth = 70,
     align = "left",
     headerStyle = list(background = "#f7f7f8")),
-    columns = list(
-      "City" = colDef(minWidth = 105),
-      "Police Jurisdiction" = colDef(minWidth = 100),
-      "Date of Shooting" = colDef(minWidth = 90),
-      "Age" = colDef(minWidth = 45),
-      "Race" = colDef(minWidth = 60),
-      "Did the victim have a weapon?" = colDef(minWidth = 80)
-    ),
     bordered = TRUE,
     highlight = TRUE
   )
@@ -706,14 +683,24 @@ police_shootings %>%
 
 <p class="comment">
 <b>Notable Trends</b> <br> <br> 
-The table above shows the demographic information about the three individuals that were killed by police in the line of duty in Charlottesville and Albemarle. All of the individuals were over the age of 40, had a firearm on them, and did not exhibit signs of mental illness. 
+The table above shows the demographic information about the 10 victims of officer-involved shootings in Charlottesville and Albemarle. Of the victims, 40% died as a result of the incident, 50% were identified as Black, and the median age was 37. All of the victims were males that were described as being in possession of a firearm. 
 </p>
 
 
 <details>
 <summary><b>Data Notes</b></summary>
 <br>
-The methodology behind the Washing Post's data collection can be found here: [Washington Post Fatal Police Shootings Methodology](https://www.washingtonpost.com/investigations/2022/12/05/washington-post-fatal-police-shootings-methodology/) (Paywalled), and here: [Github](https://github.com/washingtonpost/data-police-shootings).
+<b>Multiple Data Sources</b>
+<br>
+<br>
+This data is downloaded from the Gun Violence Archive and then manually augmented by reviewing associated news articles for additional information such as age, race, and if the victim had a gun. 
+<br>
+<br>
+<b>Suicide at Standoff</b>
+<br>
+<br>
+Some of the deaths indicated above were described as self-inflicted, such that they occurred during a police chase or standoff where shots had been fired. These are still considered as officer-involved deaths, because they are still incidents of gun violence. The overall goal is to provide information on most types of gun violence, and gun crime, no matter the root cause. 
+
 </details>
 
 ----------------------------------------------------------------------
@@ -730,9 +717,9 @@ Next to each map is a tab with a scatterplot comparing the presence of a populat
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA,[^13], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
+The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA,[^10], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
 
-[^13]: UVA Statistics, Fall 2022 Enrollment - <https://admission.virginia.edu/admission/statistics>) - Accessed May 19, 2024.
+[^10]: UVA Statistics, Fall 2022 Enrollment - <https://admission.virginia.edu/admission/statistics>) - Accessed May 19, 2024.
 
 
 #### Map
@@ -1301,17 +1288,17 @@ According to the scatterplot above, there is no strong relationship between unem
 
 # Access to Firearms
 
-Nearly a third of Americans own a gun[^9] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^10]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^11]), and there are **no state-mandated age limits on purchasing ammunition.**
+Nearly a third of Americans own a gun[^11] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^12]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^13]).
 
-[^9]: PEW Research - Key facts about Americans and guns - <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> - Published September 13, 2023.
+[^11]: PEW Research - Key facts about Americans and guns - <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> - Published September 13, 2023.
 
-[^10]: Virginia State Police - Firearms/Concealed Weapons FAQ - <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+[^12]: Virginia State Police - Firearms/Concealed Weapons FAQ - <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^11]: UVA Policy - SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items - <https://uvapolicy.virginia.edu/policy/sec-030> - Published 2022.
+[^13]: UVA Policy - SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items - <https://uvapolicy.virginia.edu/policy/sec-030> - Published 2022.
 
-People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and even theft.
+People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
-This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically thefts from vehicles.
+This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically from vehicles.
 
 ## Firearms Dealers {.tabset}
 
@@ -1391,11 +1378,11 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.[^12]
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.[^14]
 
-[^12]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/> - Published May 9, 2024.
+[^14]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/> - Published May 9, 2024.
 
-In 2023 in Virginia, \$1,577,221 dollars worth of guns were reported stolen from vehicles. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
+According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 
 The plot below shows the number of guns stolen from vehicles in Charlottesville City and Albemarle County from 2016 to 2023.
 
@@ -1432,14 +1419,28 @@ In general, the rate of firearms being stolen from vehicles has increased, with 
 
 <details>
 <summary><b>Data Notes</b></summary>
-Theft data is pulled from the [National Incident-Based Reporting System (NIBRS) database](https://va.beyond2020.com/). See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section. 
+Theft data is pulled Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section. 
 </details>
 
 ------------------------------------------------------------------------
 
 # Next Steps
 
-This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues, we will work with community partners to identify additional data that can help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+This work has focused on understanding the larger picture of gun violence in our community -- the nature, scope, frequency, and targets -- by pulling data from multiple sources, each of which tells only a partial story. As this work continues and we continue to expand on this report, we will work with community partners to identify additional data that can help us better understand the underlying causes and larger impacts and to strategize on and evaluate solutions. This might include information on community factors such as regional history, adverse childhood experiences, access to resources, and other social structures that are in play.
+
+## Project Repository
+
+The work supporting this report, including our data collection documentation and the corresponding data, is publicly available in the [Virginia Equity Center GitHub Charlottesville and Albemarle Gun Violence Repository](https://github.com/virginiaequitycenter/cville-alb-gun-trauma).
+
+## Acknowledgements
+
+We'd like to thank Misty Graves, the Director of Human Services for the City of Charlottesville, and Kaki Dimock, Chief Human Services Officer for Albemarle County for their feedback on this report and participation in the [Community Safety Implementation Group](https://prescouncil.president.virginia.edu/community-safety). We'd like to thank Andrew Friedman, Senior Crime Analyst with the Albemarle County Police Department for supporting us with anonymized local data. We'd like to also thank the Equity Center's Community Research team, specifically Dr. Sherica Jones-Lewis, Jess Harris, Sydney Schuler, and DeVon Wade for their continued support, feedback, and dissemination. 
+
+## Citation
+
+Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” Published November 22, 2024. https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions.
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
 ------------------------------------------------------------------------
 

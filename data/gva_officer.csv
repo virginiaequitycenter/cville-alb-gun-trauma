@@ -1,0 +1,11 @@
+incident_date,gender,outcome,victim_age,race,weapon
+2023-02-28,Male,Death,44,White,Firearm
+2022-09-15,Male,Death,43,Black,Firearm
+2022-08-29,Male,Injury,60,White,Firearm
+2020-05-30,Male,Injury,32,N/A,Firearm
+2019-03-29,Male,Death,45,White,Firearm
+2018-09-08,Male,Injury,27,Black,Firearm
+2018-07-19,Male,Injury,29,Black,Firearm
+2017-10-13,Male,Death,42,Black,Firearm
+2016-11-13,Male,Injury,25,Black,Firearm
+2016-01-03,Male,Injury,25,White,Firearm

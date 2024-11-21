@@ -32,8 +32,8 @@ While women and girls experience far fewer unintentional shootings, among female
 
 **Young people**: Overall, children aged 10-19 are at the highest risk of death by unintentional firearm injury.[^10] While the number of unintentional shootings by children was relatively stable between 2015 and 2023,[^11] rate of unintentional shooting by children aged 0-5 is on the rise.[^12] Children living in homes with easy access to unsecured firearms are at greater risk.[^13] 
 
-```{r out.width='65%', fig.align='right', out.extra='style="float:right; padding:10px"'}
-knitr::include_graphics('image/gunlaw_gundeath_butterfly.png')
+```{r out.width='100%', fig.align='right', out.extra='style="float:right; padding:10px"'}
+knitr::include_graphics('image/butterfly_v2.png')
 ```
 
 **States with weaker gun laws**: More than half of all individuals who die by unintentional gun injuries live in the south. Southerners are three times more likely to die by unintentional gun injuries than their northeastern counterparts.[^14] Researchers point to weaker gun violence prevention laws in the south as a primary reason for this discrepancy.[^15] 

@@ -20,9 +20,11 @@ library(tidyverse)
 # Search criteria:
 # - Location is in Virginia
 # - City = Charlottesville
+# - Date = up to end of 2024
 
-gva_incidents <- read_csv("data/raw/gva_incidents.csv") %>%
-  clean_names()
+gva_incidents <- read_csv("data/raw/gva_incidents_24.csv") %>%
+  clean_names() %>%
+  mutate(incident_date = mdy(incident_date))
 
 write_csv(gva_incidents, "data/gva_incidents.csv")
 
@@ -31,11 +33,11 @@ write_csv(gva_incidents, "data/gva_incidents.csv")
 # Search criteria:
 # - Location is in Virginia
 # - City = Charlottesville
+# - Date = up to end of 2024
 
-gva_participants <- read_csv("data/raw/gva_participants.csv") %>%
+gva_participants <- read_csv("data/raw/gva_participants_24.csv") %>%
   clean_names() %>%
-  select(-participant_name) %>%
-  mutate(age = as.numeric(participant_age_group)) 
+  select(-participant_name, -operations) 
 
 write_csv(gva_participants, "data/gva_participants.csv")
 

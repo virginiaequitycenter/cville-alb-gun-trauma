@@ -229,7 +229,7 @@ VDH reports the number and rate of firearm-related deaths among Virginia residen
 
 # Incidents of Gun Violence {.tabset}
 
-The [Gun Violence Archive](https://www.gunviolencearchive.org/) curates a database of incidents of gun violence and gun crime, sourced from local and state police, media, data aggregates, and government. The database includes information about 201 incidents of gun violence affecting 306 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. The Gun Violence Archive does not include information about suicides.
+The [Gun Violence Archive](https://www.gunviolencearchive.org/) curates a database of incidents of gun violence and gun crime, sourced from local and state police, media, data aggregates, and government. The database includes information about 213 incidents of gun violence affecting 293 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. The Gun Violence Archive does not include information about suicides.
 
 The data includes two datasets: one has information about each incident and the associated outcomes (for example, the number of people injured and/or killed), and the other lists [participant](#participant)-level information (for example, the age range and gender of both victims and suspects). Both include the location and date of each incident along with characteristics such the number of injuries, and the nature of the gun incident.
 
@@ -239,7 +239,9 @@ The data includes two datasets: one has information about each incident and the 
 
 ```{r gva_incidents}
 
-gva_incidents <- read_csv("data/gva_incidents.csv") 
+gva_incidents <- read_csv("data/gva_incidents.csv") %>%
+  mutate(incident_date = mdy(incident_date)) %>%
+  select(-operations)
 
 gva_incidents %>%
   group_by(yr = year(incident_date)) %>%
@@ -275,12 +277,16 @@ The bar graph above shows that the number of victims both injured and killed in 
 
 ```{r gva_participants}
 
-gva_participants <- read_csv("data/gva_participants.csv") 
+gva_participants <- read_csv("data/gva_participants.csv") %>%
+  mutate(incident_date = ymd(incident_date)) 
 
 gva_participants %>%
-  drop_na(age) %>%
   mutate(yr = year(incident_date),
-         role = str_to_title(role)) %>%
+         role = str_to_title(role),
+         role = case_when(
+           role == "Vicitm" ~ "Victim",
+           TRUE ~ role)) %>%
+  drop_na(role) %>%
   ggplot(aes(age, fill = role)) +
   geom_histogram(position = 'identity') +
   facet_grid(~role) +
@@ -438,8 +444,7 @@ The stacked bar plots above show the types of firearm-related incidents in Charl
 
 #### Age & Race of Victims of Gun Violence
 
-The table below shows the race and age breakdown of the 537 total victims of gun violence (injury and death) reported to the
-police between January 2019 to May 2014.
+The table below shows the race and age breakdown of the 513 total victims of gun violence (injury and death) reported to the police between January 2019 to May 2024.
 
 ```{r victim_demos}
 race_county <- read_csv("data/race_county.csv")
@@ -488,7 +493,7 @@ victims <- age_groups %>%
   filter(subject_type == "Victim") %>%
   group_by(race, age_grp) %>%
   summarise(n = n(),
-            pct = round((n() / 537) * 100, digits = 1)) #537 total victims 
+            pct = round((n() / total_victims) * 100, digits = 1)) #513 total victims 
 
 orange_pal <- c("#fff2e6", "#ffb54d")
 
@@ -520,7 +525,7 @@ victims %>%
 Some elements of the police data are also available through [Citizen Connect](https://albemarlecountyva-uvaecc-transparency.connect.socrata.com/), an interface that allows users to view a variety of policing interactions across the region.
 
 <p class="comment">
-<b>Notable Trends</b> <br> <br> According to the table above, Black individuals make up `r pct_bl_vic` of the victims of gun violence, but only `r pct_bl_cvalb` of the total population in Charlottesville and Albemarle. In particular, Black individuals aged 25-34 make up 16.9% of the victims.   
+<b>Notable Trends</b> <br> <br> According to the table above, Black individuals make up `r pct_bl_vic` of the victims of gun violence, but only `r pct_bl_cvalb` of the total population in Charlottesville and Albemarle. In particular, Black individuals aged 25-34 comprise 17.2% of the victims. Regardless of race, individuals aged 25-34 make up 27% of all victims.    
 </p>
 
 <details>

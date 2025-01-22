@@ -31,6 +31,17 @@ library(tidyverse)
 
 ```
 
+```{=html}
+<style>
+p.comment {
+background-color: #d8e6ef;
+padding: 10px;
+margin-left: 25px;
+border-radius: 5px;
+}
+</style>
+```
+
 # Introduction
 
 Every day, more than 120 people in America are killed with guns.[^1] The gun homicide rate in the U.S. is 26 times higher than that of other high-income countries.[^2] In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis.[^3]
@@ -46,6 +57,72 @@ Charlottesville and Albemarle are not immune to the epidemic of gun violence. Th
 [^4]: UVA President's Council - Community Safety Working Group Report - <https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf>. Published September 22, 2023.
 
 [^5]: Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - <https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence> - Published July 3, 2024.
+
+------------------------
+
+## A Collective Toll
+
+The harm of gun violence takes many forms – deaths and injuries are the most obvious, but the collective trauma of hearing or witnessing gunshots also erodes community safety. This report aims to clarify current knowledge, as well as knowledge gaps, to support community solutions. Each source of data tells a part of the story, and by bringing these sources together we hope to tell a broader story about the nature, shape, and impacts of gun violence in our community. The broader goal is to expand and support the voices in our community working to identify solutions.
+
+#### Incidents of Gun Violence in Charlottesville & Albemarle and Number of Victims by Month
+
+```{r}
+gva <- read_csv("data/raw/gva_incidents_24.csv") %>%
+  clean_names() %>%
+  mutate(incident_date = mdy(incident_date)) %>%
+  select(-operations)
+
+gva$month_year <- floor_date(gva$incident_date, unit = "month")
+
+gv <- read_csv("data/regional_gv.csv") %>%
+  mutate(reported_date = ymd(as.Date(reported_date)))
+
+gv$month_year <- floor_date(gv$reported_date, unit = "month")
+
+gva_plt <- gva %>%
+  filter(between(incident_date, mdy("12-31-2017"), mdy("12-31-2024"))) %>%
+  group_by(month_year) %>%
+  summarise(total_injured = sum(victims_injured + suspects_injured),
+            total_killed = sum(victims_killed + suspects_killed)) %>%
+  ungroup() %>%
+  pivot_longer(matches("total"))
+
+gv_plt <- gv %>%
+  group_by(month_year) %>% 
+  summarise(count=n())
+
+# One-pager version
+ggplot() +
+  geom_col(data = gva_plt, aes(x = month_year, y = value, fill = name)) +
+  stat_smooth(data = gv_plt, aes(x = month_year, y = count), se = FALSE, span = .2, color = "darkgrey") +
+  labs(x = "",
+       y = "",
+       #title = "Incidents of Gun Violence in Charlottesville & Albemarle and Number of Victims by Month",
+       caption = "Source: Gun Violence Archive (Victim Statuses) & Local Police Reports (Incident Counts)") +
+  scale_y_continuous(breaks = c(2, 4, 6, 8, 10, 12, 14, 16, 18)) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  scale_fill_manual(labels = c("Injured", "Killed"),
+                    values = c("#F8BE3D", "#007BAB"),
+                    guide = guide_legend(title = "Victim Status")) +
+  theme_minimal() +
+  theme(legend.position = c(.88, .85),
+        legend.box.background = element_rect(color = "black"),
+        legend.title = element_text(size = 9),
+        axis.text.x = element_text(angle = 25)) +
+  annotate("label", x = mdy("1-1-2019"), y = 16, 
+           label = paste("Number of incidents (shots\nfired, assaults, and homicides"),
+           size = 3) +
+  geom_segment(aes(x = mdy("1-1-2019"), y = 15, xend = mdy("1-10-2020"), yend = 12),
+               arrow = arrow(length = unit(0.25, "cm"))) 
+```
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br> The plot above shows the number of incidents of gun violence in Charlottesville and Albemarle along with victim statuses over time. The yellow bars show the number of injuries and the blue bars show the number of deaths. The grey line, however, shows the number of incidents, such as shots fired. Although the number of injuries and deaths varies month-to-month, the number of incidents remains relatively high, especially following COVID in 2020. 
+</p>
+
+-------
+
+## Goals
 
 The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in mid-sized cities and regions, like Charlottesville and Albemarle. One arm of the Gun Violence Solutions Project is focused on researching solutions that could be implemented locally, while exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
 
@@ -151,16 +228,6 @@ albemarle %>%
 
 ```
 
-```{=html}
-<style>
-p.comment {
-background-color: #d8e6ef;
-padding: 10px;
-margin-left: 25px;
-border-radius: 5px;
-}
-</style>
-```
 
 <p class="comment">
 

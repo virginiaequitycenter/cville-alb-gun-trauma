@@ -2,7 +2,7 @@ library(ggrepel)
 library(janitor)
 library(lubridate)
 library(sf)
-library(svglite)
+#library(svglite)
 library(tidyverse)
 
 # Format images for print media and slide decks
@@ -107,11 +107,7 @@ ggplot() +
            label = paste("Number of incidents (shots\nfired, assaults, and homicides"),
            size = 3) +
   geom_segment(aes(x = mdy("1-1-2019"), y = 15, xend = mdy("1-10-2020"), yend = 12),
-               arrow = arrow(length = unit(0.25, "cm")))
-
-
-
-  
+               arrow = arrow(length = unit(0.25, "cm"))) 
 
 
 # N incidents 
@@ -218,6 +214,4 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
                      guide = guide_axis(angle = 35)) +
   theme_bw() +
   theme(legend.position = "top")
-
-
   

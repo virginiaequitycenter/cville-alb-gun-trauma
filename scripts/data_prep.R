@@ -264,7 +264,7 @@ nibrs_theft <- nibrs_theft %>%
   
 write_csv(nibrs_theft, "data/nibrs_theft.csv")
 
-# *Domestic Violence ----
+# *Domestic (Interpersonal) Violence ----
 # This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
 # Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
 # Table: Domestic Violence by City or County
@@ -279,20 +279,20 @@ write_csv(nibrs_theft, "data/nibrs_theft.csv")
 # - Columns: Victim to Offender Relationship, Offense
 # - Slicers: None
 
-domestic <- read_csv("data/raw/Domestic Violence by City or County.csv", skip = 4) %>%
+interpersonal <- read_csv("data/raw/Domestic Violence by City or County.csv", skip = 4) %>%
   clean_names()
 
-domestic <- domestic[-1,-c(1, 9)]
+interpersonal <- interpersonal[-1,-c(1, 9)]
 
-domestic <- domestic %>%
+interpersonal <- interpersonal %>%
   rename(yr = x2, location = x3, victim_gender = x4, offender_gender = victim_to_offender_relationship)
 
-domestic <- domestic[-1,]
+interpersonal <- interpersonal[-1,]
 
-domestic <- domestic %>%
+interpersonal <- interpersonal %>%
   fill(yr, location, victim_gender, offender_gender)
 
-write_csv(domestic, "data/nibrs_domestic.csv")
+write_csv(interpersonal, "data/nibrs_interpersonal.csv")
 
 
 # ATF ----

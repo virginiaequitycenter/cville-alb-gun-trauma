@@ -264,6 +264,37 @@ nibrs_theft <- nibrs_theft %>%
   
 write_csv(nibrs_theft, "data/nibrs_theft.csv")
 
+# *Domestic Violence ----
+# This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
+# Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
+# Table: Domestic Violence by City or County
+# Filter criteria:
+# - Measures = Number of Victims, Victim to Offender Relationship (Intimate, Family, Acquaintance), Victim Gender, Offender Gender
+# - Offense Type = Crimes Against Person
+# - Jurisdiction = Charlottesville and Albemarle (located in VSP Division 3)
+# - Type of Weapon/Force Involved = Firearm
+# - Incident Dates = 2016-2023
+# Table construction: 
+# - Rows: Type of Weapon/Force Involved, Incident Date, Jurisdiction by Geography, Victim Gender, Offender Gender
+# - Columns: Victim to Offender Relationship, Offense
+# - Slicers: None
+
+domestic <- read_csv("data/raw/Domestic Violence by City or County.csv", skip = 4) %>%
+  clean_names()
+
+domestic <- domestic[-1,-c(1, 9)]
+
+domestic <- domestic %>%
+  rename(yr = x2, location = x3, victim_gender = x4, offender_gender = victim_to_offender_relationship)
+
+domestic <- domestic[-1,]
+
+domestic <- domestic %>%
+  fill(yr, location, victim_gender, offender_gender)
+
+write_csv(domestic, "data/nibrs_domestic.csv")
+
+
 # ATF ----
 # This data can be downloaded directly from the ATF site: https://www.atf.gov/firearms/listing-federal-firearms-licensees
 # Filter criteria:

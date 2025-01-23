@@ -70,6 +70,58 @@ gva_officer <- gva_officer %>%
 
 write_csv(gva_officer, "data/gva_officer.csv")
 
+
+# CDC ----
+# This data shows mortality counts and rates. It is accessed by downloading from CDC WONDER Underlying Cause of Death, 2018-2023, Single Race Database
+# URL: https://wonder.cdc.gov/ucd-icd10-expanded.html
+
+# *Suicide - Age & Gender ----
+# URL: https://wonder.cdc.gov/ucd-icd10-expanded.html
+# Query criteria:
+# - Database: Underlying Cause of Death, 2018-2023, Single Race Results
+# - Group By: State, Ten-Year Age Groups, Gender
+# - Localities: Albemarle County, Fluvanna County, Greene County, Louisa County, Nelson County, Charlottesville City
+# - ICD-10 Codes:	X72 (Intentional self-harm by handgun discharge); X73 (Intentional self-harm by rifle, shotgun and larger firearm discharge); X74 (Intentional self-harm by other and unspecified firearm discharge)
+# Show Zero Values:	True
+# Show Suppressed:	True
+
+suicide_age <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Age.txt") %>%
+  clean_names() %>%
+  select(-contains("code"), -notes, -state) %>%
+  mutate(locality = "Blue Ridge Health District",
+         deaths = case_when(
+           deaths == "Suppressed" ~ "<10",
+           TRUE ~ deaths
+         ))
+
+suicide_age <- suicide_age[c(1:24),]
+
+write.csv(suicide_age, "data/cdc_suicide_age.csv")
+
+# *Suicide - Race/Eth & Gender ----
+# URL: https://wonder.cdc.gov/ucd-icd10-expanded.html
+# Query criteria:
+# - Database: Underlying Cause of Death, 2018-2023, Single Race Results
+# - Group By: State; Single Race 6; Hispanic Origin; Gender
+# - Localities: Albemarle County, Fluvanna County, Greene County, Louisa County, Nelson County, Charlottesville City
+# - ICD-10 Codes:	X72 (Intentional self-harm by handgun discharge); X73 (Intentional self-harm by rifle, shotgun and larger firearm discharge); X74 (Intentional self-harm by other and unspecified firearm discharge)
+# - Show Zero Values:	True
+# - Show Suppressed:	True
+
+suicide_race <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Race and Eth.txt") %>%
+  clean_names() %>%
+  select(race = single_race_6, hispanic_origin, gender, deaths) %>%
+  mutate(locality = "Blue Ridge Health District",
+         deaths = case_when(
+           deaths == "Suppressed" ~ "<10",
+           TRUE ~ deaths
+         ))
+
+suicide_race <- suicide_race[1:42,]
+
+write_csv(suicide_race, "data/cdc_suicide_race.csv")
+
+
 # Cville Open Data Portal ----
 # This data can be accessed by the ODP REST API and then saved as a CSV, or downloaded directly from the ODP website: https://opendata.charlottesville.org/
 

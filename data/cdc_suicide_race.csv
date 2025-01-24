@@ -1,85 +1,85 @@
-race,hispanic_origin,gender,deaths,locality,date_range
-American Indian or Alaska Native,Hispanic or Latino,Female,0,Virginia,2018-2023
-American Indian or Alaska Native,Hispanic or Latino,Male,<10,Virginia,2018-2023
-American Indian or Alaska Native,Not Hispanic or Latino,Female,<10,Virginia,2018-2023
-American Indian or Alaska Native,Not Hispanic or Latino,Male,<10,Virginia,2018-2023
-American Indian or Alaska Native,Not Stated,Female,0,Virginia,2018-2023
-American Indian or Alaska Native,Not Stated,Male,0,Virginia,2018-2023
-Asian,Hispanic or Latino,Female,<10,Virginia,2018-2023
-Asian,Hispanic or Latino,Male,<10,Virginia,2018-2023
-Asian,Not Hispanic or Latino,Female,<10,Virginia,2018-2023
-Asian,Not Hispanic or Latino,Male,78,Virginia,2018-2023
-Asian,Not Stated,Female,0,Virginia,2018-2023
-Asian,Not Stated,Male,0,Virginia,2018-2023
-Black or African American,Hispanic or Latino,Female,<10,Virginia,2018-2023
-Black or African American,Hispanic or Latino,Male,<10,Virginia,2018-2023
-Black or African American,Not Hispanic or Latino,Female,57,Virginia,2018-2023
-Black or African American,Not Hispanic or Latino,Male,456,Virginia,2018-2023
-Black or African American,Not Stated,Female,0,Virginia,2018-2023
-Black or African American,Not Stated,Male,<10,Virginia,2018-2023
-Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Female,0,Virginia,2018-2023
-Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Male,<10,Virginia,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Female,<10,Virginia,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Male,<10,Virginia,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Stated,Female,0,Virginia,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Stated,Male,0,Virginia,2018-2023
-White,Hispanic or Latino,Female,13,Virginia,2018-2023
-White,Hispanic or Latino,Male,103,Virginia,2018-2023
-White,Not Hispanic or Latino,Female,469,Virginia,2018-2023
-White,Not Hispanic or Latino,Male,2930,Virginia,2018-2023
-White,Not Stated,Female,<10,Virginia,2018-2023
-White,Not Stated,Male,10,Virginia,2018-2023
-More than one race,Hispanic or Latino,Female,0,Virginia,2018-2023
-More than one race,Hispanic or Latino,Male,<10,Virginia,2018-2023
-More than one race,Not Hispanic or Latino,Female,<10,Virginia,2018-2023
-More than one race,Not Hispanic or Latino,Male,38,Virginia,2018-2023
-More than one race,Not Stated,Female,0,Virginia,2018-2023
-More than one race,Not Stated,Male,0,Virginia,2018-2023
-Not Available,Hispanic or Latino,Female,0,Virginia,2018-2023
-Not Available,Hispanic or Latino,Male,0,Virginia,2018-2023
-Not Available,Not Hispanic or Latino,Female,0,Virginia,2018-2023
-Not Available,Not Hispanic or Latino,Male,0,Virginia,2018-2023
-Not Available,Not Stated,Female,0,Virginia,2018-2023
-Not Available,Not Stated,Male,0,Virginia,2018-2023
-American Indian or Alaska Native,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-American Indian or Alaska Native,Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-American Indian or Alaska Native,Not Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-American Indian or Alaska Native,Not Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-American Indian or Alaska Native,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-American Indian or Alaska Native,Not Stated,Male,0,Blue Ridge Health District,2018-2023
-Asian,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-Asian,Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Asian,Not Hispanic or Latino,Female,<10,Blue Ridge Health District,2018-2023
-Asian,Not Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Asian,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-Asian,Not Stated,Male,0,Blue Ridge Health District,2018-2023
-Black or African American,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-Black or African American,Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Black or African American,Not Hispanic or Latino,Female,<10,Blue Ridge Health District,2018-2023
-Black or African American,Not Hispanic or Latino,Male,<10,Blue Ridge Health District,2018-2023
-Black or African American,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-Black or African American,Not Stated,Male,0,Blue Ridge Health District,2018-2023
-Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-Native Hawaiian or Other Pacific Islander,Not Stated,Male,0,Blue Ridge Health District,2018-2023
-White,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-White,Hispanic or Latino,Male,<10,Blue Ridge Health District,2018-2023
-White,Not Hispanic or Latino,Female,15,Blue Ridge Health District,2018-2023
-White,Not Hispanic or Latino,Male,104,Blue Ridge Health District,2018-2023
-White,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-White,Not Stated,Male,0,Blue Ridge Health District,2018-2023
-More than one race,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-More than one race,Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-More than one race,Not Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-More than one race,Not Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-More than one race,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-More than one race,Not Stated,Male,0,Blue Ridge Health District,2018-2023
-Not Available,Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-Not Available,Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Not Available,Not Hispanic or Latino,Female,0,Blue Ridge Health District,2018-2023
-Not Available,Not Hispanic or Latino,Male,0,Blue Ridge Health District,2018-2023
-Not Available,Not Stated,Female,0,Blue Ridge Health District,2018-2023
-Not Available,Not Stated,Male,0,Blue Ridge Health District,2018-2023
+race,hispanic_origin,gender,deaths,population,locality,date_range
+American Indian or Alaska Native,Hispanic or Latino,Female,0,72211,Virginia,2018-2023
+American Indian or Alaska Native,Hispanic or Latino,Male,<10,84345,Virginia,2018-2023
+American Indian or Alaska Native,Not Hispanic or Latino,Female,<10,68438,Virginia,2018-2023
+American Indian or Alaska Native,Not Hispanic or Latino,Male,<10,69517,Virginia,2018-2023
+American Indian or Alaska Native,Not Stated,Female,0,NA,Virginia,2018-2023
+American Indian or Alaska Native,Not Stated,Male,0,NA,Virginia,2018-2023
+Asian,Hispanic or Latino,Female,<10,36369,Virginia,2018-2023
+Asian,Hispanic or Latino,Male,<10,38511,Virginia,2018-2023
+Asian,Not Hispanic or Latino,Female,<10,1900156,Virginia,2018-2023
+Asian,Not Hispanic or Latino,Male,78,1717772,Virginia,2018-2023
+Asian,Not Stated,Female,0,NA,Virginia,2018-2023
+Asian,Not Stated,Male,0,NA,Virginia,2018-2023
+Black or African American,Hispanic or Latino,Female,<10,213040,Virginia,2018-2023
+Black or African American,Hispanic or Latino,Male,<10,209700,Virginia,2018-2023
+Black or African American,Not Hispanic or Latino,Female,57,5130623,Virginia,2018-2023
+Black or African American,Not Hispanic or Latino,Male,456,4759663,Virginia,2018-2023
+Black or African American,Not Stated,Female,0,NA,Virginia,2018-2023
+Black or African American,Not Stated,Male,<10,NA,Virginia,2018-2023
+Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Female,0,11338,Virginia,2018-2023
+Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Male,<10,13569,Virginia,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Female,<10,20154,Virginia,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Male,<10,18714,Virginia,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Stated,Female,0,NA,Virginia,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Stated,Male,0,NA,Virginia,2018-2023
+White,Hispanic or Latino,Female,13,2111298,Virginia,2018-2023
+White,Hispanic or Latino,Male,103,2257045,Virginia,2018-2023
+White,Not Hispanic or Latino,Female,469,15760317,Virginia,2018-2023
+White,Not Hispanic or Latino,Male,2930,15484990,Virginia,2018-2023
+White,Not Stated,Female,<10,NA,Virginia,2018-2023
+White,Not Stated,Male,10,NA,Virginia,2018-2023
+More than one race,Hispanic or Latino,Female,0,115210,Virginia,2018-2023
+More than one race,Hispanic or Latino,Male,<10,116183,Virginia,2018-2023
+More than one race,Not Hispanic or Latino,Female,<10,745452,Virginia,2018-2023
+More than one race,Not Hispanic or Latino,Male,38,730743,Virginia,2018-2023
+More than one race,Not Stated,Female,0,NA,Virginia,2018-2023
+More than one race,Not Stated,Male,0,NA,Virginia,2018-2023
+Not Available,Hispanic or Latino,Female,0,0,Virginia,2018-2023
+Not Available,Hispanic or Latino,Male,0,0,Virginia,2018-2023
+Not Available,Not Hispanic or Latino,Female,0,0,Virginia,2018-2023
+Not Available,Not Hispanic or Latino,Male,0,0,Virginia,2018-2023
+Not Available,Not Stated,Female,0,NA,Virginia,2018-2023
+Not Available,Not Stated,Male,0,NA,Virginia,2018-2023
+American Indian or Alaska Native,Hispanic or Latino,Female,0,1497,Blue Ridge Health District,2018-2023
+American Indian or Alaska Native,Hispanic or Latino,Male,0,1616,Blue Ridge Health District,2018-2023
+American Indian or Alaska Native,Not Hispanic or Latino,Female,0,1824,Blue Ridge Health District,2018-2023
+American Indian or Alaska Native,Not Hispanic or Latino,Male,0,1935,Blue Ridge Health District,2018-2023
+American Indian or Alaska Native,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+American Indian or Alaska Native,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023
+Asian,Hispanic or Latino,Female,0,773,Blue Ridge Health District,2018-2023
+Asian,Hispanic or Latino,Male,0,716,Blue Ridge Health District,2018-2023
+Asian,Not Hispanic or Latino,Female,<10,34019,Blue Ridge Health District,2018-2023
+Asian,Not Hispanic or Latino,Male,0,30255,Blue Ridge Health District,2018-2023
+Asian,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+Asian,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023
+Black or African American,Hispanic or Latino,Female,0,2576,Blue Ridge Health District,2018-2023
+Black or African American,Hispanic or Latino,Male,0,2749,Blue Ridge Health District,2018-2023
+Black or African American,Not Hispanic or Latino,Female,<10,100113,Blue Ridge Health District,2018-2023
+Black or African American,Not Hispanic or Latino,Male,<10,88570,Blue Ridge Health District,2018-2023
+Black or African American,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+Black or African American,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023
+Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Female,0,210,Blue Ridge Health District,2018-2023
+Native Hawaiian or Other Pacific Islander,Hispanic or Latino,Male,0,213,Blue Ridge Health District,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Female,0,461,Blue Ridge Health District,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Hispanic or Latino,Male,0,415,Blue Ridge Health District,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+Native Hawaiian or Other Pacific Islander,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023
+White,Hispanic or Latino,Female,0,34366,Blue Ridge Health District,2018-2023
+White,Hispanic or Latino,Male,<10,37038,Blue Ridge Health District,2018-2023
+White,Not Hispanic or Latino,Female,15,609163,Blue Ridge Health District,2018-2023
+White,Not Hispanic or Latino,Male,104,567954,Blue Ridge Health District,2018-2023
+White,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+White,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023
+More than one race,Hispanic or Latino,Female,0,2422,Blue Ridge Health District,2018-2023
+More than one race,Hispanic or Latino,Male,0,2234,Blue Ridge Health District,2018-2023
+More than one race,Not Hispanic or Latino,Female,0,20626,Blue Ridge Health District,2018-2023
+More than one race,Not Hispanic or Latino,Male,0,19155,Blue Ridge Health District,2018-2023
+More than one race,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+More than one race,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023
+Not Available,Hispanic or Latino,Female,0,0,Blue Ridge Health District,2018-2023
+Not Available,Hispanic or Latino,Male,0,0,Blue Ridge Health District,2018-2023
+Not Available,Not Hispanic or Latino,Female,0,0,Blue Ridge Health District,2018-2023
+Not Available,Not Hispanic or Latino,Male,0,0,Blue Ridge Health District,2018-2023
+Not Available,Not Stated,Female,0,NA,Blue Ridge Health District,2018-2023
+Not Available,Not Stated,Male,0,NA,Blue Ridge Health District,2018-2023

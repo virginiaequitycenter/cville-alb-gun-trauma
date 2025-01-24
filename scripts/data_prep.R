@@ -80,21 +80,38 @@ write_csv(gva_officer, "data/gva_officer.csv")
 # Query criteria:
 # - Database: Underlying Cause of Death, 2018-2023, Single Race Results
 # - Group By: State, Ten-Year Age Groups, Gender
-# - Localities: Albemarle County, Fluvanna County, Greene County, Louisa County, Nelson County, Charlottesville City
+# - Localities: Virginia; Albemarle County, Fluvanna County, Greene County, Louisa County, Nelson County, Charlottesville City
 # - ICD-10 Codes:	X72 (Intentional self-harm by handgun discharge); X73 (Intentional self-harm by rifle, shotgun and larger firearm discharge); X74 (Intentional self-harm by other and unspecified firearm discharge)
 # Show Zero Values:	True
 # Show Suppressed:	True
 
-suicide_age <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Age.txt") %>%
+#Blue Ridge Health District 
+suicide_age_brhd <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Age BRHD.txt") %>%
   clean_names() %>%
   select(-contains("code"), -notes, -state) %>%
   mutate(locality = "Blue Ridge Health District",
+         date_range = "2018-2023",
          deaths = case_when(
            deaths == "Suppressed" ~ "<10",
            TRUE ~ deaths
          ))
 
-suicide_age <- suicide_age[c(1:24),]
+suicide_age_brhd <- suicide_age_brhd[c(1:24),]
+
+# Virginia
+suicide_age_va <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Age VA.txt") %>%
+  clean_names() %>%
+  select(ten_year_age_groups, gender, deaths) %>%
+  mutate(locality = "Virginia",
+         date_range = "2018-2023",
+         deaths = case_when(
+           deaths == "Suppressed" ~ "<10",
+           TRUE ~ deaths
+         ))
+
+suicide_age_va <- suicide_age_va[c(1:24),]
+
+suicide_age <- rbind(suicide_age_brhd, suicide_age_va)
 
 write.csv(suicide_age, "data/cdc_suicide_age.csv")
 
@@ -103,21 +120,44 @@ write.csv(suicide_age, "data/cdc_suicide_age.csv")
 # Query criteria:
 # - Database: Underlying Cause of Death, 2018-2023, Single Race Results
 # - Group By: State; Single Race 6; Hispanic Origin; Gender
-# - Localities: Albemarle County, Fluvanna County, Greene County, Louisa County, Nelson County, Charlottesville City
+# - Localities: Virginia; Albemarle County, Fluvanna County, Greene County, Louisa County, Nelson County, Charlottesville City
 # - ICD-10 Codes:	X72 (Intentional self-harm by handgun discharge); X73 (Intentional self-harm by rifle, shotgun and larger firearm discharge); X74 (Intentional self-harm by other and unspecified firearm discharge)
 # - Show Zero Values:	True
 # - Show Suppressed:	True
 
-suicide_race <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Race and Eth.txt") %>%
+# Blue Ridge Health District
+suicide_race_brhd <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Race and Eth BRHD.txt") %>%
   clean_names() %>%
-  select(race = single_race_6, hispanic_origin, gender, deaths) %>%
+  select(race = single_race_6, hispanic_origin, gender, deaths, population) %>%
   mutate(locality = "Blue Ridge Health District",
+         date_range = "2018-2023",
+         population = case_when(
+           population == "Not Applicable" ~ NA,
+           TRUE ~ population),
          deaths = case_when(
            deaths == "Suppressed" ~ "<10",
            TRUE ~ deaths
          ))
 
-suicide_race <- suicide_race[1:42,]
+suicide_race_brhd <- suicide_race_brhd[1:42,]
+
+# Virginia
+suicide_race_va <- read_tsv("data/raw/Underlying Cause of Death, 2018-2023, Suicide Race Eth VA.txt") %>%
+  clean_names() %>%
+  select(race = single_race_6, hispanic_origin, gender, deaths, population) %>%
+  mutate(locality = "Virginia",
+         date_range = "2018-2023",
+         population = case_when(
+           population == "Not Applicable" ~ NA,
+           TRUE ~ population),
+         deaths = case_when(
+           deaths == "Suppressed" ~ "<10",
+           TRUE ~ deaths
+         ))
+
+suicide_race_va <- suicide_race_va[1:42,]
+
+suicide_race <- rbind(suicide_race_va, suicide_race_brhd)
 
 write_csv(suicide_race, "data/cdc_suicide_race.csv")
 

@@ -319,11 +319,11 @@ write_csv(nibrs_theft, "data/nibrs_theft.csv")
 # *Domestic (Interpersonal) Violence ----
 # This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
 # Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
-# Table: Domestic Violence by City or County
+# Table: Crime by Jurisdiction > Domestic Violence by City or County
 # Filter criteria:
 # - Measures = Number of Victims, Victim to Offender Relationship (Intimate, Family, Acquaintance), Victim Gender, Offender Gender
 # - Offense Type = Crimes Against Person
-# - Jurisdiction = Charlottesville and Albemarle (located in VSP Division 3)
+# - Jurisdiction = Virginia, Charlottesville, and Albemarle
 # - Type of Weapon/Force Involved = Firearm
 # - Incident Dates = 2016-2023
 # Table construction: 
@@ -337,12 +337,13 @@ interpersonal <- read_csv("data/raw/Domestic Violence by City or County.csv", sk
 interpersonal <- interpersonal[-1,-c(1, 9)]
 
 interpersonal <- interpersonal %>%
-  rename(yr = x2, location = x3, victim_gender = x4, offender_gender = victim_to_offender_relationship)
+  rename(locality = x2, yr = x3, victim_gender = x4, offender_gender = victim_to_offender_relationship)
 
 interpersonal <- interpersonal[-1,]
 
 interpersonal <- interpersonal %>%
-  fill(yr, location, victim_gender, offender_gender)
+  fill(locality, yr, victim_gender, offender_gender) %>%
+  mutate_at(vars(intimate, family, acquaintance), as.numeric)
 
 write_csv(interpersonal, "data/nibrs_interpersonal.csv")
 

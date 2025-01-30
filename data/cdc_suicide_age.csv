@@ -1,49 +1,49 @@
-"","ten_year_age_groups","gender","deaths","locality","date_range"
-"1","< 1 year","Female","0","Blue Ridge Health District","2018-2023"
-"2","< 1 year","Male","0","Blue Ridge Health District","2018-2023"
-"3","1-4 years","Female","0","Blue Ridge Health District","2018-2023"
-"4","1-4 years","Male","0","Blue Ridge Health District","2018-2023"
-"5","5-14 years","Female","0","Blue Ridge Health District","2018-2023"
-"6","5-14 years","Male","<10","Blue Ridge Health District","2018-2023"
-"7","15-24 years","Female","<10","Blue Ridge Health District","2018-2023"
-"8","15-24 years","Male","18","Blue Ridge Health District","2018-2023"
-"9","25-34 years","Female","<10","Blue Ridge Health District","2018-2023"
-"10","25-34 years","Male","17","Blue Ridge Health District","2018-2023"
-"11","35-44 years","Female","<10","Blue Ridge Health District","2018-2023"
-"12","35-44 years","Male","13","Blue Ridge Health District","2018-2023"
-"13","45-54 years","Female","<10","Blue Ridge Health District","2018-2023"
-"14","45-54 years","Male","13","Blue Ridge Health District","2018-2023"
-"15","55-64 years","Female","<10","Blue Ridge Health District","2018-2023"
-"16","55-64 years","Male","13","Blue Ridge Health District","2018-2023"
-"17","65-74 years","Female","<10","Blue Ridge Health District","2018-2023"
-"18","65-74 years","Male","18","Blue Ridge Health District","2018-2023"
-"19","75-84 years","Female","0","Blue Ridge Health District","2018-2023"
-"20","75-84 years","Male","13","Blue Ridge Health District","2018-2023"
-"21","85+ years","Female","0","Blue Ridge Health District","2018-2023"
-"22","85+ years","Male","<10","Blue Ridge Health District","2018-2023"
-"23","Not Stated","Female","0","Blue Ridge Health District","2018-2023"
-"24","Not Stated","Male","0","Blue Ridge Health District","2018-2023"
-"25","< 1 year","Female","0","Virginia","2018-2023"
-"26","< 1 year","Male","0","Virginia","2018-2023"
-"27","1-4 years","Female","0","Virginia","2018-2023"
-"28","1-4 years","Male","0","Virginia","2018-2023"
-"29","5-14 years","Female","<10","Virginia","2018-2023"
-"30","5-14 years","Male","29","Virginia","2018-2023"
-"31","15-24 years","Female","61","Virginia","2018-2023"
-"32","15-24 years","Male","569","Virginia","2018-2023"
-"33","25-34 years","Female","89","Virginia","2018-2023"
-"34","25-34 years","Male","545","Virginia","2018-2023"
-"35","35-44 years","Female","84","Virginia","2018-2023"
-"36","35-44 years","Male","447","Virginia","2018-2023"
-"37","45-54 years","Female","106","Virginia","2018-2023"
-"38","45-54 years","Male","474","Virginia","2018-2023"
-"39","55-64 years","Female","112","Virginia","2018-2023"
-"40","55-64 years","Male","570","Virginia","2018-2023"
-"41","65-74 years","Female","62","Virginia","2018-2023"
-"42","65-74 years","Male","462","Virginia","2018-2023"
-"43","75-84 years","Female","32","Virginia","2018-2023"
-"44","75-84 years","Male","385","Virginia","2018-2023"
-"45","85+ years","Female","<10","Virginia","2018-2023"
-"46","85+ years","Male","157","Virginia","2018-2023"
-"47","Not Stated","Female","0","Virginia","2018-2023"
-"48","Not Stated","Male","0","Virginia","2018-2023"
+"","ten_year_age_groups","gender","deaths","locality","date_range","pop_6yr","crude_rate"
+"1","< 1 year","Female","0","Blue Ridge Health District","2018-2023",NA,NA
+"2","< 1 year","Male","0","Blue Ridge Health District","2018-2023",NA,NA
+"3","1-4 years","Female","0","Blue Ridge Health District","2018-2023",NA,NA
+"4","1-4 years","Male","0","Blue Ridge Health District","2018-2023",NA,NA
+"5","5-14 years","Female","0","Blue Ridge Health District","2018-2023",NA,NA
+"6","5-14 years","Male","<10","Blue Ridge Health District","2018-2023",NA,NA
+"7","15-24 years","Female","<10","Blue Ridge Health District","2018-2023",NA,NA
+"8","15-24 years","Male","18","Blue Ridge Health District","2018-2023",NA,NA
+"9","25-34 years","Female","<10","Blue Ridge Health District","2018-2023",NA,NA
+"10","25-34 years","Male","17","Blue Ridge Health District","2018-2023",NA,NA
+"11","35-44 years","Female","<10","Blue Ridge Health District","2018-2023",NA,NA
+"12","35-44 years","Male","13","Blue Ridge Health District","2018-2023",NA,NA
+"13","45-54 years","Female","<10","Blue Ridge Health District","2018-2023",NA,NA
+"14","45-54 years","Male","13","Blue Ridge Health District","2018-2023",NA,NA
+"15","55-64 years","Female","<10","Blue Ridge Health District","2018-2023",NA,NA
+"16","55-64 years","Male","13","Blue Ridge Health District","2018-2023",NA,NA
+"17","65-74 years","Female","<10","Blue Ridge Health District","2018-2023",NA,NA
+"18","65-74 years","Male","18","Blue Ridge Health District","2018-2023",NA,NA
+"19","75-84 years","Female","0","Blue Ridge Health District","2018-2023",NA,NA
+"20","75-84 years","Male","13","Blue Ridge Health District","2018-2023",NA,NA
+"21","85+ years","Female","0","Blue Ridge Health District","2018-2023",NA,NA
+"22","85+ years","Male","<10","Blue Ridge Health District","2018-2023",NA,NA
+"23","Not Stated","Female","0","Blue Ridge Health District","2018-2023",NA,NA
+"24","Not Stated","Male","0","Blue Ridge Health District","2018-2023",NA,NA
+"25","< 1 year","Female","0","Virginia","2018-2023","282574","Unreliable"
+"26","< 1 year","Male","0","Virginia","2018-2023","296789","Unreliable"
+"27","1-4 years","Female","0","Virginia","2018-2023","1174555","Unreliable"
+"28","1-4 years","Male","0","Virginia","2018-2023","1230195","Unreliable"
+"29","5-14 years","Female","<10","Virginia","2018-2023","3072963","Suppressed"
+"30","5-14 years","Male","29","Virginia","2018-2023","3225320","0.9"
+"31","15-24 years","Female","61","Virginia","2018-2023","3296816","1.9"
+"32","15-24 years","Male","569","Virginia","2018-2023","3478501","16.4"
+"33","25-34 years","Female","89","Virginia","2018-2023","3500870","2.5"
+"34","25-34 years","Male","545","Virginia","2018-2023","3600112","15.1"
+"35","35-44 years","Female","84","Virginia","2018-2023","3430280","2.4"
+"36","35-44 years","Male","447","Virginia","2018-2023","3427456","13.0"
+"37","45-54 years","Female","106","Virginia","2018-2023","3309791","3.2"
+"38","45-54 years","Male","474","Virginia","2018-2023","3237651","14.6"
+"39","55-64 years","Female","112","Virginia","2018-2023","3438721","3.3"
+"40","55-64 years","Male","570","Virginia","2018-2023","3236894","17.6"
+"41","65-74 years","Female","62","Virginia","2018-2023","2667673","2.3"
+"42","65-74 years","Male","462","Virginia","2018-2023","2329478","19.8"
+"43","75-84 years","Female","32","Virginia","2018-2023","1424069","2.2"
+"44","75-84 years","Male","385","Virginia","2018-2023","1114177","34.6"
+"45","85+ years","Female","<10","Virginia","2018-2023","586294","Suppressed"
+"46","85+ years","Male","157","Virginia","2018-2023","324179","48.4"
+"47","Not Stated","Female","0","Virginia","2018-2023","Not Applicable","Not Applicable"
+"48","Not Stated","Male","0","Virginia","2018-2023","Not Applicable","Not Applicable"

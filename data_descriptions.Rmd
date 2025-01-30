@@ -44,21 +44,21 @@ border-radius: 5px;
 
 # Introduction
 
-Every day, more than 120 people in America are killed with guns.[^1] The gun homicide rate in the U.S. is 26 times higher than that of other high-income countries.[^2] In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis.[^3]
+Every day, more than 120 people in America are killed with guns[^1]. The gun homicide rate in the U.S. is 26 times higher than that of other high-income countries[^2]. In 2024, the US Surgeon General's Advisory declared gun violence as a public health crisis[^3].
 
-[^1]: Everytown - Beyond Measure: Gun Violence Trauma - <https://everytownresearch.org/report/gun-violence-trauma/.Published> May 17, 2023.
+[^1]: Everytown. Beyond Measure: Gun Violence Trauma. <https://everytownresearch.org/report/gun-violence-trauma/>. May 17, 2023.
 
 [^2]: Grinshteyn, E., & Hemenway, D. "Violent death rates in the US compared to those of the other high‑income countries, 2015." Preventive Medicine 123 (2019), 20‑26. <https://doi.org/10.1016/j.ypmed.2019.02.026>
 
-[^3]: US Surgeon General's Office - The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America - <https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf>. Published July 2, 2024.
+[^3]: US Surgeon General's Office. The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America. <https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf>. July 2, 2024.
 
-Charlottesville and Albemarle are not immune to the epidemic of gun violence. The rate of violent crime in our community increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases compared to zero cases in 2021.[^4] On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. While incidents of gun violence have decreased in the first half of 2024,[^5] according to shots fired police reports the number of bullets recovered at each scene has increased, pointing to the ever-changing nature of the issue.
+Charlottesville and Albemarle are not immune to the epidemic of gun violence. The rate of violent crime in our community increased by 30% from 2021 to 2022, and in the early months of 2023, police had already investigated five homicide cases compared to zero cases in 2021[^4]. On November 13, 2022, three UVA football players were shot and killed on campus. Devin Chandler, Lavel Davis Jr. and D’Sean Perry lost their lives to an act of gun violence. While incidents of gun violence have decreased in the first half of 2024[^5], according to shots fired police reports the number of bullets recovered at each scene has increased, pointing to the ever-changing nature of the issue.
 
-[^4]: UVA President's Council - Community Safety Working Group Report - <https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf>. Published September 22, 2023.
+[^4]: UVA President's Council. Community Safety Working Group Report. <https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf>. September 22, 2023.
 
-[^5]: Cville Weekly - CPD Chief says crime rates lower overall despite recent spike in gun violence - <https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence> - Published July 3, 2024.
+[^5]: Cville Weekly. CPD Chief says crime rates lower overall despite recent spike in gun violence.  <https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence>. July 3, 2024.
 
-------------------------
+------------------------------------------------------------------------
 
 ## A Collective Toll
 
@@ -115,12 +115,12 @@ ggplot() +
   geom_segment(aes(x = mdy("1-1-2019"), y = 15, xend = mdy("1-10-2020"), yend = 12),
                arrow = arrow(length = unit(0.25, "cm"))) 
 ```
+
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> The plot above shows the number of incidents of gun violence in Charlottesville and Albemarle along with victim statuses over time. The yellow bars show the number of injuries and the blue bars show the number of deaths. The grey line, however, shows the number of incidents, such as shots fired. Although the number of injuries and deaths varies month-to-month, the number of incidents remains relatively high, especially following COVID in 2020. 
-</p>
+<b> Notable Trends</b> <br> <br> The plot above shows the number of incidents of gun violence in Charlottesville and Albemarle along with victim statuses over time. The yellow bars show the number of injuries and the blue bars show the number of deaths. The grey line, however, shows the number of incidents, such as shots fired. Although the number of injuries and deaths varies month-to-month, the number of incidents remains relatively high, especially following COVID in 2020.</p>
 
--------
+------------------------------------------------------------------------
 
 ## Goals
 
@@ -158,12 +158,11 @@ Please refer to the [Terminology] section of the Appendix for more information a
 
 # Firearm Injuries & Deaths
 
-The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. This mirrors national patterns, where more than 60% of gun deaths are by suicide.[^6] The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. The Blue Ridge Health District includes Charlottesville City, and the counties of Albemarle, Greene, Louisa, Fluvanna, and Nelson. Homicide – community violence, domestic violence, mass shootings, and other intentional violence – accounts for 22% of all deaths. Of all 141 firearm-related deaths, 68 (48%) were in Charlottesville or Albemarle.[^7]
+The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. This mirrors national patterns, where more than 60% of gun deaths are by suicide[^6]. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. The Blue Ridge Health District includes Charlottesville City, and the counties of Albemarle, Greene, Louisa, Fluvanna, and Nelson. Homicide – community violence, domestic violence, mass shootings, and other intentional violence – accounts for 22% of all deaths. Of all 141 firearm-related deaths between this time period, 68 (48%) were in Charlottesville or Albemarle[^7].
 
-[^6]: Everytown Research & Policy. Firearm Suicide in the United States - Fact Sheet. Published 8/30/2019 and updated 1/8/2024. https://everytownresearch.org/report/firearm-suicide-in-the-united-states/
+[^6]: Everytown Research & Policy. Firearm Suicide in the United States: Fact Sheet.  <https://everytownresearch.org/report/firearm-suicide-in-the-united-states/> Published 8/30/2019 and updated 1/8/2024.
 
-[^7]: Center for Disease Control, National Vital Statistics. About Underlying Cause of Death, 2018 - 2022. Accessed 11/4/2024. 
-
+[^7]: Centers for Disease Control. About Firearm Injury and Death: Fast Facts.  <https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html>. Accessed March 15, 2024.
 
 ```{r vdh_intent, echo=FALSE, message=FALSE}
 
@@ -228,12 +227,12 @@ albemarle %>%
 
 ```
 
-
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic.[^8] After falling in 2021, the firearm injury rate began trending upward.</p>
+<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward.</p>
 
-[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031>
+[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031> 
+
 
 <details>
 
@@ -283,9 +282,9 @@ vdh_age %>%
 
 <summary><b>Data Notes</b></summary>
 
-Deaths are classified as firearm-related using the definition from the Centers for Disease Control.[^7]
+Deaths are classified as firearm-related using the definition from the Centers for Disease Control[^9].
 
-[^7]: Centers for Disease Control - About Firearm Injury and Death: Fast Facts - <https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html>. Accessed March 15, 2024.
+[^9]: Centers for Disease Control. Firearm Injury and Death Prevention. About Firearm Injury and Death.   <https://www.cdc.gov/firearm-violence/about/index.html>. Accessed March 15, 2024.
 
 VDH reports the number and rate of firearm-related deaths among Virginia residents by patient health district and age from 2018 through 2022. Virginia Department of Health districts are assigned based on the residence of the patient at the time of death, not where the death occurred. Data includes Virginia residents only, regardless of whether they died in Virginia.
 
@@ -380,11 +379,249 @@ Because the data is sourced largely from public news websites, if an act of viol
 
 **Suicides**
 
-Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report[^9] and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
+Suicides are not part of the Gun Violence Archive's normal data collection procedures. Individual suicides are collected through the CDC's Annual Report[^10] and, because of privacy and CDC policy, they are only available as an aggregate number, without detail. Suicides associated with Officer-Involved incidents and Murder-Suicides are included in Gun Violence Archive tallies because they are considered incidents of community violence.
 
-[^9]: Centers For Disease Control - Provisional Suicide Deaths in the United States, 2022 - <https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html>. Published August 10, 2023.
+[^10]: Centers For Disease Control. Provisional Suicide Deaths in the United States, 2022. <https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html>. Published August 10, 2023.
 
 </details>
+
+------------------------------------------------------------------------
+
+# Suicides {.tabset}
+
+Suicide is the most prevalent form of firearm violence in the United States, with many sources showing an increase in recent years[^11]. The information below is pulled from the Centers for Disease Control [WONDER (Wide-ranging ONline Data for Epidemiologic Research)](https://wonder.cdc.gov/) portal. The tables below show suicide rates by region, age, sex, race, and ethnicity. Our goal with showing this information is that more more focused attention, and less stigma, is attached to this tragic form of death, and as a result more resources for support can be allocated.
+
+[^11]: Johns Hopkins Center for Gun Violence Solutions. CDC Provisional Data: Gun Suicides Reach All-time High in 2022, Gun Homicides Down Slightly from 2021. <https://publichealth.jhu.edu/center-for-gun-violence-solutions/2023/cdc-provisional-data-gun-suicides-reach-all-time-high-in-2022-gun-homicides-down-slightly-from-2021> July 27, 2023. 
+
+<details>
+
+<summary><b>Data Notes</b></summary>
+
+Death counts less than 10 are suppressed by the CDC so that individuals cannot be identified. As a result when calculating crude rates, we show a range of values. For calculating percents, we used approximate values. For race and ethnicity estimates, we used the CDC Six Race Categorizations [^12].
+
+[^12]: Centers for Disease Control. National Center for Health Statistics. Sources and Definitions. Race. <https://www.cdc.gov/nchs/hus/sources-definitions/race.html>. October 3, 2024. 
+
+</details>
+<br>
+
+## Suicides by Region
+
+The table below shows the number of suicides in Charlottesville and Albemarle between 2018 to 2023 and the estimated rates per 100,000 people.
+
+```{r suicide_region}
+cdc_deaths_intent <- read_csv("data/cdc_deaths_intent.csv")
+
+suicides_local <- cdc_deaths_intent %>%
+  filter(injury_intent == "Suicide",
+         locality == "Charlottesville city, VA" |
+           locality == "Albemarle County, VA") %>%
+  mutate(locality = word(.$locality, 1)) %>%
+  select(-injury_intent) %>%
+  rename(suicides = deaths)
+
+# CDC suppression values make estimating crude rates impossible, so we're going to estimate a range of values instead
+cville_rate_estimate <- data_frame(suicides_estimated = c(1, 5, 9),
+           estimate = c("low", "med", "high"), 
+           locality = "Charlottesville") %>%
+  inner_join(suicides_local) %>%
+  mutate(estimated_crude_rate = round((suicides_estimated/pop_6yr) * 1e5, 1)) %>%
+  filter(estimate %in% c("low", "high")) %>%
+  select(estimated_crude_rate) %>%
+  with(paste(estimated_crude_rate, collapse = "-"))
+  
+
+suicides_local %>%
+  mutate(crude_rate = case_when(
+    crude_rate == "Suppressed" ~ cville_rate_estimate,
+    TRUE ~ crude_rate)) %>%
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) 
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      minWidth = 70,
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      pop_6yr = colDef(name = "Combined 6-Year Population", 
+                       format = colFormat(separators = TRUE)),
+      crude_rate = colDef(name = "Estimated Rate per 100k People")
+    ),
+    bordered = TRUE,
+    highlight = TRUE)
+
+```
+
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br>Between 2018 - 2023, there were 55 suicides by firearm in Albemarle County and less than 10 in Charlottesville city. The population of Albemarle county is larger, so we also look at the rates per one hundred thousand people. In Albemarle, the rate is 8.2 deaths by suicide per 100,000 people, and in Charlottesville the rate is between 0.4 - 3.2. Despite having a larger population, the rate of suicide is still higher in Albemarle than Charlottesville.</p>
+
+--------------------------------------------
+
+## Suicides by Age
+
+The table below shows a breakdown of age and gender of the 129 suicides by firearm in the Blue Ridge Health District between 2018 - 2023.
+
+```{r suicide_age}
+total_suicides_brhd <- cdc_deaths_intent %>%
+  filter(locality == "Blue Ridge Health District",
+         injury_intent == "Suicide") 
+
+total_suicides_brhd <- as.numeric(total_suicides_brhd[[3]]) #129
+
+suicide_age_pcts <- read_csv("data/cdc_suicide_age.csv") %>%
+  select(-...1) %>%
+  filter(locality == "Blue Ridge Health District") %>%
+  mutate(
+    deaths = case_when(
+      deaths == "<10" ~ 3, # approximation
+      TRUE ~ as.numeric(deaths)),
+    pct = round(((deaths / total_suicides_brhd) * 100), 1)) %>%
+  select(-deaths)
+
+suicide_age_tbl <- suicide_age_pcts %>%
+  select(-pop_6yr, -crude_rate) %>%
+  filter(ten_year_age_groups != "Not Stated") %>%
+  mutate(ten_year_age_groups = str_sub(.$ten_year_age_groups, end = -7)) %>%
+  pivot_wider(names_from = ten_year_age_groups,
+              values_from = pct) %>%
+  mutate(across(where(is.numeric), ~na_if(., 0)))
+
+orange_pal <- c("#fff2e6", "#ffb54d")
+
+suicide_age_tbl %>%
+  select(locality, sex = gender, "1-4":"85+", date_range) %>%
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) 
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "center",
+      minWidth = 45,
+      format = colFormat(suffix = "%"),
+      na = "–",
+      style = color_scales(data = ., colors = orange_pal, span = 3:12),
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      locality = colDef(minWidth = 60, format = colFormat(suffix = "")),
+      sex = colDef(minWidth = 55, format = colFormat(suffix = "")),
+      date_range = colDef(minWidth = 60, format = colFormat(suffix = ""))
+      ),
+    bordered = TRUE,
+    highlight = TRUE
+  )
+
+```
+
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br>Between 2018 - 2023, approximately 76% of the suicides by firearm were committed by men, with the ages 15-34 and 65-74 being making up the largest percent of victims. This information mirrors national trends concerning sex and suicide by firearms[^13].</p>
+
+[^13]: Michael Siegel & Emily F Rothman. Firearm Ownership and Suicide Rates Among US Men and Women, 1981–2013. American Journal of Public Health. 2016 Jul;106(7):1316–1322. <https://pmc.ncbi.nlm.nih.gov/articles/PMC4984734/>. May 19, 2016.
+
+--------------------------------------
+
+## Suicides by Race and Ethnicity
+
+The tables below show a breakdown of race, ethnicity, and gender of the 129 suicides by firearm in the Blue Ridge Health District and the 4199 suicides by firearm in Virginia between 2018 - 2023.
+
+In the Blue Ridge Health District, the suicide counts for individuals that identify as American Indian or Alaska Native, Native Hawaiian or Other Pacific Islander, multiple races, or other races not listed by the CDC was zero for the Blue Ridge Health District, so they are not included in the first table.
+
+**Percentages of Firearms Suicides in the Blue Ridge Health District by Race, Ethnicity, and Sex**
+
+```{r suicides_race_brhd}
+total_suicides_va <- cdc_deaths_intent %>%
+  filter(locality == "Virginia",
+         injury_intent == "Suicide") 
+
+total_suicides_va <- as.numeric(total_suicides_va[[3]]) #4199
+
+cdc_suicide_race <- read_csv("data/cdc_suicide_race.csv")
+
+suicide_race_brhd_pcts <- cdc_suicide_race %>%
+  filter(locality == "Blue Ridge Health District",
+         hispanic_origin != "Not Stated",
+         ! race %in% c("More than one race", "Not Available", "American Indian or Alaska Native", "Native Hawaiian or Other Pacific Islander")) %>%
+  mutate(
+    deaths = case_when(
+      deaths == "<10" ~ 2, # approximation
+      TRUE ~ as.numeric(deaths)),
+    pct = round(((deaths / total_suicides_brhd) * 100), 1)) %>%
+  select(-deaths)
+
+suicide_race_brhd_tbl <- suicide_race_brhd_pcts %>%
+  pivot_wider(names_from = race,
+              values_from = pct) %>%
+  mutate(across(where(is.numeric), ~na_if(., 0)))
+
+suicide_race_brhd_tbl %>%
+  select(locality, sex = gender, hispanic_origin, Asian, Black = `Black or African American`, White, date_range) %>%
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) 
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "center",
+      minWidth = 45,
+      na = "–",
+      style = color_scales(data = ., colors = orange_pal, span = 4:6),
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      Asian = colDef(minWidth = 40, format = colFormat(suffix = "%")),
+      Black = colDef(minWidth = 40, format = colFormat(suffix = "%")),
+      White = colDef(minWidth = 40, format = colFormat(suffix = "%"))
+      ),
+    bordered = TRUE,
+    highlight = TRUE
+  ) 
+```
+
+**Percentages of Firearms Suicides in Virginia by Race, Ethnicity, and Sex**
+
+```{r suicides_race_va}
+
+suicide_race_va_pcts <- cdc_suicide_race %>%
+  filter(locality == "Virginia",
+         race != "Not Available") %>%
+  mutate(
+    deaths = case_when(
+      deaths == "<10" ~ 3, # approximation
+      TRUE ~ as.numeric(deaths)),
+    pct = round(((deaths / total_suicides_va) * 100), 1)) %>%
+  select(-deaths)
+
+suicide_race_va_tbl <- suicide_race_va_pcts %>%
+  pivot_wider(names_from = race,
+              values_from = pct) %>%
+  mutate(across(where(is.numeric), ~na_if(., 0)))
+
+suicide_race_va_tbl %>%
+  select(locality, sex = gender, hispanic_origin, `American Indian or Alaska Native`, Asian, Black = `Black or African American`, `Native Hawaiian or Other Pacific Islander`, `More than one race`, White, date_range) %>%
+  reactable(
+    defaultColDef = colDef(
+      header = function(value) 
+        str_to_title(gsub("_", " ", value, fixed = TRUE)),
+      align = "center",
+      minWidth = 60,
+      format = colFormat(suffix = "%"),
+      na = "–",
+      style = color_scales(data = ., colors = orange_pal, span = 4:9),
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      locality = colDef(minWidth = 60, format = colFormat(suffix = "")),
+      sex = colDef(minWidth = 50, format = colFormat(suffix = "")),
+      hispanic_origin = colDef(minWidth = 60, format = colFormat(suffix = "")),
+      date_range = colDef(format = colFormat(suffix = ""))
+      ),
+    bordered = TRUE,
+    highlight = TRUE
+  ) 
+
+```
+
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br>The tables above both highlight the trend of white, non-Hispanic males being the prominent victims of suicide by firearm, making up approximately 80.6% and 69.8% of all suicides by firearm in the Blue Ridge Health District and Virginia, respectively. In both of these regions, other demographics that are victims of suicide by firearm are white, non-Hispanic females, and non-Hispanic males.</p>
 
 ------------------------------------------------------------------------
 
@@ -426,7 +663,9 @@ ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> The figure above shows the rate of gun violence crimes per 100k population over time. In Virginia, the crime rate has been generally increasing from 19.2 in 2016 to 24.4 in 2023, with a peak of 25.6 in 2022. That means on average in Virginia in 2023, for every 100,000 people, there were 24 crimes involving firearms. The rate in Charlottesville has been much more variable, peaking above state levels from 2020 to 2022 and reaching a maximum of 28 in 2021. Albemarle has had a relatively steady rate during this period, ranging from a minimum of 7.4 in 2021 to a maximum of 11 in 2022. In general, following the COVID-19 pandemic, crimes involving firearms increased for all age groups however most notably among youth under 18. The Charlottesville youth firearm crime rate surpassed state levels in 2022, however that number has been slowly decreasing.</p>
+<b> Notable Trends</b> <br> <br> The figure above shows the rate of gun violence crimes per 100k population over time. In Virginia, the crime rate has been generally increasing from 19.2 in 2016 to 24.4 in 2023, with a peak of 25.6 in 2022. That means on average in Virginia in 2023, for every 100,000 people, there were 24 crimes involving firearms. The rate in Charlottesville has been much more variable, peaking above state levels from 2020 to 2022 and reaching a maximum of 28 in 2021. Albemarle has had a relatively steady rate during this period, ranging from a minimum of 7.4 in 2021 to a maximum of 11 in 2022. In general, following the COVID-19 pandemic, crimes involving firearms increased for all age groups however most notably among youth under 18. The Charlottesville youth firearm crime rate surpassed state levels in 2022, however that number has been slowly decreasing.
+
+</p>
 
 <details>
 
@@ -493,7 +732,9 @@ ggplot(years, aes(yr, count, fill = type)) +
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> The stacked bar plots above show the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. The distinct geographies contained in each locality likely accounts for some of this difference. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.</p>
+<b>Notable Trends</b> <br> <br> The stacked bar plots above show the types of firearm-related incidents in Charlottesville and Albemarle between 2019 and early 2024. While the number of shots-fired reports is higher in Albemarle County, the number of violent incidents such as aggravated assault and homicide is higher in Charlottesville. The distinct geographies contained in each locality likely accounts for some of this difference. For example, shots fired in a rural area of Albemarle County may be a result of wildlife hunting season, while shots fired in an urban area of Charlottesville is typically not associated with legal wildlife hunting.
+
+</p>
 
 ------------------------------------------------------------------------
 
@@ -581,7 +822,9 @@ Some elements of the police data are also available through [Citizen Connect](ht
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> According to the table above, Black individuals make up `r pct_bl_vic` of the victims of gun violence, but only `r pct_bl_cvalb` of the total population in Charlottesville and Albemarle. In particular, Black individuals aged 25-34 comprise 17.2% of the victims. Regardless of race, individuals aged 25-34 make up 27% of all victims.</p>
+<b>Notable Trends</b> <br> <br> According to the table above, Black individuals make up `r pct_bl_vic` of the victims of gun violence, but only `r pct_bl_cvalb` of the total population in Charlottesville and Albemarle. In particular, Black individuals aged 25-34 comprise 17.2% of the victims. Regardless of race, individuals aged 25-34 make up 27% of all victims.
+
+</p>
 
 <details>
 
@@ -658,7 +901,9 @@ ggmap(cville_map) +
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> The two maps above show the density of gun-related crime reports and arrests in the Charlottesville region. The map on the left demonstrates that most gun-related crime reports between March 2019 and April 2024 were concentrated in the West Main Street area, specifically near the 10th St intersection. There are also smaller concentrations of reports in Fifeville and on the east end of the Downtown Mall, near the Pavilion. <br> <br> The map on the right demonstrates that most gun-related arrests are concentrated on the east end of the Downtown Mall, the Roosevelt-Brown Boulevard region, and the south side of Charlottesville. The location with the most arrests is the Charlottesville Police Station, located on the East End of the Downtown Mall. When we asked the police department for clarification, they explained that most arrest warrants are written and filed at the police station, and that when individuals receive warrants, they turn themselves in at the police station. Most incidents of gun violence do not have an arrest at the scene of the crime, but have an arrest days later from a warrant issued, which is issued at the police station.</p>
+<b> Notable Trends</b> <br> <br> The two maps above show the density of gun-related crime reports and arrests in the Charlottesville region. The map on the left demonstrates that most gun-related crime reports between March 2019 and April 2024 were concentrated in the West Main Street area, specifically near the 10th St intersection. There are also smaller concentrations of reports in Fifeville and on the east end of the Downtown Mall, near the Pavilion. <br> <br> The map on the right demonstrates that most gun-related arrests are concentrated on the east end of the Downtown Mall, the Roosevelt-Brown Boulevard region, and the south side of Charlottesville. The location with the most arrests is the Charlottesville Police Station, located on the East End of the Downtown Mall. When we asked the police department for clarification, they explained that most arrest warrants are written and filed at the police station, and that when individuals receive warrants, they turn themselves in at the police station. Most incidents of gun violence do not have an arrest at the scene of the crime, but have an arrest days later from a warrant issued, which is issued at the police station.
+
+</p>
 
 ------------------------------------------------------------------------
 
@@ -692,7 +937,9 @@ odp_arrests %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> Of the 233 individuals arrested, 147 have only one gun-related charge during this five-year period, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges. This suggests a small group of people are committing a significant proportion of gun-related crimes in Charlottesville.</p>
+<b> Notable Trends</b> <br> <br> Of the 233 individuals arrested, 147 have only one gun-related charge during this five-year period, 53 have two charges, and one person has 15 charges. In other words, 86% of people arrested for gun-related crimes have 2 or fewer charges. This suggests a small group of people are committing a significant proportion of gun-related crimes in Charlottesville.
+
+</p>
 
 <details>
 
@@ -712,9 +959,9 @@ The data has been filtered to only include crime reports that involve firearms, 
 
 # Officer-Involved Shootings
 
-Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^10]
+Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^14]
 
-[^10]: Virginia Law Code - § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report - <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
+[^14]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
 
 The table below shows an anonymized version of the 10 victims of officer-involved shootings in Charlottesville and Albemarle from 2016 to today.
 
@@ -742,7 +989,9 @@ police_shootings %>%
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> The table above shows the demographic information about the 10 victims of officer-involved shootings in Charlottesville and Albemarle. Of the victims, 40% died as a result of the incident, 50% were identified as Black, and the median age was 37. All of the victims were males that were described as being in possession of a firearm.</p>
+<b>Notable Trends</b> <br> <br> The table above shows the demographic information about the 10 victims of officer-involved shootings in Charlottesville and Albemarle. Of the victims, 40% died as a result of the incident, 50% were identified as Black, and the median age was 37. All of the victims were males that were described as being in possession of a firearm.
+
+</p>
 
 <details>
 
@@ -766,9 +1015,9 @@ Next to each map is a tab with a scatterplot comparing the presence of a populat
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA,[^11], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
+The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^15], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
 
-[^11]: UVA Statistics, Fall 2022 Enrollment - <https://admission.virginia.edu/admission/statistics>) - Accessed May 19, 2024.
+[^15]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
 
 #### Map
 
@@ -909,7 +1158,9 @@ gv_sf_summary %>%
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is not a strong relationship between the percentage of youth living in a region and the occurrence of gun violence. The regions with the highest proportion of gun violence are Fifeville - Cherry Avenue, 10th & Page - Venable, Ridge Street, Downtown, and Belmont. These tracts are all near the median value of youth proportions, which is approximately 20%.</p>
+<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is not a strong relationship between the percentage of youth living in a region and the occurrence of gun violence. The regions with the highest proportion of gun violence are Fifeville - Cherry Avenue, 10th & Page - Venable, Ridge Street, Downtown, and Belmont. These tracts are all near the median value of youth proportions, which is approximately 20%.
+
+</p>
 
 <details>
 
@@ -1050,7 +1301,9 @@ gv_sf_summary %>%
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, Oak Hill - Southwood, and Ridge Street. Of those four tracts, Oak Hill - Southwood is the only region where the proportion of gun violence is below 7.5%.</p>
+<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, Oak Hill - Southwood, and Ridge Street. Of those four tracts, Oak Hill - Southwood is the only region where the proportion of gun violence is below 7.5%.
+
+</p>
 
 <details>
 
@@ -1211,7 +1464,9 @@ gv_sf_summary %>%
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> According to the scatterplot above, the three regions with the most gun violence (Fifeville - Cherry Avenue, 10th & Page - Venable, and Ridge Street) all have median annual earnings around \$40,000. The only other regions with median annual earnings below \$40,000 are Rose Hill - Harris - Venable, Carr's Hill McCormick Road, JPA - Fontaine, and Old Ivy - Darden School. These blocks also house a significant portion of UVA students, who do not have any reportable annual earnings.</p>
+<b>Notable Trends</b> <br> <br> According to the scatterplot above, the three regions with the most gun violence (Fifeville - Cherry Avenue, 10th & Page - Venable, and Ridge Street) all have median annual earnings around \$40,000. The only other regions with median annual earnings below \$40,000 are Rose Hill - Harris - Venable, Carr's Hill McCormick Road, JPA - Fontaine, and Old Ivy - Darden School. These blocks also house a significant portion of UVA students, who do not have any reportable annual earnings.
+
+</p>
 
 <details>
 
@@ -1331,19 +1586,21 @@ gv_sf_summary %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4. Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Road also have higher rates of unemployment, but lower rates of gun violence.</p>
+<b> Notable Trends</b> <br> <br> According to the scatterplot above, there is no strong relationship between unemployment rates and proportions of gun violence for each census tract. The two regions with the highest rates of unemployment, 10th & Page - Venable and Ridge St. - also have significantly high proportions of gun violence. Fifeville - Cherry Avenue, is a notable outlier: although it has some of the highest proportion of gun violence, the unemployment rate is only 1.3, below the regional median of 3.4. Commonwealth - Townwood - Berkmar and Carr's Hill McCormick Road also have higher rates of unemployment, but lower rates of gun violence.
+
+</p>
 
 ------------------------------------------------------------------------
 
 # Access to Firearms
 
-Nearly a third of Americans own a gun[^12] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^13]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^14]).
+Nearly a third of Americans own a gun[^16] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^17]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^18]).
 
-[^12]: PEW Research - Key facts about Americans and guns - <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> - Published September 13, 2023.
+[^16]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
 
-[^13]: Virginia State Police - Firearms/Concealed Weapons FAQ - <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+[^17]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^14]: UVA Policy - SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items - <https://uvapolicy.virginia.edu/policy/sec-030> - Published 2022.
+[^18]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items.  <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
@@ -1381,7 +1638,9 @@ ggmap(alb_map) +
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> The map above shows that a majority of licensed firearms dealers operate out of businesses in Charlottesville, while there are a handful of residential entities that are licensed to deal firearms in Albemarle county.</p>
+<b> Notable Trends</b> <br> <br> The map above shows that a majority of licensed firearms dealers operate out of businesses in Charlottesville, while there are a handful of residential entities that are licensed to deal firearms in Albemarle county.
+
+</p>
 
 ------------------------------------------------------------------------
 
@@ -1424,9 +1683,9 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade.[^15]
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^19].
 
-[^15]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps - Gun Thefts from Cars: The Largest Source of Stolen Guns - <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/> - Published May 9, 2024.
+[^19]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns.  <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
 
 According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 
@@ -1458,7 +1717,9 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> In general, the rate of firearms being stolen from vehicles has increased, with 48 guns being stolen from vehicles in 2023 in Charlottesville and Albemarle.</p>
+<b> Notable Trends</b> <br> <br> In general, the rate of firearms being stolen from vehicles has increased, with 48 guns being stolen from vehicles in 2023 in Charlottesville and Albemarle.
+
+</p>
 
 <details>
 
@@ -1484,7 +1745,7 @@ We'd like to thank Misty Graves, the Director of Human Services for the City of 
 
 ## Citation
 
-Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” Published November 22, 2024. <https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions>.
+Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” <https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions>.
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 

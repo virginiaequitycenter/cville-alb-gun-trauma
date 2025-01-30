@@ -1,0 +1,21 @@
+locality,injury_intent,deaths,pop_6yr,crude_rate,date_range
+"Albemarle County, VA",Unintentional,<10,672445,Suppressed,2018-2023
+"Albemarle County, VA",Suicide,55,672445,8.2,2018-2023
+"Albemarle County, VA",Homicide,12,672445,Unreliable,2018-2023
+"Albemarle County, VA",Undetermined,<10,672445,Suppressed,2018-2023
+"Albemarle County, VA",Legal Intervention / Operations of War,0,672445,Unreliable,2018-2023
+"Charlottesville city, VA",Unintentional,0,278361,Unreliable,2018-2023
+"Charlottesville city, VA",Suicide,<10,278361,Suppressed,2018-2023
+"Charlottesville city, VA",Homicide,10,278361,Unreliable,2018-2023
+"Charlottesville city, VA",Undetermined,0,278361,Unreliable,2018-2023
+"Charlottesville city, VA",Legal Intervention / Operations of War,<10,278361,Suppressed,2018-2023
+Blue Ridge Health District,Unintentional,<10,1560900,Suppressed,2018-2023
+Blue Ridge Health District,Suicide,129,1560900,8.3,2018-2023
+Blue Ridge Health District,Homicide,44,1560900,2.8,2018-2023
+Blue Ridge Health District,Undetermined,<10,1560900,Suppressed,2018-2023
+Blue Ridge Health District,Legal Intervention / Operations of War,<10,1560900,Suppressed,2018-2023
+Virginia,Unintentional,62,51685358,0.1,2018-2023
+Virginia,Suicide,4199,51685358,8.1,2018-2023
+Virginia,Homicide,2652,51685358,5.1,2018-2023
+Virginia,Undetermined,80,51685358,0.2,2018-2023
+Virginia,Legal Intervention / Operations of War,42,51685358,0.1,2018-2023

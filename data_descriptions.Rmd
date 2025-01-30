@@ -29,6 +29,7 @@ library(sf)
 library(tidycensus)
 library(tidyverse)
 
+orange_pal <- c("#fff2e6", "#ffb54d")
 ```
 
 ```{=html}
@@ -166,13 +167,12 @@ The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge He
 
 ```{r vdh_intent, echo=FALSE, message=FALSE}
 
-vdh_intent <- read_csv("data/vdh_intent.csv") %>%
+vdh_intent <- read_csv("data/vdh_deaths_intent.csv") %>%
   rename(intent = intent_of_injury) %>%
   mutate(intent = case_when(intent == "Undetermined/legal/war" ~ "Undetermined or Police Intervention",
                             TRUE ~ intent))
 
 vdh_intent %>%
-  select(-patient_health_district) %>% 
   arrange(desc(firearm_deaths)) %>%
   reactable(
     defaultColDef = colDef(
@@ -182,7 +182,7 @@ vdh_intent %>%
       headerStyle = list(background = "#f7f7f8")
     ),
     columns = list(
-      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_intent, colors = c("#FFFFFF", "#FA8C00")))
+      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_intent, colors = orange_pal))
     ),
     bordered = TRUE,
     highlight = TRUE)
@@ -193,33 +193,31 @@ vdh_intent %>%
 
 ## Injuries in Cville/Albemarle
 
-The [Virginia Department of Health](https://www.vdh.virginia.gov/surveillance-and-investigation/syndromic-surveillance/firearm-injury-surveillance/) also reports data on emergency department visits for firearm injuries. The table below shows the rate of [firearm injuries](#firearm-injury) per 10,000 emergency department visits in Charlottesville and Albemarle from 2015 - 2023.
+The [Virginia Department of Health](https://www.vdh.virginia.gov/surveillance-and-investigation/syndromic-surveillance/firearm-injury-surveillance/) also reports data on emergency department visits for firearm injuries. The table below shows the rate of [firearm injuries](#firearm-injury) per 10,000 emergency department visits in Charlottesville and Albemarle from 2015 - 2024.
 
 ```{r vdh_injuries}
 
-vdh_injuries <- read_csv("data/vdh_injuries.csv")
+vdh_injuries <- read_csv("data/vdh_injury_county.csv")
 
-albemarle <- vdh_injuries %>%
-  filter(str_detect(patient_city_county, "Albemarle")) 
-
-names(albemarle) <- gsub("_", " ", names(albemarle)) %>%
+names(vdh_injuries) <- gsub("_", " ", names(vdh_injuries)) %>%
   str_to_title() %>%
   gsub("Ed", "ED", .)
 
-albemarle %>%
-  arrange(albemarle$Year) %>%
-  select(-"Patient City County") %>%
+vdh_injuries %>%
+  select(-`Patient City County`) %>%
+  mutate(Locality = "Charlottesville & Albemarle") %>%
+  arrange(Year) %>%
   reactable(
     defaultColDef = colDef(
       align = "center",
-      #defaultSortOrder = "desc",
-      headerStyle = list(background = "#f7f7f8")
+      headerStyle = list(background = "#f7f7f8"),
+      minWidth = 50
     ),
     columns = list(
       "Total ED Visits" = colDef(format = colFormat(separators = TRUE)),
       "Rate Of Firearm Injuries Per 10k ED Visits" = colDef(style = color_scales(
-        albemarle, colors = c("#FFFFFF", "#FA8C00")
-      ))
+        vdh_injuries, colors = orange_pal)),
+      Locality = colDef(minWidth = 100)
     ),
     bordered = TRUE,
     highlight = TRUE
@@ -229,9 +227,10 @@ albemarle %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward.
+<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward. The year with the most number of firearm-related emergency room visits was 2023, with 35 visits, and the year with the most number of overall emergency room visits was 2024, with 55,578 vists.</p>
 
-[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031></p>
+[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031>
+
 
 <details>
 
@@ -253,10 +252,9 @@ The [Virginia Department of Health](https://www.vdh.virginia.gov/firearm-injury/
 
 ```{r vdh_age}
 
-vdh_age <- read_csv("data/vdh_age.csv")
+vdh_deaths_age <- read_csv("data/vdh_deaths_age.csv")
 
-vdh_age %>%
-  select(-health_district) %>%
+vdh_deaths_age %>%
   arrange(age_group) %>%
   reactable(
     defaultColDef = colDef(
@@ -265,7 +263,7 @@ vdh_age %>%
       defaultSortOrder = "desc",
       headerStyle = list(background = "#f7f7f8")),
     columns = list(
-      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_age, colors = c("#FFFFFF", "#FA8C00"))
+      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_deaths_age, colors = orange_pal)
         )),
     bordered = TRUE,
     highlight = TRUE,
@@ -486,8 +484,6 @@ suicide_age_tbl <- suicide_age_pcts %>%
               values_from = pct) %>%
   mutate(across(where(is.numeric), ~na_if(., 0)))
 
-orange_pal <- c("#fff2e6", "#ffb54d")
-
 suicide_age_tbl %>%
   select(locality, sex = gender, "1-4":"85+", date_range) %>%
   reactable(
@@ -514,9 +510,10 @@ suicide_age_tbl %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br>Between 2018 - 2023, approximately 76% of the suicides by firearm were committed by men, with the ages 15-34 and 65-74 making up the largest percent of victims. This information mirrors national trends concerning sex and suicide by firearms[^13]. </p>
+<b> Notable Trends</b> <br> <br>Between 2018 - 2023, approximately 76% of the suicides by firearm were committed by men, with the ages 15-34 and 65-74 making up the largest percent of victims. This information mirrors national trends concerning sex and suicide by firearms[^13].</p>
 
 [^13]: Michael Siegel & Emily F Rothman. Firearm Ownership and Suicide Rates Among US Men and Women, 1981–2013. American Journal of Public Health. 2016 Jul;106(7):1316–1322. <https://pmc.ncbi.nlm.nih.gov/articles/PMC4984734/>. May 19, 2016.
+
 
 
 ------------------------------------------------------------------------
@@ -630,7 +627,94 @@ suicide_race_va_tbl %>%
 
 Crime data for Virginia are pulled from Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. The state system follows the FBI's National Incident-Based Reporting standards, and the state mandates participation by all publicly-funded law enforcement agencies. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or [youth](#youth). For this source, youth are considered to be under the age of 18.
 
-#### Adult Compared to Youth Firearm Rates
+## Intimate Partner and Family Violence
+
+Intimate partner and family violence are a prevalent form of gun violence in the United States, and are often closely linked to firearm accessibility. Intimate partner violence is defined as abuse or aggression that occurs in a romantic relationship[^14], and family violence is characterized by abuse or aggression among family members.
+
+[^14:] Centers for Disease Control. Intimate Partner Violence Prevention. About Intimate Partner Violence. <https://www.cdc.gov/intimate-partner-violence/about/index.html>. May 16, 2024.
+
+The tables below show breakdown of sex as it relates to reported incidents of intimate partner violence and family violence with firearms in the combined Charlottesville and Albemarle region and in Virginia between 2016 - 2023. Because many incidents of intimate partner and family violence go unreported, we can assume that many of these numbers may be under recorded.
+
+**Victims by Sex of Intimate Violence and Family Violence in Charlottesville and Albemarle**
+
+```{r domestic_local}
+
+domestic_local <- read_csv("data/nibrs_interpersonal.csv") %>%
+  select(-acquaintance) %>%
+  filter(locality != "Virginia",
+         victim_gender != "Unknown", #value is 0 so we remove to remove whitespace
+         offender_gender != "Unknown")
+
+domestic_local_tbl <- domestic_local %>%
+  group_by(victim_gender) %>%
+  summarise(intimate_total = sum(intimate, na.rm = TRUE),
+            family_total = sum(family, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(locality = "Charlottesville & Albemarle",
+         date_range = "2016-2023")
+
+domestic_local_tbl %>%
+  reactable(
+    defaultColDef = colDef(
+      align = "center",
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      locality = colDef(name = "Locality", minWidth = 70),
+      victim_gender = colDef(name = "Sex"),
+      intimate_total = colDef(name = "Number of Victims of Intimate Partner Violence"),
+      family_total = colDef(name = "Number of Victims of Family Violence"),
+      date_range = colDef(name = "Date Range")
+    )
+  )
+  
+```
+
+
+**Victims by Sex of Intimate Violence and Family Violence in Virginia**
+
+```{r domestic_va}
+
+domestic_va <- read_csv("data/nibrs_interpersonal.csv") %>%
+  select(-acquaintance) %>%
+  filter(locality == "Virginia")
+
+domestic_va_tbl <- domestic_va %>%
+  group_by(victim_gender) %>%
+  summarise(intimate_total = sum(intimate, na.rm = TRUE),
+            family_total = sum(family, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(locality = "Virginia",
+         date_range = "2016-2023")
+
+domestic_va_tbl %>%
+  reactable(
+    defaultColDef = colDef(
+      align = "center",
+      headerStyle = list(background = "#f7f7f8")
+    ),
+    columns = list(
+      locality = colDef(name = "Locality", minWidth = 70),
+      victim_gender = colDef(name = "Sex"),
+      intimate_total = colDef(name = "Number of Victims of Intimate Partner Violence"),
+      family_total = colDef(name = "Number of Victims of Family Violence"),
+      date_range = colDef(name = "Date Range")
+    )
+  )
+
+```
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. This information mirrors national trends[^15]. </p>
+
+[^15]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
+
+
+------------------------------------------------------------------------
+
+### Adult Compared to Youth Firearm Rates
+
+The table below looks at the rate of all reported firearm-related crimes among adults and youth under 18.
 
 ```{r nibrs_compare}
 
@@ -950,9 +1034,9 @@ The data has been filtered to only include crime reports that involve firearms, 
 
 # Officer-Involved Shootings
 
-Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^14]
+Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^16]
 
-[^14]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
+[^16]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
 
 The table below shows an anonymized version of the 10 victims of officer-involved shootings in Charlottesville and Albemarle from 2016 to today.
 
@@ -1004,9 +1088,9 @@ Next to each map is a tab with a scatterplot comparing the presence of a populat
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^15], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
+The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^17], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
 
-[^15]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
+[^17]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
 
 #### Map
 
@@ -1575,13 +1659,13 @@ gv_sf_summary %>%
 
 # Access to Firearms
 
-Nearly a third of Americans own a gun[^16] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^17]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^18]).
+Nearly a third of Americans own a gun[^18] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^19]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^20]).
 
-[^16]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+[^18]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
 
-[^17]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+[^19]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^18]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
+[^20]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
@@ -1662,9 +1746,9 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^19].
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^21].
 
-[^19]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^201: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
 
 According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 

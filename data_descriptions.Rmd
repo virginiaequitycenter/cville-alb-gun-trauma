@@ -631,7 +631,7 @@ Crime data for Virginia are pulled from Virginia's [Uniform Crime Reporting - In
 
 Intimate partner and family violence are a prevalent form of gun violence in the United States, and are often closely linked to firearm accessibility. Intimate partner violence is defined as abuse or aggression that occurs in a romantic relationship[^14], and family violence is characterized by abuse or aggression among family members.
 
-[^14:] Centers for Disease Control. Intimate Partner Violence Prevention. About Intimate Partner Violence. <https://www.cdc.gov/intimate-partner-violence/about/index.html>. May 16, 2024.
+[^14]: Centers for Disease Control. Intimate Partner Violence Prevention. About Intimate Partner Violence. <https://www.cdc.gov/intimate-partner-violence/about/index.html>. May 16, 2024.
 
 The tables below show breakdown of sex as it relates to reported incidents of intimate partner violence and family violence with firearms in the combined Charlottesville and Albemarle region and in Virginia between 2016 - 2023. Because many incidents of intimate partner and family violence go unreported, we can assume that many of these numbers may be under recorded.
 

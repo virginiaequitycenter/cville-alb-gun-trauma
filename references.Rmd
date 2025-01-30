@@ -1,0 +1,47 @@
+---
+title: "references"
+output: html_document
+---
+
+[^1]: Everytown. Beyond Measure: Gun Violence Trauma. <https://everytownresearch.org/report/gun-violence-trauma/>. May 17, 2023.
+
+[^2]: Grinshteyn, E., & Hemenway, D. "Violent death rates in the US compared to those of the other high‑income countries, 2015." Preventive Medicine 123 (2019), 20‑26. <https://doi.org/10.1016/j.ypmed.2019.02.026>
+
+[^3]: US Surgeon General's Office. The U.S. Surgeon General’s Advisory on Firearm Violence: A Public Health Crisis in America. <https://www.hhs.gov/sites/default/files/firearm-violence-advisory.pdf>. July 2, 2024.
+
+[^4]: UVA President's Council. Community Safety Working Group Report. <https://prescouncil.president.virginia.edu/sites/g/files/jsddwu616/files/2024-01/Final%20Community%20Safety%20Working%20Group%20Report_24.pdf>. September 22, 2023.
+
+[^5]: Cville Weekly. CPD Chief says crime rates lower overall despite recent spike in gun violence.  <https://www.c-ville.com/cpd-chief-says-crime-rates-lower-overall-despite-recent-spike-in-gun-violence>. July 3, 2024.
+
+[^6]: Everytown Research & Policy. Firearm Suicide in the United States: Fact Sheet.  <https://everytownresearch.org/report/firearm-suicide-in-the-united-states/> Published 8/30/2019 and updated 1/8/2024.
+
+[^7]: Centers for Disease Control. About Firearm Injury and Death: Fast Facts.  <https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html>. Accessed March 15, 2024.
+
+[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031>
+
+[^9]: Centers for Disease Control. Firearm Injury and Death Prevention. About Firearm Injury and Death.   <https://www.cdc.gov/firearm-violence/about/index.html>. Accessed March 15, 2024.
+
+[^10]: Centers For Disease Control. Provisional Suicide Deaths in the United States, 2022. <https://www.cdc.gov/media/releases/2023/s0810-US-Suicide-Deaths-2022.html>. Published August 10, 2023.
+
+[^11]: Johns Hopkins Center for Gun Violence Solutions. CDC Provisional Data: Gun Suicides Reach All-time High in 2022, Gun Homicides Down Slightly from 2021. <https://publichealth.jhu.edu/center-for-gun-violence-solutions/2023/cdc-provisional-data-gun-suicides-reach-all-time-high-in-2022-gun-homicides-down-slightly-from-2021> July 27, 2023.
+
+[^12]: Centers for Disease Control. National Center for Health Statistics. Sources and Definitions. Race. <https://www.cdc.gov/nchs/hus/sources-definitions/race.html>. October 3, 2024. 
+
+[^13]: [^13]: Michael Siegel & Emily F Rothman. Firearm Ownership and Suicide Rates Among US Men and Women, 1981–2013. American Journal of Public Health. 2016 Jul;106(7):1316–1322. <https://pmc.ncbi.nlm.nih.gov/articles/PMC4984734/>. May 19, 2016.
+
+[^14]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
+
+[^15]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
+
+[^16]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+
+[^17]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+
+[^18]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items.  <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
+
+[^19]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns.  <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+
+
+
+
+

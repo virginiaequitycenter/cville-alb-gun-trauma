@@ -1,0 +1,12 @@
+health_district,age_group,firearm_deaths,rate_of_firearm_deaths_per_100k_pop,years
+Blue Ridge,0-9 years,1,0.7,2018-2022
+Blue Ridge,10-14 years,1,1.4,2018-2022
+Blue Ridge,15-17 years,2,4.8,2018-2022
+Blue Ridge,18-19 years,8,18.3,2018-2022
+Blue Ridge,20-24 years,15,15.3,2018-2022
+Blue Ridge,25-34 years,25,14.2,2018-2022
+Blue Ridge,35-44 years,22,14.2,2018-2022
+Blue Ridge,45-54 years,15,10,2018-2022
+Blue Ridge,55-64 years,17,9.8,2018-2022
+Blue Ridge,65-74 years,19,13.1,2018-2022
+Blue Ridge,75+ years,16,16.3,2018-2022

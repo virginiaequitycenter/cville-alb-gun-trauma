@@ -1,0 +1,101 @@
+year,race_ethnicity,age_group,sex,firearm_injury_visits,total_ed_visits,rate_of_firearm_injuries_per_10k_ed_visits,locality
+2021,Latino (Any Race),15-17 years,Male,11,4096,26.9,Virginia
+2020,Native American,25-34 years,Male,0,151,0,Virginia
+2017,Asian or Pacific Islander,35-44 years,Female,0,3908,0,Virginia
+2018,Not Reported,25-34 years,Female,30,40023,7.5,Virginia
+2022,Latino (Any Race),10-14 years,Unknown,0,1,0,Virginia
+2015,Asian or Pacific Islander,25-34 years,Female,0,3550,0,Virginia
+2018,Other Race,35-44 years,Male,2,5227,3.8,Virginia
+2020,Other Race,35-44 years,Female,2,6374,3.1,Virginia
+2018,Other Race,Unknown Age,Female,0,46,0,Virginia
+2024,Native American,0-9 years,Unknown,0,0,NA,Virginia
+2016,Asian or Pacific Islander,25-34 years,Female,2,4151,4.8,Virginia
+2015,Black,10-14 years,Unknown,0,0,NA,Virginia
+2024,White,0-9 years,Unknown,0,23,0,Virginia
+2023,Other Race,0-9 years,Unknown,0,6,0,Virginia
+2022,Native American,55-64 years,Unknown,0,0,NA,Virginia
+2015,Asian or Pacific Islander,55-64 years,Unknown,0,0,NA,Virginia
+2015,Native American,65-74 years,Male,0,140,0,Virginia
+2016,White,35-44 years,Male,41,70406,5.8,Virginia
+2023,Asian or Pacific Islander,15-17 years,Male,2,1175,17,Virginia
+2022,Asian or Pacific Islander,75+ years,Unknown,0,1,0,Virginia
+2023,Native American,25-34 years,Female,0,685,0,Virginia
+2020,Other Race,0-9 years,Female,0,7225,0,Virginia
+2016,Black,0-9 years,Female,0,33801,0,Virginia
+2023,Native American,55-64 years,Unknown,0,0,NA,Virginia
+2021,Black,65-74 years,Unknown,0,8,0,Virginia
+2020,Latino (Any Race),15-17 years,Male,12,2905,41.3,Virginia
+2022,Native American,20-24 years,Female,0,254,0,Virginia
+2023,Latino (Any Race),75+ years,Male,0,4190,0,Virginia
+2022,White,10-14 years,Male,12,28004,4.3,Virginia
+2022,Asian or Pacific Islander,15-17 years,Male,0,1161,0,Virginia
+2018,White,65-74 years,Female,6,105981,0.6,Virginia
+2024,Native American,10-14 years,Female,0,112,0,Virginia
+2020,White,45-54 years,Male,48,89659,5.4,Virginia
+2020,Other Race,65-74 years,Female,1,2925,3.4,Virginia
+2016,Black,45-54 years,Female,5,59356,0.8,Virginia
+2022,Native American,10-14 years,Male,0,69,0,Virginia
+2024,Latino (Any Race),75+ years,Male,2,5735,3.5,Virginia
+2021,Latino (Any Race),Unknown Age,Male,0,56,0,Virginia
+2021,White,10-14 years,Male,16,21877,7.3,Virginia
+2020,Other Race,10-14 years,Male,3,1789,16.8,Virginia
+2024,Asian or Pacific Islander,55-64 years,Male,0,4596,0,Virginia
+2018,Not Reported,10-14 years,Male,7,11733,6,Virginia
+2017,Other Race,Unknown Age,Female,0,52,0,Virginia
+2019,Latino (Any Race),25-34 years,Unknown,0,5,0,Virginia
+2020,Native American,20-24 years,Male,0,117,0,Virginia
+2019,White,10-14 years,Unknown,0,5,0,Virginia
+2018,White,0-9 years,Female,0,54784,0,Virginia
+2023,Asian or Pacific Islander,55-64 years,Male,3,4368,6.9,Virginia
+2016,White,75+ years,Male,12,77486,1.5,Virginia
+2021,Black,Unknown Age,Male,11,154,714.3,Virginia
+2020,Latino (Any Race),10-14 years,Female,0,4510,0,Virginia
+2020,Latino (Any Race),Unknown Age,Male,1,36,277.8,Virginia
+2021,Not Reported,10-14 years,Female,0,1482,0,Virginia
+2024,Native American,15-17 years,Male,0,82,0,Virginia
+2017,Other Race,35-44 years,Male,6,5338,11.2,Virginia
+2024,White,10-14 years,Female,2,30288,0.7,Virginia
+2023,Other Race,10-14 years,Female,0,2977,0,Virginia
+2020,Other Race,75+ years,Female,0,3092,0,Virginia
+2023,Black,45-54 years,Unknown,0,23,0,Virginia
+2021,Native American,25-34 years,Male,1,228,43.9,Virginia
+2022,Black,18-19 years,Unknown,1,9,1111.1,Virginia
+2019,Native American,75+ years,Female,0,232,0,Virginia
+2024,White,15-17 years,Male,21,21585,9.7,Virginia
+2021,Latino (Any Race),20-24 years,Male,27,9225,29.3,Virginia
+2023,Other Race,Unknown Age,Female,0,34,0,Virginia
+2024,Latino (Any Race),10-14 years,Male,4,10902,3.7,Virginia
+2018,Latino (Any Race),Unknown Age,Unknown,0,6,0,Virginia
+2017,Other Race,Unknown Age,Male,1,33,303,Virginia
+2018,Other Race,0-9 years,Unknown,0,4,0,Virginia
+2017,Asian or Pacific Islander,20-24 years,Unknown,0,0,NA,Virginia
+2018,Black,55-64 years,Male,12,48088,2.5,Virginia
+2016,Native American,18-19 years,Unknown,0,0,NA,Virginia
+2024,Black,35-44 years,Male,201,76608,26.2,Virginia
+2020,White,75+ years,Unknown,0,9,0,Virginia
+2016,Not Reported,Unknown Age,Male,30,468,641,Virginia
+2020,Black,0-9 years,Male,6,29742,2,Virginia
+2018,Other Race,65-74 years,Unknown,0,1,0,Virginia
+2018,Asian or Pacific Islander,65-74 years,Female,0,3956,0,Virginia
+2016,Latino (Any Race),0-9 years,Female,0,17623,0,Virginia
+2017,Not Reported,75+ years,Unknown,0,5,0,Virginia
+2020,Latino (Any Race),75+ years,Female,0,4275,0,Virginia
+2017,Other Race,10-14 years,Female,0,2657,0,Virginia
+2022,Black,25-34 years,Male,459,78025,58.8,Virginia
+2015,Asian or Pacific Islander,Unknown Age,Female,0,14,0,Virginia
+2021,White,45-54 years,Unknown,0,15,0,Virginia
+2015,Latino (Any Race),10-14 years,Unknown,0,0,NA,Virginia
+2015,Black,Unknown Age,Female,0,190,0,Virginia
+2017,Black,Unknown Age,Female,0,237,0,Virginia
+2022,Latino (Any Race),20-24 years,Female,6,17109,3.5,Virginia
+2015,Latino (Any Race),65-74 years,Male,0,1622,0,Virginia
+2023,Black,0-9 years,Female,7,59013,1.2,Virginia
+2022,White,20-24 years,Unknown,0,38,0,Virginia
+2019,Black,20-24 years,Unknown,0,2,0,Virginia
+2024,Black,25-34 years,Male,349,78333,44.6,Virginia
+2021,White,25-34 years,Unknown,0,36,0,Virginia
+2021,Latino (Any Race),25-34 years,Female,3,26398,1.1,Virginia
+2016,Other Race,0-9 years,Unknown,0,4,0,Virginia
+2017,Latino (Any Race),10-14 years,Unknown,0,0,NA,Virginia
+2018,Latino (Any Race),65-74 years,Female,0,4482,0,Virginia
+2016,Native American,25-34 years,Female,0,208,0,Virginia

@@ -522,7 +522,7 @@ suicide_age_tbl %>%
 
 The tables below show a breakdown of race, ethnicity, and gender of the 129 suicides by firearm in the Blue Ridge Health District and the 4199 suicides by firearm in Virginia between 2018 - 2023.
 
-In the Blue Ridge Health District, the suicide counts for individuals that identify as American Indian or Alaska Native, Native Hawaiian or Other Pacific Islander, multiple races, or other races not listed by the CDC was zero for the Blue Ridge Health District, so they are not included in the first table.
+In the Blue Ridge Health District, the suicide counts for individuals that identify as American Indian or Alaska Native, Native Hawaiian or Other Pacific Islander, multiple races, or other races not listed by the CDC was zero, so they are not included in the first table.
 
 **Percentages of Firearms Suicides in the Blue Ridge Health District by Race, Ethnicity, and Sex**
 
@@ -625,15 +625,17 @@ suicide_race_va_tbl %>%
 
 # Crimes Involving Firearms {#crimes}
 
-Crime data for Virginia are pulled from Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. The state system follows the FBI's National Incident-Based Reporting standards, and the state mandates participation by all publicly-funded law enforcement agencies. The data contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or [youth](#youth). For this source, youth are considered to be under the age of 18.
+[Crime](#crime) data for Virginia are pulled from Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. The state system follows the FBI's National Incident-Based Reporting standards, and the state mandates participation by all publicly-funded law enforcement agencies. 
 
 ## Intimate Partner and Family Violence
 
-Intimate partner and family violence are a prevalent form of gun violence in the United States, and are often closely linked to firearm accessibility. Intimate partner violence is defined as abuse or aggression that occurs in a romantic relationship[^14], and family violence is characterized by abuse or aggression among family members.
+Intimate partner and family violence are a prevalent form of gun violence in the United States, and are often closely linked to firearm accessibility[^14]. Intimate partner violence is defined as abuse or aggression that occurs in a romantic relationship[^15], and family violence is characterized by abuse or aggression among family members.
 
-[^14]: Centers for Disease Control. Intimate Partner Violence Prevention. About Intimate Partner Violence. <https://www.cdc.gov/intimate-partner-violence/about/index.html>. May 16, 2024.
+[^14]: Johns Hopkins Center for Gun Violence Solutions. Domestic Violence and Firearms. <https://publichealth.jhu.edu/center-for-gun-violence-solutions/solutions/domestic-violence-and-firearms>
 
-The tables below show breakdown of sex as it relates to reported incidents of intimate partner violence and family violence with firearms in the combined Charlottesville and Albemarle region and in Virginia between 2016 - 2023. Because many incidents of intimate partner and family violence go unreported, we can assume that many of these numbers may be under recorded.
+[^15]: Centers for Disease Control. Intimate Partner Violence Prevention. About Intimate Partner Violence. <https://www.cdc.gov/intimate-partner-violence/about/index.html>. May 16, 2024.
+
+The tables below show breakdown of sex as it relates to reported incidents of intimate partner violence and family violence with firearms in the combined Charlottesville and Albemarle region and in Virginia between 2016 - 2023. Because many incidents of intimate partner and family violence go unreported, we can assume that many of these numbers are under recorded.
 
 **Victims by Sex of Intimate Violence and Family Violence in Charlottesville and Albemarle**
 
@@ -705,16 +707,16 @@ domestic_va_tbl %>%
 ```
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. This information mirrors national trends[^15]. </p>
+<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. This information mirrors national trends[^16]. </p>
 
-[^15]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
+[^16]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
 
 
 ------------------------------------------------------------------------
 
-### Adult Compared to Youth Firearm Rates
+## Youth Firearm Rates
 
-The table below looks at the rate of all reported firearm-related crimes among adults and youth under 18.
+The data below contains summaries of all [crimes](#crime) where a firearm was used in Virginia, Albemarle County, and Charlottesville City between 2016 - 2023, separated by whether the individuals believed to have committed the crime was an adult or [youth](#youth). For this source, youth are considered to be under the age of 18.
 
 ```{r nibrs_compare}
 
@@ -1034,9 +1036,9 @@ The data has been filtered to only include crime reports that involve firearms, 
 
 # Officer-Involved Shootings
 
-Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^16]
+Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^17]
 
-[^16]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
+[^17]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
 
 The table below shows an anonymized version of the 10 victims of officer-involved shootings in Charlottesville and Albemarle from 2016 to today.
 
@@ -1088,9 +1090,9 @@ Next to each map is a tab with a scatterplot comparing the presence of a populat
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^17], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
+The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^18], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
 
-[^17]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
+[^18]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
 
 #### Map
 
@@ -1659,13 +1661,13 @@ gv_sf_summary %>%
 
 # Access to Firearms
 
-Nearly a third of Americans own a gun[^18] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^19]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^20]).
+Nearly a third of Americans own a gun[^19] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^20]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^21]).
 
-[^18]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+[^19]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
 
-[^19]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+[^20]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^20]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
+[^21]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
@@ -1746,9 +1748,9 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^21].
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^22].
 
-[^201: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^22]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
 
 According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 

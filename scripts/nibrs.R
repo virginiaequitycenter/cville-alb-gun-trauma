@@ -9,7 +9,7 @@
 # The criteria for constructing each dataset is outlined below. 
 
 
-# Crimes ----
+# Total Firearm Crimes by Age ----
 # Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
 # Table: Crime by jurisdiction > All Crime Types by City or County
 # Filter criteria:
@@ -54,7 +54,7 @@ nibrs_crime <- nibrs_crime %>%
 
 write_csv(nibrs_crime, "data/nibrs_crime.csv")
 
-# *Theft ----
+# Theft from Cars----
 # This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
 # Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
 # Table: Property Crime Incidents by Offense Type

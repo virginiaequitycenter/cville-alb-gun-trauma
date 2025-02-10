@@ -154,10 +154,27 @@ ipv <- domestic_type %>%
 
 write_csv(ipv, "data/nibrs_ipv.csv")
 
-# Use of Force - Firearm ----
+# Use of Force ----
 
-# Use of Force - Al ----
+force <- read_csv("data/raw/Use of Force Incidents by Location.csv", skip = 5) %>%
+  clean_names() %>%
+  rename(yr = x1, locality = incident_category, all = all_incident_categories, 
+         death = the_death_of_a_person_due_to_law_enforcement_use_of_force,
+         serious_injury = the_serious_injury_of_a_person_due_to_law_enforcement_use_of_force,
+         firearm_nodeathorinjury = the_discharge_of_a_firearm_by_law_enforcement_at_a_person_not_resulting_in_death_or_serious_injuries) %>%
+  fill(yr)
 
+force <- force[-1, -c(7:8)]
+
+force <- force %>%
+  filter(locality == "Virginia") %>%
+  rowwise() %>%
+  mutate(pct_death = round((death/all) * 100, 1),
+         pct_serious_injury = round((serious_injury/all) * 100, 1),
+         pct_firearm_noharm = round((firearm_nodeathorinjury/all) * 100, 1))
+
+write_csv(force, "data/nibrs_force.csv")
+
+
+#TODO: 
 # Hate Crimes - Firearm
-
-# Hate Crimes - All

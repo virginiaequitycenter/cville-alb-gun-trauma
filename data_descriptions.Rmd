@@ -1070,11 +1070,65 @@ The data has been filtered to only include crime reports that involve firearms, 
 
 ------------------------------------------------------------------------
 
-# Officer-Involved Shootings
+# Use of Force & Officer-Involved Shootings
 
-Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^17]
+## Use of Force
 
-[^17]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
+```{r force}
+
+force <- read_csv("data/nibrs_force.csv")
+
+```
+
+In Virginia, the decision for a police officer to use force requires an analysis of the facts and circumstances of each particular case, including the severity of the crime at issue, whether the suspect poses an immediate threat to the safety of the officer or others, and whether the suspect is actively resisting arrest. As a result, this decision is often up to the officer's immediate interpretation of the scene, and may result in excessive, or deadly, force. Deadly force is defined as any force that is likely or intended to cause serious bodily injury or death, and typically includes the use of firearms, although it can also include batons, rubber bullets, or neck restraints.[^17]
+
+[^17]: Virginia Law Code § 19.2-83.5. Use of deadly force by a law-enforcement officer during an arrest or detention. <https://law.lis.virginia.gov/vacode/title19.2/chapter7.1/section19.2-83.5/>. Accessed February 10, 2025. 
+
+The table below shows a breakdown of the `r sum(force$all)` incidents of force in Virginia between 2019 - 2023, and whether they resulted in death, serious injury, or if a firearm was used but didn't result result in death or serious injury. 
+
+```{r force_tbl}
+
+force_tbl <- force %>% 
+  mutate_at(vars(all:pct_serious_injury), as.character) %>%
+  rowwise() %>%
+  mutate(death_tbl = paste0(death, " (", pct_death, "%)"),
+         injury_tbl = paste0(serious_injury, " (", pct_serious_injury, "%)"),
+         no_tbl = paste0(firearm_nodeathorinjury, " (", pct_firearm_noharm, "%)")) %>%
+  select(yr, locality, contains("tbl"), all) %>%
+  rename(Locality = locality,
+         Deaths = death_tbl,
+         "Serious Injury" = injury_tbl,
+         "Firearm Discharged without Death or Serious Injury" = no_tbl,
+         "Total Incidents" = all)
+
+force_tbl %>%
+  reactable(
+    defaultColDef = colDef(
+    minWidth = 70,
+    align = "left",
+    headerStyle = list(background = "#f7f7f8")),
+    bordered = TRUE,
+    highlight = TRUE,
+    columns = list(
+      yr = colDef(name = "Year", minWidth = 40)))
+
+```
+
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br> In Virginia, the total number of incidents where police used force increased from 40 in 2019 to 60 in 2023. In 2023, there were 23 individuals killed by police, 24 individuals seriously injured, and 13 incidents where a firearm was used by an officer, but didn't result in death or injury.</p>
+
+<details>
+
+<summary><b>Data Notes</b></summary>
+Participation in sharing police use of force information, especially when there is no death, is [voluntary](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#use-of-force-and-officer-involved), and so the above data may not reflect the total number of incidents in Virginia. The data above also does not indicate what type of force was used, so while firearms are used in most incidents, we cannot assume that a firearm was used in every incident. 
+
+
+## Officer-Involved Shootings
+
+Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^18]
+
+[^18]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
 
 The table below shows an anonymized version of the 10 victims of officer-involved shootings in Charlottesville and Albemarle from 2016 to today.
 
@@ -1126,9 +1180,9 @@ Next to each map is a tab with a scatterplot comparing the presence of a populat
 
 ### Are incidents of gun violence happening where there are more youth populations? {.tabset}
 
-The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^18], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
+The map below shows the percentages of young people, defined both as the population that are under 18 and 25 years old, for each census tracts. With over 16,700 undergraduate students coming to the region each semester to study at UVA[^19], a portion of the 18 to 24 population of Charlottesville and Albemarle is transient. The JPA - Fontaine, Carr's Hill - McCormick, and Darden tracts house a large number of students, with nearly all first year students living in dorms in the McCormick region. As an alternative, and to focus in on our local youth population, we also show the population under 18.
 
-[^18]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
+[^19]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
 
 #### Map
 
@@ -1699,11 +1753,11 @@ gv_sf_summary %>%
 
 Nearly a third of Americans own a gun[^19] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^20]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^21]).
 
-[^19]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+[^20]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
 
-[^20]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+[^21]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^21]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
+[^22]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
@@ -1784,9 +1838,9 @@ atf_dealers %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^22].
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^23].
 
-[^22]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^23]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
 
 According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 

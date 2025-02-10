@@ -1,0 +1,217 @@
+locality,yr,victim_gender,offender_gender,intimate,family,acquaintance
+Virginia,2016,Female,Female,2,11,47
+Virginia,2016,Female,Male,193,48,244
+Virginia,2016,Female,Unknown,NA,NA,NA
+Virginia,2016,Male,Female,33,12,56
+Virginia,2016,Male,Male,1,86,547
+Virginia,2016,Male,Unknown,NA,NA,NA
+Virginia,2016,Unknown,Female,NA,NA,NA
+Virginia,2016,Unknown,Male,NA,NA,1
+Virginia,2016,Unknown,Unknown,NA,NA,NA
+Virginia,2017,Female,Female,2,22,64
+Virginia,2017,Female,Male,208,65,251
+Virginia,2017,Female,Unknown,NA,NA,NA
+Virginia,2017,Male,Female,46,15,61
+Virginia,2017,Male,Male,3,93,510
+Virginia,2017,Male,Unknown,NA,NA,1
+Virginia,2017,Unknown,Female,NA,NA,NA
+Virginia,2017,Unknown,Male,NA,NA,1
+Virginia,2017,Unknown,Unknown,NA,NA,NA
+Virginia,2018,Female,Female,4,20,58
+Virginia,2018,Female,Male,232,54,223
+Virginia,2018,Female,Unknown,NA,NA,NA
+Virginia,2018,Male,Female,47,13,56
+Virginia,2018,Male,Male,2,83,540
+Virginia,2018,Male,Unknown,NA,NA,NA
+Virginia,2018,Unknown,Female,NA,NA,NA
+Virginia,2018,Unknown,Male,NA,NA,1
+Virginia,2018,Unknown,Unknown,NA,NA,NA
+Virginia,2019,Female,Female,3,16,59
+Virginia,2019,Female,Male,256,72,254
+Virginia,2019,Female,Unknown,NA,NA,1
+Virginia,2019,Male,Female,44,8,53
+Virginia,2019,Male,Male,4,103,549
+Virginia,2019,Male,Unknown,NA,NA,NA
+Virginia,2019,Unknown,Female,NA,NA,NA
+Virginia,2019,Unknown,Male,NA,NA,NA
+Virginia,2019,Unknown,Unknown,NA,NA,NA
+Virginia,2020,Female,Female,15,17,110
+Virginia,2020,Female,Male,419,103,377
+Virginia,2020,Female,Unknown,NA,NA,4
+Virginia,2020,Male,Female,84,22,87
+Virginia,2020,Male,Male,7,134,784
+Virginia,2020,Male,Unknown,NA,NA,2
+Virginia,2020,Unknown,Female,NA,NA,NA
+Virginia,2020,Unknown,Male,1,NA,3
+Virginia,2020,Unknown,Unknown,NA,NA,NA
+Virginia,2021,Female,Female,15,23,131
+Virginia,2021,Female,Male,461,107,379
+Virginia,2021,Female,Unknown,NA,NA,NA
+Virginia,2021,Male,Female,90,19,76
+Virginia,2021,Male,Male,10,146,834
+Virginia,2021,Male,Unknown,NA,NA,NA
+Virginia,2021,Unknown,Female,NA,2,1
+Virginia,2021,Unknown,Male,NA,3,1
+Virginia,2021,Unknown,Unknown,NA,NA,NA
+Virginia,2022,Female,Female,19,30,147
+Virginia,2022,Female,Male,443,131,406
+Virginia,2022,Female,Unknown,NA,NA,1
+Virginia,2022,Male,Female,106,28,90
+Virginia,2022,Male,Male,11,166,850
+Virginia,2022,Male,Unknown,NA,NA,3
+Virginia,2022,Unknown,Female,NA,NA,NA
+Virginia,2022,Unknown,Male,NA,1,5
+Virginia,2022,Unknown,Unknown,NA,NA,NA
+Virginia,2023,Female,Female,13,42,159
+Virginia,2023,Female,Male,469,123,471
+Virginia,2023,Female,Unknown,NA,NA,3
+Virginia,2023,Male,Female,98,42,128
+Virginia,2023,Male,Male,11,189,887
+Virginia,2023,Male,Unknown,NA,NA,2
+Virginia,2023,Unknown,Female,NA,1,NA
+Virginia,2023,Unknown,Male,NA,3,6
+Virginia,2023,Unknown,Unknown,NA,NA,NA
+Albemarle County,2016,Female,Female,NA,NA,2
+Albemarle County,2016,Female,Male,2,NA,NA
+Albemarle County,2016,Female,Unknown,NA,NA,NA
+Albemarle County,2016,Male,Female,NA,NA,NA
+Albemarle County,2016,Male,Male,NA,1,1
+Albemarle County,2016,Male,Unknown,NA,NA,NA
+Albemarle County,2016,Unknown,Female,NA,NA,NA
+Albemarle County,2016,Unknown,Male,NA,NA,NA
+Albemarle County,2016,Unknown,Unknown,NA,NA,NA
+Albemarle County,2017,Female,Female,NA,NA,NA
+Albemarle County,2017,Female,Male,NA,1,NA
+Albemarle County,2017,Female,Unknown,NA,NA,NA
+Albemarle County,2017,Male,Female,NA,1,NA
+Albemarle County,2017,Male,Male,NA,2,1
+Albemarle County,2017,Male,Unknown,NA,NA,NA
+Albemarle County,2017,Unknown,Female,NA,NA,NA
+Albemarle County,2017,Unknown,Male,NA,NA,NA
+Albemarle County,2017,Unknown,Unknown,NA,NA,NA
+Albemarle County,2018,Female,Female,NA,NA,1
+Albemarle County,2018,Female,Male,3,NA,1
+Albemarle County,2018,Female,Unknown,NA,NA,NA
+Albemarle County,2018,Male,Female,NA,NA,1
+Albemarle County,2018,Male,Male,NA,1,4
+Albemarle County,2018,Male,Unknown,NA,NA,NA
+Albemarle County,2018,Unknown,Female,NA,NA,NA
+Albemarle County,2018,Unknown,Male,NA,NA,NA
+Albemarle County,2018,Unknown,Unknown,NA,NA,NA
+Albemarle County,2019,Female,Female,NA,NA,NA
+Albemarle County,2019,Female,Male,NA,NA,NA
+Albemarle County,2019,Female,Unknown,NA,NA,NA
+Albemarle County,2019,Male,Female,NA,NA,NA
+Albemarle County,2019,Male,Male,NA,NA,1
+Albemarle County,2019,Male,Unknown,NA,NA,NA
+Albemarle County,2019,Unknown,Female,NA,NA,NA
+Albemarle County,2019,Unknown,Male,NA,NA,NA
+Albemarle County,2019,Unknown,Unknown,NA,NA,NA
+Albemarle County,2020,Female,Female,NA,NA,2
+Albemarle County,2020,Female,Male,2,1,1
+Albemarle County,2020,Female,Unknown,NA,NA,NA
+Albemarle County,2020,Male,Female,1,NA,NA
+Albemarle County,2020,Male,Male,NA,NA,NA
+Albemarle County,2020,Male,Unknown,NA,NA,NA
+Albemarle County,2020,Unknown,Female,NA,NA,NA
+Albemarle County,2020,Unknown,Male,NA,NA,NA
+Albemarle County,2020,Unknown,Unknown,NA,NA,NA
+Albemarle County,2021,Female,Female,NA,NA,NA
+Albemarle County,2021,Female,Male,2,NA,NA
+Albemarle County,2021,Female,Unknown,NA,NA,NA
+Albemarle County,2021,Male,Female,NA,NA,1
+Albemarle County,2021,Male,Male,NA,1,1
+Albemarle County,2021,Male,Unknown,NA,NA,NA
+Albemarle County,2021,Unknown,Female,NA,NA,NA
+Albemarle County,2021,Unknown,Male,NA,NA,NA
+Albemarle County,2021,Unknown,Unknown,NA,NA,NA
+Albemarle County,2022,Female,Female,NA,NA,1
+Albemarle County,2022,Female,Male,1,NA,1
+Albemarle County,2022,Female,Unknown,NA,NA,NA
+Albemarle County,2022,Male,Female,1,NA,NA
+Albemarle County,2022,Male,Male,NA,NA,1
+Albemarle County,2022,Male,Unknown,NA,NA,NA
+Albemarle County,2022,Unknown,Female,NA,NA,NA
+Albemarle County,2022,Unknown,Male,NA,NA,1
+Albemarle County,2022,Unknown,Unknown,NA,NA,NA
+Albemarle County,2023,Female,Female,NA,NA,NA
+Albemarle County,2023,Female,Male,1,1,2
+Albemarle County,2023,Female,Unknown,NA,NA,NA
+Albemarle County,2023,Male,Female,1,NA,1
+Albemarle County,2023,Male,Male,NA,NA,1
+Albemarle County,2023,Male,Unknown,NA,NA,NA
+Albemarle County,2023,Unknown,Female,NA,NA,NA
+Albemarle County,2023,Unknown,Male,NA,NA,NA
+Albemarle County,2023,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2016,Female,Female,NA,NA,NA
+Charlottesville City,2016,Female,Male,3,NA,3
+Charlottesville City,2016,Female,Unknown,NA,NA,NA
+Charlottesville City,2016,Male,Female,NA,NA,NA
+Charlottesville City,2016,Male,Male,NA,NA,8
+Charlottesville City,2016,Male,Unknown,NA,NA,NA
+Charlottesville City,2016,Unknown,Female,NA,NA,NA
+Charlottesville City,2016,Unknown,Male,NA,NA,NA
+Charlottesville City,2016,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2017,Female,Female,NA,NA,1
+Charlottesville City,2017,Female,Male,3,NA,4
+Charlottesville City,2017,Female,Unknown,NA,NA,NA
+Charlottesville City,2017,Male,Female,1,NA,1
+Charlottesville City,2017,Male,Male,NA,1,6
+Charlottesville City,2017,Male,Unknown,NA,NA,NA
+Charlottesville City,2017,Unknown,Female,NA,NA,NA
+Charlottesville City,2017,Unknown,Male,NA,NA,NA
+Charlottesville City,2017,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2018,Female,Female,NA,NA,NA
+Charlottesville City,2018,Female,Male,3,NA,1
+Charlottesville City,2018,Female,Unknown,NA,NA,NA
+Charlottesville City,2018,Male,Female,NA,NA,NA
+Charlottesville City,2018,Male,Male,NA,NA,6
+Charlottesville City,2018,Male,Unknown,NA,NA,NA
+Charlottesville City,2018,Unknown,Female,NA,NA,NA
+Charlottesville City,2018,Unknown,Male,NA,NA,NA
+Charlottesville City,2018,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2019,Female,Female,NA,NA,NA
+Charlottesville City,2019,Female,Male,NA,NA,3
+Charlottesville City,2019,Female,Unknown,NA,NA,NA
+Charlottesville City,2019,Male,Female,NA,NA,NA
+Charlottesville City,2019,Male,Male,NA,NA,NA
+Charlottesville City,2019,Male,Unknown,NA,NA,NA
+Charlottesville City,2019,Unknown,Female,NA,NA,NA
+Charlottesville City,2019,Unknown,Male,NA,NA,NA
+Charlottesville City,2019,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2020,Female,Female,NA,NA,2
+Charlottesville City,2020,Female,Male,1,NA,3
+Charlottesville City,2020,Female,Unknown,NA,NA,NA
+Charlottesville City,2020,Male,Female,NA,NA,1
+Charlottesville City,2020,Male,Male,NA,1,3
+Charlottesville City,2020,Male,Unknown,NA,NA,NA
+Charlottesville City,2020,Unknown,Female,NA,NA,NA
+Charlottesville City,2020,Unknown,Male,NA,NA,NA
+Charlottesville City,2020,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2021,Female,Female,NA,NA,1
+Charlottesville City,2021,Female,Male,1,3,4
+Charlottesville City,2021,Female,Unknown,NA,NA,NA
+Charlottesville City,2021,Male,Female,1,NA,NA
+Charlottesville City,2021,Male,Male,NA,NA,11
+Charlottesville City,2021,Male,Unknown,NA,NA,NA
+Charlottesville City,2021,Unknown,Female,NA,NA,NA
+Charlottesville City,2021,Unknown,Male,NA,NA,NA
+Charlottesville City,2021,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2022,Female,Female,NA,NA,NA
+Charlottesville City,2022,Female,Male,4,2,4
+Charlottesville City,2022,Female,Unknown,NA,NA,NA
+Charlottesville City,2022,Male,Female,NA,1,4
+Charlottesville City,2022,Male,Male,NA,4,8
+Charlottesville City,2022,Male,Unknown,NA,NA,1
+Charlottesville City,2022,Unknown,Female,NA,NA,NA
+Charlottesville City,2022,Unknown,Male,NA,NA,NA
+Charlottesville City,2022,Unknown,Unknown,NA,NA,NA
+Charlottesville City,2023,Female,Female,NA,NA,NA
+Charlottesville City,2023,Female,Male,2,1,NA
+Charlottesville City,2023,Female,Unknown,NA,NA,NA
+Charlottesville City,2023,Male,Female,NA,NA,1
+Charlottesville City,2023,Male,Male,NA,2,5
+Charlottesville City,2023,Male,Unknown,NA,NA,NA
+Charlottesville City,2023,Unknown,Female,NA,NA,NA
+Charlottesville City,2023,Unknown,Male,NA,NA,NA
+Charlottesville City,2023,Unknown,Unknown,NA,NA,NA

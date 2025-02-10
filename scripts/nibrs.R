@@ -1,6 +1,5 @@
 # Script to pull and prep gun-related crimes and rates from the the Virginia Uniform 
-# Crime Reporting - Incident Based Reporting portal, which is based off of the National
-# Incidident-Based Reporting System (NIBRS)
+# Crime Reporting - Incident Based Reporting portal
 # Homepage: https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/
 # Portal: https://va.beyond2020.com/
 
@@ -8,51 +7,59 @@
 # be constructed using their "build-a-table" feature and then downloaded as a CSV. 
 # The criteria for constructing each dataset is outlined below. 
 
-
-# Total Firearm Crimes by Age ----
-# Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
-# Table: Crime by jurisdiction > All Crime Types by City or County
-# Filter criteria:
-# - Members = N Crimes, Estimated Population 
-# - Type of Weapon/Force Involved = Firearm 
-# - Jurisdiction by geography = Virginia, Albemarle County, Charlottesville City (VSP Division 3)
-# - Incident dates = 2016-2023 
-# - Offense type = All 
-# - Offender age = Under 18, 18 and over, Unknown, and Missing 
-# Table construction: 
-# - Rows: Incident Date, Offense Type, Jurisdiction by Geography
-# - Columns: Measures, Type of Weapon/Force Involved, Offender Ages, Estimated Population 
-# - Slicers: None
-# - Order of Measures: Number of Crimes, Est Pop
-
-nibrs_crime <- read_csv("data/raw/All Crime Types By City or County.csv", skip = 5) %>%
+# Libraries 
+library(janitor)
+library(tidyverse)
+  
+# Jurisdiction populations (for rate calculations)
+file_pth <- "data/raw/Population by Division.csv"
+col_names <- read.table(file_pth, sep = ';', skip = 4, nrow = 1)
+col_names2 <- read.table(file_pth, sep = ';', skip = 5, nrow = 1)
+col_names <- c(col_names2, col_names[-1]) %>% unlist() %>% unname() %>% na.omit()
+nibrs_pops <- read.table(file_pth, sep = ';', skip = 6) %>% 
+  set_names(col_names) %>%
   clean_names()
 
-nibrs_crime <- nibrs_crime %>%
-  select(x1:under_18_8) %>%
-  rename(year = x1, type = x2, district = offender_age, n_juvenile = under_18_4,
-         n_adult = x18_and_over_5, n_unknown = unknown_6, n_missing = missing_7,
-         est_pop_district = under_18_8)
+nibrs_pops <- nibrs_pops %>%
+  pivot_longer(cols = c(charlottesville_city, albemarle_county, virginia),
+               names_to = "locality",
+               values_to = "est_pop") %>%
+  filter(incident_date >= 2016) %>%
+  mutate(est_pop = as.numeric(gsub(",", "", est_pop)),
+         locality = str_to_title(gsub("_", " ", locality, fixed = TRUE)))
 
-nibrs_crime <- nibrs_crime[-1,]
+# Firearm Crimes by Age ----
+# Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
+# Table: Crime by Jurisdiction > All Crime Types by City or County
+# Filter criteria:
+# - Jurisdiction by geography = Virginia, Albemarle County, Charlottesville City
+# - Type of Weapon/Force Involved = Firearm 
+# - Incident dates = 2016-2023
+# - Offender age = Under 18, 18 and over, Unknown, and Missing 
+# Table construction: 
+# - Rows: Jurisdiction by Geography, Incident Date
+# - Columns: Type of Weapon/Force Involved, Offender Age
 
-nibrs_crime <- nibrs_crime %>% 
-  fill(year, type) %>%
-  mutate(
-    district = case_when(
-      district == "Albemarle County" ~ "albemarle",
-      district == "Charlottesville City" ~ "charlottesville",
-      TRUE ~ "virginia"),
-    type = case_when(
-      type == "All Offense Types" ~ "crime_all"
-    ))
+firearm_age <- read_csv("data/raw/All Crime Types By City or County - Firearm by Age.csv", 
+                        skip = 5)
 
-# Calculate total N crimes for region by year:
-nibrs_crime <- nibrs_crime %>%
-  group_by(year, district) %>%
-  mutate(n_total = sum(n_juvenile, n_adult, n_unknown, n_missing, na.rm = TRUE))
+firearm_age <- firearm_age[-1, -7] %>%
+  clean_names() %>%
+  rename(locality = x1, yr = offender_age) %>%
+  fill(locality) %>%
+  mutate(total = rowSums(across(c(under_18:missing)), na.rm = T),
+         yr = as.integer(yr))
 
-write_csv(nibrs_crime, "data/nibrs_crime.csv")
+# Calculate rates
+firearm_age <- firearm_age %>%
+  left_join(nibrs_pops, by = join_by(yr == incident_date, locality == locality))
+
+firearm_age <- firearm_age %>%
+  rowwise() %>%
+  mutate(youth_rate_100k = (under_18 / est_pop) * 1e5,
+         adult_rate_100k = (x18_and_over / est_pop) * 1e5)
+
+write_csv(firearm_age, "data/nibrs_firearm_age.csv")
 
 # Theft from Cars----
 # This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
@@ -84,7 +91,7 @@ nibrs_theft <- nibrs_theft %>%
 
 write_csv(nibrs_theft, "data/nibrs_theft.csv")
 
-# Domestic (Interpersonal) Violence ----
+# Domestic Violence - Firearm ----
 # This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
 # Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
 # Table: Crime by Jurisdiction > Domestic Violence by City or County
@@ -99,19 +106,58 @@ write_csv(nibrs_theft, "data/nibrs_theft.csv")
 # - Columns: Victim to Offender Relationship, Offense
 # - Slicers: None
 
-interpersonal <- read_csv("data/raw/Domestic Violence by City or County.csv", skip = 4) %>%
+domestic_firearm <- read_csv("data/raw/Domestic Violence by City or County - Firearm.csv", skip = 4) %>%
   clean_names()
 
-interpersonal <- interpersonal[-1,-c(1, 9)]
+domestic_firearm <- domestic_firearm[-1,-c(1, 9)]
 
-interpersonal <- interpersonal %>%
+domestic_firearm <- domestic_firearm %>%
   rename(locality = x2, yr = x3, victim_gender = x4, offender_gender = victim_to_offender_relationship)
 
-interpersonal <- interpersonal[-1,]
+domestic_firearm <- domestic_firearm[-1,]
 
-interpersonal <- interpersonal %>%
+domestic_firearm <- domestic_firearm %>%
   fill(locality, yr, victim_gender, offender_gender) %>%
-  mutate_at(vars(intimate, family, acquaintance), as.numeric)
+  mutate_at(vars(intimate, family, acquaintance), as.numeric) %>%
+  rename(intimate_firearm = intimate, family_firearm = family, acquaintance_firearm = acquaintance)
 
-write_csv(interpersonal, "data/nibrs_interpersonal.csv")
+write_csv(domestic_firearm, "data/nibrs_domestic_firearm.csv")
 
+# Domestic Violence - All ----
+# This data can be accessed by downloading the raw CSVs from the Virginia NIBRS build-a-table website
+# Download url: https://va.beyond2020.com/va_public/Browse/browsetables.aspx
+# Table: Crime by Jurisdiction > Domestic Violence by City or County
+# Filter criteria:
+# - Measures = Number of Victims, Victim to Offender Relationship (Intimate, Family, Acquaintance), Victim Gender, Offender Gender
+# - Offense Type = Crimes Against Person
+# - Jurisdiction = Virginia, Charlottesville, and Albemarle
+# - Incident Dates = 2016-2023
+# Table construction: 
+# - Rows: Jurisdiction by Geography, Incident Date, Victim Gender, Offender Gender
+# - Columns: Victim to Offender Relationship, Offense Type
+# - Slicers: Measures
+
+domestic_type <- read_csv("data/raw/Domestic Violence by City or County - Type.csv", skip = 4) %>%
+  clean_names()
+
+domestic_type <- domestic_type[-1, -19] %>%
+  rename(locality = x1, yr = x2, weapon = x3, relationship = offense_type) %>%
+  fill(locality, yr, weapon)
+
+ipv <- domestic_type %>%
+  filter(relationship == "Intimate") %>%
+  rowwise() %>%
+  mutate(homicide = sum(murder_and_nonnegligent_manslaughter, negligent_manslaughter, justifiable_homicide, na.rm = TRUE),
+         sex_crimes = sum(all_rape, criminal_sexual_contact, incest, statutory_rape, human_trafficking_commercial_sex_acts, na.rm = TRUE),
+         assault = sum(aggravated_assault, simple_assault, na.rm = TRUE)) %>%
+  select(locality, yr, weapon, relationship, all_offense_types, homicide, sex_crimes, assault, intimidation, human_trafficking_involuntary_servitude)
+
+write_csv(ipv, "data/nibrs_ipv.csv")
+
+# Use of Force - Firearm ----
+
+# Use of Force - Al ----
+
+# Hate Crimes - Firearm
+
+# Hate Crimes - All

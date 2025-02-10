@@ -515,7 +515,6 @@ suicide_age_tbl %>%
 [^13]: Michael Siegel & Emily F Rothman. Firearm Ownership and Suicide Rates Among US Men and Women, 1981–2013. American Journal of Public Health. 2016 Jul;106(7):1316–1322. <https://pmc.ncbi.nlm.nih.gov/articles/PMC4984734/>. May 19, 2016.
 
 
-
 ------------------------------------------------------------------------
 
 ## Suicides by Race and Ethnicity
@@ -524,7 +523,7 @@ The tables below show a breakdown of race, ethnicity, and gender of the 129 suic
 
 In the Blue Ridge Health District, the suicide counts for individuals that identify as American Indian or Alaska Native, Native Hawaiian or Other Pacific Islander, multiple races, or other races not listed by the CDC was zero, so they are not included in the first table.
 
-**Percentages of Firearms Suicides in the Blue Ridge Health District by Race, Ethnicity, and Sex**
+**Percentages of Firearm Suicides in the Blue Ridge Health District by Race, Ethnicity, and Sex**
 
 ```{r suicides_race_brhd}
 total_suicides_va <- cdc_deaths_intent %>%
@@ -573,7 +572,7 @@ suicide_race_brhd_tbl %>%
   ) 
 ```
 
-**Percentages of Firearms Suicides in Virginia by Race, Ethnicity, and Sex**
+**Percentages of Firearm Suicides in Virginia by Race, Ethnicity, and Sex**
 
 ```{r suicides_race_va}
 
@@ -637,12 +636,12 @@ Intimate partner and family violence are a prevalent form of gun violence in the
 
 The tables below show breakdown of sex as it relates to reported incidents of intimate partner violence and family violence with firearms in the combined Charlottesville and Albemarle region and in Virginia between 2016 - 2023. Because many incidents of intimate partner and family violence go unreported, we can assume that many of these numbers are under recorded.
 
-**Victims by Sex of Intimate Violence and Family Violence in Charlottesville and Albemarle**
+**Victims by Sex of Intimate Violence and Family Violence with a Firearm in Charlottesville and Albemarle**
 
 ```{r domestic_local}
 
-domestic_local <- read_csv("data/nibrs_interpersonal.csv") %>%
-  select(-acquaintance) %>%
+domestic_local <- read_csv("data/nibrs_domestic_firearm.csv") %>%
+  select(-contains("acquaintance")) %>%
   filter(locality != "Virginia",
          victim_gender != "Unknown", #value is 0 so we remove to remove whitespace
          offender_gender != "Unknown")
@@ -673,11 +672,11 @@ domestic_local_tbl %>%
 ```
 
 
-**Victims by Sex of Intimate Violence and Family Violence in Virginia**
+**Victims by Sex of Intimate Violence and Family Violence with a Firearm in Virginia**
 
 ```{r domestic_va}
 
-domestic_va <- read_csv("data/nibrs_interpersonal.csv") %>%
+domestic_va <- read_csv("data/nibrs_domestic_firearm.csv") %>%
   select(-acquaintance) %>%
   filter(locality == "Virginia")
 
@@ -705,11 +704,40 @@ domestic_va_tbl %>%
   )
 
 ```
+```{r ipv}
+ipv <- read_csv("data/nibrs_ipv.csv")
+
+ipv %>%
+  select(locality, yr, weapon, all_offense_types) %>%
+  pivot_wider(names_from = weapon, values_from = all_offense_types) %>%
+  clean_names() %>%
+  rowwise() %>%
+  mutate(pct_all_ipv = (firearm/all_types_of_weapon_force_involved) * 100) %>%
+  select(locality, yr, pct_all_ipv) -> pct_all_ipv
+
+ipv %>%
+  select(locality, yr, weapon, homicide) %>%
+  pivot_wider(names_from = weapon, values_from = homicide) %>%
+  clean_names() %>%
+  rowwise() %>%
+  mutate(pct_homicide_ipv = (firearm/all_types_of_weapon_force_involved) * 100) %>%
+  select(locality, yr, pct_homicide_ipv) -> pct_homicide_ipv
+
+ipv_pcts <- pct_all_ipv %>%
+  left_join(pct_homicide_ipv, by = join_by(locality == locality, yr == yr)) %>%
+  filter(yr == "2023")
+
+
+```
+
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. This information mirrors national trends[^16]. </p>
+<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. When a firearm is involved, intimate partner violence is much more deadly. In Virginia, in 2023, `r ipv_pcts %>% filter(locality == "Virginia") %>% select(pct_homicide_ipv) %>% round()`% of homicides from intimate partner violence were committed with a firearm. This information mirrors national trends[^16]. </p>
 
 [^16]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
+
+
+
 
 
 ------------------------------------------------------------------------
@@ -720,15 +748,21 @@ The data below contains summaries of all [crimes](#crime) where a firearm was us
 
 ```{r nibrs_compare}
 
-nibrs_crime <- read_csv("data/nibrs_crime.csv")
+# nibrs_crime <- read_csv("data/nibrs_crime.csv")
 age_labs <- c("Under 18", "Above 18")
-names(age_labs) <- c("n_juvenile", "n_adult")
+names(age_labs) <- c("youth_rate_100k", "adult_rate_100k")
 
-nibrs_crime %>%
-  mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
-  pivot_longer(cols = c(n_juvenile, n_adult)) -> tmp_plt_dat
+firearm_age <- read_csv("data/nibrs_firearm_age.csv")
 
-ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
+# nibrs_crime %>%
+#   mutate_at(vars(matches('n_')), ~ . / est_pop_district * 1e4 ) %>%
+#   pivot_longer(cols = c(n_juvenile, n_adult)) -> tmp_plt_dat
+
+tmp_plt_dat <- firearm_age %>%
+  select(locality, yr, matches("rate")) %>%
+  pivot_longer(cols = c(youth_rate_100k, adult_rate_100k))
+
+ggplot(tmp_plt_dat, aes(yr, value, color = locality, group = locality)) +
   geom_line(size = 1.5) +
   facet_wrap(~name,
              labeller = labeller(name = age_labs),
@@ -737,9 +771,8 @@ ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
        y = "Crime Rate per 100k Population") +
   scale_color_manual(values = c("#232D4B", "#F8BE3D", "#007BAB"), 
                     name = "Region",
-                    breaks = c("virginia", "charlottesville", "albemarle"),
-                    labels= c("Virginia", "Charlottesville", "Albemarle")) +
-    geom_label(data = filter(tmp_plt_dat, year == 2023),
+                    breaks = c("Virginia", "Charlottesville City", "Albemarle County")) +
+  geom_label(data = filter(tmp_plt_dat, yr == 2023),
              aes(label = paste0(round(value, 1))),
              show.legend = F, hjust = .75, alpha = 0.75, fontface = "bold") +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
@@ -750,7 +783,10 @@ ggplot(tmp_plt_dat, aes(year, value, color = district, group = district)) +
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> The figure above shows the rate of gun violence crimes per 100k population over time. In Virginia, the crime rate has been generally increasing from 19.2 in 2016 to 24.4 in 2023, with a peak of 25.6 in 2022. That means on average in Virginia in 2023, for every 100,000 people, there were 24 crimes involving firearms. The rate in Charlottesville has been much more variable, peaking above state levels from 2020 to 2022 and reaching a maximum of 28 in 2021. Albemarle has had a relatively steady rate during this period, ranging from a minimum of 7.4 in 2021 to a maximum of 11 in 2022. In general, following the COVID-19 pandemic, crimes involving firearms increased for all age groups however most notably among youth under 18. The Charlottesville youth firearm crime rate surpassed state levels in 2022, however that number has been slowly decreasing.</p>
+<b> Notable Trends</b> <br> <br> The figure above shows the rate of gun violence crimes per 100k population over time broken down by participant age. Statewide, the firearm crime rate has been generally increasing: the adult rate increased from 118 crimes per 100k people in 2016 to 168 crimes per 100k people in 2023 and the youth rate increased from 12 crimes per 100k people to 16 crimes per 100k people. These numbers mean that on average, in Virginia in 2023, for every 100k people, there were 168 firearm-related crimes committed by adults and 16 firearm-related crimes committed by individuals under 18. 
+<br>
+<br>
+Following the COVID-19 pandemic, crimes involving firearms increased for all age groups, most notably among youth. In Charlottesville, the youth firearm crime rate surpassed state levels in 2022. In 2023, however, both adult and youth firearm crime rates decreased.</p>
 
 <details>
 

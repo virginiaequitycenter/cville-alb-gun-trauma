@@ -33,18 +33,20 @@ output: html_document
 
 [^15]: Centers for Disease Control. Intimate Partner Violence Prevention. About Intimate Partner Violence. <https://www.cdc.gov/intimate-partner-violence/about/index.html>. May 16, 2024.
 
-[^16]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
+[^16]: Virginia Sexual and Domestic Violence Action Alliance. 2023 Domestic Violence Services in Virginia. VAData Report. <https://vadata.org/media/2023%20Statewide%20DV%20report.pdf>. Accessed February 7, 2025. 
 
-[^17]:Virginia Law Code § 19.2-83.5. Use of deadly force by a law-enforcement officer during an arrest or detention. <https://law.lis.virginia.gov/vacode/title19.2/chapter7.1/section19.2-83.5/>. Accessed February 10, 2025. 
+[^17]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
+
+[^18]:Virginia Law Code § 19.2-83.5. Use of deadly force by a law-enforcement officer during an arrest or detention. <https://law.lis.virginia.gov/vacode/title19.2/chapter7.1/section19.2-83.5/>. Accessed February 10, 2025. 
  
-[^18]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
+[^19]: Virginia Law Code § 52-28.2. Reporting of officer-involved shootings; inclusion in annual Crime in Virginia report. <https://law.lis.virginia.gov/vacode/title52/chapter6/section52-28.2/>. Accessed November 15, 2024.
 
-[^19]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
+[^20]: UVA Statistics. Fall 2022 Enrollment. <https://admission.virginia.edu/admission/statistics>. Accessed May 19, 2024.
 
-[^20]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+[^21]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
 
-[^21]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
+[^22]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^22]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items.  <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
+[^23]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items.  <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
-[^23]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns.  <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^24]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns.  <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.

@@ -67,7 +67,7 @@ The harm of gun violence takes many forms – deaths and injuries are the most o
 
 #### Incidents of Gun Violence in Charlottesville & Albemarle and Number of Victims by Month
 
-```{r}
+```{r collective_toll}
 gva <- read_csv("data/raw/gva_incidents_24.csv") %>%
   clean_names() %>%
   mutate(incident_date = mdy(incident_date)) %>%
@@ -466,6 +466,12 @@ total_suicides_brhd <- cdc_deaths_intent %>%
 
 total_suicides_brhd <- as.numeric(total_suicides_brhd[[3]]) #129
 
+total_suicides_va <- cdc_deaths_intent %>%
+  filter(locality == "Virginia",
+         injury_intent == "Suicide") 
+
+total_suicides_va <- as.numeric(total_suicides_va[[3]]) #4199
+
 suicide_age_pcts <- read_csv("data/cdc_suicide_age.csv") %>%
   select(-...1) %>%
   filter(locality == "Blue Ridge Health District") %>%
@@ -519,18 +525,15 @@ suicide_age_tbl %>%
 
 ## Suicides by Race and Ethnicity
 
-The tables below show a breakdown of race, ethnicity, and gender of the 129 suicides by firearm in the Blue Ridge Health District and the 4199 suicides by firearm in Virginia between 2018 - 2023.
+The tables below show a breakdown of race, ethnicity, and gender of the `r total_suicides_brhd` suicides by firearm in the Blue Ridge Health District and the `r total_suicides_va` suicides by firearm in Virginia between 2018 - 2023.
 
 In the Blue Ridge Health District, the suicide counts for individuals that identify as American Indian or Alaska Native, Native Hawaiian or Other Pacific Islander, multiple races, or other races not listed by the CDC was zero, so they are not included in the first table.
 
 **Percentages of Firearm Suicides in the Blue Ridge Health District by Race, Ethnicity, and Sex**
 
 ```{r suicides_race_brhd}
-total_suicides_va <- cdc_deaths_intent %>%
-  filter(locality == "Virginia",
-         injury_intent == "Suicide") 
 
-total_suicides_va <- as.numeric(total_suicides_va[[3]]) #4199
+race_brhd <- read_csv("data/acs_race_brhd.csv")
 
 cdc_suicide_race <- read_csv("data/cdc_suicide_race.csv")
 
@@ -576,6 +579,8 @@ suicide_race_brhd_tbl %>%
 
 ```{r suicides_race_va}
 
+race_va <- read_csv("data/acs_race_va.csv")
+
 suicide_race_va_pcts <- cdc_suicide_race %>%
   filter(locality == "Virginia",
          race != "Not Available") %>%
@@ -618,7 +623,7 @@ suicide_race_va_tbl %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br>The tables above both highlight the trend of white, non-Hispanic males being the prominent victims of suicide by firearm, making up approximately 80.6% and 69.8% of all suicides by firearm in the Blue Ridge Health District and Virginia, respectively. In both of these regions, other demographics that are victims of suicide by firearm are white, non-Hispanic females, and non-Hispanic males.</p>
+<b> Notable Trends</b> <br> <br>The tables above both highlight the trend of white, non-Hispanic males being the prominent victims of suicide by firearm. In the Blue Ridge Health District, white, non-Hispanic males make up `r round(race_brhd$pct_white_male, 1)`% of the total population, but 80.6% of the total suicides by firearm. In Virginia, the percent of white males males up `r round(race_va$pct_white_male, 1)`% of the total population, but 69.8% of the suicides by firearm. In both of these regions, other demographics that are victims of suicide by firearm are white, non-Hispanic females, and Black non-Hispanic males.</p>
 
 ------------------------------------------------------------------------
 
@@ -862,7 +867,7 @@ ggplot(years, aes(yr, count, fill = type)) +
 The table below shows the race and age breakdown of the 513 total victims of gun violence (injury and death) reported to the police between January 2019 to May 2024.
 
 ```{r victim_demos}
-race_county <- read_csv("data/race_county.csv")
+race_county <- read_csv("data/acs_race_county.csv")
 
 demos <- read_excel("data/raw/Regional GV Data - 2019-2024 YTD.xlsx", sheet = "Demographic Data for Cases") %>%
   clean_names() %>%
@@ -1123,7 +1128,6 @@ force_tbl %>%
 <summary><b>Data Notes</b></summary>
 Participation in sharing police use of force information, especially when there is no death, is [voluntary](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#use-of-force-and-officer-involved), and so the above data may not reflect the total number of incidents in Virginia. The data above also does not indicate what type of force was used, so while firearms are used in most incidents, we cannot assume that a firearm was used in every incident. 
 
-
 ## Officer-Involved Shootings
 
 Virginia Law defines an officer-involved shooting as the discharge of a firearm by a law-enforcement officer that results in the death or serious bodily injury of another. [^18]
@@ -1170,9 +1174,9 @@ police_shootings %>%
 
 # Residential Characteristics
 
-The data shown above is focused on describing key outcomes. To better understand the underlying contexts of gun trauma in our community we compare the location of these outcomes to the composition of key residential characteristics that may influence antisocial or violent behavior.
+The data shown above is focused on describing key outcomes. To better understand the underlying contexts of gun trauma in our community we compare the location of these outcomes to the composition of key residential characteristics that may influence antisocial or violent behavior. It is important to note that many of these residential characteristics do not occur naturally, but are a result of past policy choices such as residential segregation and [racial covenants](https://mappingcville.com/), [massive resistance](https://jeffersonschoolcitycenterdotorg.wordpress.com/about/history/), and the [razing of Black neighborhoods](https://hestia.jmrl.org/findit/Record/1143541), among others that have created the under-resourced communities outlined below. 
 
-The maps below show clusters of gun violence incidents reported by our local police jurisdictions between 2018 and 2024 overlaid on top of community population characteristics. These characteristics are from the 5-year [2022 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2022.html#list-tab-1133175109). The maps show the distribution of population characteristics in our region, such as youth populations, childhood poverty rates, median earnings, and unemployment rates.
+The maps below show clusters of gun violence incidents reported by our local police jurisdictions between 2018 and 2024 overlaid on top of community population characteristics. These characteristics are from the 5-year [2019 - 2023 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2023.html#list-tab-1133175109). The maps show the distribution of population characteristics in our region, such as youth populations, childhood poverty rates, median earnings, and unemployment rates.
 
 Next to each map is a tab with a scatterplot comparing the presence of a population characteristic to rates of gun violence within each census tract. The population characteristic being examined is represented along the bottom and the proportion of total gun violence incidents from 2018 - 2024 is shown along the side. Each circle represents a different census tract, and the size of the circle is proportional to the population of the tract.
 
@@ -1200,7 +1204,7 @@ The map below shows the percentages of individuals under 18 and 25 years old, re
 gv <- read_csv("data/regional_gv.csv")
 
 # Get census shape data
-dat <- readRDS("data/census.RDS")
+dat <- readRDS("data/acs_tract_info.RDS")
 
 # Convert lat/lon coords to sf points
 gv_pts <- gv %>%
@@ -1331,7 +1335,7 @@ gv_sf_summary %>%
 
 **ACS 5 Year Summaries**
 
-The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2019-2023. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
 
 **JPA/Fontaine**
 
@@ -1464,7 +1468,7 @@ gv_sf_summary %>%
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, Oak Hill - Southwood, and Ridge Street. Of those four tracts, Oak Hill - Southwood is the only region where the proportion of gun violence is below 7.5%.</p>
+<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, and Ridge Street. </p>
 
 <details>
 
@@ -1472,9 +1476,9 @@ gv_sf_summary %>%
 
 **ACS 5 Year Summaries**
 
-The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here are from 2018-2022. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
+The American Community Survey (ACS) 5-Year Estimates are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here are from 2019-2023. The 5-year estimates are considered more accurate than the 1-year estimates because they use a larger sample size, which results in smaller margins of error.
 
-Because the data represents summaries from 2018-2022, the plots below do not show changes in poverty rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2023 and 2024, which haven't been released in the ACS 5-Year Estimates yet.
+Because the data represents summaries from 2019-2023, the plots below do not show changes in poverty rates by individual year but are rather an average of the past 5 years. This information can still be used to estimate approximate poverty rates for 2024, which haven't been released in the ACS 5-Year Estimates yet.
 
 **Student Housing**
 
@@ -1598,7 +1602,7 @@ gv_sf_summary %>%
 
 scatter_text3 <- gv_sf_summary %>%
   filter(percent_incidents > 5 |
-           med_earn_25 < 40000)
+           med_earn_25 < 30000)
 
 gv_sf_summary %>%
   ggplot(aes(x = med_earn_25, y = percent_incidents, size = pop_est, color = locality)) +
@@ -1633,7 +1637,7 @@ gv_sf_summary %>%
 
 **ACS 5 Year Summaries**
 
-The American Community Survey (ACS) 5-Year Estimates for median earnings are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2018-2022. The data represents the combined responses across all five years.
+The American Community Survey (ACS) 5-Year Estimates for median earnings are summaries for geographic areas that are based on data collected over a five-year period. The ACS data represented here is from 2019-2023. The data represents the combined responses across all five years.
 
 **Missing Data**
 
@@ -1718,7 +1722,7 @@ gv_sf_summary %>%
 
 scatter_text4 <- gv_sf_summary %>%
   filter(percent_incidents > 5 |
-          unemployment_rate > 7)
+          unemployment_rate > 8)
 
 gv_sf_summary %>%
   ggplot(aes(x = unemployment_rate, y = percent_incidents, size = pop_est, color = locality)) +

@@ -360,45 +360,23 @@ trauma research and analysis.</p>
 <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html">Contributor
 Code of Conduct</a>. By contributing to this project, you agree to abide
 by its terms.</p>
-<p><a href="https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions">The
-State of Gun Violence in Charlottesville and Albemarle</a></p>
+<p><strong><a href="https://virginiaequitycenter.github.io/cville-alb-gun-trauma/">Gun
+Violence in Charlottesville and Albemarle</a></strong></p>
+<p><strong><a href="https://virginiaequitycenter.github.io/cville-alb-gun-trauma/Gun%20Violence%20Data%20One-Pager.pdf">One
+Page PDF Overview</a></strong></p>
+<hr />
 <div id="how-to-use-this-repository" class="section level3">
 <h3>How to use this repository</h3>
-<p>The script <a href="https://github.com/virginiaequitycenter/cville-alb-gun-trauma/blob/main/scripts/data_prep.R">dataprep.R</a>
-outlines the instructions for getting raw data and preparing it for
-analysis.</p>
-<p>The cleaned data is stored in the <a href="https://github.com/virginiaequitycenter/cville-alb-gun-trauma/tree/main/data">data</a>
-folder, and includes the following:</p>
-<ul>
-<li><code>atf_dealers.csv</code>: a list of all ATF-licensed gun dealers
-in Charlottesville and Albemarle as of April 2024</li>
-<li><code>fai_age.csv</code>: firearms deaths by age in the Blue Ridge
-Health District from 2018 through 2022</li>
-<li><code>fai_county.csv</code>: firearm-related emergency room visits
-by county from 2015 through 2023</li>
-<li><code>gva_incidents.csv</code>: media reported gun violence
-incidents in Charlottesville and Albemarle tracked by the Gun Violence
-Archive from 2014 through 2024</li>
-<li><code>gva_participants.csv</code>: participant information for the
-above incidents tracked by the Gun Violence Archive</li>
-<li><code>nibrs_theft.csv</code>: data from the National Incident-Based
-Reporting System on firearm theft for Charlottesville and Albemarle from
-2016 through 2022.</li>
-<li><code>odp_arrests.csv</code>: anonymized gun-related arrests from
-the Charlottesville Open Data Portal from 2019 to 2024</li>
-<li><code>odp_crimes.csv</code>: anonymized gun-related crime reports
-from the Charlottesville Open Data Portal from 2019 to 2014</li>
-<li><code>tract_names.csv</code>: a list of the names of all Census
-tracts in Charlottesville and Albemarle</li>
-<li><code>ucr_firearm.csv</code>: a summary of all firearm-related
-crimes and incidents in Charlottesville, Albemarle, and Virginia from
-2016 through 2022 as recorded by the FBI Uniform Crime Reporting
-Program</li>
-<li><code>ucr_pops.csv</code>: estimated population totals by the FBI
-UCR for calculating crime rates</li>
-<li><code>census.RDS</code>: an R data object that includes census and
-geographic information for mapping</li>
-</ul>
+<p>The scripts to clean each data source can be found in the <a href="https://github.com/virginiaequitycenter/cville-alb-gun-trauma/tree/main/scripts">scripts</a>
+folder. Each file outlines the instructions for getting raw data and
+preparing it for analysis.</p>
+<p>The cleaned data is then stored in the <a href="https://github.com/virginiaequitycenter/cville-alb-gun-trauma/tree/main/data">data</a>
+folder. Each dataset uses the following naming convention:
+<code>source_measure_grouping.filetype</code>. For example
+<code>vdh_injury_district.csv</code> means the data is sourced from the
+VDH (Virginia Department of Health), it is a measurement of injury
+counts, it is grouped by district, and stored as a CSV. When available,
+each dataset should include both a geographical and temporal aspect.</p>
 </div>
 </div>
 

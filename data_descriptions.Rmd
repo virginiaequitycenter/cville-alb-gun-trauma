@@ -9,9 +9,11 @@ output:
     toc_float: true
 ---
 
-![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png){width="350"}
+![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png){width="250"}
 
 ------------------------------------------------------------------------
+
+#### [Summary One-Pager](https://www.flipsnack.com/6D66EAEEFB5/gun-violence-data-one-pager/full-view.html)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)

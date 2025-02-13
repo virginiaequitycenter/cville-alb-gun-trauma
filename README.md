@@ -6,7 +6,7 @@ Please note that the cville-alb-gun-trauma project is released with a [Contribut
 
 **[Gun Violence in Charlottesville and Albemarle](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/)**
 
-**[One Page PDF Overview](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/Gun%20Violence%20Data%20One-Pager.pdf)**
+**[Summary One-Pager](https://www.flipsnack.com/6D66EAEEFB5/gun-violence-data-one-pager/full-view.html)**
 
 --------------------
 

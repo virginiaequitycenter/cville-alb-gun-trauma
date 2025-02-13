@@ -49,4 +49,6 @@ output: html_document
 
 [^23]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items.  <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
-[^24]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns.  <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^24]: Virginia State Police. Resident Concealed Handgun Permits.  <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025.
+
+[^25]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns.  <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.

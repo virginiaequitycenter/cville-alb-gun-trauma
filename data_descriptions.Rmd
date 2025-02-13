@@ -1849,9 +1849,9 @@ local_ffl %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^24].
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^25].
 
-[^24]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^25]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
 
 According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 
@@ -1890,6 +1890,23 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
 <summary><b>Data Notes</b></summary>
 
 Theft data is pulled Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section.
+
+</details>
+
+-----------------------------------------------
+
+## Concealed Carry Handgun Permits
+
+Because no license is required to purchase a firearm in Virginia, there is little information on the total number of individuals owning guns or average number of guns per household. One way to approximate these numbers is to look at a subset of firearm owners: those that have permits for carrying a concealed firearm. [Qualified](https://law.lis.virginia.gov/vacode/18.2-308.09/) residents are able to apply for a 5-year concealed carry permit through their local circuit courts.[^24]
+
+[^24]: Virginia State Police. Resident Concealed Handgun Permits.  <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025. 
+
+According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were 558,289 concealed carry handgun permits issued across the state, 771 issued in Charlottesville, and 5136 issued in Albemarle County between 2020 - 2024. 
+
+<details>
+<summary><b>Data Notes</b></summary>
+
+The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, we approximated the number of permits issued for the past 5 years using a linear model that took into account the number of permits issued between 2022 - 2024. 
 
 </details>
 

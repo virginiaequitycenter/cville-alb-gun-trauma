@@ -1897,16 +1897,40 @@ Theft data is pulled Virginia's [Uniform Crime Reporting - Incident Based Report
 
 ## Concealed Carry Handgun Permits
 
+```{r concealed_carry}
+
+# Estimate the total number of 5 year concealed carry handgun permits 
+# Pull from https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home and manually added
+
+yrs <- c(2022, 2023, 2024)
+va <- c(109142, 117402, 110568)
+cville <- c(153, 171, 181)
+alb <- c(996, 1140, 1096)
+ccs <- tibble(yr = c(2022, 2023, 2024),
+              va = c(109142, 117402, 110568),
+              cville = c(153, 171, 181),
+              alb = c(996, 1140, 1096))
+
+# Estimate
+ccs_avg <- ccs %>%
+  pivot_longer(cols = va:alb) %>%
+  group_by(region = name) %>%
+  summarise(yearly_avg = mean(value)) %>%
+  mutate(five_yr_total = yearly_avg * 5)
+
+```
+
+
 Because no license is required to purchase a firearm in Virginia, there is little information on the total number of individuals owning guns or average number of guns per household. One way to approximate these numbers is to look at a subset of firearm owners: those that have permits for carrying a concealed firearm. [Qualified](https://law.lis.virginia.gov/vacode/18.2-308.09/) residents are able to apply for a 5-year concealed carry permit through their local circuit courts.[^24]
 
 [^24]: Virginia State Police. Resident Concealed Handgun Permits.  <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025. 
 
-According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were 558,289 concealed carry handgun permits issued across the state, 771 issued in Charlottesville, and 5136 issued in Albemarle County between 2020 - 2024. 
+According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were approximately `r format(ccs_avg %>% filter(region == "va") %>% pluck('five_yr_total') %>% round(), digits=9)` concealed carry handgun permits issued across the state, `r round(ccs_avg %>% filter(region == "cville") %>% select(five_yr_total))` issued in Charlottesville, and `r round(ccs_avg %>% filter(region == "alb") %>% select(five_yr_total))` issued in Albemarle County between 2020 - 2024. 
 
 <details>
 <summary><b>Data Notes</b></summary>
 
-The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, we approximated the number of permits issued for the past 5 years using a linear model that took into account the number of permits issued between 2022 - 2024. 
+The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, used the average number of permits issued per year over the past three years and multiplied that number by 5 to get an estimate for the number of permits issued between 2020 - 2024. 
 
 </details>
 

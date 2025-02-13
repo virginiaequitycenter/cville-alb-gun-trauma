@@ -1764,11 +1764,24 @@ Nearly a third of Americans own a gun[^21] providing easy access to firearms for
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
-This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically from vehicles.
+This section explores two means of accessing guns in Charlottesville and Albemarle: from the many licensed dealers and from thefts, specifically thefts from vehicles.
 
 ## Firearms Dealers {.tabset}
 
-The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the 22 authorized dealers in Charlottesville and Albemarle county as of April 2024.
+```{r atf_setup}
+# Local dealers 
+local_ffl <- read_csv("data/atf_local_licenses.csv")
+
+# Albemarle map 
+load(file = "data/alb_map.Rdata")
+
+# Census shape data 
+alb_sf <- dat %>% # dat from youth populations census section 
+  st_union()
+```
+
+
+The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the `r nrow(local_ffl)` authorized dealers in Charlottesville and Albemarle county as of January 2025.
 
 ### Map
 
@@ -1776,23 +1789,16 @@ The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf
 
 ```{r dealer_map, out.width="90%"}
 
-# Census shape data 
-alb_sf <- dat %>%
-  st_union()
-
-atf_dealers <- read_csv("data/atf_dealers.csv")
-load(file = "data/alb_map.Rdata")
-
 ggmap(alb_map) +
   geom_sf(data = alb_sf, inherit.aes = FALSE, alpha = 0, linewidth = 0.75) +
   theme_void() +
-  geom_point(atf_dealers,
+  geom_point(local_ffl,
              mapping = aes(x = lon, y = lat, col = business_type, shape = business_type),
              size = 3) +
   scale_color_manual(name = "Business Type", values = c("#F8BE3D", "#007BAB")) +
   scale_shape_manual(name = "Business Type", values = c(17, 19)) +
   theme_void() +
-  labs(caption = "Total licensed dealers: 22")
+  labs(caption = "Total federally licensed dealers: 19")
   
 ```
 
@@ -1818,8 +1824,8 @@ The type of license issued indicates if the seller is a dealer or manufacturer o
 
 ```{r dealer_list}
 
-atf_dealers %>%
-  select(license_name, business_name, premise_street, license_type) %>%
+local_ffl %>%
+  select(licensee_name = license_name, business_name, address = premise_street, type) %>%
   reactable(
     defaultColDef = colDef(
       header = function(value)
@@ -1828,7 +1834,7 @@ atf_dealers %>%
       headerStyle = list(background = "#f7f7f8")
     ),
     columns = list(
-      license_type = colDef(minWidth = 50)
+      type = colDef(minWidth = 40)
     ),
     bordered = TRUE,
     highlight = TRUE

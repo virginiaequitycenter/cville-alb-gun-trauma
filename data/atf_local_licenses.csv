@@ -1,0 +1,20 @@
+type,county_code,license_name,business_name,premise_street,premise_city,premise_zip_code,business_type,address,lon,lat
+1,3,Wal-Mart Stores East Lp,Walmart #1780,975 Hilton Heights Rd,Charlottesville,22901,Business,975 Hilton Heights Rd Charlottesville VA,-78.4672021,38.0974798
+2,3,Tobeys Llc,Tobeys Pawn,612 West Rio Road,Charlottesville,22901,Business,612 West Rio Road Charlottesville VA,-78.4617229,38.0530751
+7,3,Legal Gun Llc,Lg,2822 Free Union Rd,Charlottesville,22901,Business,2822 Free Union Rd Charlottesville VA,-78.5466819,38.1124633
+1,3,"Shipe, James Roland Jr",Albemarle Law Enforcement Sales,2501 Bennington Rd,Charlottesville,229010000,Business,2501 Bennington Rd Charlottesville VA,-78.508186,38.0582916
+2,3,"Smart Pawn North Carolina, Llc",Snooky's Pawn Shop,102 E Main St,Charlottesville,22902,Business,102 E Main St Charlottesville VA,-78.4813964,38.030564
+9,540,Fedtribe Llc,No Business Name Provided,225a E Main St Ste 101,Charlottesville,22902,Residential,225a E Main St Ste 101 Charlottesville VA,-78.4800561,38.0305024
+7,3,Classic American Gunsmith Llc,Cag,1382 Old Lynchburg Rd,Charlottesville,22903,Business,1382 Old Lynchburg Rd Charlottesville VA,-78.54535159999999,37.9760243
+10,540,"Govsmart, Inc",Govsmart,715 Charlton Ave Ste 100,Charlottesville,22903,Business,715 Charlton Ave Ste 100 Charlottesville VA,-78.48575009999999,38.0376777
+1,540,"Woodzell, William Norris",Woodzell's,522 Shelton Mill Rd,Charlottesville,229030000,Business,522 Shelton Mill Rd Charlottesville VA,-78.6888831,38.0474657
+1,540,"Rtc Sports, Inc",No Business Name Provided,715 Charlton Ave,Charlottesville,229030000,Residential,715 Charlton Ave Charlottesville VA,-78.48567059999999,38.0375748
+1,3,"Doubletap Shooting Supplies, Llc",Doubletap Shooting Supplies,3438 Preddy Creek Rd,Charlottesville,22911,Business,3438 Preddy Creek Rd Charlottesville VA,-78.3809119,38.1634257
+2,3,Tobey's Llc,Tobey's,105 Newhouse Drive,Charlottesville,22911,Business,105 Newhouse Drive Charlottesville VA,-78.45700389999999,38.0335136
+1,3,Jerry Dean Pownall,Barboursville Arms,3377 Burnley Station Road,Barboursville,229230000,Business,3377 Burnley Station Road Barboursville VA,-78.3815927,38.1779681
+7,3,Eleven Bravo Tactical Llc,No Business Name Provided,498 St Francis Ave,Earlysville,22936,Residential,498 St Francis Ave Earlysville VA,-78.485979,38.1549753
+1,3,"Busardo, John Arthur Jr",Second War Weapons,7612 Gordonsville Rd,Gordonsville,22942,Business,7612 Gordonsville Rd Gordonsville VA,-78.2396603,38.11703929999999
+1,3,High Tech Outdoors And Archery Llc,No Business Name Provided,3688 Richmond Rd,Keswick,22947,Residential,3688 Richmond Rd Keswick VA,-78.37175669999999,38.0076211
+1,3,;Igy6 Firearms Llc,No Business Name Provided,488 Fishpond Rd,Howardsville,24562,Residential,488 Fishpond Rd Howardsville VA,-78.66544950000001,37.7018157
+1,3,"James River Outdoor Provisions, Llc",James River Outdoor Provisions,358 Valley Street,Scottsville,24590,Business,358 Valley Street Scottsville VA,-78.4954843,37.7991549
+7,3,"Sharps Rifle Company, Inc",No Business Name Provided,8532 Langhorne Rd,Scottsville,24590,Residential,8532 Langhorne Rd Scottsville VA,-78.55418499999999,37.802915

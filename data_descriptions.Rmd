@@ -1754,15 +1754,61 @@ gv_sf_summary %>%
 
 ------------------------------------------------------------------------
 
+# Estimating the Number of Firearms 
+
+Recent estimates put the number of guns privately owned in the US around 392 million[^21], and over a third of Americans report owning at least one gun[^22]. In 2024, there were 527,538 background checks issued in Virginia for the purchase of a firearm[^23].
+
+[^21]: Jennifer Mascia and Chip Brownlee. How Many Guns Are Circulating in the U.S.? The Trace. Published Mar 6, 2023. Updated Jan 30, 2025. <https://www.thetrace.org/2023/03/guns-america-data-atf-total/>
+
+[^22]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+
+[^23]: FBI National Instant Criminal Background Check System. NICS Firearm Checks: Month/Year by State, 2024. <https://www.fbi.gov/file-repository/nics_firearm_checks_-_month_year_by_state.pdf/view>. Accessed February 3, 2025. 
+
+```{r concealed_carry}
+
+# Estimate the total number of 5 year concealed carry handgun permits 
+# Pull from https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home and manually added
+
+yrs <- c(2022, 2023, 2024)
+va <- c(109142, 117402, 110568)
+cville <- c(153, 171, 181)
+alb <- c(996, 1140, 1096)
+ccs <- tibble(yr = c(2022, 2023, 2024),
+              va = c(109142, 117402, 110568),
+              cville = c(153, 171, 181),
+              alb = c(996, 1140, 1096))
+
+# Estimate
+ccs_avg <- ccs %>%
+  pivot_longer(cols = va:alb) %>%
+  group_by(region = name) %>%
+  summarise(yearly_avg = mean(value)) %>%
+  mutate(five_yr_total = yearly_avg * 5)
+
+```
+
+
+Because no license is required to purchase a firearm in Virginia, there is little information on the total number of individuals owning guns or average number of guns per household for Charlottesville and Albemarle. One way to approximate these numbers is to look at a subset of firearm owners: those that have permits for carrying a concealed firearm. [Qualified](https://law.lis.virginia.gov/vacode/18.2-308.09/) residents are able to apply for a 5-year concealed carry permit through their local circuit courts.[^24]
+
+[^24]: Virginia State Police. Resident Concealed Handgun Permits.  <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025. 
+
+According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were approximately `r format(ccs_avg %>% filter(region == "va") %>% pluck('five_yr_total') %>% round(), digits=9)` concealed carry handgun permits issued across the state, `r round(ccs_avg %>% filter(region == "cville") %>% select(five_yr_total))` issued in Charlottesville, and `r round(ccs_avg %>% filter(region == "alb") %>% select(five_yr_total))` issued in Albemarle County between 2020 - 2024. 
+
+<details>
+<summary><b>Data Notes</b></summary>
+
+The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, used the average number of permits issued per year over the past three years and multiplied that number by 5 to get an estimate for the number of permits issued between 2020 - 2024. 
+
+</details>
+
+
 # Access to Firearms
 
-Nearly a third of Americans own a gun[^21] providing easy access to firearms for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^22]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^23]).
+The statistics above demonstrate that guns are easily accessible for many people. Someone can legally purchase a gun from their local big-box store, their neighborhood gun dealer, or a specialty weapons trade show. The minimum age in Virginia to purchase a handgun is 21, however individuals as young as 18 can legally purchase rifles and shotguns[^25]. Residents can open carry their weapons, except in areas where firearms are prohibited by statute (such as UVA Grounds[^26]).
 
-[^21]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
+[^25]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
 
-[^22]: Virginia State Police. Firearms/Concealed Weapons FAQ. <https://vsp.virginia.gov/services/firearms/faq> - Accessed April 30, 2024.
-
-[^23]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
+[^26]: UVA Policy. SEC-030: Regulation of Weapons, Fireworks, Explosives, and Other Prohibited Items. <https://uvapolicy.virginia.edu/policy/sec-030>. Published 2022.
 
 People can also obtain guns illegally: from manufacturing their own, to under-the-table sales, to trade and barters, and theft.
 
@@ -1781,7 +1827,6 @@ load(file = "data/alb_map.Rdata")
 alb_sf <- dat %>% # dat from youth populations census section 
   st_union()
 ```
-
 
 The [Bureau of Alcohol, Tobacco, Firearms, and Explosives (ATF)](https://www.atf.gov/firearms) maintains a record of all federally licensed firearms dealers. Some of these dealers are widely frequented businesses, such as the Walmart on Route 29, while others are individuals that operate out of residential neighborhoods. The list and map below show the `r nrow(local_ffl)` authorized dealers in Charlottesville and Albemarle county as of January 2025.
 
@@ -1849,9 +1894,9 @@ local_ffl %>%
 
 ## Theft from Vehicles
 
-Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^25].
+Thefts from cars are the largest source of stolen guns and have increased triplefold compared to the last decade[^27].
 
-[^25]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
+[^27]: Jay Szkola, Megan J. O’Toole, and Sarah Burd-Sharps. Gun Thefts from Cars: The Largest Source of Stolen Guns. <https://everytownresearch.org/report/gun-thefts-from-cars-the-largest-source-of-stolen-guns-2/>. May 9, 2024.
 
 According to the Virginia Uniform Crime Reporting Database, in 2023 \$1,577,221 dollars worth of guns were reported stolen from vehicles in Virginia. Specifically, in Albemarle the amount reported was \$20,857, and in Charlottesville, \$11,940.
 
@@ -1890,47 +1935,6 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
 <summary><b>Data Notes</b></summary>
 
 Theft data is pulled Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. See more about collection methodology and limitations in the [Crimes Involving Firearms](#crimes) section.
-
-</details>
-
------------------------------------------------
-
-## Concealed Carry Handgun Permits
-
-```{r concealed_carry}
-
-# Estimate the total number of 5 year concealed carry handgun permits 
-# Pull from https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home and manually added
-
-yrs <- c(2022, 2023, 2024)
-va <- c(109142, 117402, 110568)
-cville <- c(153, 171, 181)
-alb <- c(996, 1140, 1096)
-ccs <- tibble(yr = c(2022, 2023, 2024),
-              va = c(109142, 117402, 110568),
-              cville = c(153, 171, 181),
-              alb = c(996, 1140, 1096))
-
-# Estimate
-ccs_avg <- ccs %>%
-  pivot_longer(cols = va:alb) %>%
-  group_by(region = name) %>%
-  summarise(yearly_avg = mean(value)) %>%
-  mutate(five_yr_total = yearly_avg * 5)
-
-```
-
-
-Because no license is required to purchase a firearm in Virginia, there is little information on the total number of individuals owning guns or average number of guns per household. One way to approximate these numbers is to look at a subset of firearm owners: those that have permits for carrying a concealed firearm. [Qualified](https://law.lis.virginia.gov/vacode/18.2-308.09/) residents are able to apply for a 5-year concealed carry permit through their local circuit courts.[^24]
-
-[^24]: Virginia State Police. Resident Concealed Handgun Permits.  <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025. 
-
-According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were approximately `r format(ccs_avg %>% filter(region == "va") %>% pluck('five_yr_total') %>% round(), digits=9)` concealed carry handgun permits issued across the state, `r round(ccs_avg %>% filter(region == "cville") %>% select(five_yr_total))` issued in Charlottesville, and `r round(ccs_avg %>% filter(region == "alb") %>% select(five_yr_total))` issued in Albemarle County between 2020 - 2024. 
-
-<details>
-<summary><b>Data Notes</b></summary>
-
-The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, used the average number of permits issued per year over the past three years and multiplied that number by 5 to get an estimate for the number of permits issued between 2020 - 2024. 
 
 </details>
 

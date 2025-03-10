@@ -129,7 +129,7 @@ ggplot() +
 
 The [Gun Violence Solutions Project](https://provost.virginia.edu/subsite/gun-violence-solutions-project) is a University-sponsored effort to work with community partners on assessing, developing, and implementing actionable solutions to reduce gun violence in mid-sized cities and regions, like Charlottesville and Albemarle. One arm of the Gun Violence Solutions Project is focused on researching solutions that could be implemented locally, while exploring law and policy alongside the historical, cultural, and structural factors that shape gun violence.
 
-This document is meant to support the regional work of the Gun Violence Solutions Project to help our community understand the larger picture of gun violence and [gun violence trauma](#gun-violence-trauma) in our region by bringing together multiple sources of data. Each section includes an overview of the data source presented, a brief discussion of notable trends, and limitations that may complicate or constrain conclusions.
+This document is meant to help our community understand the larger picture of gun violence and [gun violence trauma](#gun-violence-trauma) in our region by bringing together multiple sources of data. Each section includes an overview of the data source presented, a brief discussion of notable trends, and limitations that may complicate or constrain conclusions.
 
 The numbers presented here each represent part of a story. By bringing them together, and in conversation with our community, we hope to collectively tell a fuller story. The community -- residents of Charlottesville and Albemarle -- is the central stakeholder. The folks who live and work here **are** the data. Given the wealth of lived experience and the range of perspectives within our community, these voices must be centered. Together we can develop a shared understanding and greater clarity about the local problems of gun violence, identify knowledge and data gaps, and promote wider community engagement in conversations about solutions.
 
@@ -193,11 +193,71 @@ vdh_intent %>%
 
 ------------------------------------------------------------------------
 
-## Injuries in Cville/Albemarle
+## Injuries in Charlottesville & Albemarle {.tabset}
 
-The [Virginia Department of Health](https://www.vdh.virginia.gov/surveillance-and-investigation/syndromic-surveillance/firearm-injury-surveillance/) also reports data on emergency department visits for firearm injuries. The table below shows the rate of [firearm injuries](#firearm-injury) per 10,000 emergency department visits in Charlottesville and Albemarle from 2015 - 2024.
+The [Virginia Department of Health](https://www.vdh.virginia.gov/surveillance-and-investigation/syndromic-surveillance/firearm-injury-surveillance/) reports data on emergency department visits for firearm injuries. The bar chart and table below show the rate of [firearm injuries](#firearm-injury) per 10,000 emergency department visits in Charlottesville and Albemarle from 2015 - 2024.
 
-```{r vdh_injuries}
+### Bar Chart
+
+The bar chart on the left shows the number of firearm-related emergency department visits in Charlottesville and Albemarle over time and the bar chart on the right shows the rate of firearm-related emergency department visits per 10,000 emergency department visits over time. The two peaks, 2020 and 2023, are highlighted. 
+
+```{r vdh_injuries_plt}
+vdh_injuries <- read_csv("data/vdh_injury_county.csv") %>%
+  clean_names() %>%
+  mutate(yr = ymd(year, truncated = 2L))
+
+vdh_labs <- vdh_injuries %>%
+  select(yr, firearm_injury_visits, rate_of_firearm_injuries_per_10k_ed_visits) %>%
+  pivot_longer(
+    cols = c(rate_of_firearm_injuries_per_10k_ed_visits, firearm_injury_visits))
+
+facet_labs <- c(
+  firearm_injury_visits = "Firearm Injury Visits to the Emergency Room",
+  rate_of_firearm_injuries_per_10k_ed_visits = "Rate of Firearm Injury Visits\nper 10k Emergency Room Visits",
+  total_ed_visits = "Total ED Visits"
+)
+
+vdh_long <- vdh_injuries %>%
+  pivot_longer(
+    cols = c(firearm_injury_visits, rate_of_firearm_injuries_per_10k_ed_visits))
+
+vdh_long %>%
+  ggplot(aes(x = yr, y = value, fill = factor(yr))) +
+  geom_col() +
+  geom_text(data = vdh_labs, aes(label = value), vjust = -.5, size = 3) +
+  facet_wrap(~name, scales = "free_y", labeller = as_labeller(facet_labs)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 35)) +
+  scale_x_date(date_breaks = "1 year",date_labels = "%Y") +
+  labs(x = "",
+       y = "") +
+  scale_fill_manual(values = c("2015-01-01" = "#007BAB",
+                               "2016-01-01" = "#007BAB",
+                               "2017-01-01" = "#007BAB",
+                               "2018-01-01" = "#007BAB",
+                               "2019-01-01" = "#007BAB",
+                               "2020-01-01" = "#F8BE3D",
+                               "2021-01-01" = "#007BAB",
+                               "2022-01-01" = "#007BAB",
+                               "2023-01-01" = "#F8BE3D",
+                               "2024-01-01" = "#007BAB"),
+                    guide = "none")
+
+```
+
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward. The year with the most number of firearm-related emergency room visits was 2023, with 35 visits, and the year with the most number of overall emergency room visits was 2024, with 55,578 vists.</p>
+
+[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031>
+
+-------------------------------------------------------------------
+
+### Table
+
+The table below shows the exact number of emergency department visits in Charlottesville and Albemarle compared to firearm-related visits over time. 
+
+```{r vdh_injuries_tbl}
 
 vdh_injuries <- read_csv("data/vdh_injury_county.csv")
 
@@ -227,13 +287,6 @@ vdh_injuries %>%
 
 ```
 
-<p class="comment">
-
-<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward. The year with the most number of firearm-related emergency room visits was 2023, with 35 visits, and the year with the most number of overall emergency room visits was 2024, with 55,578 vists.</p>
-
-[^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031>
-
-
 <details>
 
 <summary><b>Data Notes</b></summary>
@@ -248,9 +301,54 @@ This excludes follow-up visits, visits involving other types of guns (e.g., stap
 
 ------------------------------------------------------------------------
 
-## Deaths in the Blue Ridge
+## Deaths in the Blue Ridge {.tabset}
 
 The [Virginia Department of Health](https://www.vdh.virginia.gov/firearm-injury/firearm-related-deaths/) tracks causes of death among Virginia residents using death certificates and reports on all firearm-related fatalities. Below we show the distribution of gun deaths by age in our region between 2018 and 2022.
+
+### Bar Chart
+
+The bar chart on the left shows the number of firearm-related deaths in the Blue Ridge Health District between 2018-2022, and the bar chart on the right shows the rate of firearm-related deaths per 100,000 people in that age group. 
+
+
+```{r vdh_age_plt}
+vdh_deaths_age <- read_csv("data/vdh_deaths_age.csv") %>%
+  mutate(age_group = gsub('.{6}$', '', age_group))
+
+vdh_deaths_labs <- vdh_deaths_age %>%
+  select(age_group, firearm_deaths, rate_of_firearm_deaths_per_100k_pop) %>%
+  pivot_longer(
+    cols = c(rate_of_firearm_deaths_per_100k_pop, firearm_deaths))
+
+deaths_facet_labs <- c(
+  firearm_deaths = "Firearm Deaths",
+  rate_of_firearm_deaths_per_100k_pop = "Rate of Firearm Deaths\nper 100k People")
+
+vdh_deaths_age_long <- vdh_deaths_age %>%
+  pivot_longer(
+    cols = c(firearm_deaths, rate_of_firearm_deaths_per_100k_pop)) %>%
+  mutate(age_group = gsub('.{6}$', '', age_group))
+  
+vdh_deaths_age_long %>%
+  ggplot(aes(x = age_group, y = value)) +
+  geom_col(fill = "#007BAB") +
+  geom_text(data = vdh_deaths_labs, aes(label = value), vjust = -.5, size = 3) +
+  facet_wrap(~name, labeller = as_labeller(deaths_facet_labs)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(x = "Age Group",
+       y = "")
+
+```
+
+<p class="comment">
+
+<b> Notable Trends</b> <br> <br> The plot above shows that the rate of firearm death is highest for individuals aged 18 and 19 years old, with a rate of 18.3 based on 8 confirmed firearm-related deaths between 2018 and 2022 in the Blue Ridge Health District. A rate of 18.3 means that for every 100,000 people aged 18-19 living in the region, 18 individuals would have lost their lives to gun violence. While there are fewer than 100,000 residents aged 18-19, the rate helps compare risk of gun-related deaths across age ranges. <br> <br> The rate above 14 per 100k individuals for all ages between 18 and 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75, with 16 deaths per 100,000 people. Given that suicide is the number one cause of firearm-related death in our region, we assume that a majority of the deaths for individuals 75 and older were suicide.</p>
+
+---------------------------------------------------------------------------
+
+### Table 
+
+The table below shows the exact numbers of firearm-related deaths in the Blue Ridge Health District between 2018-2022. 
 
 ```{r vdh_age}
 
@@ -273,10 +371,6 @@ vdh_deaths_age %>%
 
 ```
 
-<p class="comment">
-
-<b> Notable Trends</b> <br> <br> The table above shows that the rate of firearm death is highest for individuals aged 18 and 19 years old, with a rate of 18.3 based on 8 confirmed firearm-related deaths between 2018 and 2022 in the Blue Ridge Health District. A rate of 18.3 means that for every 100,000 people aged 18-19, 18 individuals would have lost their lives to gun violence. While there are fewer than 100,000 residents aged 18-19, the rate helps compare risk of gun-related deaths across age ranges. The rate above 14 per 100k individuals for all ages between 18 and 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75, with 16 deaths per 100,000 people. Given that suicide is the number one cause of firearm-related death in our region, we assume that a majority of the deaths for individuals 75 and older were suicide.</p>
-
 <details>
 
 <summary><b>Data Notes</b></summary>
@@ -293,20 +387,40 @@ VDH reports the number and rate of firearm-related deaths among Virginia residen
 
 # Incidents of Gun Violence {.tabset}
 
-The [Gun Violence Archive](https://www.gunviolencearchive.org/) curates a database of incidents of gun violence and gun crime, sourced from local and state police, media, data aggregates, and government. The database includes information about 213 incidents of gun violence affecting 293 participants in the Charlottesville/Albemarle region from May 2014 - April 2024. An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. The Gun Violence Archive does not include information about suicides.
+```{r gva_read}
 
-The data includes two datasets: one has information about each incident and the associated outcomes (for example, the number of people injured and/or killed), and the other lists [participant](#participant)-level information (for example, the age range and gender of both victims and suspects). Both include the location and date of each incident along with characteristics such the number of injuries, and the nature of the gun incident.
+#Incidents in Cville/Albemarle
+gva_incidents <- read_csv("data/gva_incidents.csv") %>%
+  mutate(incident_date = mdy(incident_date)) %>%
+  select(-operations) %>%
+  filter(incident_date <= "2024-12-31")
 
-## Incident-level data
+#Participants in Cville/Albemarle
+gva_participants <- read_csv("data/gva_participants.csv") %>%
+  mutate(incident_date = ymd(incident_date)) %>%
+  filter(incident_date <= "2024-12-31")
+
+#Incidents in Virginia
+gva_incidents_va <- read_csv("data/gva_incidents_virginia.csv") %>%
+  select(-incident_id, -incident_date) %>%
+  filter(date <= "2024-12-31")
+
+#Participants in Virginia
+gva_participants_va <- read_csv("data/gva_participants_virginia.csv") %>%
+  filter(date <= "2024-12-31")
+
+```
+
+
+The [Gun Violence Archive](https://www.gunviolencearchive.org/) curates a database of incidents of gun violence and gun crime, sourced from local and state police, media, data aggregates, and government. The database includes information about `r nrow(gva_incidents)` incidents of gun violence affecting `r nrow(gva_participants)` participants in the Charlottesville/Albemarle region from May 17th 2014 - December 31st 2024 along with `r nrow(gva_incidents_va)` incidents affecting `r nrow(gva_participants_va)` in Virginia from January 1st 2015 - December 31st 2024 . An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. The Gun Violence Archive does not include information about suicides.
+
+The data includes four datasets: one has information about each incident and the associated outcomes (for example, the number of people injured and/or killed), and the other lists [participant](#participant)-level information (for example, the age range and gender of both victims and suspects) for the Charlottesville and Albemarle region along with the entire Virginia Commonwealth. All include the approximate location and date of each incident along with characteristics such the number of injuries, and the nature of the gun incident.
+
+## Incidents in Charlottesville
 
 #### Victims of Gun Violence in the Charlottesville/Albemarle Region
 
-```{r gva_incidents}
-
-gva_incidents <- read_csv("data/gva_incidents.csv") %>%
-  mutate(incident_date = mdy(incident_date)) %>%
-  select(-operations)
-
+```{r gva_incidents_local}
 gva_incidents %>%
   group_by(yr = year(incident_date)) %>%
   summarise(total_injured = sum(victims_injured + suspects_injured),
@@ -316,8 +430,7 @@ gva_incidents %>%
   ggplot(aes(x = yr, y = value, fill = name)) +
   geom_col() +
   labs(x = "Year",
-       y = "Number of Victims",
-       caption = "Total incidents: 201") +
+       y = "Number of Victims") +
   scale_fill_manual(labels = c("Injured", "Killed"),
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Victim Status")) +
@@ -332,14 +445,39 @@ gva_incidents %>%
 
 ------------------------------------------------------------------------
 
-## Individual-level data
+## Incidents in Virginia 
 
-#### Ages of Participants
+#### Victims of Gun Violence in Virginia 
 
-```{r gva_participants}
+```{r gva_incidents_va}
 
-gva_participants <- read_csv("data/gva_participants.csv") %>%
-  mutate(incident_date = ymd(incident_date)) 
+gva_incidents_va %>%
+  group_by(yr = year(date)) %>%
+  summarise(total_injured = sum(victims_injured + suspects_injured),
+            total_killed = sum(victims_killed + suspects_killed)) %>%
+  ungroup() %>%
+  pivot_longer(matches("total")) %>% 
+  ggplot(aes(x = yr, y = value, fill = name)) +
+  geom_col() +
+  labs(x = "Year",
+       y = "Number of Victims") +
+  scale_fill_manual(labels = c("Injured", "Killed"),
+                    values = c("#F8BE3D", "#007BAB"),
+                    guide = guide_legend(title = "Victim Status")) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 11),
+                     guide = guide_axis(angle = 35)) +
+  theme_minimal()
+
+```
+
+
+-----------------------------------------------------------------------
+
+# Participant Ages
+
+#### Ages of Participants of Gun Violence in the Charlottesville/Albemarle Region
+
+```{r gva_participants_cville}
 
 gva_participants %>%
   mutate(yr = year(incident_date),
@@ -355,8 +493,7 @@ gva_participants %>%
                     values = c("#F8BE3D", "#007BAB"),
                     guide = guide_legend(title = "Participant Role")) +
   labs(x = "Age",
-       y = "Number of People", 
-       caption = "Total particpants: 306") +
+       y = "Number of People") +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 10),
                      guide = guide_axis(angle = 35)) +
   theme_bw()

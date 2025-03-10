@@ -60,5 +60,52 @@ gva_officer <- gva_officer %>%
 
 write_csv(gva_officer, "data/gva_officer.csv")
 
-# TODO: pending API access
 # All Incidents in Virginia ----
+# It looks like it only returns 2000 results per search
+# so search by time: 2024-2025, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015
+# Search criteria:
+# - Location is in Virginia AND
+# - Date is Year [search by year]
+files <- list.files(path="download/incidents/", pattern="csv",
+                    full.names = TRUE)
+
+gva_incidents <- map_dfr(files, ~ read_csv(.x) %>%
+                           clean_names() %>%
+                           mutate(date = mdy(incident_date)) %>% 
+                           select(-operations))
+
+write_csv(gva_incidents, "data/gva_incidents_virginia.csv")
+# gva_incidents <- read_csv("data/gva_incidents_virginia.csv")
+# gva_incidents %>% mutate(year = year(date)) %>% count(year)
+
+# All Participants in Virginia ----
+# It looks like it only returns 2000 results per search
+# search by time: 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015 
+# Search criteria:
+# - Location is in Virginia
+# - Date is Year [search by year]
+files <- list.files(path="download/participants/", pattern="csv",
+                    full.names = TRUE)
+
+gva_participants <- map_dfr(files, ~ read_csv(.x) %>%
+                              clean_names() %>%
+                              mutate(date = mdy(incident_date)) %>% 
+                              select(-operations, -participant_name))
+
+write_csv(gva_participants, "data/gva_participants_virginia.csv")
+# gva_participants <- read_csv("data/gva_participants_virginia.csv")
+# gva_participants %>% mutate(year = year(date)) %>% count(year)
+
+
+# All Officer-involved in Virginia ----
+# Download url: https://www.gunviolencearchive.org/query/cb5e0dbc-e97e-41a8-be3b-edf0b2dddd76
+# Search criteria: 
+# - Location is in Virginia
+# - Incident characteristic = Officer-involved
+
+gva_officer <- read_csv("download/gva_officerinvolved_participants.csv") %>%
+  clean_names() %>%
+  select(-operations, -participant_name) %>%
+  mutate(date = mdy(incident_date))
+
+write_csv(gva_officer, "data/gva_officerinvolved_virginia.csv")

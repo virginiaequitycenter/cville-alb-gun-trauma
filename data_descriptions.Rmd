@@ -161,35 +161,40 @@ Please refer to the [Terminology] section of the Appendix for more information a
 
 # Firearm Injuries & Deaths
 
-The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. This mirrors national patterns, where more than 60% of gun deaths are by suicide[^6]. The chart below includes the number and rate of firearm-related deaths among Blue Ridge Health District residents. The Blue Ridge Health District includes Charlottesville City, and the counties of Albemarle, Greene, Louisa, Fluvanna, and Nelson. Homicide – community violence, domestic violence, mass shootings, and other intentional violence – accounts for 22% of all deaths. Of all 141 firearm-related deaths between this time period, 68 (48%) were in Charlottesville or Albemarle[^7].
+The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge Health District is suicide, which made up 76% of all firearm-related deaths from 2018 to 2022. This mirrors national patterns, where more than 60% of gun deaths are by suicide[^6]. The chart below includes the number and firearm-related deaths among Blue Ridge Health District residents. The Blue Ridge Health District includes Charlottesville City, and the counties of Albemarle, Greene, Louisa, Fluvanna, and Nelson. Homicide – community violence, domestic violence, mass shootings, and other intentional violence – accounts for 22% of all deaths. Of all 141 firearm-related deaths between this time period, 68 (48%) were in Charlottesville or Albemarle[^7].
 
 [^6]: Everytown Research & Policy. Firearm Suicide in the United States: Fact Sheet. <https://everytownresearch.org/report/firearm-suicide-in-the-united-states/> Published 8/30/2019 and updated 1/8/2024.
 
 [^7]: Centers for Disease Control. About Firearm Injury and Death: Fast Facts. <https://www.cdc.gov/firearm-violence/about/?CDC_AAref_Val=https://www.cdc.gov/violenceprevention/firearms/fastfact.html>. Accessed March 15, 2024.
 
-```{r vdh_intent, echo=FALSE, message=FALSE}
+#### Firearm Deaths in the Blue Ridge Health District (2018-2022)
 
-vdh_intent <- read_csv("data/vdh_deaths_intent.csv") %>%
-  rename(intent = intent_of_injury) %>%
-  mutate(intent = case_when(intent == "Undetermined/legal/war" ~ "Undetermined or Police Intervention",
-                            TRUE ~ intent))
+![](img/waffle.png)
 
-vdh_intent %>%
-  arrange(desc(firearm_deaths)) %>%
-  reactable(
-    defaultColDef = colDef(
-      header = function(value) 
-        str_to_title(gsub("_", " ", value, fixed = TRUE)),
-      minWidth = 70,
-      headerStyle = list(background = "#f7f7f8")
-    ),
-    columns = list(
-      rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_intent, colors = orange_pal))
-    ),
-    bordered = TRUE,
-    highlight = TRUE)
 
-```
+<!-- ```{r vdh_intent, echo=FALSE, message=FALSE} -->
+
+<!-- vdh_intent <- read_csv("data/vdh_deaths_intent.csv") %>% -->
+<!--   rename(intent = intent_of_injury) %>% -->
+<!--   mutate(intent = case_when(intent == "Undetermined/legal/war" ~ "Undetermined or Police Intervention", -->
+<!--                             TRUE ~ intent)) -->
+
+<!-- vdh_intent %>% -->
+<!--   arrange(desc(firearm_deaths)) %>% -->
+<!--   reactable( -->
+<!--     defaultColDef = colDef( -->
+<!--       header = function(value)  -->
+<!--         str_to_title(gsub("_", " ", value, fixed = TRUE)), -->
+<!--       minWidth = 70, -->
+<!--       headerStyle = list(background = "#f7f7f8") -->
+<!--     ), -->
+<!--     columns = list( -->
+<!--       rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_intent, colors = orange_pal)) -->
+<!--     ), -->
+<!--     bordered = TRUE, -->
+<!--     highlight = TRUE) -->
+
+<!-- ``` -->
 
 ------------------------------------------------------------------------
 
@@ -301,7 +306,7 @@ This excludes follow-up visits, visits involving other types of guns (e.g., stap
 
 ------------------------------------------------------------------------
 
-## Deaths in the Blue Ridge {.tabset}
+## Deaths by Age Group {.tabset}
 
 The [Virginia Department of Health](https://www.vdh.virginia.gov/firearm-injury/firearm-related-deaths/) tracks causes of death among Virginia residents using death certificates and reports on all firearm-related fatalities. Below we show the distribution of gun deaths by age in our region between 2018 and 2022.
 

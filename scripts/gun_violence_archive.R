@@ -25,9 +25,11 @@ write_csv(gva_incidents, "data/gva_incidents.csv")
 # - City = Charlottesville
 # - Date = up to end of 2024
 
-gva_participants <- read_csv("data/raw/gva_participants_24.csv") %>%
+# Note: some of the information was manually added after reviewing associated news articles for ages 
+
+gva_participants <- read_csv("data/raw/gva_participants_ages.csv") %>%
   clean_names() %>%
-  select(-participant_name, -operations) 
+  select(incident_date:address, participant_gender:age)
 
 write_csv(gva_participants, "data/gva_participants.csv")
 

@@ -4,6 +4,8 @@ library(lubridate)
 library(sf)
 #library(svglite)
 library(tidyverse)
+library(ggpubr)
+library(png)
 
 # Format images for print media and slide decks
 
@@ -36,10 +38,7 @@ gv_plt <- gv %>%
   group_by(month_year) %>% 
   summarise(count=n())
 
-# Slide version (datawalk) ----
-
-library(ggpubr)
-library(png)
+# *Datawalk ----
 
 img <- readPNG("img/paper_light.png")
 
@@ -62,7 +61,7 @@ ggplot() +
   geom_segment(aes(x = mdy("1-1-2019"), y = 15, xend = mdy("1-10-2020"), yend = 12),
                arrow = arrow(length = unit(0.25, "cm"))) 
 
-# One-pager version
+# *One-pager ----
 ggplot() +
   geom_col(data = gva_plt, aes(x = month_year, y = value, fill = name)) +
   stat_smooth(data = gv_plt, aes(x = month_year, y = count), se = FALSE, span = .2, color = "darkgrey") +
@@ -85,42 +84,6 @@ ggplot() +
            size = 3) +
   geom_segment(aes(x = mdy("1-1-2019"), y = 15, xend = mdy("1-10-2020"), yend = 12),
                arrow = arrow(length = unit(0.25, "cm"))) 
-
-
-# N incidents 
-gv_narrow <- gv_plt %>%
-  filter(between(month_year, mdy("7-31-2022"), mdy("3-31-2023")))
-
-sum(gv_narrow$count)
-
-
-# Victims and Incidents over time by YEAR -- not as helpful
-
-gva_yr <- gva %>%
-  filter(between(incident_date, mdy("12-31-2017"), mdy("12-31-2024"))) %>%
-  group_by(yr = year(incident_date)) %>%
-  summarise(total_injured = sum(victims_injured + suspects_injured),
-            total_killed = sum(victims_killed + suspects_killed)) %>%
-  ungroup() %>%
-  pivot_longer(matches("total")) 
-
-gv_yr <- gv %>%
-  group_by(yr = year(reported_date)) %>% 
-  summarise(count=n())
-
-
-ggplot() +
-  geom_col(data = gva_yr, aes(x = yr, y = value, fill = name)) +
-  stat_smooth(data = gv_yr, aes(x = yr, y = count), se = FALSE, color = "darkgrey") +
-  labs(x = "Year",
-       y = "Number of Victims") +
-  scale_fill_manual(labels = c("Injured", "Killed"),
-                    values = c("#F8BE3D", "#007BAB"),
-                    guide = guide_legend(title = "Victim Status")) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 35)) +
-  scale_x_continuous(breaks = gva_yr$yr)
-
 
 # Childhood poverty ----
 
@@ -146,6 +109,7 @@ scatter_text2 <- gv_sf_summary %>%
   filter(cpov_est > 31 |
          percent_incidents > 5)
 
+# *One-pager ----
 gv_sf_summary %>%
   filter(tract_name != "JPA - Fontaine") %>%
   ggplot(aes(x = cpov_est, y = percent_incidents, size = pop_est, color = locality)) +
@@ -169,45 +133,40 @@ gv_sf_summary %>%
   theme_bw() +
   theme(legend.position = "top")
 
-# Theft (print)----
-
+# Theft ----
 nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
   filter(district != "Virginia") %>%
   mutate(district = factor(district)) %>%
   rename(Region = district)
 
-# ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
-#   geom_line(linewidth = 1.5) +
-#   labs(x = "",
-#        y = "Number of Firearms Stolen",
-#        title = "Theft of Firearms from Vehicles",
-#        caption = "Source: VA State Police Unified Crime Reporting") +
-#   scale_color_manual(values = c("#007BAB", "#F8BE3D"), 
-#                      name = "Region") +
-#   geom_label(data = nibrs_theft, 
-#              aes(label = n_stolen), 
-#              show.legend = F, 
-#              alpha = 0.75,
-#              fontface = "bold") +
-#   scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
-#                      guide = guide_axis(angle = 35)) +
-#   theme_bw() +
-#   theme(legend.position = "top")
+# *One-pager ----
+ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
+  geom_line(linewidth = 1.5) +
+  labs(x = "",
+       y = "Number of Firearms Stolen",
+       title = "Theft of Firearms from Vehicles",
+       caption = "Source: VA State Police Unified Crime Reporting") +
+  scale_color_manual(values = c("#007BAB", "#F8BE3D"),
+                     name = "Region") +
+  geom_label(data = nibrs_theft,
+             aes(label = n_stolen),
+             show.legend = F,
+             alpha = 0.75,
+             fontface = "bold") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+                     guide = guide_axis(angle = 35)) +
+  theme_bw() +
+  theme(legend.position = "top")
 
-# Theft (slides/data walk) ----
+# *Datawalk ----
 ggplot(nibrs_theft, aes(year, n_stolen, colour = Region, linetype = Region)) +
   geom_line(linewidth = 2) +
   labs(x = "",
        y = "Number of Firearms Stolen") +
   scale_color_manual(values = c("#007BAB", "#B12A90FF")) +
-  geom_label(data = nibrs_theft, 
-             aes(label = n_stolen), 
-             show.legend = F, 
-             alpha = 1,
-             fontface = "bold", 
-             size = 4) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
-                     guide = guide_axis(angle = 35)) +
+  geom_label(data = nibrs_theft, aes(label = n_stolen), show.legend = F, alpha = 1, fontface = "bold", size = 4) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 7), guide = guide_axis(angle = 35)) +
+  scale_y_continuous(limits = c(0, 32)) +
   scale_linetype_manual(values=c("longdash", "1111")) +
   theme_minimal() +
   labs(x=NULL) +
@@ -218,14 +177,11 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = Region, linetype = Region)) +
         legend.margin = ggplot2::margin(t=1, unit = "pt"),
         legend.position = 'bottom')
 
+# Deaths by Intent----
 
-
-
-
-# Deaths by intent (data walk) ----
+# *Datawalk ----
 
 # Setup Font Awesome
-
 # fonts()[grep("Awesome", fonts())]
 # fonttable() %>% 
 #   dplyr::filter(stringr::str_detect(FamilyName,"^Font.")) %>% 
@@ -248,11 +204,6 @@ vdh_parts <- vdh_intent %>%
   arrange(desc(firearm_deaths)) %>%
   mutate(intent_fct = fct_inorder(intent))
 
-waffle(vdh_parts, rows = 6, 
-       use_glyph = "male", glyph_size = 6, 
-       legend_pos = "bottom") +
-  expand_limits(y = c(0, 7)) 
-
 vdh_parts %>%
   ggplot(aes(label = intent_fct, values = firearm_deaths)) +
   geom_pictogram(n_rows = 6, aes(colour = intent_fct), flip = FALSE, make_proportional = FALSE) +
@@ -265,20 +216,24 @@ vdh_parts %>%
         legend.title=element_blank())
 
 
-# Participant Ages (data walk) ----
+# Participant Ages ----
 
+# *Datawalk
 gva_participants <- read_csv("data/gva_participants.csv") %>%
   drop_na(age) %>%
-  mutate(role = str_to_title(role))
+  mutate(role = str_to_title(role),
+         role = case_when(role == "Suspect" ~ "Defendant",
+         TRUE ~ role))
 
 # Facet version
-age_labels <- c("Suspect" = "Suspects", "Victim" = "Victims")
+age_labels <- c("Defendant" = "Defendants", "Victim" = "Victims")
 
 gva_participants %>%
   ggplot(aes(age, fill = role)) +
   geom_histogram(position = 'identity', bins = 40) +
   facet_grid(~role, labeller = as_labeller(age_labels)) +
-  scale_fill_manual(values = c("#440154FF", "#7AD151FF"),
+  geom_vline(xintercept = 18, color = "blue") +
+  scale_fill_manual(values = c("#7AD151FF", "#440154FF"),
                     guide = guide_legend(title = "Participant Role")) +
   labs(x = "Age",
        y = "Number of People") +
@@ -292,8 +247,3 @@ gva_participants %>%
         axis.title = element_text(size = 12), 
         axis.text = element_text(size = 10),
         strip.text.x = element_text(size = 12))
-
-
-
-
-

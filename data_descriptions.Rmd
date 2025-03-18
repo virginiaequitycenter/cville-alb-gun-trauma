@@ -15,6 +15,8 @@ output:
 
 #### [Summary One-Pager](https://www.flipsnack.com/6D66EAEEFB5/gun-violence-data-one-pager/full-view.html)
 
+*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) or [Help Happens Here](https://helphappenshere.org/) to talk with a real person that cares.* 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(ggmap)
@@ -171,6 +173,7 @@ The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge He
 
 ![](img/waffle.png)
 
+*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) or [Help Happens Here](https://helphappenshere.org/) to talk with a real person that cares.* 
 
 <!-- ```{r vdh_intent, echo=FALSE, message=FALSE} -->
 
@@ -529,6 +532,8 @@ Suicides are not part of the Gun Violence Archive's normal data collection proce
 ------------------------------------------------------------------------
 
 # Suicides {.tabset}
+
+*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) or [Help Happens Here](https://helphappenshere.org/) to talk with a real person that cares.* 
 
 Suicide is the most prevalent form of firearm violence in the United States, with many sources showing an increase in recent years[^11]. The information below is pulled from the Centers for Disease Control [WONDER (Wide-ranging ONline Data for Epidemiologic Research)](https://wonder.cdc.gov/) portal. The tables show suicide rates by region, age, sex, race, and ethnicity. Our goal with showing this information is that more more focused attention, and less stigma, is attached to this tragic form of death, and as a result more resources for support can be allocated.
 

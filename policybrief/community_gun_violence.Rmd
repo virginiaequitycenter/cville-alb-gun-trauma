@@ -1,5 +1,6 @@
 ---
 title: "Policy Brief: The Problem of Community Gun Violence"
+date: "Fall 2024"
 output: 
   html_document:
     template: gun-violence-template.html

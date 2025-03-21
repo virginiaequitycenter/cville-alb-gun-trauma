@@ -1,6 +1,6 @@
 ---
 title: "The State of Gun Violence in Charlottesville & Albemarle"
-author: Samantha Toet & Michele Claibourn, [The Equity Center](https://www.virginiaequitycenter.org/)
+author: Samantha Toet & Michele Claibourn, [The Center for Community Partnerships](https://communitypartnerships.virginia.edu/)
 output: 
   html_document:
     template: gun-violence-template.html
@@ -9,13 +9,13 @@ output:
     toc_float: true
 ---
 
-![](https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/equity-center-logo.png){width="250"}
+[![](img/ccp_logo.jpg){width="500"}](https://communitypartnerships.virginia.edu/)
 
 ------------------------------------------------------------------------
 
 #### [Summary One-Pager](https://www.flipsnack.com/6D66EAEEFB5/gun-violence-data-one-pager/full-view.html)
 
-*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) or [Help Happens Here](https://helphappenshere.org/) to talk with a real person that cares.* 
+*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) to speak to someone that cares. You can also visit [Help Happens Here](https://helphappenshere.org/) to get connected to free and low-barrier services.*
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -173,31 +173,8 @@ The leading cause of death by [gun violence](#gun-violence) in the Blue Ridge He
 
 ![](img/waffle.png)
 
-*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) or [Help Happens Here](https://helphappenshere.org/) to talk with a real person that cares.* 
+*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) to speak to someone that cares. You can also visit [Help Happens Here](https://helphappenshere.org/) to get connected to free and low-barrier services.*
 
-<!-- ```{r vdh_intent, echo=FALSE, message=FALSE} -->
-
-<!-- vdh_intent <- read_csv("data/vdh_deaths_intent.csv") %>% -->
-<!--   rename(intent = intent_of_injury) %>% -->
-<!--   mutate(intent = case_when(intent == "Undetermined/legal/war" ~ "Undetermined or Police Intervention", -->
-<!--                             TRUE ~ intent)) -->
-
-<!-- vdh_intent %>% -->
-<!--   arrange(desc(firearm_deaths)) %>% -->
-<!--   reactable( -->
-<!--     defaultColDef = colDef( -->
-<!--       header = function(value)  -->
-<!--         str_to_title(gsub("_", " ", value, fixed = TRUE)), -->
-<!--       minWidth = 70, -->
-<!--       headerStyle = list(background = "#f7f7f8") -->
-<!--     ), -->
-<!--     columns = list( -->
-<!--       rate_of_firearm_deaths_per_100k_pop = colDef(style = color_scales(vdh_intent, colors = orange_pal)) -->
-<!--     ), -->
-<!--     bordered = TRUE, -->
-<!--     highlight = TRUE) -->
-
-<!-- ``` -->
 
 ------------------------------------------------------------------------
 
@@ -207,7 +184,7 @@ The [Virginia Department of Health](https://www.vdh.virginia.gov/surveillance-an
 
 ### Bar Chart
 
-The bar chart on the left shows the number of firearm-related emergency department visits in Charlottesville and Albemarle over time and the bar chart on the right shows the rate of firearm-related emergency department visits per 10,000 emergency department visits over time. The two peaks, 2020 and 2023, are highlighted. 
+The bar chart on the left shows the number of firearm-related emergency department visits in Charlottesville and Albemarle over time and the bar chart on the right shows the rate of firearm-related emergency department visits per 10,000 emergency department visits over time. The two peaks, 2020 and 2023, are highlighted.
 
 ```{r vdh_injuries_plt}
 vdh_injuries <- read_csv("data/vdh_injury_county.csv") %>%
@@ -255,15 +232,16 @@ vdh_long %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward. The year with the most number of firearm-related emergency room visits was 2023, with 35 visits, and the year with the most number of overall emergency room visits was 2024, with 55,578 vists.</p>
+<b> Notable Trends</b> <br> <br> In 2020, the rate of firearm injuries peaked at 8.3, with 29 firearm injuries among 34,875 emergency department visits. However, 2020 also had the lowest number of emergency department visits which aligns with national trends of decreased emergency department use during the COVID-19 pandemic[^8]. After falling in 2021, the firearm injury rate began trending upward. The year with the most number of firearm-related emergency room visits was 2023, with 35 visits, and the year with the most number of overall emergency room visits was 2024, with 55,578 visits.</p>
 
 [^8]: Melnick, Glenn et al. “COVID-19 driven decline in emergency visits: Has it continued, is it permanent, and what does it mean for emergency physicians?.” The American journal of emergency medicine vol. 61 (2022): 64-67. <doi:10.1016/j.ajem.2022.08.031>
 
--------------------------------------------------------------------
+
+------------------------------------------------------------------------
 
 ### Table
 
-The table below shows the exact number of emergency department visits in Charlottesville and Albemarle compared to firearm-related visits over time. 
+The table below shows the exact number of emergency department visits in Charlottesville and Albemarle compared to firearm-related visits over time.
 
 ```{r vdh_injuries_tbl}
 
@@ -315,8 +293,7 @@ The [Virginia Department of Health](https://www.vdh.virginia.gov/firearm-injury/
 
 ### Bar Chart
 
-The bar chart on the left shows the number of firearm-related deaths in the Blue Ridge Health District between 2018-2022, and the bar chart on the right shows the rate of firearm-related deaths per 100,000 people in that age group. 
-
+The bar chart on the left shows the number of firearm-related deaths in the Blue Ridge Health District between 2018-2022, and the bar chart on the right shows the rate of firearm-related deaths per 100,000 people in that age group.
 
 ```{r vdh_age_plt}
 vdh_deaths_age <- read_csv("data/vdh_deaths_age.csv") %>%
@@ -352,11 +329,11 @@ vdh_deaths_age_long %>%
 
 <b> Notable Trends</b> <br> <br> The plot above shows that the rate of firearm death is highest for individuals aged 18 and 19 years old, with a rate of 18.3 based on 8 confirmed firearm-related deaths between 2018 and 2022 in the Blue Ridge Health District. A rate of 18.3 means that for every 100,000 people aged 18-19 living in the region, 18 individuals would have lost their lives to gun violence. While there are fewer than 100,000 residents aged 18-19, the rate helps compare risk of gun-related deaths across age ranges. <br> <br> The rate above 14 per 100k individuals for all ages between 18 and 44 years old. The age group with the second-highest percentage of gun-related deaths are individuals above the age of 75, with 16 deaths per 100,000 people. Given that suicide is the number one cause of firearm-related death in our region, we assume that a majority of the deaths for individuals 75 and older were suicide.</p>
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-### Table 
+### Table
 
-The table below shows the exact numbers of firearm-related deaths in the Blue Ridge Health District between 2018-2022. 
+The table below shows the exact numbers of firearm-related deaths in the Blue Ridge Health District between 2018-2022.
 
 ```{r vdh_age}
 
@@ -419,7 +396,6 @@ gva_participants_va <- read_csv("data/gva_participants_virginia.csv") %>%
 
 ```
 
-
 The [Gun Violence Archive](https://www.gunviolencearchive.org/) curates a database of incidents of gun violence and gun crime, sourced from local and state police, media, data aggregates, and government. The database includes information about `r nrow(gva_incidents)` incidents of gun violence affecting `r nrow(gva_participants)` participants in the Charlottesville/Albemarle region from May 17th 2014 - December 31st 2024 along with `r nrow(gva_incidents_va)` incidents affecting `r nrow(gva_participants_va)` in Virginia from January 1st 2015 - December 31st 2024 . An individual may be involved in more than one incident (see [incidents](#incident) vs. [crimes](#crime)). Incidents range from shots fired reports, to unlawful gun ownership, to acts of violence such as assault and homicide. The Gun Violence Archive does not include information about suicides.
 
 The data includes four datasets: one has information about each incident and the associated outcomes (for example, the number of people injured and/or killed), and the other lists [participant](#participant)-level information (for example, the age range and gender of both victims and suspects) for the Charlottesville and Albemarle region along with the entire Virginia Commonwealth. All include the approximate location and date of each incident along with characteristics such the number of injuries, and the nature of the gun incident.
@@ -453,9 +429,9 @@ gva_incidents %>%
 
 ------------------------------------------------------------------------
 
-## Incidents in Virginia 
+## Incidents in Virginia
 
-#### Victims of Gun Violence in Virginia 
+#### Victims of Gun Violence in Virginia
 
 ```{r gva_incidents_va}
 
@@ -478,8 +454,7 @@ gva_incidents_va %>%
 
 ```
 
-
------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 # Participant Ages
 
@@ -533,7 +508,7 @@ Suicides are not part of the Gun Violence Archive's normal data collection proce
 
 # Suicides {.tabset}
 
-*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) or [Help Happens Here](https://helphappenshere.org/) to talk with a real person that cares.* 
+*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) to speak to someone that cares. You can also visit [Help Happens Here](https://helphappenshere.org/) to get connected to free and low-barrier services.*
 
 Suicide is the most prevalent form of firearm violence in the United States, with many sources showing an increase in recent years[^11]. The information below is pulled from the Centers for Disease Control [WONDER (Wide-ranging ONline Data for Epidemiologic Research)](https://wonder.cdc.gov/) portal. The tables show suicide rates by region, age, sex, race, and ethnicity. Our goal with showing this information is that more more focused attention, and less stigma, is attached to this tragic form of death, and as a result more resources for support can be allocated.
 
@@ -778,7 +753,7 @@ suicide_race_va_tbl %>%
 
 # Crimes Involving Firearms {#crimes}
 
-[Crime](#crime) data for Virginia are pulled from Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. The state system follows the FBI's National Incident-Based Reporting standards, and the state mandates participation by all publicly-funded law enforcement agencies. 
+[Crime](#crime) data for Virginia are pulled from Virginia's [Uniform Crime Reporting - Incident Based Reporting](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#UCR-IBR) system. The state system follows the FBI's National Incident-Based Reporting standards, and the state mandates participation by all publicly-funded law enforcement agencies.
 
 ## Intimate Partner and Family Violence
 
@@ -790,7 +765,7 @@ Intimate partner and family violence are a prevalent form of gun violence in the
 
 The tables below show breakdown of sex as it relates to reported incidents of intimate partner violence and family violence with firearms in the combined Charlottesville and Albemarle region and in Virginia between 2016 - 2023. Because many incidents of intimate partner and family violence go unreported, we can assume that many of these numbers are under recorded. For example, according to data collected by the [Virginia Sexual and Domestic Violence Action Alliance](https://vadata.org/index.html), 18% of the 23,930 persons receiving domestic violence advocacy services in Virginia in 2023 reported that the perpetrator used a weapon, including a firearm.[^16]
 
-[^16]: Virginia Sexual and Domestic Violence Action Alliance. 2023 Domestic Violence Services in Virginia. VAData Report. <https://vadata.org/media/2023%20Statewide%20DV%20report.pdf>. Accessed February 7, 2025. 
+[^16]: Virginia Sexual and Domestic Violence Action Alliance. 2023 Domestic Violence Services in Virginia. VAData Report. <https://vadata.org/media/2023%20Statewide%20DV%20report.pdf>. Accessed February 7, 2025.
 
 **Victims by Sex of Intimate Violence and Family Violence with a Firearm in Charlottesville and Albemarle**
 
@@ -827,7 +802,6 @@ domestic_local_tbl %>%
   
 ```
 
-
 **Victims by Sex of Intimate Violence and Family Violence with a Firearm in Virginia**
 
 ```{r domestic_va}
@@ -860,6 +834,7 @@ domestic_va_tbl %>%
   )
 
 ```
+
 ```{r ipv}
 ipv <- read_csv("data/nibrs_ipv.csv")
 
@@ -888,7 +863,7 @@ ipv_pcts <- pct_all_ipv %>%
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. When a firearm is involved, intimate partner violence is much more deadly. In Virginia, in 2023, `r ipv_pcts %>% filter(locality == "Virginia") %>% select(pct_homicide_ipv) %>% round()`% of homicides from intimate partner violence were committed with a firearm. This information mirrors national trends[^17]. </p>
+<b> Notable Trends</b> <br> <br>The tables above show that in both the Charlottesville and Albemarle regions and Virginia, women are the most common victims of intimate partner violence with a firearm, while men are the most common victims of family violence with a firearm. When a firearm is involved, intimate partner violence is much more deadly. In Virginia, in 2023, `r ipv_pcts %>% filter(locality == "Virginia") %>% select(pct_homicide_ipv) %>% round()`% of homicides from intimate partner violence were committed with a firearm. This information mirrors national trends[^17].</p>
 
 [^17]: Elizabeth Tobin-Tyler. Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises. J Law Med Ethics. 2023;51(1):64-76. May 25, 2023. <https://pmc.ncbi.nlm.nih.gov/articles/PMC10209983/>
 
@@ -936,10 +911,7 @@ ggplot(tmp_plt_dat, aes(yr, value, color = locality, group = locality)) +
 
 <p class="comment">
 
-<b> Notable Trends</b> <br> <br> The figure above shows the rate of gun violence crimes per 100k population over time broken down by participant age. Statewide, the firearm crime rate has been generally increasing: the adult rate increased from 118 crimes per 100k people in 2016 to 168 crimes per 100k people in 2023 and the youth rate increased from 12 crimes per 100k people to 16 crimes per 100k people. These numbers mean that on average, in Virginia in 2023, for every 100k people, there were 168 firearm-related crimes committed by adults and 16 firearm-related crimes committed by individuals under 18. 
-<br>
-<br>
-Following the COVID-19 pandemic, crimes involving firearms increased for all age groups, most notably among youth. In Charlottesville, the youth firearm crime rate surpassed state levels in 2022. In 2023, however, both adult and youth firearm crime rates decreased.</p>
+<b> Notable Trends</b> <br> <br> The figure above shows the rate of gun violence crimes per 100k population over time broken down by participant age. Statewide, the firearm crime rate has been generally increasing: the adult rate increased from 118 crimes per 100k people in 2016 to 168 crimes per 100k people in 2023 and the youth rate increased from 12 crimes per 100k people to 16 crimes per 100k people. These numbers mean that on average, in Virginia in 2023, for every 100k people, there were 168 firearm-related crimes committed by adults and 16 firearm-related crimes committed by individuals under 18. <br> <br> Following the COVID-19 pandemic, crimes involving firearms increased for all age groups, most notably among youth. In Charlottesville, the youth firearm crime rate surpassed state levels in 2022. In 2023, however, both adult and youth firearm crime rates decreased.</p>
 
 <details>
 
@@ -1235,9 +1207,9 @@ force <- read_csv("data/nibrs_force.csv")
 
 In Virginia, the decision for a police officer to use force requires an analysis of the facts and circumstances of each particular case, including the severity of the crime at issue, whether the suspect poses an immediate threat to the safety of the officer or others, and whether the suspect is actively resisting arrest. As a result, this decision is often up to the officer's immediate interpretation of the scene, and may result in excessive, or deadly, force. Deadly force is defined as any force that is likely or intended to cause serious bodily injury or death, and typically includes the use of firearms, although it can also include batons, rubber bullets, or neck restraints.[^18]
 
-[^18]: Virginia Law Code § 19.2-83.5. Use of deadly force by a law-enforcement officer during an arrest or detention. <https://law.lis.virginia.gov/vacode/title19.2/chapter7.1/section19.2-83.5/>. Accessed February 10, 2025. 
+[^18]: Virginia Law Code § 19.2-83.5. Use of deadly force by a law-enforcement officer during an arrest or detention. <https://law.lis.virginia.gov/vacode/title19.2/chapter7.1/section19.2-83.5/>. Accessed February 10, 2025.
 
-The table below shows a breakdown of the `r sum(force$all)` incidents of force in Virginia between 2019 - 2023, and whether they resulted in death, serious injury, or if a firearm was used but didn't result result in death or serious injury. 
+The table below shows a breakdown of the `r sum(force$all)` incidents of force in Virginia between 2019 - 2023, and whether they resulted in death, serious injury, or if a firearm was used but didn't result result in death or serious injury.
 
 ```{r force_tbl}
 
@@ -1274,7 +1246,8 @@ force_tbl %>%
 <details>
 
 <summary><b>Data Notes</b></summary>
-Participation in sharing police use of force information, especially when there is no death, is [voluntary](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#use-of-force-and-officer-involved), and so the above data may not reflect the total number of incidents in Virginia. The data above also does not indicate what type of force was used, so while firearms are used in most incidents, we cannot assume that a firearm was used in every incident. 
+
+Participation in sharing police use of force information, especially when there is no death, is [voluntary](https://vsp.virginia.gov/sections-units-bureaus/bass/criminal-justice-information-services/uniform-crime-reporting/#use-of-force-and-officer-involved), and so the above data may not reflect the total number of incidents in Virginia. The data above also does not indicate what type of force was used, so while firearms are used in most incidents, we cannot assume that a firearm was used in every incident.
 
 ## Officer-Involved Shootings
 
@@ -1322,7 +1295,7 @@ police_shootings %>%
 
 # Residential Characteristics
 
-The data shown above is focused on describing key outcomes. To better understand the underlying contexts of gun trauma in our community we compare the location of these outcomes to the composition of key residential characteristics that may influence antisocial or violent behavior. It is important to note that many of these residential characteristics do not occur naturally, but are a result of past policy choices such as residential segregation and [racial covenants](https://mappingcville.com/), [massive resistance](https://jeffersonschoolcitycenterdotorg.wordpress.com/about/history/), and the [razing of Black neighborhoods](https://hestia.jmrl.org/findit/Record/1143541), among others that have created the under-resourced communities outlined below. 
+The data shown above is focused on describing key outcomes. To better understand the underlying contexts of gun trauma in our community we compare the location of these outcomes to the composition of key residential characteristics that may influence antisocial or violent behavior. It is important to note that many of these residential characteristics do not occur naturally, but are a result of past policy choices such as residential segregation and [racial covenants](https://mappingcville.com/), [massive resistance](https://jeffersonschoolcitycenterdotorg.wordpress.com/about/history/), and the [razing of Black neighborhoods](https://hestia.jmrl.org/findit/Record/1143541), among others that have created the under-resourced communities outlined below.
 
 The maps below show clusters of gun violence incidents reported by our local police jurisdictions between 2018 and 2024 overlaid on top of community population characteristics. These characteristics are from the 5-year [2019 - 2023 American Community Survey](https://www.census.gov/programs-surveys/acs/news/data-releases.2023.html#list-tab-1133175109). The maps show the distribution of population characteristics in our region, such as youth populations, childhood poverty rates, median earnings, and unemployment rates.
 
@@ -1616,7 +1589,7 @@ gv_sf_summary %>%
 
 <p class="comment">
 
-<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, and Ridge Street. </p>
+<b>Notable Trends</b> <br> <br> According to the scatterplot above, there is a positive relationship between the percentage of youth living in poverty and the occurrence of gun violence. The census tracts with the highest percentages of youth living in poverty are 10th & Page - Venable, Fifeville - Cherry Avenue, and Ridge Street.</p>
 
 <details>
 
@@ -1901,7 +1874,7 @@ gv_sf_summary %>%
 
 ------------------------------------------------------------------------
 
-# Estimating the Number of Firearms 
+# Estimating the Number of Firearms
 
 Recent estimates put the number of guns privately owned in the US around 392 million[^21], and over a third of Americans report owning at least one gun[^22]. In 2024, there were 527,538 background checks issued in Virginia for the purchase of a firearm[^23].
 
@@ -1909,7 +1882,7 @@ Recent estimates put the number of guns privately owned in the US around 392 mil
 
 [^22]: PEW Research. Key facts about Americans and guns. <https://www.pewresearch.org/short-reads/2023/09/13/key-facts-about-americans-and-guns/> September 13, 2023.
 
-[^23]: FBI National Instant Criminal Background Check System. NICS Firearm Checks: Month/Year by State, 2024. <https://www.fbi.gov/file-repository/nics_firearm_checks_-_month_year_by_state.pdf/view>. Accessed February 3, 2025. 
+[^23]: FBI National Instant Criminal Background Check System. NICS Firearm Checks: Month/Year by State, 2024. <https://www.fbi.gov/file-repository/nics_firearm_checks_-_month_year_by_state.pdf/view>. Accessed February 3, 2025.
 
 ```{r concealed_carry}
 
@@ -1934,20 +1907,19 @@ ccs_avg <- ccs %>%
 
 ```
 
-
 Because no license is required to purchase a firearm in Virginia, there is little information on the total number of individuals owning guns or average number of guns per household for Charlottesville and Albemarle. One way to approximate these numbers is to look at a subset of firearm owners: those that have permits for carrying a concealed firearm. [Qualified](https://law.lis.virginia.gov/vacode/18.2-308.09/) residents are able to apply for a 5-year concealed carry permit through their local circuit courts.[^24]
 
-[^24]: Virginia State Police. Resident Concealed Handgun Permits.  <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025. 
+[^24]: Virginia State Police. Resident Concealed Handgun Permits. <https://vsp.virginia.gov/services/firearms/resident-concealed-handgun-permits/>. Accessed February 7, 2025.
 
-According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were approximately `r format(ccs_avg %>% filter(region == "va") %>% pluck('five_yr_total') %>% round(), digits=9)` concealed carry handgun permits issued across the state, `r round(ccs_avg %>% filter(region == "cville") %>% select(five_yr_total))` issued in Charlottesville, and `r round(ccs_avg %>% filter(region == "alb") %>% select(five_yr_total))` issued in Albemarle County between 2020 - 2024. 
+According to [Virginia Circuit Court Caseload Reports](https://www.vacourts.gov/courtadmin/aoc/djs/programs/cpss/csi/cc/home), we estimate that there were approximately `r format(ccs_avg %>% filter(region == "va") %>% pluck('five_yr_total') %>% round(), digits=9)` concealed carry handgun permits issued across the state, `r round(ccs_avg %>% filter(region == "cville") %>% select(five_yr_total))` issued in Charlottesville, and `r round(ccs_avg %>% filter(region == "alb") %>% select(five_yr_total))` issued in Albemarle County between 2020 - 2024.
 
 <details>
+
 <summary><b>Data Notes</b></summary>
 
-The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, used the average number of permits issued per year over the past three years and multiplied that number by 5 to get an estimate for the number of permits issued between 2020 - 2024. 
+The Virginia Circuit Court Caseload reports only show permits for the past 3 years. As a result, used the average number of permits issued per year over the past three years and multiplied that number by 5 to get an estimate for the number of permits issued between 2020 - 2024.
 
 </details>
-
 
 # Access to Firearms
 
@@ -2101,7 +2073,7 @@ We'd like to thank Misty Graves, the Director of Human Services for the City of 
 
 ## Citation
 
-Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” <https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions>.
+Samantha Toet, Michele Claibourn. “The State of Gun Violence in Charlottesville and Albemarle” <https://virginiaequitycenter.github.io/cville-alb-gun-trauma/data_descriptions>. The UVA Center for Community Partnerships. Accessed `r Sys.Date()`.
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 

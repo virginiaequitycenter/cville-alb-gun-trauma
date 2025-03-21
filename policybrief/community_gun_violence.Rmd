@@ -56,7 +56,7 @@ knitr::include_graphics('image/jhu_homicide_agerace.png')
 
 **Residents of Under-resourced Communities**: Gun violence is frequently concentrated in neighborhoods with high rates of poverty, few economic opportunities, and a history of disinvestment.[^9] The risk of gun violence is higher for residents in disadvantaged neighborhoods and those marked by income inequality and residential segregation.[^10] Racially and ethnically minoritized populations are more likely to live in these under-resourced neighborhoods due to a legacy of structural racism – historic divestment, harmful discriminatory policies, unequal access to quality education – where increased gun violence generates another disproportionate burden.[^11] In a national survey, over 45% of Black and Latinx Americans believe gun violence is an issue in their neighborhood, while this sentiment was only shared by 27% of white Americans.[^12]
 
-[^9]: [Community Gun Violence](https://efsgv.org/learn/type-of-gun-violence/community-gun-violence/). 2021. The Education Fund to Stop Gun Violence. 
+[^9]: [Community Gun Violence](https://publichealth.jhu.edu/center-for-gun-violence-solutions/in-depth-community-gun-violence). 2024. Johns Hopkins Center for Gun Violene Solutions. 
 
 [^10]: Kimberly Dalve, Emma Gause, Brianna Mills, Anthony S. Floyd, Frederick P. Rivara & Ali Rowhani-Rahbar. 2021.
 [Neighborhood disadvantage and firearm injury: does shooting location matter?](https://injepijournal.biomedcentral.com/articles/10.1186/s40621-021-00304-2). Injury Epidemiology 8. 

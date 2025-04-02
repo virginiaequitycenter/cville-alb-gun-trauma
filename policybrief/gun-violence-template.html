@@ -1,7 +1,7 @@
 <!-- R Markdown HTML Template for external link for Charlottesville Equity Atlas -->
 <!DOCTYPE html>
 
-<html$if(lang)$ lang="$lang$" xml:lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$>
+<html $if(lang)$ lang="$lang$" xml:lang="$lang$" $else$ lang="en" $endif$ $if(dir)$ dir="$dir$"$endif$  prefix="og: https://ogp.me/ns#">
 
 <head>
 
@@ -10,12 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:locale" content="en_US"/>
-<meta property="og:site_name" content="$pagetitle$"/>
-<meta property="og:type" content="article">
-<meta property="og:image" content="https://raw.githubusercontent.com/virginiaequitycenter/cville-equity-atlas/refs/heads/main/assets/img/atlas-image-card.png">
+<meta property="og:site_name" content="Gun Violence in Charlottesville & Albemarle | Community-Centered Analysis">
+<meta property="og:title" content="$pagetitle$">
+<meta property="og:image" content="https://raw.githubusercontent.com/virginiaequitycenter/cville-alb-gun-trauma/refs/heads/main/img/header_crop.png">
 <meta property="og:image:type" content="image/jpg">
-<meta property="og:image:width" content="2134">
-<meta property="og:image:height" content="1160">
 
 $if(theme)$
 $else$
@@ -32,7 +30,7 @@ $endif$
 
 <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
 
-<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/ec-icon.png"/>
+<link rel="icon" href="https://raw.githubusercontent.com/virginiaequitycenter/cville-equity-atlas/refs/heads/main/assets/img/favicon.ico" type="image/vnd.microsoft.icon" />
 
 $for(header-includes)$
 $header-includes$
@@ -703,7 +701,7 @@ $endif$
 <article class="report-content">
 
 <nav id="breadcrumbs" class="breadcrumb-container">
-    <div class="breadcrumbs">
+    <div class="breadcrumbs" style="margin-bottom: -25px;">
       <!-- <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/reports/">Reports</a> /  -->
       
       <a href="https://virginiaequitycenter.github.io/cville-alb-gun-trauma/" >
@@ -832,53 +830,47 @@ $endif$
 
 </article>
 
- <footer>
-    <div class="footer-wrapper">
-        <section class="footer-menu">
-            <nav>
+<footer>
+  <div class="footer-wrapper">
+      <section class="footer-menu">
+          <nav>
+              
+              <ul class="footer-nav">
                 
-                <ul class="footer-nav">
+                <li>
+                      <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/" target="_top">
+                          Home
+                      </a>
+                  </li>
                   
                   <li>
-                        <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/" target="_top">
-                            Equity Atlas Home
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/dashboards/" target="_top">
-                            Dashboards
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/reports/" target="_top">
-                            Reports
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/resources/" target="_top">
-                            Resources
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/about/" target="_top">
-                            About
-                        </a>
-                    </li>
-                    
-                </ul>
-                
-            </nav>
-        </section>
-        <section class="footer-contact">
-            <a class="footer-link" href="https://virginiaequitycenter.org/" target="_top">
-                <img src="https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/EC-Logo-Web-Grey.png" height="22" width="192" class="footer-logo" alt="The Equity Center">
-            </a>
-        </section>
-    </div>
+                      <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/dashboards/" target="_top">
+                          Dashboards
+                      </a>
+                  </li>
+                  
+                  <li>
+                      <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/reports/" target="_top">
+                          Reports
+                      </a>
+                  </li>
+                  
+                  <li>
+                      <a href="https://virginiaequitycenter.github.io/cville-equity-atlas/resources/" target="_top">
+                          Resources
+                      </a>
+                  </li>
+
+              </ul>
+              
+          </nav>
+      </section>
+       <section class="footer-contact">
+          <a class="footer-link" href="https://communitypartnerships.virginia.edu" target="_blank">
+              <img src="https://virginiaequitycenter.github.io/cville-equity-atlas/assets/img/uva-ccp-horizontal-formal.png" width="320" class="footer-logo" alt="The Center for Community Partnerships">
+          </a>
+      </section>
+  </div>
 </footer>
 
 

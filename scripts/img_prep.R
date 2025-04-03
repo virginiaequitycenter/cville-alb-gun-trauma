@@ -2,10 +2,9 @@ library(ggrepel)
 library(janitor)
 library(lubridate)
 library(sf)
-#library(svglite)
 library(tidyverse)
-library(ggpubr)
-library(png)
+library(waffle)
+
 
 # Format images for print media and slide decks
 
@@ -235,14 +234,15 @@ vdh_parts <- vdh_intent %>%
 
 vdh_parts %>%
   ggplot(aes(label = intent_fct, values = firearm_deaths)) +
-  geom_pictogram(n_rows = 6, aes(colour = intent_fct), flip = FALSE, make_proportional = FALSE) +
+  geom_pictogram(n_rows = 6, size = 7, aes(colour = intent_fct), flip = FALSE, make_proportional = FALSE) +
   scale_color_manual(
     values = c("#440154FF", "#FDE725FF", "#7AD151FF", "#2f9aa0ff")) +
   scale_label_pictogram(
     values = c("male")) +
   theme_void() +
   theme(legend.position = "bottom",
-        legend.title=element_blank())
+        legend.title=element_blank()) +
+  ggtitle("Firearm Deaths in the Blue Ridge Health District (2018-2022)")
 
 
 # Participant Ages ----

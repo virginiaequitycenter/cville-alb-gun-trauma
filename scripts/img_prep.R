@@ -1,7 +1,8 @@
 library(ggrepel)
+library(ggforce)
 library(janitor)
 library(lubridate)
-library(sf)
+library(patchwork)
 library(tidyverse)
 library(waffle)
 
@@ -168,40 +169,46 @@ nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
   rename(Region = district)
 
 # *One-pager ----
-ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
-  geom_line(linewidth = 1.5) +
-  labs(x = "",
-       y = "Number of Firearms Stolen",
-       title = "Theft of Firearms from Vehicles",
-       caption = "Source: VA State Police Unified Crime Reporting") +
-  scale_color_manual(values = c("#007BAB", "#F8BE3D"),
-                     name = "Region") +
-  geom_label(data = nibrs_theft,
-             aes(label = n_stolen),
-             show.legend = F,
-             alpha = 0.75,
-             fontface = "bold") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
-                     guide = guide_axis(angle = 35)) +
-  theme_bw() +
-  theme(legend.position = "top")
+# ggplot(nibrs_theft, aes(year, n_stolen, colour = district)) +
+#   geom_line(linewidth = 1.5) +
+#   labs(x = "",
+#        y = "Number of Firearms Stolen",
+#        title = "Theft of Firearms from Vehicles",
+#        caption = "Source: VA State Police Unified Crime Reporting") +
+#   scale_color_manual(values = c("#007BAB", "#F8BE3D"),
+#                      name = "Region") +
+#   geom_label(data = nibrs_theft,
+#              aes(label = n_stolen),
+#              show.legend = F,
+#              alpha = 0.75,
+#              fontface = "bold") +
+#   scale_x_continuous(breaks = scales::pretty_breaks(n = 7),
+#                      guide = guide_axis(angle = 35)) +
+#   theme_bw() +
+#   theme(legend.position = "top")
 
 # *Datawalk ----
+
+labs <- nibrs_theft %>%
+  filter(year != 2022)
+
+# High res
 ggplot(nibrs_theft, aes(year, n_stolen, colour = Region, linetype = Region)) +
   geom_line(linewidth = 2) +
-  labs(x = "",
+  labs(x = NULL,
        y = "Number of Firearms Stolen") +
   scale_color_manual(values = c("#007BAB", "#B12A90FF")) +
-  geom_label(data = nibrs_theft, aes(label = n_stolen), show.legend = F, alpha = 1, fontface = "bold", size = 4) +
+  geom_label(data = labs, aes(label = n_stolen), show.legend = F, alpha = 1, fontface = "bold", size = 5) +
+  annotate("label", x = 2022, y = 29, label = "30", color = "#B12A90FF", alpha = 1, fontface = "bold", size = 5) +
+  annotate("label", x = 2022, y = 32, label = "31", color = "#007BAB", alpha = 1, fontface = "bold", size = 5) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 7), guide = guide_axis(angle = 35)) +
   scale_y_continuous(limits = c(0, 32)) +
   scale_linetype_manual(values=c("longdash", "1111")) +
   theme_minimal() +
-  labs(x=NULL) +
-  theme(legend.title = element_text(size=14),
-        legend.text = element_text(size = 12),
-        axis.title = element_text(size = 14), 
-        axis.text = element_text(size = 10),
+  theme(legend.title = element_text(size = 18),
+        legend.text = element_text(size = 16),
+        axis.title = element_text(size = 16), 
+        axis.text = element_text(size = 14),
         legend.margin = ggplot2::margin(t=1, unit = "pt"),
         legend.position = 'bottom')
 
@@ -251,28 +258,213 @@ vdh_parts %>%
 gva_participants <- read_csv("data/gva_participants.csv") %>%
   drop_na(age) %>%
   mutate(role = str_to_title(role),
-         role = case_when(role == "Suspect" ~ "Defendant",
-         TRUE ~ role))
+         role = case_when(
+           role == "Suspect" ~ "Defendant",
+           TRUE ~ role),
+         age_10yr = case_when(
+           age <=10 ~ "0-10", 
+           age > 10 & age <= 20 ~ "11-20",
+           age > 20 & age <= 30 ~ "21-30",
+           age > 30 & age <= 40 ~ "31-40",
+           age > 40 & age <= 50 ~ "41-50",
+           age > 50 & age <= 60 ~ "51-60",
+           age > 60 & age <= 70 ~ "61-70",
+           age > 70 ~ "71+"),
+         age_grp = case_when(
+           age <= 9 ~ "0-9",
+           age > 9 & age <= 14 ~ "10-14", 
+           age > 14 & age <= 17 ~ "15-17",
+           age > 17 & age <= 19 ~ "18-19",
+           age > 19 & age <= 24 ~ "20-24",
+           age > 24 & age <= 30 ~ "25-30",
+           age > 30 & age <= 35 ~ "31-35",
+           age > 35 & age <= 45 ~ "36-45",
+           age > 45 & age <= 55 ~ "46-55",
+           age > 55 & age <= 65 ~ "56-65",
+           age > 65 & age <= 75 ~ "66-75",
+           age > 75 ~ "76+")
+         )
 
 # Facet version
-age_labels <- c("Defendant" = "Defendants", "Victim" = "Victims")
+# age_labels <- c("Defendant" = "Defendants", "Victim" = "Victims")
+# 
+# gva_participants %>%
+#   ggplot(aes(age, fill = role)) +
+#   geom_histogram(position = 'identity', bins = 40) +
+#   facet_grid(~role, labeller = as_labeller(age_labels)) +
+#   geom_vline(xintercept = 18, color = "blue") +
+#   scale_fill_manual(values = c("#7AD151FF", "#440154FF"),
+#                     guide = guide_legend(title = "Participant Role")) +
+#   labs(x = "Age",
+#        y = "Number of People") +
+#   scale_x_continuous(breaks = scales::pretty_breaks(n = 10),
+#                      guide = guide_axis(angle = 35)) +
+#   scale_y_continuous(breaks = c(2, 4, 6, 8, 10, 12, 14, 16)) +
+#   theme_bw() +
+#   theme(legend.position = "bottom",
+#         legend.title = element_text(size=11),
+#         legend.text = element_text(size = 10),
+#         axis.title = element_text(size = 12), 
+#         axis.text = element_text(size = 10),
+#         strip.text.x = element_text(size = 12))
 
-gva_participants %>%
-  ggplot(aes(age, fill = role)) +
-  geom_histogram(position = 'identity', bins = 40) +
-  facet_grid(~role, labeller = as_labeller(age_labels)) +
-  geom_vline(xintercept = 18, color = "blue") +
-  scale_fill_manual(values = c("#7AD151FF", "#440154FF"),
-                    guide = guide_legend(title = "Participant Role")) +
-  labs(x = "Age",
-       y = "Number of People") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10),
-                     guide = guide_axis(angle = 35)) +
-  scale_y_continuous(breaks = c(2, 4, 6, 8, 10, 12, 14, 16)) +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        legend.title = element_text(size=11),
-        legend.text = element_text(size = 10),
-        axis.title = element_text(size = 12), 
-        axis.text = element_text(size = 10),
-        strip.text.x = element_text(size = 12))
+# Counts - Population pyramid 
+age_dat <- gva_participants %>%
+  group_by(role, age_grp) %>%
+  count() %>%
+  group_by(role) %>%
+  mutate(n_tot = ifelse(role == 'Defendant', -n / sum(n), n / sum(n)),
+         n_plt = ifelse(role == 'Defendant', -n, n))
+
+pretty_symmetric <- function(range, n = 7){
+  range_1 <- c(-range[1], range[2])
+  range_2 <- c(range[1], -range[2])
+  pretty_vec_1 <- pretty(range_1)
+  pretty_vec_2 <- pretty(range_2)
+  pretty(
+    c(pretty_vec_1, pretty_vec_2), 
+    n = n
+  )
+}
+
+pop_range <- range(age_dat$n_plt)
+range_seq <- pretty_symmetric(pop_range, n = 7)
+
+# ggplot(age_dat, aes(n_plt, age_grp, fill = role)) +
+#   geom_col() +
+#   geom_vline(xintercept = 0) +
+#   labs(x = "Number of People",
+#        y = "Age Range",
+#        fill = "Role") +
+#   scale_x_continuous(breaks = age_range_seq,
+#                      labels = abs(age_range_seq)) +
+#   expand_limits(x = range(age_range_seq)) +
+#   theme_minimal() +
+#   theme(legend.position = "top") +
+#   scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
+
+# Pcts - population pyramid 
+pct_range <- range(age_dat$n_tot)
+pct_range_seq <- pretty_symmetric(pct_range, n = 7)
+
+# high res
+ggplot(age_dat, aes(n_tot, age_grp, fill = role)) +
+  geom_col() +
+  geom_text(aes(x = n_tot, y = age_grp, label = scales::percent(round(abs(n_tot), 2))), 
+            hjust = ifelse(age_dat$n_tot < 0, 1, -.1)) +
+  geom_vline(xintercept = 0) +
+  annotate("label", x = -.2, y = "76+", label = "Total Defendants: 115", 
+           fill = "#2f9aa0ff", color = "white", fontface = 2, size = 4) +
+  annotate("label", x = .2, y = "76+", label = "Total Victims: 81", 
+           fill = "#B12A90FF", color = "white", fontface = 2, size = 4) +
+  labs(y = "Age Range",
+       x = "Percent of Defendants                                                                           Percent of Victims") +
+  theme_minimal() +
+  scale_x_continuous(breaks = pct_range_seq,
+                     labels = scales::percent(abs(pct_range_seq))) +
+  expand_limits(x = range(pct_range_seq)) +
+  theme(legend.position = "none",
+        axis.title.x = element_text(face = "bold", size = 13),
+        axis.text.x = element_text(size = 12),
+        axis.title.y = element_text(face = "bold", size = 13),
+        axis.text.y = element_text(size = 12)) +
+  scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
+
+# Pct with jitter 
+jittered_pts = age_dat %>% 
+  select(role, age_10yr, n, n_tot) %>% 
+  uncount(n) %>% 
+  group_by(role, age_10yr) %>% 
+  mutate(x_pos = runif(n(), 0, abs(n_tot)*.98),
+         x_pos = ifelse(role == 'Defendant', -x_pos, x_pos))
+
+ggplot(age_dat, aes(n_tot, age_10yr, fill = role)) +
+  geom_col() +
+  ggbeeswarm::geom_quasirandom(data = jittered_pts, aes(x = x_pos), groupOnX = F) +
+  geom_text(aes(x = n_tot, y = age_10yr, label = scales::percent(round(abs(n_tot), 2))), 
+            hjust = ifelse(age_dat$n_tot < 0, 1, -.1)) +
+  geom_vline(xintercept = 0) +
+  annotate("label", x = -.4, y = "71+", label = "Total Defendants: 115", 
+           fill = "#2f9aa0ff", color = "white", fontface = 2) +
+  annotate("label", x = .4, y = "71+", label = "Total Victims: 81", 
+           fill = "#B12A90FF", color = "white", fontface = 2) +
+  geom_vline(xintercept = 0) +
+  labs(y = "Age Range",
+       x = "Percent of Defendants                                                Percent of Victims") +
+  theme_minimal() +
+  scale_x_continuous(breaks = pct_range_seq,
+                     labels = scales::percent(abs(pct_range_seq))) +
+  expand_limits(x = range(pct_range_seq)) +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
+
+# Sina plot
+sina_dat <- gva_participants %>%
+  select(role, age)
+
+sina_dat %>%
+  ggplot(aes(role, age, color = role)) +
+  geom_sina(size = 2) +
+  geom_violin(aes(colour = role, alpha = 0.5),  size=1) +
+  scale_color_manual(values = c("#2f9aa0ff", "#B12A90FF")) +
+  annotate("label", x = "Defendant", y = -5, label = "Total Defendants: 115", 
+           fill = "#2f9aa0ff", color = "white", fontface = 2) +
+  annotate("label", x = "Victim", y = -5, label = "Total Victims: 81", 
+           fill = "#B12A90FF", color = "white", fontface = 2) +
+  geom_hline(yintercept = 18, color = "darkgrey", size = 1) +
+  annotate("text", x = "Victim", y = 15, label = "18 Years Old") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x=element_blank()) +
+  labs(x = NULL, y = "Age") +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10))
+
+
+# Pcts with patchwork
+age_labs <- tibble(age = c("0-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71+")) %>%
+  mutate(age = fct_inorder(age))
+
+age_labs_plt <- age_labs %>%
+  ggplot(aes(x = 1, y = age, label = age)) +
+  geom_text(size = 4) +
+  theme_void()
+
+def_plt <- age_dat %>%
+  ungroup() %>%
+  add_row(role = "Defendant", age_10yr = "0-10", n = 0, n_tot = 0, n_plt = 0) %>%
+  add_row(role = "Defendant", age_10yr = "61-70", n = 0, n_tot = 0, n_plt = 0) %>%
+  filter(role == "Defendant") %>%
+  ggplot(aes(x = n_tot, y = age_10yr)) +
+  geom_col(fill = "#2f9aa0ff") +
+  annotate("label", x = -.2, y = "71+", label = "Total Defendants: 115", fill = "#2f9aa0ff", color = "white") +
+  scale_x_continuous(
+    labels = function(x) label_percent(accuracy = 1)(abs(x)),
+    limits = c(-.5, 0)) +
+  theme_void() +
+  theme(
+    axis.text.x = element_text(),
+    panel.grid.major.x = element_line(color = "grey90")
+  )
+
+vic_plt <- age_dat %>%
+  ungroup() %>%
+  add_row(role = "Victim", age_10yr = "61-70", n = 0, n_tot = 0, n_plt = 0) %>%
+  filter(role == "Victim") %>%
+  ggplot(aes(x = n_tot, y = age_10yr)) +
+  geom_col(fill = "#B12A90FF") +
+  annotate("label", x = .2, y = "71+", label = "Total Victims: 81", fill = "#B12A90FF", color = "white") +
+  scale_x_continuous(
+    labels = label_percent(accuracy = 1),
+    limits = c(0, .5)) +
+  theme_void() +
+  theme(
+    axis.text.x = element_text(),
+    panel.grid.major.x = element_line(color = "grey90")
+  )
+
+def_plt + 
+  age_labs_plt + 
+  vic_plt +
+  plot_layout(
+    widths = c(7.5, .5, 7.5)
+  )

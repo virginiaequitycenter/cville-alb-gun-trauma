@@ -371,32 +371,32 @@ ggplot(age_dat, aes(n_tot, age_grp, fill = role)) +
   scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
 
 # Pct with jitter 
-jittered_pts = age_dat %>% 
-  select(role, age_10yr, n, n_tot) %>% 
-  uncount(n) %>% 
-  group_by(role, age_10yr) %>% 
-  mutate(x_pos = runif(n(), 0, abs(n_tot)*.98),
-         x_pos = ifelse(role == 'Defendant', -x_pos, x_pos))
+# jittered_pts = age_dat %>% 
+#   select(role, age_10yr, n, n_tot) %>% 
+#   uncount(n) %>% 
+#   group_by(role, age_10yr) %>% 
+#   mutate(x_pos = runif(n(), 0, abs(n_tot)*.98),
+#          x_pos = ifelse(role == 'Defendant', -x_pos, x_pos))
 
-ggplot(age_dat, aes(n_tot, age_10yr, fill = role)) +
-  geom_col() +
-  ggbeeswarm::geom_quasirandom(data = jittered_pts, aes(x = x_pos), groupOnX = F) +
-  geom_text(aes(x = n_tot, y = age_10yr, label = scales::percent(round(abs(n_tot), 2))), 
-            hjust = ifelse(age_dat$n_tot < 0, 1, -.1)) +
-  geom_vline(xintercept = 0) +
-  annotate("label", x = -.4, y = "71+", label = "Total Defendants: 115", 
-           fill = "#2f9aa0ff", color = "white", fontface = 2) +
-  annotate("label", x = .4, y = "71+", label = "Total Victims: 81", 
-           fill = "#B12A90FF", color = "white", fontface = 2) +
-  geom_vline(xintercept = 0) +
-  labs(y = "Age Range",
-       x = "Percent of Defendants                                                Percent of Victims") +
-  theme_minimal() +
-  scale_x_continuous(breaks = pct_range_seq,
-                     labels = scales::percent(abs(pct_range_seq))) +
-  expand_limits(x = range(pct_range_seq)) +
-  theme(legend.position = "none") +
-  scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
+# ggplot(age_dat, aes(n_tot, age_10yr, fill = role)) +
+#   geom_col() +
+#   ggbeeswarm::geom_quasirandom(data = jittered_pts, aes(x = x_pos), groupOnX = F) +
+#   geom_text(aes(x = n_tot, y = age_10yr, label = scales::percent(round(abs(n_tot), 2))), 
+#             hjust = ifelse(age_dat$n_tot < 0, 1, -.1)) +
+#   geom_vline(xintercept = 0) +
+#   annotate("label", x = -.4, y = "71+", label = "Total Defendants: 115", 
+#            fill = "#2f9aa0ff", color = "white", fontface = 2) +
+#   annotate("label", x = .4, y = "71+", label = "Total Victims: 81", 
+#            fill = "#B12A90FF", color = "white", fontface = 2) +
+#   geom_vline(xintercept = 0) +
+#   labs(y = "Age Range",
+#        x = "Percent of Defendants                                                Percent of Victims") +
+#   theme_minimal() +
+#   scale_x_continuous(breaks = pct_range_seq,
+#                      labels = scales::percent(abs(pct_range_seq))) +
+#   expand_limits(x = range(pct_range_seq)) +
+#   theme(legend.position = "none") +
+#   scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
 
 # Sina plot
 sina_dat <- gva_participants %>%

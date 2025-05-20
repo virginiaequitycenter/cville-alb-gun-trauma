@@ -1,12 +1,14 @@
-# Charlottesville & Albemarle Gun Trauma
+# Gun Violence in Charlottesville and Albemarle
 
-Building a data collection for Charlottesville & Albemarle gun trauma research and analysis.
+Building a data collection for Charlottesville & Albemarle gun violence research and analysis.
 
 Please note that the cville-alb-gun-trauma project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
 **[Gun Violence in Charlottesville and Albemarle](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/)**
 
-**[Summary One-Pager](https://www.flipsnack.com/6D66EAEEFB5/gun-violence-data-one-pager/full-view.html)**
+**[Summary One-Pager](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/gv-onepager-2025.pdf)**
+
+**[Explainer Video](https://www.youtube.com/watch?v=yUqP-kVD3J8&list=PLvDIkEjS99ZopVHS5fgcl6hAyC18rAtxZ)**
 
 --------------------
 

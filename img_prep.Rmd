@@ -4,7 +4,7 @@ author: "Samantha Toet"
 output: html_document
 ---
 
-Prepare plots for print
+Prepare plots for one-pagers
 
 # Libraries
 
@@ -47,27 +47,40 @@ gv_plt <- gv %>%
   group_by(month_year) %>% 
   summarise(count=n())
 
-img <- readPNG("img/paper_light.png")
-
 ggplot() +
-  background_image(img) +
   geom_col(data = gva_plt, aes(x = month_year, y = value, fill = name), width = 25) +
   stat_smooth(data = gv_plt, aes(x = month_year, y = count), se = FALSE, span = .2, color = "#2f9aa0ff") +
   labs(x = NULL,
-       y = NULL) +
+       y = "Monthly Counts",
+       title = "Incidents of Gun Violence in Charlottesville & Albemarle and Number of Victims by Month",
+       caption = "Data Source: Gun Violence Archive (Victim Statuses) & Local Police Reports (Incident Counts") +
   scale_y_continuous(breaks = c(2, 4, 6, 8, 10, 12, 14, 16, 18)) +
-  scale_x_date(date_breaks = "1 year", date_labels = "%Y", date_minor_breaks="1 month") +
+  scale_x_date(date_breaks = "6 months", date_labels = "%b '%y", date_minor_breaks="1 month") +
   scale_fill_manual(labels = c("Injured", "Killed"),
                     values = c("#440154FF", "#7AD151FF"),
                     guide = guide_legend(title = "Victim Status")) +
   theme_minimal() +
-  theme(legend.position = "bottom") +
-  annotate("label", x = mdy("1-1-2019"), y = 16, 
-           label = paste("Number of incidents (shots\nfired, assaults, and homicides"),
+  theme(legend.position = "bottom",
+        axis.title.y = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 15),
+        panel.grid.major.x = element_line(size = 1.5),
+        plot.title = element_text(size = 11, face = "bold"),
+        legend.margin = ggplot2::margin(t=-15, unit = "pt")) +
+  annotate("label", x = mdy("11-1-2018"), y = 5.5, 
+           label = paste("Gun-related 911 calls\n(ex. shots fired or assaults)"),
            size = 3) +
-  geom_segment(aes(x = mdy("1-1-2019"), y = 15, xend = mdy("1-10-2020"), yend = 12),
-               arrow = arrow(length = unit(0.25, "cm"))) 
-
+  geom_segment(aes(x = mdy("7-1-2018"), y = 6.7, xend = mdy("12-20-2018"), yend = 7.8),
+               arrow = arrow(length = unit(0.20, "cm"))) +
+  geom_vline(xintercept = mdy("3-12-2020"), linetype = "dotted", size = 0.75) +
+  annotate("label", x = mdy("11-15-2020"), y = 9, label = "COVID lockdown", size = 3) +
+  geom_segment(aes(x = mdy("7-1-2020"), y = 9.6, xend = mdy("4-1-2020"), yend = 10.5),
+               arrow = arrow(length = unit(0.2, "cm"))) +
+  annotate("label", x = mdy("2-15-2022"), y = 19, label = paste(
+    "Hearing or witnessing gun violence takes\na collective toll on our entire community"),
+    size = 3) +
+  geom_segment(aes(x = mdy("11-15-2020"), y = 19, xend = mdy("7-15-2020"), yend = 17.9),
+               arrow = arrow(length = unit(0.2, "cm")))
 ```
 
 
@@ -87,14 +100,19 @@ vdh_parts <- vdh_intent %>%
 
 vdh_parts %>%
   ggplot(aes(label = intent_fct, values = firearm_deaths)) +
-  geom_pictogram(n_rows = 6, aes(colour = intent_fct), flip = FALSE, make_proportional = FALSE) +
+  geom_pictogram(n_rows = 6, size = 10, aes(colour = intent_fct), flip = FALSE, make_proportional = FALSE) +
   scale_color_manual(
     values = c("#440154FF", "#FDE725FF", "#7AD151FF", "#2f9aa0ff")) +
   scale_label_pictogram(
     values = c("male")) +
   theme_void() +
   theme(legend.position = "bottom",
-        legend.title=element_blank())
+        legend.text = element_text(face = "bold", size = 10),
+        legend.title=element_blank(),
+        plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+        legend.margin = ggplot2::margin(t=-15, unit = "pt")) +
+  labs(caption = "Data source: Centers for Disease Control, Underlying Cause of Death 2018-2022",
+       title = "Firearm Deaths in the Blue Ridge Health District (2018-2022)")
 
 ```
 
@@ -104,26 +122,33 @@ vdh_parts %>%
 
 nibrs_theft <- read_csv("data/nibrs_theft.csv") %>%
   filter(district != "Virginia") %>%
-  mutate(district = factor(district)) %>%
+  mutate(district = factor(word(district, 1  , -2))) %>%
   rename(Region = district)
+
+labs <- nibrs_theft %>%
+  filter(year != 2022)
 
 ggplot(nibrs_theft, aes(year, n_stolen, colour = Region, linetype = Region)) +
   geom_line(linewidth = 2) +
-  labs(x = "",
-       y = "Number of Firearms Stolen") +
+  labs(x = NULL,
+       y = "Number of Firearms Stolen",
+       title = "Theft of Firearms from Vehicles in Charlottesville & Albemarle",
+       caption = "Data source: NIBRS Firearm Thefts") +
   scale_color_manual(values = c("#007BAB", "#B12A90FF")) +
-  geom_label(data = nibrs_theft, aes(label = n_stolen), show.legend = F, alpha = 1, fontface = "bold", size = 4) +
+  geom_label(data = labs, aes(label = n_stolen), show.legend = F, alpha = 1, fontface = "bold", size = 4) +
+  annotate("label", x = 2022, y = 29, label = "30", color = "#B12A90FF", alpha = 1, fontface = "bold", size = 4) +
+  annotate("label", x = 2022, y = 32, label = "31", color = "#007BAB", alpha = 1, fontface = "bold", size = 4) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 7), guide = guide_axis(angle = 35)) +
   scale_y_continuous(limits = c(0, 32)) +
   scale_linetype_manual(values=c("longdash", "1111")) +
   theme_minimal() +
-  labs(x=NULL) +
-  theme(legend.title = element_text(size=14),
-        legend.text = element_text(size = 12),
-        axis.title = element_text(size = 14), 
-        axis.text = element_text(size = 10),
+  theme(legend.title = element_text(face = "bold"),
+        legend.text = element_text(size = 11),
+        axis.title = element_text(face = "bold"), 
+        axis.text = element_text(size = 12),
         legend.margin = ggplot2::margin(t=1, unit = "pt"),
-        legend.position = 'bottom')
+        legend.position = 'bottom',
+        plot.title = element_text(face = "bold"))
 ```
 
 # Ages
@@ -132,31 +157,69 @@ ggplot(nibrs_theft, aes(year, n_stolen, colour = Region, linetype = Region)) +
 gva_participants <- read_csv("data/gva_participants.csv") %>%
   drop_na(age) %>%
   mutate(role = str_to_title(role),
-         role = case_when(role == "Suspect" ~ "Defendant",
-         TRUE ~ role))
+         role = case_when(
+           role == "Suspect" ~ "Defendant",
+           TRUE ~ role),
+         age_grp = case_when(
+           age <= 9 ~ "0-9",
+           age > 9 & age <= 14 ~ "10-14", 
+           age > 14 & age <= 17 ~ "15-17",
+           age > 17 & age <= 19 ~ "18-19",
+           age > 19 & age <= 24 ~ "20-24",
+           age > 24 & age <= 30 ~ "25-30",
+           age > 30 & age <= 35 ~ "31-35",
+           age > 35 & age <= 45 ~ "36-45",
+           age > 45 & age <= 55 ~ "46-55",
+           age > 55 & age <= 65 ~ "56-65",
+           age > 65 & age <= 75 ~ "66-75",
+           age > 75 ~ "76+")
+         )
 
-# Facet version
-age_labels <- c("Defendant" = "Defendants", "Victim" = "Victims")
+# Counts - Population pyramid 
+age_dat <- gva_participants %>%
+  group_by(role, age_grp) %>%
+  count() %>%
+  group_by(role) %>%
+  mutate(n_tot = ifelse(role == 'Defendant', -n / sum(n), n / sum(n)),
+         n_plt = ifelse(role == 'Defendant', -n, n))
 
-gva_participants %>%
-  ggplot(aes(age, fill = role)) +
-  geom_histogram(position = 'identity', bins = 40) +
-  facet_grid(~role, labeller = as_labeller(age_labels)) +
-  geom_vline(xintercept = 18, color = "blue") +
-  scale_fill_manual(values = c("#7AD151FF", "#440154FF"),
-                    guide = guide_legend(title = "Participant Role")) +
-  labs(x = "Age",
-       y = "Number of People") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10),
-                     guide = guide_axis(angle = 35)) +
-  scale_y_continuous(breaks = c(2, 4, 6, 8, 10, 12, 14, 16)) +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        legend.title = element_text(size=11),
-        legend.text = element_text(size = 10),
-        axis.title = element_text(size = 12), 
-        axis.text = element_text(size = 10),
-        strip.text.x = element_text(size = 12))
+pretty_symmetric <- function(range, n = 7){
+  range_1 <- c(-range[1], range[2])
+  range_2 <- c(range[1], -range[2])
+  pretty_vec_1 <- pretty(range_1)
+  pretty_vec_2 <- pretty(range_2)
+  pretty(
+    c(pretty_vec_1, pretty_vec_2), 
+    n = n
+  )
+}
+
+pct_range <- range(age_dat$n_tot)
+pct_range_seq <- pretty_symmetric(pct_range, n = 7)
+
+ggplot(age_dat, aes(n_tot, age_grp, fill = role)) +
+  geom_col() +
+  geom_text(aes(x = n_tot, y = age_grp, label = scales::percent(round(abs(n_tot), 2))), 
+            hjust = ifelse(age_dat$n_tot < 0, 1, -.1)) +
+  geom_vline(xintercept = 0) +
+  annotate("label", x = -.2, y = "76+", label = "Total Defendants: 115", 
+           fill = "#2f9aa0ff", color = "white", fontface = 2) +
+  annotate("label", x = .2, y = "76+", label = "Total Victims: 81", 
+           fill = "#B12A90FF", color = "white", fontface = 2) +
+  labs(y = "Age Range",
+       x = "Percent of Defendants                                                       Percent of Victims",
+       caption = "Data Source: Gun Violence Archive",
+       title = "Ages of Those Involved in Gun Violence") +
+  theme_minimal() +
+  scale_x_continuous(breaks = pct_range_seq,
+                     labels = scales::percent(abs(pct_range_seq))) +
+  expand_limits(x = range(pct_range_seq)) +
+  theme(legend.position = "none",
+        axis.title.x = element_text(face = "bold"),
+        axis.title.y = element_text(face = "bold"),
+        plot.title = element_text(face = "bold", hjust = 0.5)) +
+  scale_fill_manual(values = c("#2f9aa0ff", "#B12A90FF"))
+
 
 ```
 

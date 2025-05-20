@@ -13,7 +13,8 @@ output:
 
 ------------------------------------------------------------------------
 
-*If you need to talk, the 988 Lifeline is here. Call or text 988 or visit [988lifeline.org](https://988lifeline.org/) to speak to someone that cares. You can also visit [Help Happens Here](https://helphappenshere.org/) to get connected to free and low-barrier services.*
+*The information presented here represents incredibly personal and traumatizing moments in people’s lives, and may be distressing to many. Help is available. If you need to talk, call or text 988 or visit [988lifeline.org](https://988lifeline.org/) to speak to someone that cares. You can also visit [Help Happens Here](https://helphappenshere.org/) to get connected to free and low-barrier services.*
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -45,6 +46,8 @@ border-radius: 5px;
 }
 </style>
 ```
+
+**[One-Page Summary](https://virginiaequitycenter.github.io/cville-alb-gun-trauma/gv-onepager-2025.pdf)**
 
 # Introduction
 

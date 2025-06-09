@@ -26,7 +26,7 @@ Officer-involved shootings refer to incidents where a law enforcement officer di
 [^5]: The Washington Post. Police Shootings Database: 2015-2024. Last updated January 1, 2025. <https://www.washingtonpost.com/graphics/investigations/police-shootings-database/>.
 
 ```{r out.width='50%', fig.align='right', out.extra='style="float:right; padding:10px"'}
-knitr::include_graphics('image/wp_police.png')
+knitr::include_graphics('image/wp_police_incidents.png')
 ```
 
 The scale of officer-involved shootings is unclear, as data on these events is not systematically captured. From 2015-2024 the Washington Post maintained a database of police shooting incidents after determining that no government agency keeps reliable data.[^6] In 2019, the FBI initiated the National Use-of- Force Data Collection, though participation in the effort is voluntary.[^7] Nevertheless, a national survey estimates there are over 3,500 officer-involved shootings annually in the U.S.[^8] Review of incidents captured by media reports reveals those killed in officer-involved shootings has steadily increased since 2017,[^9] rising to 1,173 incidents in 2024.[^10] While officers face situations that justify the lawful use of, potentially lethal, force, the growing number of injuries and lives lost raises urgent concerns. Recent polling found that 61% of Americans lack confidence that law enforcement officers are adequately trained to prevent excessive force.[^11] Many officer-involved injuries and fatalities represent preventable losses, and the increasing rate raises concern at both the individual and institutional levels.

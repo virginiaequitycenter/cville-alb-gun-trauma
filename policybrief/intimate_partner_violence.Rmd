@@ -8,14 +8,11 @@ output:
     toc: true
     toc_float: true
 ---
-
-```{=html}
 <style>
 p.caption {
   font-size: 0.6em;
 }
 </style>
-```
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -28,6 +25,10 @@ Intimate Partner Violence (IPV) and gun violence are deeply connected issues in 
 
 [^2]: Tobin-Tyler. "Intimate Partner Violence, Firearm Injuries and Homicides: A Health Justice Approach to Two Intersecting Public Health Crises." Journal of Law, Medicine, and Ethics. 2023. <https://pubmed.ncbi.nlm.nih.gov/37226755/>.
 
+![](image/everytown_ipv.png)
+
+<p class="caption">Figure Source: Everytown Research analysis of FBI Supplemental Homicide Report (SHR) data from 2014–2023</p>
+
 The harm caused by IPV is *amplified* by gun violence with the growing use of guns by domestic abusers nationwide. Abusers often use guns to coerce, exert control, threaten, or intimidate victims in situations of IPV. According to a survey by the CDC, almost six million American women report having an interaction with an intimate partner where a gun was used to threaten or harm them.[^3] Having access to a firearm in the home increases the likelihood that a woman will die in a case of IPV homicide by five times.[^4] And when guns are involved in an assault, the likelihood of an assault being fatal increases by twelve.[^5] In short, the ability of an abuser to access a firearm exponentially amplifies the risk of serious injury and Intimate Partner Homicide (IPH), solidifying gun violence as a significant factor to be considered in the broader scope of IPV and IPH.
 
 [^3]: Leemis et. al. "The National Intimate Partner and Sexual Violence Survey: 2016/2017 Report on Intimate Partner Violence." National Center for Injury Prevention and Control (U.S.), Division of Violence Prevention. 2022. <https://stacks.cdc.gov/view/cdc/124646>.
@@ -36,13 +37,7 @@ The harm caused by IPV is *amplified* by gun violence with the growing use of gu
 
 [^5]: Domestic Violence & Firearms. Giffords Law Center. Accessed 2025. <https://giffords.org/lawcenter/gun-laws/policy-areas/who-can-have-a-gun/domestic-violence-firearms/>.
 
-![](image/everytown_ipv.png)
 
-<p class="caption">
-
-Figure Source: Everytown Research analysis of FBI Supplemental Homicide Report (SHR) data from 2014–2023
-
-</p>
 
 ### Who is Impacted?
 
